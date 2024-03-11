@@ -55,8 +55,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Recursos\ControlesUsuario\BarraBusqueda.xaml.cs">
+      <DependentUpon>BarraBusqueda.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\InicioSesion.xaml.cs">
       <DependentUpon>InicioSesion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\RegistroPedido.xaml.cs">
+      <DependentUpon>RegistroPedido.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -70,7 +76,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Recursos\ControlesUsuario\BarraBusqueda.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Vistas\InicioSesion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\RegistroPedido.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -101,6 +115,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Recursos\Iconos\icono_buscar.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
