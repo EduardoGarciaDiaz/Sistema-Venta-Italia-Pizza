@@ -8,6 +8,7 @@ using System.Text;
 namespace ItaliaPizza_Servicios
 {
     // NOTA: puede usar el comando "Rename" del menú "Refactorizar" para cambiar el nombre de clase "Service1" en el código y en el archivo de configuración a la vez.
+    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant)]
     public class Service1 : IService1
     {
         public string GetData(int value)
