@@ -116,7 +116,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Recursos\Iconos\icono_buscar.png" />
+    <Folder Include="Recursos\ControlesUsuario\" />
+    <Folder Include="Recursos\Iconos\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

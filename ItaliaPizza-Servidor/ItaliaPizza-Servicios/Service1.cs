@@ -8,24 +8,12 @@ using System.Text;
 namespace ItaliaPizza_Servicios
 {
     // NOTA: puede usar el comando "Rename" del menú "Refactorizar" para cambiar el nombre de clase "Service1" en el código y en el archivo de configuración a la vez.
-    public class Service1 : IService1
+    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant)]
+    public class Service1 : ItaliaPizza_Contratos.IServicioPrueba
     {
-        public string GetData(int value)
+        public void DoWork()
         {
-            return string.Format("You entered: {0}", value);
-        }
 
-        public CompositeType GetDataUsingDataContract(CompositeType composite)
-        {
-            if (composite == null)
-            {
-                throw new ArgumentNullException("composite");
-            }
-            if (composite.BoolValue)
-            {
-                composite.StringValue += "Suffix";
-            }
-            return composite;
         }
     }
 }
