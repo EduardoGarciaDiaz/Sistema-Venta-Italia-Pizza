@@ -8,11 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ItaliaPizza_Cliente.ItaliaPizzaServicio {
+namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ItaliaPizzaServicio.IServicioOrdenesCompra")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServicioItaliaPizza.IServicioOrdenesCompra")]
     public interface IServicioOrdenesCompra {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioOrdenesCompra/OperacionOrdenesEjemplo", ReplyAction="http://tempuri.org/IServicioOrdenesCompra/OperacionOrdenesEjemploResponse")]
@@ -23,12 +23,12 @@ namespace ItaliaPizza_Cliente.ItaliaPizzaServicio {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IServicioOrdenesCompraChannel : ItaliaPizza_Cliente.ItaliaPizzaServicio.IServicioOrdenesCompra, System.ServiceModel.IClientChannel {
+    public interface IServicioOrdenesCompraChannel : ItaliaPizza_Cliente.ServicioItaliaPizza.IServicioOrdenesCompra, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class ServicioOrdenesCompraClient : System.ServiceModel.ClientBase<ItaliaPizza_Cliente.ItaliaPizzaServicio.IServicioOrdenesCompra>, ItaliaPizza_Cliente.ItaliaPizzaServicio.IServicioOrdenesCompra {
+    public partial class ServicioOrdenesCompraClient : System.ServiceModel.ClientBase<ItaliaPizza_Cliente.ServicioItaliaPizza.IServicioOrdenesCompra>, ItaliaPizza_Cliente.ServicioItaliaPizza.IServicioOrdenesCompra {
         
         public ServicioOrdenesCompraClient() {
         }
@@ -59,7 +59,7 @@ namespace ItaliaPizza_Cliente.ItaliaPizzaServicio {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ItaliaPizzaServicio.IServicioPedidos")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServicioItaliaPizza.IServicioPedidos")]
     public interface IServicioPedidos {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioPedidos/OperacionPedidosEjemplo", ReplyAction="http://tempuri.org/IServicioPedidos/OperacionPedidosEjemploResponse")]
@@ -70,12 +70,12 @@ namespace ItaliaPizza_Cliente.ItaliaPizzaServicio {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IServicioPedidosChannel : ItaliaPizza_Cliente.ItaliaPizzaServicio.IServicioPedidos, System.ServiceModel.IClientChannel {
+    public interface IServicioPedidosChannel : ItaliaPizza_Cliente.ServicioItaliaPizza.IServicioPedidos, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class ServicioPedidosClient : System.ServiceModel.ClientBase<ItaliaPizza_Cliente.ItaliaPizzaServicio.IServicioPedidos>, ItaliaPizza_Cliente.ItaliaPizzaServicio.IServicioPedidos {
+    public partial class ServicioPedidosClient : System.ServiceModel.ClientBase<ItaliaPizza_Cliente.ServicioItaliaPizza.IServicioPedidos>, ItaliaPizza_Cliente.ServicioItaliaPizza.IServicioPedidos {
         
         public ServicioPedidosClient() {
         }
@@ -106,7 +106,7 @@ namespace ItaliaPizza_Cliente.ItaliaPizzaServicio {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ItaliaPizzaServicio.IServicioProductos")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServicioItaliaPizza.IServicioProductos")]
     public interface IServicioProductos {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/OperacionProductosEjemplo", ReplyAction="http://tempuri.org/IServicioProductos/OperacionProductosEjemploResponse")]
@@ -117,12 +117,12 @@ namespace ItaliaPizza_Cliente.ItaliaPizzaServicio {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IServicioProductosChannel : ItaliaPizza_Cliente.ItaliaPizzaServicio.IServicioProductos, System.ServiceModel.IClientChannel {
+    public interface IServicioProductosChannel : ItaliaPizza_Cliente.ServicioItaliaPizza.IServicioProductos, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class ServicioProductosClient : System.ServiceModel.ClientBase<ItaliaPizza_Cliente.ItaliaPizzaServicio.IServicioProductos>, ItaliaPizza_Cliente.ItaliaPizzaServicio.IServicioProductos {
+    public partial class ServicioProductosClient : System.ServiceModel.ClientBase<ItaliaPizza_Cliente.ServicioItaliaPizza.IServicioProductos>, ItaliaPizza_Cliente.ServicioItaliaPizza.IServicioProductos {
         
         public ServicioProductosClient() {
         }
@@ -153,7 +153,7 @@ namespace ItaliaPizza_Cliente.ItaliaPizzaServicio {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ItaliaPizzaServicio.IServicioRecetas")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServicioItaliaPizza.IServicioRecetas")]
     public interface IServicioRecetas {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioRecetas/OperacionRecetasEjemplo", ReplyAction="http://tempuri.org/IServicioRecetas/OperacionRecetasEjemploResponse")]
@@ -164,12 +164,12 @@ namespace ItaliaPizza_Cliente.ItaliaPizzaServicio {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IServicioRecetasChannel : ItaliaPizza_Cliente.ItaliaPizzaServicio.IServicioRecetas, System.ServiceModel.IClientChannel {
+    public interface IServicioRecetasChannel : ItaliaPizza_Cliente.ServicioItaliaPizza.IServicioRecetas, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class ServicioRecetasClient : System.ServiceModel.ClientBase<ItaliaPizza_Cliente.ItaliaPizzaServicio.IServicioRecetas>, ItaliaPizza_Cliente.ItaliaPizzaServicio.IServicioRecetas {
+    public partial class ServicioRecetasClient : System.ServiceModel.ClientBase<ItaliaPizza_Cliente.ServicioItaliaPizza.IServicioRecetas>, ItaliaPizza_Cliente.ServicioItaliaPizza.IServicioRecetas {
         
         public ServicioRecetasClient() {
         }
@@ -200,7 +200,7 @@ namespace ItaliaPizza_Cliente.ItaliaPizzaServicio {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ItaliaPizzaServicio.IServicioUsuarios")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServicioItaliaPizza.IServicioUsuarios")]
     public interface IServicioUsuarios {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioUsuarios/OperacionUsuariosEjemplo", ReplyAction="http://tempuri.org/IServicioUsuarios/OperacionUsuariosEjemploResponse")]
@@ -211,12 +211,12 @@ namespace ItaliaPizza_Cliente.ItaliaPizzaServicio {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IServicioUsuariosChannel : ItaliaPizza_Cliente.ItaliaPizzaServicio.IServicioUsuarios, System.ServiceModel.IClientChannel {
+    public interface IServicioUsuariosChannel : ItaliaPizza_Cliente.ServicioItaliaPizza.IServicioUsuarios, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class ServicioUsuariosClient : System.ServiceModel.ClientBase<ItaliaPizza_Cliente.ItaliaPizzaServicio.IServicioUsuarios>, ItaliaPizza_Cliente.ItaliaPizzaServicio.IServicioUsuarios {
+    public partial class ServicioUsuariosClient : System.ServiceModel.ClientBase<ItaliaPizza_Cliente.ServicioItaliaPizza.IServicioUsuarios>, ItaliaPizza_Cliente.ServicioItaliaPizza.IServicioUsuarios {
         
         public ServicioUsuariosClient() {
         }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="0138b728-88a1-4822-b44d-a4e9b89b1d1d" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="f03a6a07-25c7-42eb-bb44-48cbbbec94f2" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,9 +22,9 @@
     <MetadataSource Address="http://localhost:8082" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="ItaliaPizzaServicio.wsdl" MetadataType="Wsdl" ID="42a9672f-51f1-45d9-9880-acd45568acb0" SourceId="1" SourceUrl="http://localhost:8082/?wsdl" />
-    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="596f6ec3-a232-4de9-bf9d-4415fccf2646" SourceId="1" SourceUrl="http://localhost:8082/?xsd=xsd0" />
-    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="943b00f6-4917-40e7-a516-46a201b13183" SourceId="1" SourceUrl="http://localhost:8082/?disco" />
+    <MetadataFile FileName="ItaliaPizzaServicio.wsdl" MetadataType="Wsdl" ID="56e1d4c9-bf62-4c6b-953a-510fa0d5fd59" SourceId="1" SourceUrl="http://localhost:8082/?wsdl" />
+    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="c0fc6294-5bc7-4f20-b5ce-0da14d2a4323" SourceId="1" SourceUrl="http://localhost:8082/?xsd=xsd0" />
+    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="be8250f2-cc47-41f9-98f5-12e453cf7923" SourceId="1" SourceUrl="http://localhost:8082/?disco" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
