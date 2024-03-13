@@ -67,11 +67,17 @@
     <Compile Include="Recursos\ControlesUsuario\ElementoProductoVenta.xaml.cs">
       <DependentUpon>ElementoProductoVenta.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Recursos\ControlesUsuario\ElementoTicketPedido.xaml.cs">
+      <DependentUpon>ElementoTicketPedido.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\InicioSesion.xaml.cs">
       <DependentUpon>InicioSesion.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\RegistroPedido.xaml.cs">
       <DependentUpon>RegistroPedido.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\RegistroPagoPedido.xaml.cs">
+      <DependentUpon>RegistroPagoPedido.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -98,6 +104,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Recursos\ControlesUsuario\ElementoProductoVenta.xaml">
+          <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Recursos\ControlesUsuario\ElementoTicketPedido.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -106,6 +116,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vistas\RegistroPedido.xaml">
+          <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\RegistroPagoPedido.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -144,6 +158,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Recursos\Iconos\imagen_pizza.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Recursos\Iconos\icono_regresar.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
