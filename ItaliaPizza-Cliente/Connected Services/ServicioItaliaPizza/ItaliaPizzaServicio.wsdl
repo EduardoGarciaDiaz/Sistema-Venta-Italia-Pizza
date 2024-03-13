@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://tempuri.org/" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" name="ItaliaPizzaServicio" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="NetTcpBinding_IServicioOrdenesCompra_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IServicioPedidos_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IServicioProductos_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IServicioRecetas_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IServicioUsuarios_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd0" namespace="http://tempuri.org/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IServicioOrdenesCompra_OperacionOrdenesEjemplo_InputMessage">
+    <wsdl:part name="parameters" element="tns:OperacionOrdenesEjemplo" />
+  </wsdl:message>
+  <wsdl:message name="IServicioOrdenesCompra_OperacionOrdenesEjemplo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:OperacionOrdenesEjemploResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioPedidos_OperacionPedidosEjemplo_InputMessage">
+    <wsdl:part name="parameters" element="tns:OperacionPedidosEjemplo" />
+  </wsdl:message>
+  <wsdl:message name="IServicioPedidos_OperacionPedidosEjemplo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:OperacionPedidosEjemploResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProductos_OperacionProductosEjemplo_InputMessage">
+    <wsdl:part name="parameters" element="tns:OperacionProductosEjemplo" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProductos_OperacionProductosEjemplo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:OperacionProductosEjemploResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioRecetas_OperacionRecetasEjemplo_InputMessage">
+    <wsdl:part name="parameters" element="tns:OperacionRecetasEjemplo" />
+  </wsdl:message>
+  <wsdl:message name="IServicioRecetas_OperacionRecetasEjemplo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:OperacionRecetasEjemploResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioUsuarios_OperacionUsuariosEjemplo_InputMessage">
+    <wsdl:part name="parameters" element="tns:OperacionUsuariosEjemplo" />
+  </wsdl:message>
+  <wsdl:message name="IServicioUsuarios_OperacionUsuariosEjemplo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:OperacionUsuariosEjemploResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IServicioOrdenesCompra">
+    <wsdl:operation name="OperacionOrdenesEjemplo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioOrdenesCompra/OperacionOrdenesEjemplo" message="tns:IServicioOrdenesCompra_OperacionOrdenesEjemplo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioOrdenesCompra/OperacionOrdenesEjemploResponse" message="tns:IServicioOrdenesCompra_OperacionOrdenesEjemplo_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IServicioPedidos">
+    <wsdl:operation name="OperacionPedidosEjemplo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioPedidos/OperacionPedidosEjemplo" message="tns:IServicioPedidos_OperacionPedidosEjemplo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioPedidos/OperacionPedidosEjemploResponse" message="tns:IServicioPedidos_OperacionPedidosEjemplo_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IServicioProductos">
+    <wsdl:operation name="OperacionProductosEjemplo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProductos/OperacionProductosEjemplo" message="tns:IServicioProductos_OperacionProductosEjemplo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProductos/OperacionProductosEjemploResponse" message="tns:IServicioProductos_OperacionProductosEjemplo_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IServicioRecetas">
+    <wsdl:operation name="OperacionRecetasEjemplo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioRecetas/OperacionRecetasEjemplo" message="tns:IServicioRecetas_OperacionRecetasEjemplo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioRecetas/OperacionRecetasEjemploResponse" message="tns:IServicioRecetas_OperacionRecetasEjemplo_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IServicioUsuarios">
+    <wsdl:operation name="OperacionUsuariosEjemplo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioUsuarios/OperacionUsuariosEjemplo" message="tns:IServicioUsuarios_OperacionUsuariosEjemplo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioUsuarios/OperacionUsuariosEjemploResponse" message="tns:IServicioUsuarios_OperacionUsuariosEjemplo_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NetTcpBinding_IServicioOrdenesCompra" type="tns:IServicioOrdenesCompra">
+    <wsp:PolicyReference URI="#NetTcpBinding_IServicioOrdenesCompra_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="OperacionOrdenesEjemplo">
+      <soap12:operation soapAction="http://tempuri.org/IServicioOrdenesCompra/OperacionOrdenesEjemplo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IServicioPedidos" type="tns:IServicioPedidos">
+    <wsp:PolicyReference URI="#NetTcpBinding_IServicioPedidos_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="OperacionPedidosEjemplo">
+      <soap12:operation soapAction="http://tempuri.org/IServicioPedidos/OperacionPedidosEjemplo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IServicioProductos" type="tns:IServicioProductos">
+    <wsp:PolicyReference URI="#NetTcpBinding_IServicioProductos_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="OperacionProductosEjemplo">
+      <soap12:operation soapAction="http://tempuri.org/IServicioProductos/OperacionProductosEjemplo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IServicioRecetas" type="tns:IServicioRecetas">
+    <wsp:PolicyReference URI="#NetTcpBinding_IServicioRecetas_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="OperacionRecetasEjemplo">
+      <soap12:operation soapAction="http://tempuri.org/IServicioRecetas/OperacionRecetasEjemplo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IServicioUsuarios" type="tns:IServicioUsuarios">
+    <wsp:PolicyReference URI="#NetTcpBinding_IServicioUsuarios_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="OperacionUsuariosEjemplo">
+      <soap12:operation soapAction="http://tempuri.org/IServicioUsuarios/OperacionUsuariosEjemplo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ItaliaPizzaServicio">
+    <wsdl:port name="NetTcpBinding_IServicioOrdenesCompra" binding="tns:NetTcpBinding_IServicioOrdenesCompra">
+      <soap12:address location="net.tcp://localhost:8081/ItaliaPizza_Contratos" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/ItaliaPizza_Contratos</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IServicioPedidos" binding="tns:NetTcpBinding_IServicioPedidos">
+      <soap12:address location="net.tcp://localhost:8081/ItaliaPizza_Contratos" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/ItaliaPizza_Contratos</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IServicioProductos" binding="tns:NetTcpBinding_IServicioProductos">
+      <soap12:address location="net.tcp://localhost:8081/ItaliaPizza_Contratos" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/ItaliaPizza_Contratos</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IServicioRecetas" binding="tns:NetTcpBinding_IServicioRecetas">
+      <soap12:address location="net.tcp://localhost:8081/ItaliaPizza_Contratos" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/ItaliaPizza_Contratos</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IServicioUsuarios" binding="tns:NetTcpBinding_IServicioUsuarios">
+      <soap12:address location="net.tcp://localhost:8081/ItaliaPizza_Contratos" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/ItaliaPizza_Contratos</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
