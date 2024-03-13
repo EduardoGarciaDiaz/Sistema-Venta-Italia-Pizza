@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="150"
              Background="White"
-             Margin="10"             >
+             Margin="15"             >
     <UserControl.Resources>
         <Style TargetType="{x:Type Border}">
             <Setter Property="CornerRadius" Value="20"/>

@@ -10,11 +10,11 @@
       Title="RegistroPedido">
 
     <Viewbox>
-        <Grid Height="715" Width="1219">
-            <uc:BarraDeBusqueda Margin="26,21,640,647"/>
-            <ScrollViewer HorizontalScrollBarVisibility="Disabled" Margin="26,191,465,21">
+        <Grid Height="770" Width="1300">
+            <uc:BarraDeBusqueda Margin="26,28,719,694" Width="550"/>
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" Margin="14,191,492,21">
                 <StackPanel Orientation="Vertical">
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Width="772">
                         <uc:ElementoProductoVenta/>
                         <uc:ElementoProductoVenta/>
                         <uc:ElementoProductoVenta/>
@@ -32,9 +32,9 @@
                         <uc:ElementoProductoVenta/>
                         <uc:ElementoProductoVenta/>
                     </StackPanel>
-                </StackPanel> 
+                </StackPanel>
             </ScrollViewer>
-            <Border BorderBrush="Black" Margin="29,90,496,579" Background="White" CornerRadius="10,10,10,10">
+            <Border BorderBrush="Black" Margin="29,90,600,632" Background="White" CornerRadius="10,10,10,10">
                 <ScrollViewer VerticalScrollBarVisibility="Disabled">
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Todas" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="10"/>
@@ -45,40 +45,40 @@
                 </ScrollViewer>
             </Border>
             <Label Content="Elegir producto" HorizontalAlignment="Left" Margin="31,149,0,0" VerticalAlignment="Top" FontSize="18"/>
-            <Border BorderBrush="Black" Margin="768,5,9,6" Background="White" CornerRadius="10,10,10,10">
-                <Label Content="Pedido actual" Margin="12,10,311,660" FontWeight="Bold" FontSize="16"/>
+            <Border BorderBrush="Black" Margin="844,5,9,6" Background="White" CornerRadius="10,10,10,10">
+                <Label Content="Pedido actual" Margin="16,0,307,716" FontWeight="Bold" FontSize="16" Height="33" VerticalAlignment="Bottom"/>
             </Border>
-            <Button Margin="782,638,24,16" BorderThickness="0,0,0,0" Background="#FFF8D72A" Content="Proceder al pago" FontSize="24" FontFamily="Futura Md BT">
+            <Button Margin="859,700,24,16" BorderThickness="0,0,0,0" Background="#FFF8D72A" Content="Proceder al pago" FontSize="24" FontFamily="Futura Md BT">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="20"/>
                     </Style>
                 </Button.Resources>
             </Button>
-            <Border Margin="788,102,27,564" Background="#FFEEEEEE" CornerRadius="0,0,20,20">
+            <Border Margin="864,102,27,618" Background="#FFEEEEEE" CornerRadius="0,0,20,20">
 
             </Border>
-            <Image Source="/Recursos/Iconos/icono_usuario.png" Margin="806,109,379,571"/>
-            <Label Content="Daniel Garcia Arcos" x:Name="LblNombreCliente" Margin="850,103,77,580" FontFamily="Segoe UI Variable Display" FontSize="15"/>
-            <Button Content="Comer en establecimiento" Margin="791,161,244,523" BorderThickness="0,0,0,0" Background="#FFD6B400" Foreground="White" FontWeight="Bold">
+            <Image Source="/Recursos/Iconos/icono_usuario.png" Margin="876,109,383,624"/>
+            <Label Content="Daniel Garcia Arcos" x:Name="LblNombreCliente" Margin="930,101,100,640" FontFamily="Segoe UI Variable Display" FontSize="15"/>
+            <Button Content="Comer en establecimiento" Margin="862,162,212,580" BorderThickness="0,0,0,0" Background="#FFD6B400" Foreground="White" FontWeight="Bold">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="15"/>
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button Content="Entrega a domicilio" Margin="988,162,26,524" BorderThickness="0,0,0,0" Foreground="#FF918C8C" FontWeight="Bold">
+            <Button Content="Entrega a domicilio" Margin="1096,165,26,579" BorderThickness="0,0,0,0" Foreground="#FF918C8C" FontWeight="Bold">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="15"/>
                     </Style>
                 </Button.Resources>
             </Button>
-            <Label Content="Productos" Margin="792,194,363,492"/>
-            <Border CornerRadius="10" Background="#FFEEEEEE" Margin="788,218,21,173"/>
+            <Label Content="Productos" Margin="862,190,293,551"/>
+            <Border CornerRadius="10" Background="#FFEEEEEE" Margin="862,218,31,160"/>
 
-            <ScrollViewer HorizontalScrollBarVisibility="Disabled" Margin="789,221,25,177">
-                <StackPanel Width="370">
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" Margin="871,221,46,177">
+                <StackPanel>
                     <uc:ElementoPedido/>
                     <uc:ElementoPedido/>
                     <uc:ElementoPedido/>
@@ -86,15 +86,15 @@
                     <uc:ElementoPedido/>
                 </StackPanel>
             </ScrollViewer>
-            <Label x:Name="Subtotal" Content="Subtotal" Margin="793,554,367,137"/>
-            <Label x:Name="Subtotal_Copiar" Content="IVA" Margin="793,574,367,117"/>
-            <Separator Background="#7F000000" Margin="794,597,27,111" Foreground="{x:Null}"/>
-            <Label x:Name="Subtotal_Copiar1" Content="Total" Margin="793,599,367,83" FontSize="15"/>
-            <Label x:Name="Subtotal_Copiar2" Content="" Margin="0,554,29,0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" VerticalAlignment="Top" Width="116"/>
-            <Label x:Name="Subtotal_Copiar3" Content="" Margin="0,574,29,0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" VerticalAlignment="Top" Width="116"/>
-            <Label x:Name="Subtotal_Copiar4" Content="" Margin="0,602,29,0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" VerticalAlignment="Top" Width="116" FontSize="15"/>
-            <Label Content="Daniel Garcia Arcos" x:Name="LblCorreoElectronicoCliente" Margin="850,121,77,562" FontFamily="Segoe UI Variable Display" FontSize="15"/>
-            <uc:BarraDeBusquedaConLista x:Name="BarraBusquedaClientes" Margin="787,47,22,443" Height="200"/>
+            <Label x:Name="Subtotal" Content="Subtotal" Margin="864,612,296,129"/>
+            <Label x:Name="Subtotal_Copiar" Content="IVA" Margin="865,635,295,103"/>
+            <Separator Background="#7F000000" Margin="861,662,27,104" Foreground="{x:Null}"/>
+            <Label x:Name="Subtotal_Copiar1" Content="Total" Margin="864,663,296,75" FontSize="15"/>
+            <Label x:Name="Subtotal_Copiar2" Content="123344" Margin="0,612,29,0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" VerticalAlignment="Top" Width="116"/>
+            <Label x:Name="Subtotal_Copiar3" Content="12333" Margin="0,635,29,0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" VerticalAlignment="Top" Width="116"/>
+            <Label x:Name="Subtotal_Copiar4" Content="Hola" Margin="0,663,29,0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" VerticalAlignment="Top" Width="116" FontSize="15"/>
+            <Label Content="Daniel Garcia Arcos" x:Name="LblCorreoElectronicoCliente" Margin="930,121,103,620" FontFamily="Segoe UI Variable Display" FontSize="15"/>
+            <uc:BarraDeBusquedaConLista x:Name="BarraBusquedaClientes" Margin="864,50,28,513"/>
         </Grid>
     </Viewbox>
 </Page>

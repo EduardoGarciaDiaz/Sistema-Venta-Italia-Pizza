@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ItaliaPizza_Cliente.Recursos.ControlesUsuario"
              mc:Ignorable="d" 
-             d:DesignHeight="65" d:DesignWidth="350"
-             Background="White" Margin="5,3,5,3">
+             d:DesignHeight="65" d:DesignWidth="350" Width="350"
+             Background="White" Margin="0, 7, 0, 7">
     <UserControl.Resources>
         <Style TargetType="{x:Type Border}">
             <Setter Property="CornerRadius" Value="15"/>
