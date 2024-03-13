@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ItaliaPizza_Servicios
 {
-    public partial class ItaliaPizzaServicio : ItaliaPizza_Contratos.IServicioProductos
+    public partial class ServicioItaliaPizza : ItaliaPizza_Contratos.IServicioProductos
     {
         public void OperacionProductosEjemplo()
         {
