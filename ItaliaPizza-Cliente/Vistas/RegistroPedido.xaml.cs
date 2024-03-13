@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ItaliaPizza_Cliente.Recursos.ControlesUsuario;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,11 +24,10 @@ namespace ItaliaPizza_Cliente.Vistas
         public RegistroPedido()
         {
             InitializeComponent();
-        }
-
-        private void BarraBusqueda_Loaded(object sender, RoutedEventArgs e)
-        {
-
+            BarraBusquedaClientes.AgregarClienteALista(new Cliente("Daniel", "arcosDaniel"));
+            BarraBusquedaClientes.AgregarClienteALista(new Cliente("Luis", "arcosDaniel"));
+            BarraBusquedaClientes.AgregarClienteALista(new Cliente("Flor", "arcosDaniel"));
+            BarraBusquedaClientes.AgregarClienteALista(new Cliente("Wendy", "arcosDaniel"));
         }
     }
 }

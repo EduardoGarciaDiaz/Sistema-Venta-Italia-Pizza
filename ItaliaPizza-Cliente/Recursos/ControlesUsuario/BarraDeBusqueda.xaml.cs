@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
 {
     /// <summary>
-    /// Lógica de interacción para BarraBusqueda.xaml
+    /// Lógica de interacción para BarraDeBusqueda.xaml
     /// </summary>
-    public partial class BarraBusqueda : UserControl
+    public partial class BarraDeBusqueda : UserControl
     {
-        public BarraBusqueda()
+        public BarraDeBusqueda()
         {
             InitializeComponent();
         }
