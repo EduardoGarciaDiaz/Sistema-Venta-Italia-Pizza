@@ -9,7 +9,115 @@
 //------------------------------------------------------------------------------
 
 namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
+    using System.Runtime.Serialization;
+    using System;
     
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Categoria", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs")]
+    [System.SerializableAttribute()]
+    public partial class Categoria : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Nombre {
+            get {
+                return this.NombreField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreField, value) != true)) {
+                    this.NombreField = value;
+                    this.RaisePropertyChanged("Nombre");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Producto", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs")]
+    [System.SerializableAttribute()]
+    public partial class Producto : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CodigoField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Codigo {
+            get {
+                return this.CodigoField;
+            }
+            set {
+                if ((this.CodigoField.Equals(value) != true)) {
+                    this.CodigoField = value;
+                    this.RaisePropertyChanged("Codigo");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServicioItaliaPizza.IServicioOrdenesCompra")]
@@ -114,6 +222,24 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/OperacionProductosEjemplo", ReplyAction="http://tempuri.org/IServicioProductos/OperacionProductosEjemploResponse")]
         System.Threading.Tasks.Task OperacionProductosEjemploAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/RecuperarCategorias", ReplyAction="http://tempuri.org/IServicioProductos/RecuperarCategoriasResponse")]
+        ItaliaPizza_Cliente.ServicioItaliaPizza.Categoria RecuperarCategorias();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/RecuperarCategorias", ReplyAction="http://tempuri.org/IServicioProductos/RecuperarCategoriasResponse")]
+        System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.Categoria> RecuperarCategoriasAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/ValidarCodigoProducto", ReplyAction="http://tempuri.org/IServicioProductos/ValidarCodigoProductoResponse")]
+        bool ValidarCodigoProducto(string codigoProducto);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/ValidarCodigoProducto", ReplyAction="http://tempuri.org/IServicioProductos/ValidarCodigoProductoResponse")]
+        System.Threading.Tasks.Task<bool> ValidarCodigoProductoAsync(string codigoProducto);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/GuardarProducto", ReplyAction="http://tempuri.org/IServicioProductos/GuardarProductoResponse")]
+        int GuardarProducto(ItaliaPizza_Cliente.ServicioItaliaPizza.Producto producto);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/GuardarProducto", ReplyAction="http://tempuri.org/IServicioProductos/GuardarProductoResponse")]
+        System.Threading.Tasks.Task<int> GuardarProductoAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.Producto producto);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -149,6 +275,30 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         public System.Threading.Tasks.Task OperacionProductosEjemploAsync() {
             return base.Channel.OperacionProductosEjemploAsync();
+        }
+        
+        public ItaliaPizza_Cliente.ServicioItaliaPizza.Categoria RecuperarCategorias() {
+            return base.Channel.RecuperarCategorias();
+        }
+        
+        public System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.Categoria> RecuperarCategoriasAsync() {
+            return base.Channel.RecuperarCategoriasAsync();
+        }
+        
+        public bool ValidarCodigoProducto(string codigoProducto) {
+            return base.Channel.ValidarCodigoProducto(codigoProducto);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ValidarCodigoProductoAsync(string codigoProducto) {
+            return base.Channel.ValidarCodigoProductoAsync(codigoProducto);
+        }
+        
+        public int GuardarProducto(ItaliaPizza_Cliente.ServicioItaliaPizza.Producto producto) {
+            return base.Channel.GuardarProducto(producto);
+        }
+        
+        public System.Threading.Tasks.Task<int> GuardarProductoAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.Producto producto) {
+            return base.Channel.GuardarProductoAsync(producto);
         }
     }
     

@@ -54,6 +54,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTOs\Categoria.cs" />
+    <Compile Include="DTOs\Producto.cs" />
     <Compile Include="IServicioOrdenesCompra.cs" />
     <Compile Include="IServicioPedidos.cs" />
     <Compile Include="IServicioProductos.cs" />

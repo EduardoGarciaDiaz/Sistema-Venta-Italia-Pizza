@@ -43,6 +43,8 @@
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IServicioOrdenesCompra_OperacionOrdenesEjemplo_InputMessage">
@@ -62,6 +64,24 @@
   </wsdl:message>
   <wsdl:message name="IServicioProductos_OperacionProductosEjemplo_OutputMessage">
     <wsdl:part name="parameters" element="tns:OperacionProductosEjemploResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProductos_RecuperarCategorias_InputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperarCategorias" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProductos_RecuperarCategorias_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperarCategoriasResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProductos_ValidarCodigoProducto_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarCodigoProducto" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProductos_ValidarCodigoProducto_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarCodigoProductoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProductos_GuardarProducto_InputMessage">
+    <wsdl:part name="parameters" element="tns:GuardarProducto" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProductos_GuardarProducto_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GuardarProductoResponse" />
   </wsdl:message>
   <wsdl:message name="IServicioRecetas_OperacionRecetasEjemplo_InputMessage">
     <wsdl:part name="parameters" element="tns:OperacionRecetasEjemplo" />
@@ -91,6 +111,18 @@
     <wsdl:operation name="OperacionProductosEjemplo">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioProductos/OperacionProductosEjemplo" message="tns:IServicioProductos_OperacionProductosEjemplo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioProductos/OperacionProductosEjemploResponse" message="tns:IServicioProductos_OperacionProductosEjemplo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarCategorias">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProductos/RecuperarCategorias" message="tns:IServicioProductos_RecuperarCategorias_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProductos/RecuperarCategoriasResponse" message="tns:IServicioProductos_RecuperarCategorias_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidarCodigoProducto">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProductos/ValidarCodigoProducto" message="tns:IServicioProductos_ValidarCodigoProducto_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProductos/ValidarCodigoProductoResponse" message="tns:IServicioProductos_ValidarCodigoProducto_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarProducto">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProductos/GuardarProducto" message="tns:IServicioProductos_GuardarProducto_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProductos/GuardarProductoResponse" message="tns:IServicioProductos_GuardarProducto_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IServicioRecetas">
@@ -136,6 +168,33 @@
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
     <wsdl:operation name="OperacionProductosEjemplo">
       <soap12:operation soapAction="http://tempuri.org/IServicioProductos/OperacionProductosEjemplo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarCategorias">
+      <soap12:operation soapAction="http://tempuri.org/IServicioProductos/RecuperarCategorias" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarCodigoProducto">
+      <soap12:operation soapAction="http://tempuri.org/IServicioProductos/ValidarCodigoProducto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarProducto">
+      <soap12:operation soapAction="http://tempuri.org/IServicioProductos/GuardarProducto" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
