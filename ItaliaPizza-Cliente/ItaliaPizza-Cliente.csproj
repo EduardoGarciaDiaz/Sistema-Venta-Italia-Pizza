@@ -55,6 +55,30 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Recursos\ControlesUsuario\BarraDeBusqueda.xaml.cs">
+      <DependentUpon>BarraDeBusqueda.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Recursos\ControlesUsuario\BarraDeBusquedaConLista.xaml.cs">
+      <DependentUpon>BarraDeBusquedaConLista.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Recursos\ControlesUsuario\ElementoPedido.xaml.cs">
+      <DependentUpon>ElementoPedido.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Recursos\ControlesUsuario\ElementoProductoVenta.xaml.cs">
+      <DependentUpon>ElementoProductoVenta.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Recursos\ControlesUsuario\ElementoTicketPedido.xaml.cs">
+      <DependentUpon>ElementoTicketPedido.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\InicioSesion.xaml.cs">
+      <DependentUpon>InicioSesion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\RegistroPedido.xaml.cs">
+      <DependentUpon>RegistroPedido.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\RegistroPagoPedido.xaml.cs">
+      <DependentUpon>RegistroPagoPedido.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utilidades\UtilidadValidacion.cs" />
     <Compile Include="Vistas\InicioSesion.xaml.cs">
       <DependentUpon>InicioSesion.xaml</DependentUpon>
@@ -77,7 +101,35 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Recursos\ControlesUsuario\BarraDeBusqueda.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Recursos\ControlesUsuario\BarraDeBusquedaConLista.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Recursos\ControlesUsuario\ElementoPedido.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Recursos\ControlesUsuario\ElementoProductoVenta.xaml">
+          <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Recursos\ControlesUsuario\ElementoTicketPedido.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Vistas\InicioSesion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\RegistroPedido.xaml">
+          <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\RegistroPagoPedido.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -86,7 +138,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vistas\RegistroReceta.xaml">
-      <SubType>Designer</SubType>
+    <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
@@ -117,13 +169,19 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Recursos\ControlesUsuario\" />
+    <Resource Include="Recursos\Iconos\icono_usuario.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Recursos\Iconos\icono_buscar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Recursos\Iconos\imagen_pizza.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Recursos\Iconos\icono_regresar.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Recursos\Iconos\icono_camara.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Vistas\icono_camara.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
