@@ -71,6 +71,12 @@
   <wsdl:message name="IServicioProductos_RecuperarCategorias_OutputMessage">
     <wsdl:part name="parameters" element="tns:RecuperarCategoriasResponse" />
   </wsdl:message>
+  <wsdl:message name="IServicioProductos_RecuperarUnidadesMedida_InputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperarUnidadesMedida" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProductos_RecuperarUnidadesMedida_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperarUnidadesMedidaResponse" />
+  </wsdl:message>
   <wsdl:message name="IServicioProductos_ValidarCodigoProducto_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidarCodigoProducto" />
   </wsdl:message>
@@ -115,6 +121,10 @@
     <wsdl:operation name="RecuperarCategorias">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioProductos/RecuperarCategorias" message="tns:IServicioProductos_RecuperarCategorias_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioProductos/RecuperarCategoriasResponse" message="tns:IServicioProductos_RecuperarCategorias_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarUnidadesMedida">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProductos/RecuperarUnidadesMedida" message="tns:IServicioProductos_RecuperarUnidadesMedida_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProductos/RecuperarUnidadesMedidaResponse" message="tns:IServicioProductos_RecuperarUnidadesMedida_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ValidarCodigoProducto">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioProductos/ValidarCodigoProducto" message="tns:IServicioProductos_ValidarCodigoProducto_InputMessage" />
@@ -177,6 +187,15 @@
     </wsdl:operation>
     <wsdl:operation name="RecuperarCategorias">
       <soap12:operation soapAction="http://tempuri.org/IServicioProductos/RecuperarCategorias" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarUnidadesMedida">
+      <soap12:operation soapAction="http://tempuri.org/IServicioProductos/RecuperarUnidadesMedida" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

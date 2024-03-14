@@ -18,6 +18,9 @@ namespace ItaliaPizza_Contratos
         List<Categoria> RecuperarCategorias();
 
         [OperationContract]
+        List<UnidadMedida> RecuperarUnidadesMedida();
+
+        [OperationContract]
         bool ValidarCodigoProducto(string codigoProducto);
 
         [OperationContract]
