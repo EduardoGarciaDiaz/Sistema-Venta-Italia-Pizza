@@ -145,13 +145,13 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private ItaliaPizza_Cliente.ServicioItaliaPizza.Categoria CategoriaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescripcionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsActivoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsInventariadoField;
@@ -165,9 +165,6 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private ItaliaPizza_Cliente.ServicioItaliaPizza.ProductoVenta ProductoVentaField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool esActivoField;
-        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -175,19 +172,6 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
             }
             set {
                 this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public ItaliaPizza_Cliente.ServicioItaliaPizza.Categoria Categoria {
-            get {
-                return this.CategoriaField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CategoriaField, value) != true)) {
-                    this.CategoriaField = value;
-                    this.RaisePropertyChanged("Categoria");
-                }
             }
         }
         
@@ -213,6 +197,19 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
                 if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
                     this.DescripcionField = value;
                     this.RaisePropertyChanged("Descripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsActivo {
+            get {
+                return this.EsActivoField;
+            }
+            set {
+                if ((this.EsActivoField.Equals(value) != true)) {
+                    this.EsActivoField = value;
+                    this.RaisePropertyChanged("EsActivo");
                 }
             }
         }
@@ -265,19 +262,6 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
                 if ((object.ReferenceEquals(this.ProductoVentaField, value) != true)) {
                     this.ProductoVentaField = value;
                     this.RaisePropertyChanged("ProductoVenta");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool esActivo {
-            get {
-                return this.esActivoField;
-            }
-            set {
-                if ((this.esActivoField.Equals(value) != true)) {
-                    this.esActivoField = value;
-                    this.RaisePropertyChanged("esActivo");
                 }
             }
         }

@@ -120,7 +120,7 @@ namespace ItaliaPizza_Servicios
                 Nombre = producto.Nombre,
                 Descripcion = producto.Descripcion,
                 EsInventariado = producto.EsInventariado,
-                EsActivo = producto.esActivo
+                EsActivo = producto.EsActivo
             };
 
             return productos;

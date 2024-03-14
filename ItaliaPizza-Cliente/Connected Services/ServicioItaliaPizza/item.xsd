@@ -28,14 +28,13 @@
   <xs:element name="UnidadMedida" nillable="true" type="tns:UnidadMedida" />
   <xs:complexType name="Producto">
     <xs:sequence>
-      <xs:element minOccurs="0" name="Categoria" nillable="true" type="tns:Categoria" />
       <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EsActivo" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsInventariado" type="xs:boolean" />
       <xs:element minOccurs="0" name="Insumo" nillable="true" type="tns:Insumo" />
       <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ProductoVenta" nillable="true" type="tns:ProductoVenta" />
-      <xs:element minOccurs="0" name="esActivo" type="xs:boolean" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Producto" nillable="true" type="tns:Producto" />

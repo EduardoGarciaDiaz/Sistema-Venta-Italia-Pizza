@@ -217,8 +217,7 @@ namespace ItaliaPizza_Cliente.Vistas
             producto.Codigo = codigo;
             producto.Nombre = nombre;
             producto.Descripcion = descripcion;
-            producto.Categoria = categoria;
-            producto.esActivo = esActivo;
+            producto.EsActivo = esActivo;
 
             return producto;
         }
