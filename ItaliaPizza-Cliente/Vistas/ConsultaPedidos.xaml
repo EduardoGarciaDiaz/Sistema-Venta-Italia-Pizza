@@ -64,7 +64,7 @@
             <Border Background="#F6f6f6" Margin="845,181,24,162" CornerRadius="15">
 
             </Border>
-            <Button Margin="846,700,24,16" BorderThickness="0,0,0,0" Background="#FFF8D72A" Content="Marcar como preparado" FontSize="24" FontFamily="Futura Md BT" Click="Button_Click">
+            <Button Margin="846,700,24,16" BorderThickness="0,0,0,0" Background="#FFF8D72A" Content="Marcar como preparado" FontSize="24" FontFamily="Futura Md BT">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="20"/>

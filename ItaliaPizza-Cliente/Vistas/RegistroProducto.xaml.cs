@@ -1,9 +1,11 @@
-﻿using ItaliaPizza_Cliente.Utilidades;
+﻿using ItaliaPizza_Cliente.ServicioItaliaPizza;
+using ItaliaPizza_Cliente.Utilidades;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -37,16 +39,59 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void CargarComboBoxCategorias()
         {
-            // TODO
+            Categoria[] categorias = RecuperarCategorias();
 
-            //Recuperar categorias
-            List<string> categorias = new List<string>();
-            categorias.Add("Seleccionar categoría");
-            categorias.Add("Vegetales");
-            categorias.Add("Harinas");
-            categorias.Add("Carnes");
-            cbxCategoria.ItemsSource = categorias;
-            cbxCategoria.SelectedIndex = 0;
+            cbxCategoria.Items.Add("Selecciona una categoría");
+
+            if (categorias != null)
+            {
+                foreach (var categoria in categorias)
+                {
+                    Console.WriteLine(categoria);
+                    cbxCategoria.Items.Add(categoria);
+                }
+
+                cbxCategoria.DisplayMemberPath = "Nombre";
+                cbxCategoria.SelectedIndex = 0;
+            }
+        }
+
+        private Categoria[] RecuperarCategorias()
+        {
+            Categoria[] categorias = new Categoria[0]; 
+
+            try
+            {
+                ServicioProductosClient servicioProductosCliente = new ServicioProductosClient();
+                categorias = servicioProductosCliente.RecuperarCategorias();
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (TimeoutException ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (FaultException ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (CommunicationException ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (Exception ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+
+            return categorias;
         }
 
         private void CargarComboBoxUnidadMedida()

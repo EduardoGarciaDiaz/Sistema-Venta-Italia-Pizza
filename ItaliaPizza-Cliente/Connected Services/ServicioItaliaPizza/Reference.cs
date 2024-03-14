@@ -224,10 +224,10 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         System.Threading.Tasks.Task OperacionProductosEjemploAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/RecuperarCategorias", ReplyAction="http://tempuri.org/IServicioProductos/RecuperarCategoriasResponse")]
-        ItaliaPizza_Cliente.ServicioItaliaPizza.Categoria RecuperarCategorias();
+        ItaliaPizza_Cliente.ServicioItaliaPizza.Categoria[] RecuperarCategorias();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/RecuperarCategorias", ReplyAction="http://tempuri.org/IServicioProductos/RecuperarCategoriasResponse")]
-        System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.Categoria> RecuperarCategoriasAsync();
+        System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.Categoria[]> RecuperarCategoriasAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/ValidarCodigoProducto", ReplyAction="http://tempuri.org/IServicioProductos/ValidarCodigoProductoResponse")]
         bool ValidarCodigoProducto(string codigoProducto);
@@ -277,11 +277,11 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
             return base.Channel.OperacionProductosEjemploAsync();
         }
         
-        public ItaliaPizza_Cliente.ServicioItaliaPizza.Categoria RecuperarCategorias() {
+        public ItaliaPizza_Cliente.ServicioItaliaPizza.Categoria[] RecuperarCategorias() {
             return base.Channel.RecuperarCategorias();
         }
         
-        public System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.Categoria> RecuperarCategoriasAsync() {
+        public System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.Categoria[]> RecuperarCategoriasAsync() {
             return base.Channel.RecuperarCategoriasAsync();
         }
         

@@ -15,7 +15,7 @@ namespace ItaliaPizza_Contratos
         void OperacionProductosEjemplo();
 
         [OperationContract]
-        Categoria RecuperarCategorias();
+        List<Categoria> RecuperarCategorias();
 
         [OperationContract]
         bool ValidarCodigoProducto(string codigoProducto);
