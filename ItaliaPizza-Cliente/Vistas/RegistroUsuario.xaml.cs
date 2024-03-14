@@ -25,12 +25,39 @@ namespace ItaliaPizza_Cliente.Vistas
             InitializeComponent();
         }
 
-        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        private void PrepareWindow()
         {
 
         }
 
-        private void BttGuardarUsuario_Click(object sender, MouseButtonEventArgs e)
+        private void ObtenerTiposEmpleados()
+        {
+            //Recuperar Empleados de servicio
+        }
+
+        private bool ValidarCamposLlenos()
+        {
+            bool camposLlenos = true;
+            if (String.IsNullOrEmpty(txbNombre.Text.Trim()))
+            {
+                camposLlenos = false;
+            }
+            return camposLlenos;
+
+        }
+
+        private void MostrarLabelError(Label labelAMostrar, string mensaje)
+        {
+            labelAMostrar.Content = mensaje;
+            labelAMostrar.Visibility = Visibility.Visible;
+        }
+
+        private void BtnGuardarUsuario_Click(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void BtnCancelarRegistro(object sender, MouseButtonEventArgs e)
         {
 
         }
