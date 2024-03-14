@@ -17,7 +17,7 @@ namespace ItaliaPizza_Contratos.DTOs
         public float Precio { get; set; }
 
         [DataMember]
-        public string Foto { get; set; }
+        public Byte[] Foto { get; set; }
 
         [DataMember]
         public Categoria Categoria { get; set; }

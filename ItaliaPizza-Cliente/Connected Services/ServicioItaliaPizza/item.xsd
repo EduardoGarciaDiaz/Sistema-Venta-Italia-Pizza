@@ -53,7 +53,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="Categoria" nillable="true" type="tns:Categoria" />
       <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Foto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Foto" nillable="true" type="xs:base64Binary" />
       <xs:element minOccurs="0" name="Precio" type="xs:float" />
     </xs:sequence>
   </xs:complexType>

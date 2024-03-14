@@ -417,7 +417,7 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         private string CodigoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string FotoField;
+        private byte[] FotoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private float PrecioField;
@@ -459,7 +459,7 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Foto {
+        public byte[] Foto {
             get {
                 return this.FotoField;
             }

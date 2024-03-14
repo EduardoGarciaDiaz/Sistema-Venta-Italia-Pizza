@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ItaliaPizza_DataAccess
 {
-    public class GestionProducto
+    public class ProductoDAO
     {
         public List<CategoriasInsumo> RecuperarCategoriasInsumo()
         {
@@ -102,25 +102,63 @@ namespace ItaliaPizza_DataAccess
 
         public bool ValidarCodigoProducto(string codigoProducto)
         {
-            using (var context = new ItaliaPizzaEntities())
-            {
-                bool existeProducto = context.Productos.Any(p => p.CodigoProducto == codigoProducto);
+            bool existeProducto = true;
 
-                return existeProducto;
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    existeProducto = context.Productos.Any(p => p.CodigoProducto == codigoProducto);
+                }
             }
+            catch (EntityException ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (SqlException ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (Exception ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+
+            return existeProducto;
         }
 
         public int GuardarProducto(Productos producto)
         {
             int filasAfectadas = -1;
 
-            if (producto != null)
+            try
             {
-                using (var context = new ItaliaPizzaEntities())
+                if (producto != null)
                 {
-                    context.Productos.Add(producto);
-                    filasAfectadas = context.SaveChanges();
+                    using (var context = new ItaliaPizzaEntities())
+                    {
+                        context.Productos.Add(producto);
+                        filasAfectadas = context.SaveChanges();
+                    }
                 }
+            }
+            catch (EntityException ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (SqlException ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (Exception ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
             }
 
             return filasAfectadas;
@@ -130,13 +168,31 @@ namespace ItaliaPizza_DataAccess
         {
             int filasAfectadas = -1;
 
-            if (insumo != null)
+            try
             {
-                using (var context = new ItaliaPizzaEntities())
+                if (insumo != null)
                 {
-                    context.Insumos.Add(insumo);
-                    filasAfectadas = context.SaveChanges();
+                    using (var context = new ItaliaPizzaEntities())
+                    {
+                        context.Insumos.Add(insumo);
+                        filasAfectadas = context.SaveChanges();
+                    }
                 }
+            }
+            catch (EntityException ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (SqlException ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (Exception ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
             }
 
             return filasAfectadas;
@@ -146,13 +202,31 @@ namespace ItaliaPizza_DataAccess
         {
             int filasAfectadas = -1;
 
-            if (productoVenta != null)
+            try
             {
-                using (var context = new ItaliaPizzaEntities())
+                if (productoVenta != null)
                 {
-                    context.ProductosVenta.Add(productoVenta);
-                    filasAfectadas = context.SaveChanges();
+                    using (var context = new ItaliaPizzaEntities())
+                    {
+                        context.ProductosVenta.Add(productoVenta);
+                        filasAfectadas = context.SaveChanges();
+                    }
                 }
+            }
+            catch (EntityException ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (SqlException ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (Exception ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
             }
 
             return filasAfectadas;

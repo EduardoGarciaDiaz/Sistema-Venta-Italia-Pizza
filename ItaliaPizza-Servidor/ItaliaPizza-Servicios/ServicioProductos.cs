@@ -1,5 +1,6 @@
 ﻿using ItaliaPizza_Contratos.DTOs;
 using ItaliaPizza_DataAccess;
+using ItaliaPizza_Servicios.Auxiliares;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,34 +19,12 @@ namespace ItaliaPizza_Servicios
         public List<Categoria> RecuperarCategorias()
         {
             List<Categoria> categorias = new List<Categoria>();
-            GestionProducto gestionProducto = new GestionProducto();
+            ProductoDAO gestionProducto = new ProductoDAO();
 
-            List<CategoriasInsumo> categoriasInsumo = new List<CategoriasInsumo>();
-            List<CategoriasProductoVenta> categoriasProductoVenta = new List<CategoriasProductoVenta>();
+            List<CategoriasInsumo> categoriasInsumo = gestionProducto.RecuperarCategoriasInsumo();
+            List<CategoriasProductoVenta> categoriasProductoVenta = gestionProducto.RecuperarCategoriasProductoVenta();
 
-            categoriasInsumo = gestionProducto.RecuperarCategoriasInsumo();
-            categoriasProductoVenta = gestionProducto.RecuperarCategoriasProductoVenta();
-
-            categorias = PrepararListaCategorias(categorias, categoriasProductoVenta, categoriasInsumo);
-
-            return categorias;
-        }
-
-        private List<Categoria> PrepararListaCategorias(List<Categoria> categorias,
-            List<CategoriasProductoVenta> categoriasProductoVenta,
-            List<CategoriasInsumo> categoriasInsumo)
-        {
-            categorias.AddRange(categoriasProductoVenta.Select(categoriaProductoVenta => new Categoria
-            {
-                Id = categoriaProductoVenta.IdCategoriaProductoVenta,
-                Nombre = categoriaProductoVenta.Nombre
-            }));
-
-            categorias.AddRange(categoriasInsumo.Select(categoriaInsumo => new Categoria
-            {
-                Id = categoriaInsumo.IdCategoriaInsumo,
-                Nombre = categoriaInsumo.Nombre
-            }));
+            categorias = AuxiliarUnificacionDatos.UnificarListaCategorias(categorias, categoriasProductoVenta, categoriasInsumo);
 
             return categorias;
         }
@@ -53,10 +32,8 @@ namespace ItaliaPizza_Servicios
         public List<UnidadMedida> RecuperarUnidadesMedida()
         {
             List<UnidadMedida> listaUnidades = new List<UnidadMedida>();
-            GestionProducto gestionProducto = new GestionProducto();
-            List<UnidadesMedida> unidadesMedida = new List<UnidadesMedida>();
-
-            unidadesMedida = gestionProducto.RecuperarUnidadesMedida();
+            ProductoDAO gestionProducto = new ProductoDAO();
+            List<UnidadesMedida> unidadesMedida = gestionProducto.RecuperarUnidadesMedida();
 
             listaUnidades.AddRange(unidadesMedida.Select(unidad => new UnidadMedida
             {
@@ -72,7 +49,7 @@ namespace ItaliaPizza_Servicios
         {
             bool esCodigoUnico = false;
 
-            GestionProducto gestionProducto = new GestionProducto();
+            ProductoDAO gestionProducto = new ProductoDAO();
             bool existeProducto = gestionProducto.ValidarCodigoProducto(codigoProducto);
             
             if (!existeProducto)
@@ -85,12 +62,12 @@ namespace ItaliaPizza_Servicios
 
         public int GuardarProducto(Producto producto)
         {
-            GestionProducto gestionProducto = new GestionProducto();
+            ProductoDAO gestionProducto = new ProductoDAO();
 
             Insumo insumo = producto.Insumo;
             ProductoVenta productoVenta = producto.ProductoVenta;
 
-            Productos productoNuevo = CrearProductoEntityFramework(producto);
+            Productos productoNuevo = AuxiliarConversorDTOADAO.ConvertirProductoAProductos(producto);
 
             int filasAfectadas = gestionProducto.GuardarProducto(productoNuevo);
 
@@ -98,64 +75,18 @@ namespace ItaliaPizza_Servicios
             {
                 if (insumo != null)
                 {
-                    Insumos insumoNuevo = CrearInsumoEntityFramework(insumo);
+                    Insumos insumoNuevo = AuxiliarConversorDTOADAO.ConvertirInsumoAInsumos(insumo);
                     gestionProducto.GuardarInsumo(insumoNuevo);
                 }
 
                 if (productoVenta != null)
                 {
-                    ProductosVenta productoVentaNuevo = CrearProductoVentaEntityFramework(productoVenta);
+                    ProductosVenta productoVentaNuevo = AuxiliarConversorDTOADAO.ConvertirProductoVentaAProductosVenta(productoVenta);
                     gestionProducto.GuardarProductoVenta(productoVentaNuevo);
                 }
             }
 
             return filasAfectadas;
         }
-
-        private Productos CrearProductoEntityFramework(Producto producto)
-        {
-            Productos productos = new Productos()
-            {
-                CodigoProducto = producto.Codigo,
-                Nombre = producto.Nombre,
-                Descripcion = producto.Descripcion,
-                EsInventariado = producto.EsInventariado,
-                EsActivo = producto.EsActivo
-            };
-
-            return productos;
-        }
-
-        private Insumos CrearInsumoEntityFramework(Insumo insumo)
-        {
-            Insumos insumos = new Insumos()
-            {
-                CodigoProducto = insumo.Codigo,
-                Cantidad = insumo.Cantidad,
-                Costo = insumo.CostoUnitario,
-                Restricciones = insumo.Restriccion,
-                IdUnidadMedida = insumo.UnidadMedida.Id,
-                IdCategoriaInsumo = insumo.Categoria.Id
-            };
-
-            return insumos;
-        }
-
-        private ProductosVenta CrearProductoVentaEntityFramework(ProductoVenta productoVenta)
-        {
-            ProductosVenta productosVenta = new ProductosVenta()
-            {
-                CodigoProducto = productoVenta.Codigo,
-                Precio = productoVenta.Precio,
-                IdCategoriaProductoVenta = productoVenta.Categoria.Id // ,
-                // Foto = [productoVenta.Foto
-            };
-
-            return productosVenta;
-        }
-
-
-
-
     }
 }
