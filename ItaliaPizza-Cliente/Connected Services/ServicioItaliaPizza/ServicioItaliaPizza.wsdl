@@ -95,6 +95,12 @@
   <wsdl:message name="IServicioRecetas_OperacionRecetasEjemplo_OutputMessage">
     <wsdl:part name="parameters" element="tns:OperacionRecetasEjemploResponse" />
   </wsdl:message>
+  <wsdl:message name="IServicioRecetas_RecuperarRecetas_InputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperarRecetas" />
+  </wsdl:message>
+  <wsdl:message name="IServicioRecetas_RecuperarRecetas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperarRecetasResponse" />
+  </wsdl:message>
   <wsdl:message name="IServicioUsuarios_OperacionUsuariosEjemplo_InputMessage">
     <wsdl:part name="parameters" element="tns:OperacionUsuariosEjemplo" />
   </wsdl:message>
@@ -139,6 +145,10 @@
     <wsdl:operation name="OperacionRecetasEjemplo">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioRecetas/OperacionRecetasEjemplo" message="tns:IServicioRecetas_OperacionRecetasEjemplo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioRecetas/OperacionRecetasEjemploResponse" message="tns:IServicioRecetas_OperacionRecetasEjemplo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarRecetas">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioRecetas/RecuperarRecetas" message="tns:IServicioRecetas_RecuperarRecetas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioRecetas/RecuperarRecetasResponse" message="tns:IServicioRecetas_RecuperarRecetas_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IServicioUsuarios">
@@ -227,6 +237,15 @@
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
     <wsdl:operation name="OperacionRecetasEjemplo">
       <soap12:operation soapAction="http://tempuri.org/IServicioRecetas/OperacionRecetasEjemplo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarRecetas">
+      <soap12:operation soapAction="http://tempuri.org/IServicioRecetas/RecuperarRecetas" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
