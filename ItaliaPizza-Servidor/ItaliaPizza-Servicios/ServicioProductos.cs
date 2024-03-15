@@ -76,9 +76,9 @@ namespace ItaliaPizza_Servicios
             return categoriasProductoVenta;
         }
 
-        public List<ProductoVenta> RecuperarProductosVenta()
+        public List<ProductoVentaPedidos> RecuperarProductosVenta()
         {
-            List<ProductoVenta> productosVenta = new List<ProductoVenta> ();
+            List<ProductoVentaPedidos> productosVenta = new List<ProductoVentaPedidos> ();
             ProductoDAO productoDAO = new ProductoDAO();
             productosVenta = MapeadorProductosAProductoVenta
                 .MapearProductosAProductosVenta(

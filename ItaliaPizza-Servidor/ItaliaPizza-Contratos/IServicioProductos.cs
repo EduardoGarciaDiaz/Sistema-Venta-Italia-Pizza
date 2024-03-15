@@ -27,7 +27,7 @@ namespace ItaliaPizza_Contratos
         List<Categoria> RecuperarCategoriasProductoVenta();
 
         [OperationContract]
-        List<ProductoVenta> RecuperarProductosVenta();
+        List<ProductoVentaPedidos> RecuperarProductosVenta();
 
         [OperationContract]
         bool ValidarDisponibilidadDeProducto(string codigoProducto);

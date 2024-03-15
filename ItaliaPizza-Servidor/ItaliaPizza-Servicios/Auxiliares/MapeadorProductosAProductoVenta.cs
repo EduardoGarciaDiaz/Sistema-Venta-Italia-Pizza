@@ -11,16 +11,16 @@ namespace ItaliaPizza_Servicios.Auxiliares
     public static class MapeadorProductosAProductoVenta
     {
 
-        public static List<ProductoVenta> MapearProductosAProductosVenta(List<ProductosVenta> productosVenta, List<Productos> productos)
+        public static List<ProductoVentaPedidos> MapearProductosAProductosVenta(List<ProductosVenta> productosVenta, List<Productos> productos)
         {
-            List<ProductoVenta> productosEnVenta = new List<ProductoVenta>();
+            List<ProductoVentaPedidos> productosEnVenta = new List<ProductoVentaPedidos>();
             
             foreach (var productoVenta in productosVenta)
             {
                 var producto = productos.FirstOrDefault(p => p.CodigoProducto == productoVenta.CodigoProducto);
                 if (producto != null)
                 {
-                    productosEnVenta.Add(new ProductoVenta()
+                    productosEnVenta.Add(new ProductoVentaPedidos()
                     {
                         Codigo = productoVenta.CodigoProducto,
                         Foto = productoVenta.Foto,
