@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="410">
     <Grid>
-        <TextBox x:Name="TxtBusqueda"  Margin="0,0,59,161" BorderThickness="0,0,0,0" Background="#FFEEEEEE" TextChanged="TxtBusqueda_TextChanged" Padding="14,11,3,0" FontSize="14" >
+        <TextBox x:Name="TxtBusqueda"  Margin="0,0,59,161" BorderThickness="0,0,0,0" Background="#FFEEEEEE" Padding="14,11,3,0" FontSize="14" TextChanged="TxtBusqueda_TextChanged" >
             <TextBox.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="20 20 0 0"/>
@@ -30,12 +30,12 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Nombre" Width="150" DisplayMemberBinding="{Binding Nombre}"/>
-                    <GridViewColumn Header="Correo" Width="130" DisplayMemberBinding="{Binding CorreoElectronico}"/>
+                    <GridViewColumn Header="Correo" Width="130" DisplayMemberBinding="{Binding Correo}"/>
                 </GridView>
             </ListView.View>
         </ListView>
 
-        <Image Source="/Recursos/Iconos/icono_buscar.png" Margin="356,5,18,162"/>
+        <Image Source="/Recursos/Iconos/icono_buscar.png" Margin="356,5,18,162" MouseDown="ImgBuscar_MouseDown"/>
 
 
     </Grid>

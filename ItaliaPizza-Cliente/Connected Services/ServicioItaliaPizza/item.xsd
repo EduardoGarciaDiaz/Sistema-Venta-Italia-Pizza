@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfTipoServicio">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TipoServicio" nillable="true" type="tns:TipoServicio" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTipoServicio" nillable="true" type="tns:ArrayOfTipoServicio" />
+  <xs:complexType name="TipoServicio">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TipoServicio" nillable="true" type="tns:TipoServicio" />
   <xs:complexType name="ArrayOfCategoria">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Categoria" nillable="true" type="tns:Categoria" />
@@ -19,4 +32,35 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Producto" nillable="true" type="tns:Producto" />
+  <xs:complexType name="ArrayOfProductoVenta">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProductoVenta" nillable="true" type="tns:ProductoVenta" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfProductoVenta" nillable="true" type="tns:ArrayOfProductoVenta" />
+  <xs:complexType name="ProductoVenta">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Foto" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="IdCategoria" type="xs:int" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Precio" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProductoVenta" nillable="true" type="tns:ProductoVenta" />
+  <xs:complexType name="ArrayOfClienteBusqueda">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ClienteBusqueda" nillable="true" type="tns:ClienteBusqueda" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfClienteBusqueda" nillable="true" type="tns:ArrayOfClienteBusqueda" />
+  <xs:complexType name="ClienteBusqueda">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Correo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdCliente" type="xs:int" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ClienteBusqueda" nillable="true" type="tns:ClienteBusqueda" />
 </xs:schema>

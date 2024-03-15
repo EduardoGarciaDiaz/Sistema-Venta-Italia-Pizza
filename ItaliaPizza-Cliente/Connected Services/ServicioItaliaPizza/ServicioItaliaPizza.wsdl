@@ -59,6 +59,12 @@
   <wsdl:message name="IServicioPedidos_OperacionPedidosEjemplo_OutputMessage">
     <wsdl:part name="parameters" element="tns:OperacionPedidosEjemploResponse" />
   </wsdl:message>
+  <wsdl:message name="IServicioPedidos_RecuperarTiposServicio_InputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperarTiposServicio" />
+  </wsdl:message>
+  <wsdl:message name="IServicioPedidos_RecuperarTiposServicio_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperarTiposServicioResponse" />
+  </wsdl:message>
   <wsdl:message name="IServicioProductos_OperacionProductosEjemplo_InputMessage">
     <wsdl:part name="parameters" element="tns:OperacionProductosEjemplo" />
   </wsdl:message>
@@ -83,6 +89,24 @@
   <wsdl:message name="IServicioProductos_GuardarProducto_OutputMessage">
     <wsdl:part name="parameters" element="tns:GuardarProductoResponse" />
   </wsdl:message>
+  <wsdl:message name="IServicioProductos_RecuperarCategoriasProductoVenta_InputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperarCategoriasProductoVenta" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProductos_RecuperarCategoriasProductoVenta_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperarCategoriasProductoVentaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProductos_RecuperarProductosVenta_InputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperarProductosVenta" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProductos_RecuperarProductosVenta_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperarProductosVentaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProductos_ValidarDisponibilidadDeProducto_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarDisponibilidadDeProducto" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProductos_ValidarDisponibilidadDeProducto_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarDisponibilidadDeProductoResponse" />
+  </wsdl:message>
   <wsdl:message name="IServicioRecetas_OperacionRecetasEjemplo_InputMessage">
     <wsdl:part name="parameters" element="tns:OperacionRecetasEjemplo" />
   </wsdl:message>
@@ -95,6 +119,12 @@
   <wsdl:message name="IServicioUsuarios_OperacionUsuariosEjemplo_OutputMessage">
     <wsdl:part name="parameters" element="tns:OperacionUsuariosEjemploResponse" />
   </wsdl:message>
+  <wsdl:message name="IServicioUsuarios_BuscarCliente_InputMessage">
+    <wsdl:part name="parameters" element="tns:BuscarCliente" />
+  </wsdl:message>
+  <wsdl:message name="IServicioUsuarios_BuscarCliente_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BuscarClienteResponse" />
+  </wsdl:message>
   <wsdl:portType name="IServicioOrdenesCompra">
     <wsdl:operation name="OperacionOrdenesEjemplo">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioOrdenesCompra/OperacionOrdenesEjemplo" message="tns:IServicioOrdenesCompra_OperacionOrdenesEjemplo_InputMessage" />
@@ -105,6 +135,10 @@
     <wsdl:operation name="OperacionPedidosEjemplo">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioPedidos/OperacionPedidosEjemplo" message="tns:IServicioPedidos_OperacionPedidosEjemplo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioPedidos/OperacionPedidosEjemploResponse" message="tns:IServicioPedidos_OperacionPedidosEjemplo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarTiposServicio">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioPedidos/RecuperarTiposServicio" message="tns:IServicioPedidos_RecuperarTiposServicio_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioPedidos/RecuperarTiposServicioResponse" message="tns:IServicioPedidos_RecuperarTiposServicio_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IServicioProductos">
@@ -124,6 +158,18 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioProductos/GuardarProducto" message="tns:IServicioProductos_GuardarProducto_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioProductos/GuardarProductoResponse" message="tns:IServicioProductos_GuardarProducto_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="RecuperarCategoriasProductoVenta">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProductos/RecuperarCategoriasProductoVenta" message="tns:IServicioProductos_RecuperarCategoriasProductoVenta_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProductos/RecuperarCategoriasProductoVentaResponse" message="tns:IServicioProductos_RecuperarCategoriasProductoVenta_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarProductosVenta">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProductos/RecuperarProductosVenta" message="tns:IServicioProductos_RecuperarProductosVenta_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProductos/RecuperarProductosVentaResponse" message="tns:IServicioProductos_RecuperarProductosVenta_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidarDisponibilidadDeProducto">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProductos/ValidarDisponibilidadDeProducto" message="tns:IServicioProductos_ValidarDisponibilidadDeProducto_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProductos/ValidarDisponibilidadDeProductoResponse" message="tns:IServicioProductos_ValidarDisponibilidadDeProducto_OutputMessage" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IServicioRecetas">
     <wsdl:operation name="OperacionRecetasEjemplo">
@@ -135,6 +181,10 @@
     <wsdl:operation name="OperacionUsuariosEjemplo">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioUsuarios/OperacionUsuariosEjemplo" message="tns:IServicioUsuarios_OperacionUsuariosEjemplo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioUsuarios/OperacionUsuariosEjemploResponse" message="tns:IServicioUsuarios_OperacionUsuariosEjemplo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BuscarCliente">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioUsuarios/BuscarCliente" message="tns:IServicioUsuarios_BuscarCliente_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioUsuarios/BuscarClienteResponse" message="tns:IServicioUsuarios_BuscarCliente_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IServicioOrdenesCompra" type="tns:IServicioOrdenesCompra">
@@ -155,6 +205,15 @@
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
     <wsdl:operation name="OperacionPedidosEjemplo">
       <soap12:operation soapAction="http://tempuri.org/IServicioPedidos/OperacionPedidosEjemplo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarTiposServicio">
+      <soap12:operation soapAction="http://tempuri.org/IServicioPedidos/RecuperarTiposServicio" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -202,6 +261,33 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="RecuperarCategoriasProductoVenta">
+      <soap12:operation soapAction="http://tempuri.org/IServicioProductos/RecuperarCategoriasProductoVenta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarProductosVenta">
+      <soap12:operation soapAction="http://tempuri.org/IServicioProductos/RecuperarProductosVenta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarDisponibilidadDeProducto">
+      <soap12:operation soapAction="http://tempuri.org/IServicioProductos/ValidarDisponibilidadDeProducto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="NetTcpBinding_IServicioRecetas" type="tns:IServicioRecetas">
     <wsp:PolicyReference URI="#NetTcpBinding_IServicioRecetas_policy" />
@@ -221,6 +307,15 @@
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
     <wsdl:operation name="OperacionUsuariosEjemplo">
       <soap12:operation soapAction="http://tempuri.org/IServicioUsuarios/OperacionUsuariosEjemplo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarCliente">
+      <soap12:operation soapAction="http://tempuri.org/IServicioUsuarios/BuscarCliente" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -26,6 +26,6 @@
                 </Style>
             </TextBlock.Style>
         </TextBlock>
-        <Image Source="/Recursos/Iconos/icono_buscar.png" Margin="501,3,5,4"/>
+        <Image Source="/Recursos/Iconos/icono_buscar.png" Margin="501,3,5,4" MouseDown="ImgBuscar_Click"/>
     </Grid>
 </UserControl>

@@ -22,5 +22,14 @@ namespace ItaliaPizza_Contratos
 
         [OperationContract]
         int GuardarProducto(Producto producto);
+
+        [OperationContract]
+        List<Categoria> RecuperarCategoriasProductoVenta();
+
+        [OperationContract]
+        List<ProductoVenta> RecuperarProductosVenta();
+
+        [OperationContract]
+        bool ValidarDisponibilidadDeProducto(string codigoProducto);
     }
 }

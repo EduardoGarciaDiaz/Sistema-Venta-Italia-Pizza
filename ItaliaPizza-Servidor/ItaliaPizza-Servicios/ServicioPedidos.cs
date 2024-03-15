@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ItaliaPizza_Contratos.DTOs;
+using ItaliaPizza_DataAccess;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
@@ -13,6 +15,20 @@ namespace ItaliaPizza_Servicios
         public void OperacionPedidosEjemplo()
         {
             throw new NotImplementedException();
+        }
+
+        public List<TipoServicio> RecuperarTiposServicio()
+        {
+            List<TipoServicio> tipoServicios = new List<TipoServicio>();
+            TipoServicioDAO tipoServicioDAO = new TipoServicioDAO();
+            tipoServicios = tipoServicioDAO.RecuperarTiposServicio().ConvertAll(tipoServicio =>
+                new TipoServicio
+                {
+                    Id = tipoServicio.IdTipoServicio,
+                    Nombre = tipoServicio.Nombre
+                }    
+            );
+            return tipoServicios;
         }
     }
 }
