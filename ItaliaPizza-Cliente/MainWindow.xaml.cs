@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ItaliaPizza_Cliente.Vistas;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,8 @@ namespace ItaliaPizza_Cliente
         public MainWindow()
         {
             InitializeComponent();
+            RegistroUsuario registroUsuario = new RegistroUsuario();    
+            frameNavigation.Navigate(registroUsuario);
         }
     }
 }
