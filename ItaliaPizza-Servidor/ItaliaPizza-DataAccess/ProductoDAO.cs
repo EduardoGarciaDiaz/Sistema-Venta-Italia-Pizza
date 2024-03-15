@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ItaliaPizza_Contratos.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.Data.SqlClient;

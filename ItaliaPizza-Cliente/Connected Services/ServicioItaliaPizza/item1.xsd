@@ -93,6 +93,18 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="RecuperarRecetas">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RecuperarRecetasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="RecuperarRecetasResult" nillable="true" type="q4:ArrayOfReceta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="OperacionUsuariosEjemplo">
     <xs:complexType>
       <xs:sequence />
