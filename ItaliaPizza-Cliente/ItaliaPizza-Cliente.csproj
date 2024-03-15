@@ -71,6 +71,9 @@
     <Compile Include="Recursos\ControlesUsuario\ElementoConsultaPedido.xaml.cs">
       <DependentUpon>ElementoConsultaPedido.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Recursos\ControlesUsuario\ElementoInsumoReceta.xaml.cs">
+      <DependentUpon>ElementoInsumoReceta.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Recursos\ControlesUsuario\ElementoPedido.xaml.cs">
       <DependentUpon>ElementoPedido.xaml</DependentUpon>
     </Compile>
@@ -80,14 +83,21 @@
     <Compile Include="Recursos\ControlesUsuario\ElementoProductoVenta.xaml.cs">
       <DependentUpon>ElementoProductoVenta.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Recursos\ControlesUsuario\ElementoReceta.xaml.cs">
+      <DependentUpon>ElementoReceta.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Recursos\ControlesUsuario\ElementoTicketPedido.xaml.cs">
       <DependentUpon>ElementoTicketPedido.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utilidades\ConvertidorBytesAImagen.cs" />
     <Compile Include="Vistas\ConsultaPedidos.xaml.cs">
       <DependentUpon>ConsultaPedidos.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\InicioSesion.xaml.cs">
       <DependentUpon>InicioSesion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Recetas.xaml.cs">
+      <DependentUpon>Recetas.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\RegistroPedido.xaml.cs">
       <DependentUpon>RegistroPedido.xaml</DependentUpon>
@@ -104,9 +114,6 @@
     </Compile>
     <Compile Include="Vistas\RegistroReceta.xaml.cs">
       <DependentUpon>RegistroReceta.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Vistas\RegistroUsuario.xaml.cs">
-      <DependentUpon>RegistroUsuario.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -132,6 +139,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Recursos\ControlesUsuario\ElementoInsumoReceta.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Recursos\ControlesUsuario\ElementoPedido.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -144,6 +155,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Recursos\ControlesUsuario\ElementoReceta.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Recursos\ControlesUsuario\ElementoTicketPedido.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -153,6 +168,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vistas\InicioSesion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\Recetas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -169,10 +188,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vistas\RegistroReceta.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Vistas\RegistroUsuario.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -196,6 +211,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.Categoria.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.Receta.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.UnidadMedida.datasource">
@@ -256,7 +274,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Recursos\Iconos\ver_Contrasena.png" />
+    <Resource Include="Recursos\Iconos\icono_modificar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Recursos\Iconos\icono_cerrar.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

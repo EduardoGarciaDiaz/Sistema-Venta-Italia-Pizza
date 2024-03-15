@@ -51,7 +51,7 @@
             <TextBox x:Name="tbxPrecio" HorizontalAlignment="Left" Margin="716,216,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="222" Height="27" VerticalContentAlignment="Center" FontSize="16" Padding="25 0 0 0"/>
             <Label Content="Foto"  HorizontalAlignment="Left" Margin="1004,175,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18"/>
 
-            <Image HorizontalAlignment="Left" Height="85" Margin="1030,244,0,0" VerticalAlignment="Top" Width="86" Source="/Vistas/icono_camara.png"/>
+            <Image HorizontalAlignment="Left" Height="85" Margin="1030,244,0,0" VerticalAlignment="Top" Width="86" Source="/Recursos/Iconos/icono_camara.png"/>
             <Rectangle x:Name="rectangleFotoProducto" HorizontalAlignment="Left" Height="138" Margin="1004,214,0,0" Stroke="Black" VerticalAlignment="Top" Width="138" Cursor="Hand" RadiusX="15" RadiusY="15" MouseLeftButtonDown="RectangleFoto_Click" Fill="Transparent"/>
 
             <Label Content="$"  HorizontalAlignment="Left" Margin="720,213,0,0" VerticalAlignment="Top" Foreground="Black" FontSize="16"/>

@@ -116,6 +116,7 @@
     <Compile Include="Proveedores.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="RecetaDAO.cs" />
     <Compile Include="Recetas.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>
@@ -163,6 +164,12 @@
       <DependentUpon>ItaliaPizzaModelo.edmx</DependentUpon>
       <LastGenOutput>ItaliaPizzaModelo.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ItaliaPizza-Contratos\ItaliaPizza-Contratos.csproj">
+      <Project>{ac163cad-9d78-43bb-9d76-a7f3777baa60}</Project>
+      <Name>ItaliaPizza-Contratos</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

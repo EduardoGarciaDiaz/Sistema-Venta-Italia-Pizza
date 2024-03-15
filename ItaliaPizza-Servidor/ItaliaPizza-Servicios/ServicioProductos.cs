@@ -18,13 +18,12 @@ namespace ItaliaPizza_Servicios
 
         public List<Categoria> RecuperarCategorias()
         {
-            List<Categoria> categorias = new List<Categoria>();
             ProductoDAO gestionProducto = new ProductoDAO();
 
             List<CategoriasInsumo> categoriasInsumo = gestionProducto.RecuperarCategoriasInsumo();
             List<CategoriasProductoVenta> categoriasProductoVenta = gestionProducto.RecuperarCategoriasProductoVenta();
 
-            categorias = AuxiliarUnificacionDatos.UnificarListaCategorias(categorias, categoriasProductoVenta, categoriasInsumo);
+            List<Categoria> categorias = AuxiliarPreparacionDatos.PrepararListaCategorias(categoriasProductoVenta, categoriasInsumo);
 
             return categorias;
         }

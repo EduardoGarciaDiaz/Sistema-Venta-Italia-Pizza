@@ -58,6 +58,7 @@
     <Compile Include="DTOs\Insumo.cs" />
     <Compile Include="DTOs\Producto.cs" />
     <Compile Include="DTOs\ProductoVenta.cs" />
+    <Compile Include="DTOs\Receta.cs" />
     <Compile Include="DTOs\UnidadMedida.cs" />
     <Compile Include="IServicioOrdenesCompra.cs" />
     <Compile Include="IServicioPedidos.cs" />

@@ -58,4 +58,18 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ProductoVenta" nillable="true" type="tns:ProductoVenta" />
+  <xs:complexType name="ArrayOfReceta">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Receta" nillable="true" type="tns:Receta" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfReceta" nillable="true" type="tns:ArrayOfReceta" />
+  <xs:complexType name="Receta">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FotoProducto" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Receta" nillable="true" type="tns:Receta" />
 </xs:schema>
