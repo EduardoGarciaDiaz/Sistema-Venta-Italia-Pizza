@@ -55,6 +55,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="RecuperarUnidadesMedida">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RecuperarUnidadesMedidaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="RecuperarUnidadesMedidaResult" nillable="true" type="q2:ArrayOfUnidadMedida" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="ValidarCodigoProducto">
     <xs:complexType>
       <xs:sequence>
@@ -129,6 +141,18 @@
   <xs:element name="OperacionRecetasEjemploResponse">
     <xs:complexType>
       <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RecuperarRecetas">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RecuperarRecetasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="RecuperarRecetasResult" nillable="true" type="q4:ArrayOfReceta" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="OperacionUsuariosEjemplo">

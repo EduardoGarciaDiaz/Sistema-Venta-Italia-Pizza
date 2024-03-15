@@ -10,7 +10,7 @@
 
     <Viewbox Stretch="Fill">
         <Grid Height="800" Width="1300">
-            <Frame x:Name="frameNavigation" Grid.Column="0" Grid.ColumnSpan="3" NavigationUIVisibility="Hidden" Source="/Vistas/RegistroPedido.xaml" />
+            <Frame x:Name="frameNavigation" Grid.Column="0" Grid.ColumnSpan="3" NavigationUIVisibility="Hidden" Source="/Vistas/Recetas.xaml" />
         </Grid>
     </Viewbox>
 </Window>

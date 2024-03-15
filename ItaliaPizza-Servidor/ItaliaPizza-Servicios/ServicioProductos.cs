@@ -18,48 +18,74 @@ namespace ItaliaPizza_Servicios
 
         public List<Categoria> RecuperarCategorias()
         {
-            List<Categoria> categorias = new List<Categoria>();
-            GestionProducto gestionProducto = new GestionProducto();
+            ProductoDAO gestionProducto = new ProductoDAO();
 
-            List<CategoriasInsumo> categoriasInsumo = new List<CategoriasInsumo>();
-            List<CategoriasProductoVenta> categoriasProductoVenta = new List<CategoriasProductoVenta>();
+            List<CategoriasInsumo> categoriasInsumo = gestionProducto.RecuperarCategoriasInsumo();
+            List<CategoriasProductoVenta> categoriasProductoVenta = gestionProducto.RecuperarCategoriasProductoVenta();
 
-            categoriasInsumo = gestionProducto.RecuperarCategoriasInsumo();
-            categoriasProductoVenta = gestionProducto.RecuperarCategoriasProductoVenta();
-
-            categorias = PrepararListaCategorias(categorias, categoriasProductoVenta, categoriasInsumo);
+            List<Categoria> categorias = AuxiliarPreparacionDatos.PrepararListaCategorias(categoriasProductoVenta, categoriasInsumo);
 
             return categorias;
         }
 
-        private List<Categoria> PrepararListaCategorias(List<Categoria> categorias,
-            List<CategoriasProductoVenta> categoriasProductoVenta,
-            List<CategoriasInsumo> categoriasInsumo)
+        public List<UnidadMedida> RecuperarUnidadesMedida()
         {
-            categorias.AddRange(categoriasProductoVenta.Select(categoriaProductoVenta => new Categoria
+            List<UnidadMedida> listaUnidades = new List<UnidadMedida>();
+            ProductoDAO gestionProducto = new ProductoDAO();
+            List<UnidadesMedida> unidadesMedida = gestionProducto.RecuperarUnidadesMedida();
+
+            listaUnidades.AddRange(unidadesMedida.Select(unidad => new UnidadMedida
             {
-                Id = categoriaProductoVenta.IdCategoriaProductoVenta,
-                Nombre = categoriaProductoVenta.Nombre
+                Id = unidad.IdUnidadMedida,
+                Nombre = unidad.Nombre
             }));
 
-            categorias.AddRange(categoriasInsumo.Select(categoriaInsumo => new Categoria
-            {
-                Id = categoriaInsumo.IdCategoriaInsumo,
-                Nombre = categoriaInsumo.Nombre
-            }));
-
-            return categorias;
+            return listaUnidades;
         }
 
 
         public bool ValidarCodigoProducto(string codigoProducto)
         {
-            throw new NotImplementedException();
+            bool esCodigoUnico = false;
+
+            ProductoDAO gestionProducto = new ProductoDAO();
+            bool existeProducto = gestionProducto.ValidarCodigoProducto(codigoProducto);
+            
+            if (!existeProducto)
+            {
+                esCodigoUnico = true;
+            }
+
+            return esCodigoUnico;
         }
 
         public int GuardarProducto(Producto producto)
         {
-            throw new NotImplementedException();
+            ProductoDAO gestionProducto = new ProductoDAO();
+
+            Insumo insumo = producto.Insumo;
+            ProductoVenta productoVenta = producto.ProductoVenta;
+
+            Productos productoNuevo = AuxiliarConversorDTOADAO.ConvertirProductoAProductos(producto);
+
+            int filasAfectadas = gestionProducto.GuardarProducto(productoNuevo);
+
+            if (filasAfectadas > 0)
+            {
+                if (insumo != null)
+                {
+                    Insumos insumoNuevo = AuxiliarConversorDTOADAO.ConvertirInsumoAInsumos(insumo);
+                    gestionProducto.GuardarInsumo(insumoNuevo);
+                }
+
+                if (productoVenta != null)
+                {
+                    ProductosVenta productoVentaNuevo = AuxiliarConversorDTOADAO.ConvertirProductoVentaAProductosVenta(productoVenta);
+                    gestionProducto.GuardarProductoVenta(productoVentaNuevo);
+                }
+            }
+
+            return filasAfectadas;
         }
 
         public List<Categoria> RecuperarCategoriasProductoVenta ()
