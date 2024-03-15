@@ -1,9 +1,12 @@
-﻿using ItaliaPizza_Cliente.Utilidades;
+﻿using ItaliaPizza_Cliente.ServicioItaliaPizza;
+using ItaliaPizza_Cliente.Utilidades;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,6 +26,12 @@ namespace ItaliaPizza_Cliente.Vistas
     /// </summary>
     public partial class RegistroProducto : Page
     {
+        private const int SELECCION_POR_DEFECTO_COMBO_BOX = 0;
+        private const string ATRIBUTO_A_MOSTRAR_COMBO_BOX = "Nombre";
+        private const string MENSAJE_CAMPO_OBLIGATORIO = "*Campo obligatorio";
+        private Byte[] _fotoBytes;
+        private string _rutaFoto;
+
         public RegistroProducto()
         {
             InitializeComponent();
@@ -37,56 +46,277 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void CargarComboBoxCategorias()
         {
-            // TODO
+            string categoriaInicial = "Selecciona una categoría";
+            Categoria[] categorias = RecuperarCategorias();
 
-            //Recuperar categorias
-            List<string> categorias = new List<string>();
-            categorias.Add("Seleccionar categoría");
-            categorias.Add("Vegetales");
-            categorias.Add("Harinas");
-            categorias.Add("Carnes");
-            cbxCategoria.ItemsSource = categorias;
-            cbxCategoria.SelectedIndex = 0;
+            Categoria categoriaDefault = new Categoria()
+            {
+                Id = SELECCION_POR_DEFECTO_COMBO_BOX,
+                Nombre = categoriaInicial
+            };
+
+            cbxCategoria.Items.Add(categoriaDefault);
+
+            if (categorias != null)
+            {
+                foreach (Categoria categoria in categorias)
+                {
+                    cbxCategoria.Items.Add(categoria);
+                }
+
+                cbxCategoria.DisplayMemberPath = ATRIBUTO_A_MOSTRAR_COMBO_BOX;
+                cbxCategoria.SelectedIndex = SELECCION_POR_DEFECTO_COMBO_BOX;
+            }
+        }
+
+        private Categoria[] RecuperarCategorias()
+        {
+            Categoria[] categorias = new Categoria[0]; 
+
+            try
+            {
+                ServicioProductosClient servicioProductosCliente = new ServicioProductosClient();
+                categorias = servicioProductosCliente.RecuperarCategorias();
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (TimeoutException ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (FaultException ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (CommunicationException ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (Exception ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+
+            return categorias;
         }
 
         private void CargarComboBoxUnidadMedida()
         {
-            // TODO
-            List<string> unidadesMedida = new List<string>();
-            unidadesMedida.Add("Seleccionar unidad medición");
-            unidadesMedida.Add("Kg");
-            unidadesMedida.Add("Lts");
-            unidadesMedida.Add("Unidad");
-            cbxUnidadMedida.ItemsSource = unidadesMedida;
-            cbxUnidadMedida.SelectedIndex = 0;
+            string unidadMedidaInicial = "Selecciona unidad medición";
+            UnidadMedida[] unidadesMedida = RecuperarUnidadesMedida();
+
+            UnidadMedida unidadDefault = new UnidadMedida()
+            {
+                Id = SELECCION_POR_DEFECTO_COMBO_BOX,
+                Nombre = unidadMedidaInicial
+            };
+
+            cbxUnidadMedida.Items.Add(unidadDefault);
+
+            if (unidadesMedida != null)
+            {
+                foreach (UnidadMedida unidad in unidadesMedida)
+                {
+                    cbxUnidadMedida.Items.Add(unidad);
+                }
+
+                cbxUnidadMedida.DisplayMemberPath = ATRIBUTO_A_MOSTRAR_COMBO_BOX;
+                cbxUnidadMedida.SelectedIndex = SELECCION_POR_DEFECTO_COMBO_BOX;
+            }
+        }
+
+        private UnidadMedida[] RecuperarUnidadesMedida()
+        {
+            UnidadMedida[] unidadesMedida = new UnidadMedida[0];
+
+            try
+            {
+                ServicioProductosClient servicioProductosCliente = new ServicioProductosClient();
+                unidadesMedida = servicioProductosCliente.RecuperarUnidadesMedida();
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (TimeoutException ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (FaultException ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (CommunicationException ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (Exception ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+
+            return unidadesMedida;
         }
 
         private void BtnGuardar_Click(object sender, RoutedEventArgs e)
         {
-            bool esRegistroValido = false;
-            bool esCodigoUnico = false;
-
             LimpiarEtiquetasError();
 
             if (ValidarSeccionRegistroHabilitada())
             {
-                esRegistroValido = ValidarRegistro();
-                esCodigoUnico = ValidarCodigoUnico();
-                
-                if (esRegistroValido && esCodigoUnico)
+                if (ValidarRegistro())
                 {
-                    GuardarProducto();
-                }
-                else
-                {
-                    Console.WriteLine("No se pudo guardar, revisa los datos ingresados");
+                    if (ValidarCodigoUnico())
+                    {
+                        GuardarProducto();
+                    }
                 }
             }
         }
 
         private void GuardarProducto()
         {
-            Console.WriteLine("Guardando producto...");
+            //TRY-CATCH
+            int filasAfectadas = -1;
+            Producto producto = GenerarProductoAGuardar();
+
+            try
+            {
+                ServicioProductosClient servicioProductosClient = new ServicioProductosClient();
+                filasAfectadas = servicioProductosClient.GuardarProducto(producto);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (TimeoutException ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (FaultException ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (CommunicationException ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (Exception ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+
+            if (filasAfectadas > 0)
+            {
+                ManejarRegistroExitoso();
+            }
+        }
+
+        private Producto GenerarProductoAGuardar()
+        {
+            Producto producto = CrearProducto();
+
+            if (chbxEsInventariado.IsChecked == true)
+            {
+                producto.EsInventariado = true;
+                producto.Insumo = CrearInsumo();
+            }
+
+            if (chbxEsProductoVenta.IsChecked == true)
+            {
+                producto.ProductoVenta = CrearProductoVenta();
+            }
+
+            return producto;
+        }
+
+        private Producto CrearProducto()
+        {
+            bool esActivo = true;
+            string codigo = tbxCodigo.Text.Trim();
+            string nombre = tbxNombre.Text.Trim();
+            string descripcion = tbxDescripcion.Text.Trim();
+            Categoria categoria = (Categoria)cbxCategoria.SelectedItem;
+
+            Producto producto = new Producto();
+            producto.Codigo = codigo;
+            producto.Nombre = nombre;
+            producto.Descripcion = descripcion;
+            producto.EsActivo = esActivo;
+
+            return producto;
+        }
+
+        private Insumo CrearInsumo()
+        {
+            string codigo = tbxCodigo.Text.Trim();
+            string cantidad = tbxCantidad.Text.Trim();
+            float cantidadInsumo = ConvertirStringAFloat(cantidad, null);
+            UnidadMedida unidadMedida = (UnidadMedida)cbxUnidadMedida.SelectedItem;
+            string costo = tbxCostoUnitario.Text.Trim();
+            float costoUnitarioInsumo = ConvertirStringAFloat(costo, null);
+            string restricciones = tbxRestricciones.Text.Trim();
+            Categoria categoria = (Categoria)cbxCategoria.SelectedItem;
+
+            Insumo insumo = new Insumo
+            {
+                Codigo = codigo,
+                Cantidad = cantidadInsumo,
+                UnidadMedida = unidadMedida,
+                CostoUnitario = costoUnitarioInsumo,
+                Restriccion = restricciones,
+                Categoria = categoria
+            };
+
+            return insumo;
+        }
+
+        private ProductoVenta CrearProductoVenta()
+        {
+            string codigo = tbxCodigo.Text.Trim();
+            string precio = tbxPrecio.Text.Trim();
+            float precioProductoVenta = ConvertirStringAFloat(precio, null);
+            Byte[] foto = _fotoBytes;
+            Categoria categoria = (Categoria)cbxCategoria.SelectedItem;
+
+            ProductoVenta productoVenta = new ProductoVenta
+            {
+                Codigo = codigo,
+                Precio = precioProductoVenta,
+                Categoria = categoria,
+                Foto = foto
+            };
+
+            return productoVenta;
+        }
+
+        private void ManejarRegistroExitoso()
+        {
+            string tituloExito = "Producto registrado";
+            string mensajeExito = "Producto registrado con éxito";
+
+            LimpiarCampos();
+
+            MessageBoxResult result = System.Windows.MessageBox.Show(
+                    mensajeExito,
+                    tituloExito, MessageBoxButton.OK);
         }
 
         private void LimpiarEtiquetasError()
@@ -113,7 +343,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void MostrarErrorCampoObligatorio(Label lbError)
         {
-            MostrarEtiquetaError(lbError, "*Campo obligatorio");
+            MostrarEtiquetaError(lbError, MENSAJE_CAMPO_OBLIGATORIO);
         }
 
         private bool ValidarRegistro()
@@ -174,6 +404,7 @@ namespace ItaliaPizza_Cliente.Vistas
         private bool ValidarFormatoCodigo()
         {
             bool esCodigoProductoValido = false;
+            string mensajeErrorCodigo = "Código no válido";
 
             string codigoProducto = tbxCodigo.Text.Trim();
             esCodigoProductoValido = UtilidadValidacion.EsCodigoProductoValido(codigoProducto);
@@ -185,7 +416,7 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             else if (!esCodigoProductoValido)
             {
-                MostrarEtiquetaError(lbErrorCodigo, "Datos no válidos");
+                MostrarEtiquetaError(lbErrorCodigo, mensajeErrorCodigo);
             }
 
             return esCodigoProductoValido;
@@ -193,18 +424,51 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private bool ValidarCodigoUnico()
         {
-            bool esCodigoUnico = true; //cambiar a false
-            //TODO: Ir a servicio
+            //TRY-CATCH
+            bool esCodigoUnico = false;
+
+            string codigoProducto = tbxCodigo.Text.Trim();
+
+            try
+            {
+                ServicioProductosClient servicioProductosClient = new ServicioProductosClient();
+                esCodigoUnico = servicioProductosClient.ValidarCodigoProducto(codigoProducto);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (TimeoutException ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (FaultException ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (CommunicationException ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (Exception ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
 
             return esCodigoUnico;
         }
 
         private bool ValidarNombreProducto()
         {
-            bool esNombreProductoValido = false;
-
+            string mensajeErrorNombre = "Datos no válidos";
             string nombreProducto = tbxNombre.Text.Trim();
-            esNombreProductoValido = UtilidadValidacion.EsNombreProductoValido(nombreProducto);
+
+            bool esNombreProductoValido = UtilidadValidacion.EsNombreProductoValido(nombreProducto);
 
             if (string.IsNullOrEmpty(nombreProducto))
             {
@@ -213,7 +477,7 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             else if (!esNombreProductoValido)
             {
-                MostrarEtiquetaError(lbErrorNombre, "Datos no válidos");
+                MostrarEtiquetaError(lbErrorNombre, mensajeErrorNombre);
             }
 
             return esNombreProductoValido;
@@ -221,12 +485,9 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private bool ValidarCategoriaProducto()
         {
-            bool esCategoriaValida = false;
+            bool esCategoriaValida = true;
 
-            if (cbxCategoria.SelectedIndex > 0)
-            {
-                esCategoriaValida = true;
-            } else
+            if (cbxCategoria.SelectedIndex <= SELECCION_POR_DEFECTO_COMBO_BOX)
             {
                 MostrarErrorCampoObligatorio(lbErrorCategoria);
                 esCategoriaValida = false;
@@ -237,10 +498,10 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private bool ValidarDescripcionProducto()
         {
-            bool esDescripcionValida = false;
+            string mensajeErrorDescripcion = "Datos no válidos";
             string descripcionProducto = tbxDescripcion.Text.Trim();
 
-            esDescripcionValida = UtilidadValidacion.EsDescripcionProductoValida(descripcionProducto);
+            bool esDescripcionValida = UtilidadValidacion.EsDescripcionProductoValida(descripcionProducto);
 
             if (string.IsNullOrEmpty(descripcionProducto))
             {
@@ -249,7 +510,7 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             else if (!esDescripcionValida)
             {
-                MostrarEtiquetaError(lbErrorDescripcion, "Datos no válidos");
+                MostrarEtiquetaError(lbErrorDescripcion, mensajeErrorDescripcion);
             }
 
             return esDescripcionValida;
@@ -284,13 +545,9 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private bool ValidarUnidadMedidaInsumo()
         {
-            bool esUnidadMedidaValida = false;
+            bool esUnidadMedidaValida = true;
 
-            if (cbxUnidadMedida.SelectedIndex > 0)
-            {
-                esUnidadMedidaValida = true;
-            }
-            else
+            if (cbxUnidadMedida.SelectedIndex <= SELECCION_POR_DEFECTO_COMBO_BOX)
             {
                 MostrarErrorCampoObligatorio(lbErrorUnidadMedida);
                 esUnidadMedidaValida = false;
@@ -303,25 +560,25 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             bool esCantidadValida = true;
 
+            string medidaEnteros = "Unidad";
+            string mensajeErrorCantidad = "Datos no válidos. Debe ser positiva la cantidad";
+
             string cantidad = tbxCantidad.Text.Trim();
             float cantidadInsumo = ConvertirStringAFloat(cantidad, lbErrorCantidad);
+            string itemSeleccionado = cbxUnidadMedida.SelectedItem.ToString();
 
             if (string.IsNullOrEmpty(cantidad))
             {
                 MostrarErrorCampoObligatorio(lbErrorCantidad);
                 esCantidadValida = false;
             }
-            else if (cantidadInsumo >= 0)
+            else if (cantidadInsumo >= 0 && itemSeleccionado == medidaEnteros)
             {
-                // TODO: Cambiar le toString por getName cuando se tenga el objeto producto:
-                if (cbxUnidadMedida.SelectedItem.ToString() == "Unidad")
-                {
-                    esCantidadValida = ValidarCantidadUnitaria(cantidadInsumo);
-                }
+                 esCantidadValida = ValidarCantidadUnitaria(cantidadInsumo);
             }
             else
             {
-                MostrarEtiquetaError(lbErrorCantidad, "Datos no válidos. Debe ser positiva la cantidad");
+                MostrarEtiquetaError(lbErrorCantidad, mensajeErrorCantidad);
                 esCantidadValida = false;
             }
 
@@ -330,31 +587,34 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private float ConvertirStringAFloat(string numeroEnString, Label lbError)
         {
-            float numero = -1;
+            float numeroConvertido = -1;
 
             try
             {
-                numero = Convert.ToSingle(numeroEnString);
+                numeroConvertido = Convert.ToSingle(numeroEnString);
             }
             catch (FormatException)
             {
-                MostrarEtiquetaError(lbError, "Solo puede incluir números. Ej. 2, .5");
+                string mensajeErrorFormato = "Solo puede incluir números. Ej. 2, .5";
+                MostrarEtiquetaError(lbError, mensajeErrorFormato);
             }
             catch (OverflowException)
             {
-                MostrarEtiquetaError(lbError, "Cantidad no permitida, por favor corrigelo.");
+                string mensajeErrorOverFlow = "Cantidad no permitida, por favor corrigelo.";
+                MostrarEtiquetaError(lbError, mensajeErrorOverFlow);
             }
 
-            return numero;
+            return numeroConvertido;
         }
 
         private bool ValidarCantidadUnitaria(float cantidadInsumo)
         {
             bool esCantidadValida = true;
-            
+            string mensajeErrorCantidad = "Datos no válidos. Deben ser números enteros";
+
             if (cantidadInsumo % 1 != 0)
             {
-                MostrarEtiquetaError(lbErrorCantidad, "Datos no válidos. Deben ser números enteros");
+                MostrarEtiquetaError(lbErrorCantidad, mensajeErrorCantidad);
                 esCantidadValida = false;
             }
             
@@ -363,7 +623,9 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private bool ValidarCostoUnitarioInsumo()
         {
-            bool esCostoValido = false;
+            bool esCostoValido = true;
+            string mensajeErrorCosto = "Costo no válido. Debe ser número positivo";
+            float costoMinimoValido = 0;
 
             string costo = tbxCostoUnitario.Text.Trim();
             float costoUnitario = ConvertirStringAFloat(costo, lbErrorCostoUnitario);
@@ -373,14 +635,10 @@ namespace ItaliaPizza_Cliente.Vistas
                 MostrarErrorCampoObligatorio(lbErrorCostoUnitario);
                 esCostoValido = false;
             }
-            else if (costoUnitario >= 0)
+            else if (costoUnitario <= costoMinimoValido)
             {
-                esCostoValido = true;
-            } 
-            else
-            {
-                MostrarEtiquetaError(lbErrorCostoUnitario, "Datos no válidos. Debe ser positivo el número");
                 esCostoValido = false;
+                MostrarEtiquetaError(lbErrorCostoUnitario, mensajeErrorCosto);
             }
 
             return esCostoValido;
@@ -388,14 +646,14 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private bool ValidarRestriccionInsumo()
         {
-            bool esRestriccionValida = false;
-            
+            string mensajeErrorRestriccion = "Restricciones no válidas";
+
             string restriccion = tbxRestricciones.Text.Trim();
-            esRestriccionValida = UtilidadValidacion.esRestriccionInsumoValida(restriccion);
+            bool esRestriccionValida = UtilidadValidacion.esRestriccionInsumoValida(restriccion);
 
             if (!esRestriccionValida)
             {
-                MostrarEtiquetaError(lbErrorRestricciones, "Datos no válidos.");
+                MostrarEtiquetaError(lbErrorRestricciones, mensajeErrorRestriccion);
             }
 
             return esRestriccionValida;
@@ -404,13 +662,13 @@ namespace ItaliaPizza_Cliente.Vistas
         private bool ValidarDatosProductoVenta()
         {
             bool esProductoVentaValido = true;
-            //TODO: REVISAR EL VALIDAR FOTO
+
             if (!ValidarPrecioProductoVenta())
             {
                 esProductoVentaValido = false;
             }
             
-            if(!ValidarFoto())
+            if(!ValidarTamañoImagen())
             {
                 esProductoVentaValido = false;
             }
@@ -420,30 +678,24 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private bool ValidarPrecioProductoVenta()
         {
-            bool esPrecioValido = false;
+            bool esPrecioValido = true;
+            string mensajeErrorPrecio = "Precio no válido.";
             string precio = tbxPrecio.Text.Trim();
             float precioProductoVenta = ConvertirStringAFloat(precio, lbErrorPrecio);
+            float precioMinimoValido = 0;
 
             if (string.IsNullOrEmpty(precio))
             {
                 MostrarErrorCampoObligatorio(lbErrorPrecio);
+                esPrecioValido = false;
             }
-            else if (precioProductoVenta > 0)
+            else if (precioProductoVenta <= precioMinimoValido)
             {
-                esPrecioValido = true;
-            } 
-            else
-            {
-                MostrarEtiquetaError(lbErrorPrecio, "Datos no válidos.");
+                MostrarEtiquetaError(lbErrorPrecio, mensajeErrorPrecio);
+                esPrecioValido = false;
             }
 
             return esPrecioValido;
-        }
-
-        // TODO ///////////////////////////////////////////////////////////////////////////////////
-        private bool ValidarFoto()
-        {
-            return true;
         }
 
         private bool ValidarSeccionRegistroHabilitada()
@@ -457,9 +709,12 @@ namespace ItaliaPizza_Cliente.Vistas
             else
             {
                 // TODO: Ventana emergente personalizada
+                string tituloError = "Habilita una sección";
+                string mensajeError = "Debes indicar si el producto está destinado a la venta o si es inventariado";
+
                 MessageBoxResult result = System.Windows.MessageBox.Show(
-                    "Debes indicar si el producto está destinado a la venta o si es inventariado",
-                    "Habilita una sección", MessageBoxButton.OK);
+                    mensajeError,
+                    tituloError, MessageBoxButton.OK);
             }
 
             return haySeccionHabilitada;
@@ -467,12 +722,15 @@ namespace ItaliaPizza_Cliente.Vistas
        
         private void BtnCancelar_Click(object sender, RoutedEventArgs e)
         {
+            string tituloCancelar = "Cancelar Registro";
+            string mensajeCancelar = "¿Estás seguro de que deseas cancelar el registro del producto?";
+
             MessageBoxResult result = System.Windows.MessageBox.Show(
-                    "“¿Estás seguro de que deseas cancelar el registro del producto?",
-                    "Cancelar Registro", MessageBoxButton.YesNo);
-            if (result== MessageBoxResult.Yes)
+                    mensajeCancelar,
+                    tituloCancelar, MessageBoxButton.YesNo);
+
+            if (result == MessageBoxResult.Yes)
             {
-                Console.WriteLine("Go back and clear");
                 LimpiarCampos();
                 //NavigationService.GoBack();
             }
@@ -483,13 +741,13 @@ namespace ItaliaPizza_Cliente.Vistas
             tbxCodigo.Text = string.Empty;
             tbxNombre.Text = string.Empty;
             tbxDescripcion.Text = string.Empty;
-            cbxCategoria.SelectedIndex = 0;
+            cbxCategoria.SelectedIndex = SELECCION_POR_DEFECTO_COMBO_BOX;
 
             chbxEsInventariado.IsChecked = false;
             tbxCantidad.Text = string.Empty;
             tbxCostoUnitario.Text = string.Empty;
             tbxRestricciones.Text = string.Empty;
-            cbxUnidadMedida.SelectedIndex = 0;
+            cbxUnidadMedida.SelectedIndex = SELECCION_POR_DEFECTO_COMBO_BOX;
 
             chbxEsProductoVenta.IsChecked = false;
             tbxPrecio.Text = string.Empty;
@@ -530,15 +788,100 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void RectangleFoto_Click(object sender, MouseButtonEventArgs e)
         {
-            Console.WriteLine("Clicked");
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Imágenes|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
+            string filtroArchivosImagenes = "Imágenes|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
+            OpenFileDialog abrirExploradorArchivos = new OpenFileDialog();
+            abrirExploradorArchivos.Filter = filtroArchivosImagenes;
 
-            if (openFileDialog.ShowDialog() == true)
+            try
             {
-                string selectedFilePath = openFileDialog.FileName;
-                // TODO: Guardar imagen
+                if (abrirExploradorArchivos.ShowDialog() == true)
+                {
+                    _rutaFoto = abrirExploradorArchivos.FileName;
+
+                    if (_rutaFoto != null)
+                    {
+                        BitmapImage mapaBits = new BitmapImage(new Uri(_rutaFoto));
+                        if (ValidarTamañoImagen())
+                        {
+                            rectangleFotoProducto.Fill = new ImageBrush(mapaBits);
+                            _fotoBytes = File.ReadAllBytes(_rutaFoto);
+                        }
+                    }
+                }
             }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (OutOfMemoryException ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+            }
+        }
+
+        private bool ValidarTamañoImagen()
+        {
+            int tamañoMaximoKB = 400;
+            bool esTamañoValido = false;
+
+            try
+            {
+                if (_rutaFoto == null)
+                {
+                    string tituloErrorImagen = "Error al cargar la imagen";
+                    string mensajeErrorImagen = "Ocurrió un error al cargar la imagen";
+                    MessageBoxResult result = System.Windows.MessageBox.Show(
+                    mensajeErrorImagen,
+                    tituloErrorImagen, MessageBoxButton.OK);
+
+                    esTamañoValido = false;
+                }
+                else
+                {
+                    using (FileStream flujoArchivo = new FileStream(_rutaFoto, FileMode.Open, FileAccess.Read))
+                    {
+                        int tamañoenBytes = (int)flujoArchivo.Length;
+                        int tamañoEnKB = tamañoenBytes / 1024;
+
+                        if (tamañoEnKB <= tamañoMaximoKB)
+                        {
+                            esTamañoValido = true;
+                        }
+                        else
+                        {
+                            string tituloErrorImagen = "Tamaño demasiado grande";
+                            string mensajeErrorImagen = "El tamaño de la imagen es muy grande, debe ser menor o igual a " 
+                                + tamañoMaximoKB + " KB";
+
+                            MessageBoxResult result = System.Windows.MessageBox.Show(
+                            mensajeErrorImagen,
+                            tituloErrorImagen, MessageBoxButton.OK);
+
+                            esTamañoValido = false;
+                        }
+                    }
+                }
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+                esTamañoValido = false;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+                esTamañoValido = false;
+            }
+
+            return esTamañoValido;
         }
     }
 }

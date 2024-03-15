@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfCategoria">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Categoria" nillable="true" type="tns:Categoria" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCategoria" nillable="true" type="tns:ArrayOfCategoria" />
   <xs:complexType name="Categoria">
     <xs:sequence>
       <xs:element minOccurs="0" name="Id" type="xs:int" />
@@ -7,10 +13,49 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Categoria" nillable="true" type="tns:Categoria" />
+  <xs:complexType name="ArrayOfUnidadMedida">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UnidadMedida" nillable="true" type="tns:UnidadMedida" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUnidadMedida" nillable="true" type="tns:ArrayOfUnidadMedida" />
+  <xs:complexType name="UnidadMedida">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UnidadMedida" nillable="true" type="tns:UnidadMedida" />
   <xs:complexType name="Producto">
     <xs:sequence>
-      <xs:element minOccurs="0" name="Codigo" type="xs:int" />
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EsActivo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsInventariado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Insumo" nillable="true" type="tns:Insumo" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProductoVenta" nillable="true" type="tns:ProductoVenta" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Producto" nillable="true" type="tns:Producto" />
+  <xs:complexType name="Insumo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Cantidad" type="xs:float" />
+      <xs:element minOccurs="0" name="Categoria" nillable="true" type="tns:Categoria" />
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CostoUnitario" type="xs:float" />
+      <xs:element minOccurs="0" name="Restriccion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnidadMedida" nillable="true" type="tns:UnidadMedida" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Insumo" nillable="true" type="tns:Insumo" />
+  <xs:complexType name="ProductoVenta">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Categoria" nillable="true" type="tns:Categoria" />
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Foto" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="Precio" type="xs:float" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProductoVenta" nillable="true" type="tns:ProductoVenta" />
 </xs:schema>

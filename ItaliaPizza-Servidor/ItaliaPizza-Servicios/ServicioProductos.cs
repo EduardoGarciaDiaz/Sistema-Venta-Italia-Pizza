@@ -1,4 +1,6 @@
 ﻿using ItaliaPizza_Contratos.DTOs;
+using ItaliaPizza_DataAccess;
+using ItaliaPizza_Servicios.Auxiliares;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,19 +16,77 @@ namespace ItaliaPizza_Servicios
             throw new NotImplementedException();
         }
 
-        public int GuardarProducto(Producto producto)
+        public List<Categoria> RecuperarCategorias()
         {
-            throw new NotImplementedException();
+            List<Categoria> categorias = new List<Categoria>();
+            ProductoDAO gestionProducto = new ProductoDAO();
+
+            List<CategoriasInsumo> categoriasInsumo = gestionProducto.RecuperarCategoriasInsumo();
+            List<CategoriasProductoVenta> categoriasProductoVenta = gestionProducto.RecuperarCategoriasProductoVenta();
+
+            categorias = AuxiliarUnificacionDatos.UnificarListaCategorias(categorias, categoriasProductoVenta, categoriasInsumo);
+
+            return categorias;
         }
 
-        public Categoria RecuperarCategorias()
+        public List<UnidadMedida> RecuperarUnidadesMedida()
         {
-            throw new NotImplementedException();
+            List<UnidadMedida> listaUnidades = new List<UnidadMedida>();
+            ProductoDAO gestionProducto = new ProductoDAO();
+            List<UnidadesMedida> unidadesMedida = gestionProducto.RecuperarUnidadesMedida();
+
+            listaUnidades.AddRange(unidadesMedida.Select(unidad => new UnidadMedida
+            {
+                Id = unidad.IdUnidadMedida,
+                Nombre = unidad.Nombre
+            }));
+
+            return listaUnidades;
         }
+
 
         public bool ValidarCodigoProducto(string codigoProducto)
         {
-            throw new NotImplementedException();
+            bool esCodigoUnico = false;
+
+            ProductoDAO gestionProducto = new ProductoDAO();
+            bool existeProducto = gestionProducto.ValidarCodigoProducto(codigoProducto);
+            
+            if (!existeProducto)
+            {
+                esCodigoUnico = true;
+            }
+
+            return esCodigoUnico;
+        }
+
+        public int GuardarProducto(Producto producto)
+        {
+            ProductoDAO gestionProducto = new ProductoDAO();
+
+            Insumo insumo = producto.Insumo;
+            ProductoVenta productoVenta = producto.ProductoVenta;
+
+            Productos productoNuevo = AuxiliarConversorDTOADAO.ConvertirProductoAProductos(producto);
+
+            int filasAfectadas = gestionProducto.GuardarProducto(productoNuevo);
+
+            if (filasAfectadas > 0)
+            {
+                if (insumo != null)
+                {
+                    Insumos insumoNuevo = AuxiliarConversorDTOADAO.ConvertirInsumoAInsumos(insumo);
+                    gestionProducto.GuardarInsumo(insumoNuevo);
+                }
+
+                if (productoVenta != null)
+                {
+                    ProductosVenta productoVentaNuevo = AuxiliarConversorDTOADAO.ConvertirProductoVentaAProductosVenta(productoVenta);
+                    gestionProducto.GuardarProductoVenta(productoVentaNuevo);
+                }
+            }
+
+            return filasAfectadas;
         }
     }
 }

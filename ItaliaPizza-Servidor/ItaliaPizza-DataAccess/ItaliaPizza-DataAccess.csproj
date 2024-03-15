@@ -105,6 +105,7 @@
     <Compile Include="Pedidos.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProductoDAO.cs" />
     <Compile Include="Productos.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>

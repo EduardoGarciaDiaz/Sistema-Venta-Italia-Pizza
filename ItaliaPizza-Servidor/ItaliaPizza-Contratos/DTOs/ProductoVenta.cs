@@ -2,19 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ItaliaPizza_Contratos.DTOs
 {
     [DataContract]
-    public class Categoria
+    public class ProductoVenta
     {
         [DataMember]
-        public int Id { get; set; }
+        public string Codigo { get; set; }
 
         [DataMember]
-        public string Nombre { get; set; }
+        public float Precio { get; set; }
+
+        [DataMember]
+        public Byte[] Foto { get; set; }
+
+        [DataMember]
+        public Categoria Categoria { get; set; }
     }
 }
