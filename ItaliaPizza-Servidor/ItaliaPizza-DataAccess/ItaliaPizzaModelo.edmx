@@ -157,7 +157,7 @@
             <PropertyRef Name="IdRecetaInsumo" />
           </Key>
           <Property Name="IdRecetaInsumo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CantidadInsumo" Type="int" />
+          <Property Name="CantidadInsumo" Type="float" />
           <Property Name="IdReceta" Type="int" />
           <Property Name="CodigoProducto" Type="nvarchar" MaxLength="15" />
         </EntityType>
@@ -769,7 +769,7 @@
             <PropertyRef Name="IdRecetaInsumo" />
           </Key>
           <Property Name="IdRecetaInsumo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CantidadInsumo" Type="Int32" />
+          <Property Name="CantidadInsumo" Type="Double" />
           <Property Name="IdReceta" Type="Int32" />
           <Property Name="CodigoProducto" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Insumos" Relationship="Self.FK__RecetasIn__Codig__5AEE82B9" FromRole="RecetasInsumos" ToRole="Insumos" />

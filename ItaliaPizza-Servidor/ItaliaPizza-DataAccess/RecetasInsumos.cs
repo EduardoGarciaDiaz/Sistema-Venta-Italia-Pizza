@@ -15,7 +15,7 @@ namespace ItaliaPizza_DataAccess
     public partial class RecetasInsumos
     {
         public int IdRecetaInsumo { get; set; }
-        public Nullable<int> CantidadInsumo { get; set; }
+        public Nullable<double> CantidadInsumo { get; set; }
         public Nullable<int> IdReceta { get; set; }
         public string CodigoProducto { get; set; }
     
