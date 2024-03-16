@@ -12,21 +12,21 @@
 
     <Viewbox>
         <Grid Height="800" Width="1300">
-            <uc:BarraDeBusqueda x:Name="BarraBusquedaProductos" Margin="28,22,722,731" Width="550"/>
+            <uc:BarraDeBusqueda x:Name="BarraBusquedaProductos" Margin="28,12,722,741" Width="550"/>
             <Label x:Name="LblMensajeAdvertenciaProducto" Margin="32,65,862,706" Foreground="#FFB35353" Content=""/>
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" Margin="14,191,492,21">
                 <StackPanel x:Name="SkpContenedorProductos" Orientation="Vertical">
 
                 </StackPanel>
             </ScrollViewer>
-            <Border BorderBrush="Black" Margin="29,96,600,659" Background="White" CornerRadius="10,10,10,10">
+            <Border BorderBrush="Black" Margin="29,80,600,675" Background="White" CornerRadius="10,10,10,10">
                 <ScrollViewer VerticalScrollBarVisibility="Disabled" Margin="-1,-1,1,1">
                     <StackPanel x:Name="SkpCategoriasProductoVenta" Orientation="Horizontal">
                         <Label Content="Todas" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="10" MouseLeftButtonDown="LblTodasCategorias_MouseLeftButtonDown" Foreground="#FFD6B400"/>
                     </StackPanel>
                 </ScrollViewer>
             </Border>
-            <Label Content="Elegir producto" HorizontalAlignment="Left" Margin="31,147,0,0" VerticalAlignment="Top" FontSize="18"/>
+            <Label Content="Elegir producto" HorizontalAlignment="Left" Margin="31,139,0,0" VerticalAlignment="Top" FontSize="18"/>
             <Label x:Name="LblProductoNoDisponible" Margin="270,151,502,620" Foreground="#FFB35353" Content="El producto seleccionado no se encuentra disponible o la existencia de insumos es insuficiente." HorizontalContentAlignment="Right" Visibility="Collapsed"/>
             <Border BorderBrush="Black" Margin="844,5,9,6" Background="White" CornerRadius="10,10,10,10">
                 <Label Content="Pedido actual" Margin="16,0,307,753" FontWeight="Bold" FontSize="16" Height="33" VerticalAlignment="Bottom"/>

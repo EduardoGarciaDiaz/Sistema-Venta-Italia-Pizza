@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -55,16 +56,45 @@ namespace ItaliaPizza_Cliente.Vistas
             this.BarraBusquedaClientes.Lista_SelectionChanged_EventHandler += ListaSelectionChanged;
             this.BarraBusquedaProductos.ImgBuscarClicked += ImgBuscarProductosClicked;
             this.BarraBusquedaProductos.TxtBusquedaChanged_EventHandler += TxtBusquedaProductoChanged;
-
-            List<Categoria> categoriasProductoVenta = new ServicioProductosClient().RecuperarCategoriasProductoVenta().ToList();
-            MostrarCategoriasProductoVenta(categoriasProductoVenta);
-            _productosVenta = new ServicioProductosClient().RecuperarProductosVenta().ToList();
-            MostrarProductosVenta(_productosVenta);
-            MostrarCantidades();
-
-            _tiposServicio = new ServicioPedidosClient().RecuperarTiposServicio().ToList();
-            _tipoServicioSeleccionado = _tiposServicio.ElementAt((int)EnumTiposServicio.EnEstablecimiento);
             _clienteSeleccionado = null;
+
+            ServicioProductosClient servicioProductosClient = new ServicioProductosClient();
+            ServicioPedidosClient servicioPedidosClient = new ServicioPedidosClient();
+            try
+            {
+                List<Categoria> categoriasProductoVenta = servicioProductosClient.RecuperarCategoriasProductoVenta().ToList();
+                MostrarCategoriasProductoVenta(categoriasProductoVenta);
+                _productosVenta = servicioProductosClient.RecuperarProductosVenta().ToList();
+                MostrarProductosVenta(_productosVenta);
+                _tiposServicio = servicioPedidosClient.RecuperarTiposServicio().ToList();
+                _tipoServicioSeleccionado = _tiposServicio.ElementAt((int)EnumTiposServicio.EnEstablecimiento);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (TimeoutException ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (FaultException ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (CommunicationException ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (Exception ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            MostrarCantidades();
     }
 
         public void MostrarCategoriasProductoVenta(List<Categoria> categorias)
@@ -128,18 +158,47 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             else
             {
-                productoDisponibleParaVenta = new ServicioProductosClient().ValidarDisponibilidadDeProducto(codigoProducto, 1);
-                if (productoDisponibleParaVenta)
+                try
                 {
-                    ProductoVentaPedidos productoSeleccionado = _productosVenta.Where(producto => producto.Codigo == codigoProducto).FirstOrDefault();
-                    _productosEnPedido.Add(productoSeleccionado.Codigo, 1);
-                    MostrarDatosProductoSeleccionado(productoSeleccionado);
-                    CalcularCantidades();
-                    MostrarCantidades();
+                    ServicioProductosClient servicioProductosClient = new ServicioProductosClient();
+                    productoDisponibleParaVenta = servicioProductosClient.ValidarDisponibilidadDeProducto(codigoProducto, 1);
+                    if (productoDisponibleParaVenta)
+                    {
+                        ProductoVentaPedidos productoSeleccionado = _productosVenta.Where(producto => producto.Codigo == codigoProducto).FirstOrDefault();
+                        _productosEnPedido.Add(productoSeleccionado.Codigo, 1);
+                        MostrarDatosProductoSeleccionado(productoSeleccionado);
+                        CalcularCantidades();
+                        MostrarCantidades();
+                    }
+                    else
+                    {
+                        MostrarLabelDuranteSegundos(LblProductoNoDisponible, 2);
+                    }
                 }
-                else
+                catch (EndpointNotFoundException ex)
                 {
-                    MostrarLabelDuranteSegundos(LblProductoNoDisponible, 2);
+                    // TODO: Manejar excepcion
+                    Console.WriteLine(ex.StackTrace);
+                }
+                catch (TimeoutException ex)
+                {
+                    // TODO: Manejar excepcion
+                    Console.WriteLine(ex.StackTrace);
+                }
+                catch (FaultException ex)
+                {
+                    // TODO: Manejar excepcion
+                    Console.WriteLine(ex.StackTrace);
+                }
+                catch (CommunicationException ex)
+                {
+                    // TODO: Manejar excepcion
+                    Console.WriteLine(ex.StackTrace);
+                }
+                catch (Exception ex)
+                {
+                    // TODO: Manejar excepcion
+                    Console.WriteLine(ex.StackTrace);
                 }
             }
         }
@@ -148,18 +207,46 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             int cantidadActualProductos = _productosEnPedido[codigoProducto];
             int cantidadNuevaRequeridaProductos = cantidadActualProductos + 1;
-            bool productoDisponibleParaVenta = new ServicioProductosClient()
-                .ValidarDisponibilidadDeProducto(codigoProducto, cantidadNuevaRequeridaProductos);
-            if (productoDisponibleParaVenta)
+            ServicioProductosClient servicioProductosClient = new ServicioProductosClient();
+            try
             {
-                _productosEnPedido[codigoProducto]++;
-                ActualizarEnInterfazCantidadRequeridaProductos(codigoProducto);
-                CalcularCantidades();
-                MostrarCantidades();
+                bool productoDisponibleParaVenta = servicioProductosClient.ValidarDisponibilidadDeProducto(codigoProducto, cantidadNuevaRequeridaProductos);
+                if (productoDisponibleParaVenta)
+                {
+                    _productosEnPedido[codigoProducto]++;
+                    ActualizarEnInterfazCantidadRequeridaProductos(codigoProducto);
+                    CalcularCantidades();
+                    MostrarCantidades();
+                }
+                else
+                {
+                    MostrarLabelDuranteSegundos(LblProductoNoDisponible, 2);
+                }
             }
-            else
+            catch (EndpointNotFoundException ex)
             {
-                MostrarLabelDuranteSegundos(LblProductoNoDisponible, 2);
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (TimeoutException ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (FaultException ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (CommunicationException ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (Exception ex)
+            {
+                // TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
             }
         }
 
@@ -223,21 +310,49 @@ namespace ItaliaPizza_Cliente.Vistas
             string cantidadIngresada = elementoPedido.TbxCantidadProducto.Text;
             if (!string.IsNullOrWhiteSpace(cantidadIngresada))
             {
-                bool productoDisponible = new ServicioProductosClient()
-                    .ValidarDisponibilidadDeProducto(elementoPedido.ProductoVentaPedidos.Codigo, int.Parse(elementoPedido.TbxCantidadProducto.Text));
-                if (productoDisponible)
+                ServicioProductosClient servicioProductosClient = new ServicioProductosClient();
+                try
                 {
-                    _productosEnPedido[elementoPedido.ProductoVentaPedidos.Codigo] = int.Parse(cantidadIngresada);
-                    elementoPedido.LblMensajeInsumosInsuficientes.Visibility = Visibility.Collapsed;
-                    CalcularCantidades();
-                    MostrarCantidades();
+                    bool productoDisponible = servicioProductosClient.ValidarDisponibilidadDeProducto(elementoPedido.ProductoVentaPedidos.Codigo, int.Parse(elementoPedido.TbxCantidadProducto.Text));
+                    if (productoDisponible)
+                    {
+                        _productosEnPedido[elementoPedido.ProductoVentaPedidos.Codigo] = int.Parse(cantidadIngresada);
+                        elementoPedido.LblMensajeInsumosInsuficientes.Visibility = Visibility.Collapsed;
+                        CalcularCantidades();
+                        MostrarCantidades();
+                    }
+                    else
+                    {
+                        elementoPedido.LblMensajeInsumosInsuficientes.Visibility = Visibility.Visible;
+                        _productosEnPedido[elementoPedido.ProductoVentaPedidos.Codigo] = 0;
+                        CalcularCantidades();
+                        MostrarCantidades();
+                    }
                 }
-                else
+                catch (EndpointNotFoundException ex)
                 {
-                    elementoPedido.LblMensajeInsumosInsuficientes.Visibility = Visibility.Visible;
-                    _productosEnPedido[elementoPedido.ProductoVentaPedidos.Codigo] = 0;
-                    CalcularCantidades();
-                    MostrarCantidades();
+                    // TODO: Manejar excepcion
+                    Console.WriteLine(ex.StackTrace);
+                }
+                catch (TimeoutException ex)
+                {
+                    // TODO: Manejar excepcion
+                    Console.WriteLine(ex.StackTrace);
+                }
+                catch (FaultException ex)
+                {
+                    // TODO: Manejar excepcion
+                    Console.WriteLine(ex.StackTrace);
+                }
+                catch (CommunicationException ex)
+                {
+                    // TODO: Manejar excepcion
+                    Console.WriteLine(ex.StackTrace);
+                }
+                catch (Exception ex)
+                {
+                    // TODO: Manejar excepcion
+                    Console.WriteLine(ex.StackTrace);
                 }
             }
             else
@@ -248,6 +363,8 @@ namespace ItaliaPizza_Cliente.Vistas
                 MostrarCantidades();
             }
         }
+
+
 
         private void ActualizarEnInterfazCantidadRequeridaProductos(string codigoProducto)
         {
@@ -287,19 +404,48 @@ namespace ItaliaPizza_Cliente.Vistas
             string textoIngresado = this.BarraBusquedaClientes.TxtBusqueda.Text;
             if (!ValidarCamposVacios(textoIngresado))
             {
-                _clientes.Clear();
-                List<ClienteBusqueda> clientesBusqueda = new ServicioItaliaPizza.ServicioUsuariosClient().BuscarCliente(this.BarraBusquedaClientes.TxtBusqueda.Text).ToList();
-                if (!(clientesBusqueda.Count == 0))
+                try
                 {
-                    foreach (ClienteBusqueda clienteBusqueda in clientesBusqueda)
+                    _clientes.Clear();
+                    ServicioUsuariosClient servicioUsuariosClient = new ServicioUsuariosClient();
+                    List<ClienteBusqueda> clientesBusqueda = servicioUsuariosClient.BuscarCliente(this.BarraBusquedaClientes.TxtBusqueda.Text).ToList();
+                    if (!(clientesBusqueda.Count == 0))
                     {
-                        _clientes.Add(clienteBusqueda);
+                        foreach (ClienteBusqueda clienteBusqueda in clientesBusqueda)
+                        {
+                            _clientes.Add(clienteBusqueda);
+                        }
+                        this.BarraBusquedaClientes.ListaClientes.Visibility = Visibility.Visible;
                     }
-                    this.BarraBusquedaClientes.ListaClientes.Visibility = Visibility.Visible;
-                } 
-                else
+                    else
+                    {
+                        LblMensajeAdvertenciaCliente.Content = MENSAJE_SIN_RESULTADOS_BUSQUEDA_CLIENTE;
+                    }
+                }
+                catch (EndpointNotFoundException ex)
                 {
-                    LblMensajeAdvertenciaCliente.Content = MENSAJE_SIN_RESULTADOS_BUSQUEDA_CLIENTE;
+                    // TODO: Manejar excepcion
+                    Console.WriteLine(ex.StackTrace);
+                }
+                catch (TimeoutException ex)
+                {
+                    // TODO: Manejar excepcion
+                    Console.WriteLine(ex.StackTrace);
+                }
+                catch (FaultException ex)
+                {
+                    // TODO: Manejar excepcion
+                    Console.WriteLine(ex.StackTrace);
+                }
+                catch (CommunicationException ex)
+                {
+                    // TODO: Manejar excepcion
+                    Console.WriteLine(ex.StackTrace);
+                }
+                catch (Exception ex)
+                {
+                    // TODO: Manejar excepcion
+                    Console.WriteLine(ex.StackTrace);
                 }
             } else
             {

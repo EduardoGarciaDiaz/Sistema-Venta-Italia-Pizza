@@ -3,14 +3,88 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:uc="clr-namespace:ItaliaPizza_Cliente.Recursos.ControlesUsuario"
         xmlns:local="clr-namespace:ItaliaPizza_Cliente"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1300"
-        WindowStartupLocation="CenterScreen">
-
+        Title="MainWindow" Height="800" Width="1250"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        MinWidth="500">
     <Viewbox Stretch="Fill">
-        <Grid Height="800" Width="1300">
-            <Frame x:Name="frameNavigation" Grid.Column="0" Grid.ColumnSpan="3" NavigationUIVisibility="Hidden" Source="/Vistas/RegistroPedido.xaml" />
+        <Grid Height="800" Width="1250">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".06*"/>
+                <ColumnDefinition Width="0.17*"/>
+                <ColumnDefinition Width="0.06*"/>
+                <ColumnDefinition Width="0.8*"/>
+                <ColumnDefinition Width="0.06*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.07*"/>
+                <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Border Background="White"
+            CornerRadius="0,0,8,8"
+            Grid.ColumnSpan="5"
+            Grid.RowSpan="3"/>
+
+            <Border Background="#F8D72A"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    />
+
+            <Border Background="Black"
+                    Grid.Column="2"
+                    Grid.Row="0"
+                    Grid.ColumnSpan="3"/>
+
+            <Label Content="POS Italia Pizza"
+                   Grid.Row="0"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2" 
+                   HorizontalAlignment="Left" 
+                   FontSize="20" 
+                   FontWeight="Bold"
+             
+                   Padding="22,0,0,0" VerticalAlignment="Center"/>
+
+            <Image Source="/Recursos/Iconos/icono_pizza.png"
+                   Grid.Row="0"
+                   Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,14,0"/>
+
+
+            <Image Stretch="Uniform"
+                    Grid.Row="0"
+                       Grid.Column="4"
+                       Source="/Recursos/Iconos/icono_salir.png" Margin="24,3,21,16"/>
+            <Label Content="Salir"
+                   Grid.Row="0"
+                   Grid.Column="4"
+                   Foreground="White" Margin="16,20,17,173" FontSize="11" Grid.RowSpan="2"/>
+
+            <Border Grid.Row="0"
+                    Grid.Column="4" 
+                    Background="Transparent"
+                    MouseLeftButtonDown="Salir_MouseLeftButtonDown"/>
+
+            <StackPanel x:Name="SkpMenuLateral"
+                Orientation="Vertical"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.RowSpan="2">
+            </StackPanel>
+
+            <Frame x:Name="FrameNavigator"
+                Grid.Row="1" 
+               Grid.Column="1"
+               Grid.ColumnSpan="4"
+               Grid.RowSpan="2"
+               NavigationUIVisibility="Hidden"
+               Source="/Vistas/RegistroPedido.xaml"
+            />
         </Grid>
     </Viewbox>
 </Window>
