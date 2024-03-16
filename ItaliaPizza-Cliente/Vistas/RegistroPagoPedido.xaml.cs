@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ItaliaPizza_Cliente.ServicioItaliaPizza;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,7 +25,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private static readonly Regex _regex = new Regex("[^0-9.-]+");
 
-        public RegistroPagoPedido()
+        public RegistroPagoPedido(Pedido pedido)
         {
             InitializeComponent();
         }

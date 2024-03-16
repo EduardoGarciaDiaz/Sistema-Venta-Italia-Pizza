@@ -17,7 +17,8 @@ namespace ItaliaPizza_DataAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Pedidos()
         {
-            this.UsuariosOrdenes = new HashSet<UsuariosOrdenes>();
+            this.PedidosProductosVenta = new HashSet<PedidosProductosVenta>();
+            this.UsuariosPedidos = new HashSet<UsuariosPedidos>();
         }
     
         public int NumeroPedido { get; set; }
@@ -30,6 +31,8 @@ namespace ItaliaPizza_DataAccess
         public virtual EstadosPedido EstadosPedido { get; set; }
         public virtual TiposServicio TiposServicio { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UsuariosOrdenes> UsuariosOrdenes { get; set; }
+        public virtual ICollection<PedidosProductosVenta> PedidosProductosVenta { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UsuariosPedidos> UsuariosPedidos { get; set; }
     }
 }

@@ -16,5 +16,8 @@ namespace ItaliaPizza_Contratos
 
         [OperationContract]
         List<TipoServicio> RecuperarTiposServicio();
+
+        [OperationContract]
+        int GuardarPedido(Pedido pedido);
     }
 }

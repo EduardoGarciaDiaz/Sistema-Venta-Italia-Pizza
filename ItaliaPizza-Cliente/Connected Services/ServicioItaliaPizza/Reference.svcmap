@@ -22,11 +22,12 @@
     <MetadataSource Address="http://localhost:8082" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="d45d5b6e-831c-4505-90aa-6dfbdf9f4cef" SourceId="1" SourceUrl="http://localhost:8082/?xsd=xsd2" />
-    <MetadataFile FileName="ServicioItaliaPizza.wsdl" MetadataType="Wsdl" ID="c0d20c7e-9b42-4011-92dc-967e4c38af8f" SourceId="1" SourceUrl="http://localhost:8082/?wsdl" />
     <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="28fdfed7-5c0f-4081-b052-3cff71ff7f73" SourceId="1" SourceUrl="http://localhost:8082/?xsd=xsd0" />
-    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="db42017d-43e5-4983-91ab-6704842199cc" SourceId="1" SourceUrl="http://localhost:8082/?disco" />
     <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="bfb8e9ef-6df2-4265-b870-2fa393fd6fc9" SourceId="1" SourceUrl="http://localhost:8082/?xsd=xsd1" />
+    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="d45d5b6e-831c-4505-90aa-6dfbdf9f4cef" SourceId="1" SourceUrl="http://localhost:8082/?xsd=xsd2" />
+    <MetadataFile FileName="item3.xsd" MetadataType="Schema" ID="a812b400-b8f2-4ae0-838e-c0865eeb6371" SourceId="1" SourceUrl="http://localhost:8082/?xsd=xsd3" />
+    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="db42017d-43e5-4983-91ab-6704842199cc" SourceId="1" SourceUrl="http://localhost:8082/?disco" />
+    <MetadataFile FileName="ServicioItaliaPizza.wsdl" MetadataType="Wsdl" ID="c0d20c7e-9b42-4011-92dc-967e4c38af8f" SourceId="1" SourceUrl="http://localhost:8082/?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

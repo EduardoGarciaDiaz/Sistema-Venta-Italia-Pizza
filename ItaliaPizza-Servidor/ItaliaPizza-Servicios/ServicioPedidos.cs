@@ -12,6 +12,11 @@ namespace ItaliaPizza_Servicios
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant)]
     public partial class ServicioItaliaPizza : ItaliaPizza_Contratos.IServicioPedidos
     {
+        public int GuardarPedido(Pedido pedido)
+        {
+            throw new NotImplementedException();
+        }
+
         public void OperacionPedidosEjemplo()
         {
             throw new NotImplementedException();

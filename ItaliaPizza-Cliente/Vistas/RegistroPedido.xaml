@@ -22,15 +22,21 @@
             <Border BorderBrush="Black" Margin="29,96,600,659" Background="White" CornerRadius="10,10,10,10">
                 <ScrollViewer VerticalScrollBarVisibility="Disabled" Margin="-1,-1,1,1">
                     <StackPanel x:Name="SkpCategoriasProductoVenta" Orientation="Horizontal">
-                        <Label Content="Todas" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="10"/>
+                        <Label Content="Todas" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="10" MouseLeftButtonDown="LblTodasCategorias_MouseLeftButtonDown" Foreground="#FFD6B400"/>
                     </StackPanel>
                 </ScrollViewer>
             </Border>
             <Label Content="Elegir producto" HorizontalAlignment="Left" Margin="31,147,0,0" VerticalAlignment="Top" FontSize="18"/>
+            <Label x:Name="LblProductoNoDisponible" Margin="270,151,502,620" Foreground="#FFB35353" Content="El producto seleccionado no se encuentra disponible o la existencia de insumos es insuficiente." HorizontalContentAlignment="Right" Visibility="Collapsed"/>
             <Border BorderBrush="Black" Margin="844,5,9,6" Background="White" CornerRadius="10,10,10,10">
                 <Label Content="Pedido actual" Margin="16,0,307,753" FontWeight="Bold" FontSize="16" Height="33" VerticalAlignment="Bottom"/>
             </Border>
-            <Button Margin="859,734,24,16" BorderThickness="0,0,0,0" Background="#FFF8D72A" Content="Proceder al pago" FontSize="24" FontFamily="Futura Md BT">
+
+            <Border Background="#EEEEEE" Margin="1239,10,29,762" CornerRadius="5" MouseLeftButtonDown="BrdEliminarDatosPedido_MouseLeftButtonDown">
+                <Image Source="/Recursos/Iconos/icono_eliminar.png" Margin="5,6,6,6"/>
+            </Border>
+
+            <Button Margin="859,717,33,33" BorderThickness="0,0,0,0" Background="#FFF8D72A" Content="Proceder al pago" FontSize="24" FontFamily="Futura Md BT" Click="Button_Click">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="20"/>
@@ -43,7 +49,7 @@
             </Border>
             <Image Source="/Recursos/Iconos/icono_usuario.png" Margin="876,109,383,624"/>
             <Label x:Name="LblNombreCliente" Margin="930,117,46,648" FontFamily="Segoe UI Variable Display" FontSize="15"/>
-            <Button x:Name="BtnComerEstablecimiento" Content="Comer en establecimiento" Margin="862,184,212,580" BorderThickness="0,0,0,0" Background="#FFD6B400" Foreground="White" FontWeight="Bold" Click="BtnComerEstablecimiento_Click">
+            <Button x:Name="BtnComerEstablecimiento" Content="Comer en establecimiento" Margin="862,187,212,583" BorderThickness="0,0,0,0" Background="#FFD6B400" Foreground="White" FontWeight="Bold" Click="BtnComerEstablecimiento_Click">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="15"/>
@@ -58,21 +64,24 @@
                 </Button.Resources>
             </Button>
             <Label Content="Productos" Margin="862,223,293,550"/>
-            <Border CornerRadius="10" Background="#FFEEEEEE" Margin="862,253,31,160"/>
+            <Border CornerRadius="10" Background="#FFEEEEEE" Margin="862,253,31,178"/>
 
-            <ScrollViewer HorizontalScrollBarVisibility="Disabled" Margin="871,261,46,171">
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" Margin="871,261,46,189">
                 <StackPanel x:Name="SkpContenedorProductosPedido">
                 </StackPanel>
             </ScrollViewer>
-            <Label x:Name="Subtotal" Content="Subtotal" Margin="864,653,296,121"/>
-            <Label x:Name="Subtotal_Copiar" Content="IVA" Margin="865,676,295,98"/>
-            <Separator Background="#7F000000" Margin="861,688,27,78" Foreground="{x:Null}"/>
-            <Label x:Name="Subtotal_Copiar1" Content="Total" Margin="864,704,296,66" FontSize="15"/>
-            <Label x:Name="LblSubtotal" Content="" Margin="0,653,29,0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" VerticalAlignment="Top" Width="116"/>
-            <Label x:Name="LblIva" Content="" Margin="0,676,29,0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" VerticalAlignment="Top" Width="116"/>
-            <Label x:Name="LblTotal" Content="" Margin="0,704,29,0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" VerticalAlignment="Top" Width="116" FontSize="15"/>
+
+            <Label x:Name="LblMensajeSeleccionClienteProductoObligatoria" Content="Debes seleccionar un cliente e incluir al menos un producto." Margin="860,771,34,0" Foreground="#FF8F7225" FontWeight="Bold" FontSize="14" Visibility="Collapsed"/>
+
+            <Label x:Name="Subtotal" Content="Subtotal" Margin="864,631,296,143"/>
+            <Label x:Name="Subtotal_Copiar" Content="IVA" Margin="865,655,295,119"/>
+            <Separator Background="#7F000000" Margin="861,665,27,101" Foreground="{x:Null}"/>
+            <Label x:Name="Subtotal_Copiar1" Content="Total" Margin="864,682,296,88" FontSize="15"/>
+            <Label x:Name="LblSubtotal" Content="" Margin="0,632,33,0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" VerticalAlignment="Top" Width="116"/>
+            <Label x:Name="LblIva" Content="" Margin="0,655,35,0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" VerticalAlignment="Top" Width="116"/>
+            <Label x:Name="LblTotal" Content="" Margin="0,682,29,0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" VerticalAlignment="Top" Width="116" FontSize="15"/>
             <Label x:Name="LblCorreoElectronicoCliente" Margin="930,138,103,630" FontFamily="Segoe UI Variable Display" FontSize="15"/>
-            <uc:BarraDeBusquedaConLista x:Name="BarraBusquedaClientes" Margin="864,41,28,555"/>
+            <uc:BarraDeBusquedaConLista x:Name="BarraBusquedaClientes" Margin="864,49,28,549"/>
         </Grid>
     </Viewbox>
 </Page>
