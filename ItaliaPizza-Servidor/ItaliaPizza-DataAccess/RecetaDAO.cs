@@ -11,24 +11,59 @@ namespace ItaliaPizza_DataAccess
     {
         public List<Receta> RecuperarRecetas()
         {
+            // TODO: TRY-CATCH
+
             using (var context = new ItaliaPizzaEntities())
             {
                 var resultado = from p in context.Productos
-                                join r in context.Recetas on p.CodigoProducto equals r.CodigoProducto into recetasGroup
-                                from r in recetasGroup.DefaultIfEmpty()
-                                join pv in context.ProductosVenta on p.CodigoProducto equals pv.CodigoProducto into productosVentaGroup
-                                from pv in productosVentaGroup.DefaultIfEmpty()
-                                where pv != null && pv.CodigoProducto == "eee"
+                                join pv in context.ProductosVenta on p.CodigoProducto equals pv.CodigoProducto
+                                join r in context.Recetas on pv.CodigoProducto equals r.CodigoProducto
+                                where pv.CodigoProducto == r.CodigoProducto
                                 select new Receta
                                 {
                                     Nombre = p.Nombre,
                                     Codigo = p.CodigoProducto,
-                                    FotoProducto = pv != null ? pv.Foto : null
+                                    FotoProducto = pv.Foto,
+                                    Id = r.IdReceta
                                 };
 
                 return resultado.ToList();
             }
 
+        }
+
+        public List<InsumoReceta> RecuperarInsumosReceta(int idReceta)
+        {
+            // TODO: TRY-CATCH
+
+            List<InsumoReceta> insumosReceta = new List<InsumoReceta>();
+
+            if (idReceta > 0)
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    var resultado = from p in context.Productos
+                                    join i in context.Insumos on p.CodigoProducto equals i.CodigoProducto
+                                    join ri in context.RecetasInsumos on i.CodigoProducto equals ri.CodigoProducto
+                                    join r in context.Recetas on ri.IdReceta equals r.IdReceta
+                                    join um in context.UnidadesMedida on i.IdUnidadMedida equals um.IdUnidadMedida
+                                    where r.IdReceta == idReceta
+                                    select new InsumoReceta
+                                    {
+                                        Nombre = p.Nombre,
+                                        Cantidad = (double)ri.CantidadInsumo,
+                                        UnidadMedida = new UnidadMedida()
+                                        {
+                                            Id = um.IdUnidadMedida,
+                                            Nombre = um.Nombre
+                                        }
+                                    };
+
+                    return resultado.ToList();
+                }
+            }
+
+            return insumosReceta;
         }
     }
 }

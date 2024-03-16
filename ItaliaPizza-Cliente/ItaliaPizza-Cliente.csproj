@@ -68,6 +68,9 @@
     <Compile Include="Recursos\ControlesUsuario\BarraDeBusquedaConLista.xaml.cs">
       <DependentUpon>BarraDeBusquedaConLista.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Recursos\ControlesUsuario\BarraDeBusquedaRecetas.xaml.cs">
+      <DependentUpon>BarraDeBusquedaRecetas.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Recursos\ControlesUsuario\ElementoConsultaPedido.xaml.cs">
       <DependentUpon>ElementoConsultaPedido.xaml</DependentUpon>
     </Compile>
@@ -89,7 +92,7 @@
     <Compile Include="Recursos\ControlesUsuario\ElementoTicketPedido.xaml.cs">
       <DependentUpon>ElementoTicketPedido.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utilidades\ConvertidorBytesAImagen.cs" />
+    <Compile Include="Utilidades\ConvertidorBytes.cs" />
     <Compile Include="Vistas\ConsultaPedidos.xaml.cs">
       <DependentUpon>ConsultaPedidos.xaml</DependentUpon>
     </Compile>
@@ -132,6 +135,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Recursos\ControlesUsuario\BarraDeBusquedaConLista.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Recursos\ControlesUsuario\BarraDeBusquedaRecetas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -211,6 +218,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.Categoria.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.InsumoReceta.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.Receta.datasource">
