@@ -149,6 +149,35 @@
   </wsdl:message>
   <wsdl:message name="IServicioUsuarios_BuscarCliente_OutputMessage">
     <wsdl:part name="parameters" element="tns:BuscarClienteResponse" />
+  <wsdl:message name="IServicioUsuarios_GuardarEmpleado_InputMessage">
+    <wsdl:part name="parameters" element="tns:GuardarEmpleado" />
+  </wsdl:message>
+  <wsdl:message name="IServicioUsuarios_GuardarEmpleado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GuardarEmpleadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioUsuarios_GuardarCliente_InputMessage">
+    <wsdl:part name="parameters" element="tns:GuardarCliente" />
+  </wsdl:message>
+  <wsdl:message name="IServicioUsuarios_GuardarCliente_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GuardarClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioUsuarios_RecuperarTiposEmpleado_InputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperarTiposEmpleado" />
+  </wsdl:message>
+  <wsdl:message name="IServicioUsuarios_RecuperarTiposEmpleado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperarTiposEmpleadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioUsuarios_ValidarNombreDeUsuarioUnico_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarNombreDeUsuarioUnico" />
+  </wsdl:message>
+  <wsdl:message name="IServicioUsuarios_ValidarNombreDeUsuarioUnico_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarNombreDeUsuarioUnicoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioUsuarios_ValidarCorreoUnico_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarCorreoUnico" />
+  </wsdl:message>
+  <wsdl:message name="IServicioUsuarios_ValidarCorreoUnico_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarCorreoUnicoResponse" />
   </wsdl:message>
   <wsdl:portType name="IServicioOrdenesCompra">
     <wsdl:operation name="OperacionOrdenesEjemplo">
@@ -226,6 +255,26 @@
     <wsdl:operation name="BuscarCliente">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioUsuarios/BuscarCliente" message="tns:IServicioUsuarios_BuscarCliente_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioUsuarios/BuscarClienteResponse" message="tns:IServicioUsuarios_BuscarCliente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarEmpleado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioUsuarios/GuardarEmpleado" message="tns:IServicioUsuarios_GuardarEmpleado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioUsuarios/GuardarEmpleadoResponse" message="tns:IServicioUsuarios_GuardarEmpleado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCliente">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioUsuarios/GuardarCliente" message="tns:IServicioUsuarios_GuardarCliente_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioUsuarios/GuardarClienteResponse" message="tns:IServicioUsuarios_GuardarCliente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarTiposEmpleado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioUsuarios/RecuperarTiposEmpleado" message="tns:IServicioUsuarios_RecuperarTiposEmpleado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioUsuarios/RecuperarTiposEmpleadoResponse" message="tns:IServicioUsuarios_RecuperarTiposEmpleado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidarNombreDeUsuarioUnico">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioUsuarios/ValidarNombreDeUsuarioUnico" message="tns:IServicioUsuarios_ValidarNombreDeUsuarioUnico_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioUsuarios/ValidarNombreDeUsuarioUnicoResponse" message="tns:IServicioUsuarios_ValidarNombreDeUsuarioUnico_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidarCorreoUnico">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioUsuarios/ValidarCorreoUnico" message="tns:IServicioUsuarios_ValidarCorreoUnico_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioUsuarios/ValidarCorreoUnicoResponse" message="tns:IServicioUsuarios_ValidarCorreoUnico_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IServicioOrdenesCompra" type="tns:IServicioOrdenesCompra">
@@ -393,6 +442,45 @@
     </wsdl:operation>
     <wsdl:operation name="BuscarCliente">
       <soap12:operation soapAction="http://tempuri.org/IServicioUsuarios/BuscarCliente" style="document" />
+      </wsdl:operation>
+    <wsdl:operation name="GuardarEmpleado">
+      <soap12:operation soapAction="http://tempuri.org/IServicioUsuarios/GuardarEmpleado" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarCliente">
+      <soap12:operation soapAction="http://tempuri.org/IServicioUsuarios/GuardarCliente" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarTiposEmpleado">
+      <soap12:operation soapAction="http://tempuri.org/IServicioUsuarios/RecuperarTiposEmpleado" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarNombreDeUsuarioUnico">
+      <soap12:operation soapAction="http://tempuri.org/IServicioUsuarios/ValidarNombreDeUsuarioUnico" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarCorreoUnico">
+      <soap12:operation soapAction="http://tempuri.org/IServicioUsuarios/ValidarCorreoUnico" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -403,33 +491,33 @@
   </wsdl:binding>
   <wsdl:service name="ServicioItaliaPizza">
     <wsdl:port name="NetTcpBinding_IServicioOrdenesCompra" binding="tns:NetTcpBinding_IServicioOrdenesCompra">
-      <soap12:address location="net.tcp://localhost:8081/ItaliaPizza_Contratos" />
+      <soap12:address location="net.tcp://localhost:8081/ServicioItaliaPizza/ItaliaPizza_Contratos" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8081/ItaliaPizza_Contratos</wsa10:Address>
+        <wsa10:Address>net.tcp://localhost:8081/ServicioItaliaPizza/ItaliaPizza_Contratos</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="NetTcpBinding_IServicioPedidos" binding="tns:NetTcpBinding_IServicioPedidos">
-      <soap12:address location="net.tcp://localhost:8081/ItaliaPizza_Contratos" />
+      <soap12:address location="net.tcp://localhost:8081/ServicioItaliaPizza/ItaliaPizza_Contratos" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8081/ItaliaPizza_Contratos</wsa10:Address>
+        <wsa10:Address>net.tcp://localhost:8081/ServicioItaliaPizza/ItaliaPizza_Contratos</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="NetTcpBinding_IServicioProductos" binding="tns:NetTcpBinding_IServicioProductos">
-      <soap12:address location="net.tcp://localhost:8081/ItaliaPizza_Contratos" />
+      <soap12:address location="net.tcp://localhost:8081/ServicioItaliaPizza/ItaliaPizza_Contratos" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8081/ItaliaPizza_Contratos</wsa10:Address>
+        <wsa10:Address>net.tcp://localhost:8081/ServicioItaliaPizza/ItaliaPizza_Contratos</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="NetTcpBinding_IServicioRecetas" binding="tns:NetTcpBinding_IServicioRecetas">
-      <soap12:address location="net.tcp://localhost:8081/ItaliaPizza_Contratos" />
+      <soap12:address location="net.tcp://localhost:8081/ServicioItaliaPizza/ItaliaPizza_Contratos" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8081/ItaliaPizza_Contratos</wsa10:Address>
+        <wsa10:Address>net.tcp://localhost:8081/ServicioItaliaPizza/ItaliaPizza_Contratos</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="NetTcpBinding_IServicioUsuarios" binding="tns:NetTcpBinding_IServicioUsuarios">
-      <soap12:address location="net.tcp://localhost:8081/ItaliaPizza_Contratos" />
+      <soap12:address location="net.tcp://localhost:8081/ServicioItaliaPizza/ItaliaPizza_Contratos" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8081/ItaliaPizza_Contratos</wsa10:Address>
+        <wsa10:Address>net.tcp://localhost:8081/ServicioItaliaPizza/ItaliaPizza_Contratos</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
   </wsdl:service>

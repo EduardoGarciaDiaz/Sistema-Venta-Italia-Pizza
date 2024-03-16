@@ -63,9 +63,11 @@
     <Compile Include="CortesCaja.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="DireccionDAO.cs" />
     <Compile Include="Direcciones.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="EmpleadoDAO.cs" />
     <Compile Include="Empleados.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>
