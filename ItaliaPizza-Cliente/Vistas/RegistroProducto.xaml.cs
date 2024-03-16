@@ -181,6 +181,11 @@ namespace ItaliaPizza_Cliente.Vistas
                     if (ValidarCodigoUnico())
                     {
                         GuardarProducto();
+                    } 
+                    else
+                    {
+                        string mensajeErrorCodigo = "Código existente";
+                        MostrarEtiquetaError(lbErrorCodigo, mensajeErrorCodigo);
                     }
                 }
             }
@@ -576,7 +581,7 @@ namespace ItaliaPizza_Cliente.Vistas
             {
                  esCantidadValida = ValidarCantidadUnitaria(cantidadInsumo);
             }
-            else
+            else if (cantidadInsumo <= 0)
             {
                 MostrarEtiquetaError(lbErrorCantidad, mensajeErrorCantidad);
                 esCantidadValida = false;

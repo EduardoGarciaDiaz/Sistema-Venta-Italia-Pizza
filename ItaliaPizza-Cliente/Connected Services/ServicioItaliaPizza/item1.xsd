@@ -156,6 +156,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="RecuperarInsumosReceta">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idReceta" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RecuperarInsumosRecetaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="RecuperarInsumosRecetaResult" nillable="true" type="q5:ArrayOfInsumoReceta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="OperacionUsuariosEjemplo">
     <xs:complexType>
       <xs:sequence />

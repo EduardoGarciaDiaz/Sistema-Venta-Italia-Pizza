@@ -20,9 +20,23 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
     /// </summary>
     public partial class ElementoReceta : UserControl
     {
+        public EventHandler gridReceta_Click;
+        public EventHandler imgEditar_Click;
+
         public ElementoReceta()
         {
             InitializeComponent();
+        }
+
+
+        public void GridReceta_Click(object sender, RoutedEventArgs e)
+        {
+            gridReceta_Click?.Invoke(this, e);
+        }
+
+        public void ImgEditar_Click(object sender, RoutedEventArgs e)
+        {
+            imgEditar_Click?.Invoke(this, e);
         }
     }
 }

@@ -24,5 +24,19 @@ namespace ItaliaPizza_Servicios
 
             return recetas;
         }
+
+        public List<InsumoReceta> RecuperarInsumosReceta(int idReceta)
+        {
+            List<InsumoReceta> insumosReceta = new List<InsumoReceta>();
+
+            if (idReceta > 0)
+            {
+                RecetaDAO recetaDAO = new RecetaDAO();
+
+                insumosReceta = recetaDAO.RecuperarInsumosReceta(idReceta);
+            }
+
+            return insumosReceta;
+        }
     }
 }

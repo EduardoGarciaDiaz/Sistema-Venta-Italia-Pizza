@@ -68,6 +68,9 @@
     <Compile Include="Recursos\ControlesUsuario\BarraDeBusquedaConLista.xaml.cs">
       <DependentUpon>BarraDeBusquedaConLista.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Recursos\ControlesUsuario\BarraDeBusquedaRecetas.xaml.cs">
+      <DependentUpon>BarraDeBusquedaRecetas.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Recursos\ControlesUsuario\ElementoConsultaPedido.xaml.cs">
       <DependentUpon>ElementoConsultaPedido.xaml</DependentUpon>
     </Compile>
@@ -133,6 +136,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Recursos\ControlesUsuario\BarraDeBusquedaConLista.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Recursos\ControlesUsuario\BarraDeBusquedaRecetas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -221,6 +228,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.TipoServicio.datasource">
+          <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.InsumoReceta.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.Receta.datasource">

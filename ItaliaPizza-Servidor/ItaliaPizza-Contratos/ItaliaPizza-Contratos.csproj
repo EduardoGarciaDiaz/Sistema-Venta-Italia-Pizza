@@ -56,6 +56,8 @@
   <ItemGroup>
     <Compile Include="DTOs\Categoria.cs" />
     <Compile Include="DTOs\ClienteBusqueda.cs" />
+    <Compile Include="DTOs\Insumo.cs" />
+    <Compile Include="DTOs\InsumoReceta.cs" />
     <Compile Include="DTOs\Producto.cs" />
     <Compile Include="DTOs\ProductoVentaPedidos.cs" />
     <Compile Include="DTOs\TipoServicio.cs" />
