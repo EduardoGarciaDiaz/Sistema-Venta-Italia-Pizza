@@ -89,8 +89,8 @@
     <Compile Include="Recursos\ControlesUsuario\ElementoTicketPedido.xaml.cs">
       <DependentUpon>ElementoTicketPedido.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utilidades\EnumTiposServicio.cs">
-    <Compile Include="Utilidades\ConvertidorBytesAImagen.cs" />
+    <Compile Include="Utilidades\ConvertidorBytes.cs" />
+    <Compile Include="Utilidades\EnumTiposServicio.cs" />
     <Compile Include="Vistas\ConsultaPedidos.xaml.cs">
       <DependentUpon>ConsultaPedidos.xaml</DependentUpon>
     </Compile>
@@ -217,10 +217,12 @@
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.ClienteBusqueda.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.ProductoVenta.datasource">
+    <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.ProductoVentaPedidos.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.TipoServicio.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.Receta.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

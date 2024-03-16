@@ -12,15 +12,14 @@ namespace ItaliaPizza_DataAccess
     {
         public RecetaTemporalDAO() { }
 
-        public Recetas RecuperarRecetaDeProducto(string codigoProducto)
+        public List<RecetasInsumos> RecuperarInsumosEnReceta(string codigoProducto)
         {
-            Recetas receta = new Recetas();
+            List<RecetasInsumos> insumosDeReceta = new List<RecetasInsumos>();
             try
             {
                 using (var context = new ItaliaPizzaEntities())
                 {
-                    receta = context.Recetas.Where(recetaConsulta =>
-                        receta.CodigoProducto == codigoProducto).FirstOrDefault();
+                    insumosDeReceta = context.Recetas.FirstOrDefault(r => r.CodigoProducto == codigoProducto).RecetasInsumos.ToList();
                 }
             }
             catch (EntityException ex)
@@ -39,7 +38,7 @@ namespace ItaliaPizza_DataAccess
                 Console.WriteLine(ex.StackTrace);
             }
 
-            return receta;
+            return insumosDeReceta;
         }
     }
 }

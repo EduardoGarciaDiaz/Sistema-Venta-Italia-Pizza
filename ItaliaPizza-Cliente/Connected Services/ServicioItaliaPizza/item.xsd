@@ -51,37 +51,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Producto" nillable="true" type="tns:Producto" />
-  <xs:complexType name="ArrayOfProductoVenta">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProductoVenta" nillable="true" type="tns:ProductoVenta" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfProductoVenta" nillable="true" type="tns:ArrayOfProductoVenta" />
-  <xs:complexType name="ProductoVenta">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Foto" nillable="true" type="xs:base64Binary" />
-      <xs:element minOccurs="0" name="IdCategoria" type="xs:int" />
-      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Precio" type="xs:double" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ProductoVenta" nillable="true" type="tns:ProductoVenta" />
-  <xs:complexType name="ArrayOfClienteBusqueda">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="ClienteBusqueda" nillable="true" type="tns:ClienteBusqueda" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfClienteBusqueda" nillable="true" type="tns:ArrayOfClienteBusqueda" />
-  <xs:complexType name="ClienteBusqueda">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Correo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="IdCliente" type="xs:int" />
-      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ClienteBusqueda" nillable="true" type="tns:ClienteBusqueda" />
   <xs:complexType name="Insumo">
     <xs:sequence>
       <xs:element minOccurs="0" name="Cantidad" type="xs:float" />
@@ -102,6 +71,23 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ProductoVenta" nillable="true" type="tns:ProductoVenta" />
+  <xs:complexType name="ArrayOfProductoVentaPedidos">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProductoVentaPedidos" nillable="true" type="tns:ProductoVentaPedidos" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfProductoVentaPedidos" nillable="true" type="tns:ArrayOfProductoVentaPedidos" />
+  <xs:complexType name="ProductoVentaPedidos">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Foto" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="IdCategoria" type="xs:int" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Precio" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProductoVentaPedidos" nillable="true" type="tns:ProductoVentaPedidos" />
   <xs:complexType name="ArrayOfReceta">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Receta" nillable="true" type="tns:Receta" />
@@ -116,4 +102,18 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Receta" nillable="true" type="tns:Receta" />
+  <xs:complexType name="ArrayOfClienteBusqueda">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ClienteBusqueda" nillable="true" type="tns:ClienteBusqueda" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfClienteBusqueda" nillable="true" type="tns:ArrayOfClienteBusqueda" />
+  <xs:complexType name="ClienteBusqueda">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Correo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdCliente" type="xs:int" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ClienteBusqueda" nillable="true" type="tns:ClienteBusqueda" />
 </xs:schema>

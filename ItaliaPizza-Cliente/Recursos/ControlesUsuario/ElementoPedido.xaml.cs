@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ItaliaPizza_Cliente.ServicioItaliaPizza;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,8 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
     /// </summary>
     public partial class ElementoPedido : UserControl
     {
+        public ProductoVentaPedidos ProductoVentaPedidos { get; set; }
+
         public ElementoPedido()
         {
             InitializeComponent();

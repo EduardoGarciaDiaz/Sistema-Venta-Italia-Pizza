@@ -21,8 +21,7 @@ namespace ItaliaPizza_DataAccess
             {
                 using (var context = new ItaliaPizzaEntities())
                 {
-                    Insumos insumo = context.Insumos.Where(insumoConsulta => 
-                        insumoConsulta.CodigoProducto == codigoInsumo).FirstOrDefault();
+                    Insumos insumo = context.Insumos.FirstOrDefault(i => i.CodigoProducto == codigoInsumo);
                     if (insumo != default)
                     {
                         insumoDisponible = insumo.Cantidad > cantidadRequerida;
@@ -47,5 +46,6 @@ namespace ItaliaPizza_DataAccess
 
             return insumoDisponible;
         }
+
     }
 }

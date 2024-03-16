@@ -108,24 +108,34 @@ namespace ItaliaPizza_Servicios
             ProductoDAO productoDAO = new ProductoDAO();
             productosVenta = MapeadorProductosAProductoVenta
                 .MapearProductosAProductosVenta(
-                    productoDAO.RecuperarProductosVenta(), 
+                    productoDAO.RecuperarProductosParaVenta(), 
                     productoDAO.RecuperarProductos());
             return productosVenta;
         }
 
-        public bool ValidarDisponibilidadDeProducto(string codigoProducto)
+        public bool ValidarDisponibilidadDeProducto(string codigoProducto, int cantidadProductos)
         {
             bool productoDisponible = true;
+            ProductoDAO productoDAO = new ProductoDAO();
             RecetaTemporalDAO recetaTemporalDAO = new RecetaTemporalDAO();
-            Recetas recetaProducto = recetaTemporalDAO.RecuperarRecetaDeProducto(codigoProducto);
             InsumoDAO insumoDAO = new InsumoDAO();
-            foreach(RecetasInsumos insumo in recetaProducto.RecetasInsumos)
+
+            if (productoDAO.ValidarSiProductoEnVentaEsInventariado(codigoProducto))
             {
-                bool insumoDisponible = insumoDAO.ValidarDisponibilidadInsumo(insumo.CodigoProducto, (int)insumo.CantidadInsumo);
-                if (!insumoDisponible)
+                productoDisponible = insumoDAO.ValidarDisponibilidadInsumo(codigoProducto, cantidadProductos);
+            } else
+            {
+                List<RecetasInsumos> insumosEnReceta = recetaTemporalDAO.RecuperarInsumosEnReceta(codigoProducto);
+
+                foreach (RecetasInsumos insumo in insumosEnReceta)
                 {
-                    productoDisponible = false;
-                    break;
+                    bool insumoDisponible =
+                        insumoDAO.ValidarDisponibilidadInsumo(insumo.CodigoProducto, ((int)insumo.CantidadInsumo * cantidadProductos));
+                    if (!insumoDisponible)
+                    {
+                        productoDisponible = false;
+                        break;
+                    }
                 }
             }
             return productoDisponible;

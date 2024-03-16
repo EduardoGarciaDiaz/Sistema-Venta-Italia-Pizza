@@ -33,6 +33,6 @@ namespace ItaliaPizza_Contratos
         List<ProductoVentaPedidos> RecuperarProductosVenta();
 
         [OperationContract]
-        bool ValidarDisponibilidadDeProducto(string codigoProducto);
+        bool ValidarDisponibilidadDeProducto(string codigoProducto, int cantidadProductos);
     }
 }

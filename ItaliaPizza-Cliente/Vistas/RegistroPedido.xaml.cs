@@ -27,7 +27,8 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private ObservableCollection<ClienteBusqueda> _clientes;
         private string MENSAJE_CAMPO_VACIO = "Por favor, ingresa algo en la barra para realizar la busqueda.";
-        private string MENSAJE_SIN_RESULTADOS = "El nombre ingresado no corresponde a ningun cliente.";
+        private string MENSAJE_SIN_RESULTADOS_BUSQUEDA_CLIENTE = "El nombre ingresado no corresponde a ningun cliente.";
+        private string MENSAJE_SIN_RESULTADOS_BUSQUEDA_PRODUCTO = "El nombre ingresado no corresponde a ningun cliente.";
         private string MENSAJE_BUSQUEDA_OTRO_CLIENTE = "Cambiar cliente...";
         private TipoServicio _tipoServicioSeleccionado = new TipoServicio();
         private List<TipoServicio> _tiposServicio;
@@ -35,7 +36,11 @@ namespace ItaliaPizza_Cliente.Vistas
         SolidColorBrush _colorBrushGris = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFDDDDDD"));
         SolidColorBrush _colorBrushWhite = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFFFF"));
         SolidColorBrush _colorBrushGrisTexto = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF918C8C"));
-        List<ProductoVenta> _productosVenta;
+        List<ProductoVentaPedidos> _productosVenta;
+        Dictionary<string, int> _productosEnPedido = new Dictionary<string, int>();
+        private double _total = 0;
+        private double _subtotal = 0;
+        private double _iva = 0;
 
         public RegistroPedido()
         {
@@ -43,8 +48,8 @@ namespace ItaliaPizza_Cliente.Vistas
             InitializeComponent();
 
             this.BarraBusquedaClientes.DataContext = _clientes;
-            this.BarraBusquedaClientes.ImgBuscar_EventHandler += ImgBuscarClicked;
-            this.BarraBusquedaClientes.TxtBusqueda_EventHandler += TxtBusquedaChanged;
+            this.BarraBusquedaClientes.ImgBuscar_EventHandler += ImgBuscarClienteClicked;
+            this.BarraBusquedaClientes.TxtBusqueda_EventHandler += TxtBusquedaClienteChanged;
             this.BarraBusquedaClientes.Lista_SelectionChanged_EventHandler += ListaSelectionChanged;
             this.BarraBusquedaProductos.ImgBuscarClicked += ImgBuscarProductosClicked;
 
@@ -52,6 +57,7 @@ namespace ItaliaPizza_Cliente.Vistas
             MostrarCategoriasProductoVenta(categoriasProductoVenta);
             _productosVenta = new ServicioProductosClient().RecuperarProductosVenta().ToList();
             MostrarProductosVenta(_productosVenta);
+            MostrarCantidades();
 
             _tiposServicio = new ServicioPedidosClient().RecuperarTiposServicio().ToList();
 
@@ -71,9 +77,9 @@ namespace ItaliaPizza_Cliente.Vistas
             }
         }
 
-        public void MostrarProductosVenta(List<ProductoVenta> productosVenta)
+        public void MostrarProductosVenta(List<ProductoVentaPedidos> productosVenta)
         {
-            List<ProductoVenta>.Enumerator iterator = productosVenta.GetEnumerator();
+            List<ProductoVentaPedidos>.Enumerator iterator = productosVenta.GetEnumerator();
             iterator.MoveNext();
             for (int i = 0; i <= productosVenta.Count/4;  i++)
             {
@@ -81,7 +87,7 @@ namespace ItaliaPizza_Cliente.Vistas
                 stackPanel.Orientation = Orientation.Horizontal;
                 for (int j = 0; j < 4; j++)
                 {
-                    ProductoVenta productoVenta = iterator.Current;
+                    ProductoVentaPedidos productoVenta = iterator.Current;
                     ElementoProductoVenta elementoProductoVenta = new ElementoProductoVenta();
                     elementoProductoVenta.LblNombreProducto.Content = productoVenta.Nombre;
                     elementoProductoVenta.LblCodigo.Content = productoVenta.Codigo;
@@ -104,21 +110,84 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void ElementoProductoVenta_Click(object sender, RoutedEventArgs e)
         {
+            bool productoDisponibleParaVenta;
             ElementoProductoVenta elementoProductoVenta = (ElementoProductoVenta)sender;
-            bool productoDisponible = new ServicioProductosClient()
-                .ValidarDisponibilidadDeProducto(elementoProductoVenta.LblCodigo.Content.ToString());
-            if (productoDisponible)
+            string codigoProducto = elementoProductoVenta.LblCodigo.Content.ToString();
+            if (_productosEnPedido.ContainsKey(codigoProducto))
             {
-                ElementoPedido elementoPedido = new ElementoPedido();
-                elementoPedido.LblNombreProducto.Content = elementoProductoVenta.LblNombreProducto.ToString();
-                elementoPedido.LblDescripcionProducto.Content = elementoProductoVenta.LblDescripcionProducto.ToString();
-                elementoPedido.LblPrecioProducto.Content = "$" +elementoProductoVenta.LblPrecioProducto.ToString();
-                elementoPedido.TbxCantidadProducto.Text = "1";
-                SkpContenedorProductosPedido.Children.Add(elementoPedido);
+                int cantidadActualProductos = _productosEnPedido[codigoProducto];
+                int cantidadNuevaRequeridaProductos = cantidadActualProductos++;
+                productoDisponibleParaVenta = new ServicioProductosClient()
+                    .ValidarDisponibilidadDeProducto(codigoProducto, cantidadNuevaRequeridaProductos);
+                if (productoDisponibleParaVenta)
+                {
+                    _productosEnPedido[codigoProducto]++;
+                    ActualizarEnInterfazCantidadRequeridaProductos(codigoProducto);
+                    CalcularCantidades();
+                    MostrarCantidades();
+                }
+            }
+            else
+            {
+                productoDisponibleParaVenta = new ServicioProductosClient().ValidarDisponibilidadDeProducto(codigoProducto, 1);
+                if (productoDisponibleParaVenta)
+                {
+                    ProductoVentaPedidos productoSeleccionado = _productosVenta.Where(producto => producto.Codigo == codigoProducto).FirstOrDefault();
+                    _productosEnPedido.Add(productoSeleccionado.Codigo, 1);
+                    MostrarDatosProductoSeleccionado(productoSeleccionado);
+                    CalcularCantidades();
+                    MostrarCantidades();
+                }
             }
         }
 
-        public void ImgBuscarClicked(object sender, EventArgs e)
+        private void MostrarDatosProductoSeleccionado(ProductoVentaPedidos productoSeleccionado)
+        {
+
+            ElementoPedido elementoPedido = new ElementoPedido();
+            elementoPedido.LblNombreProducto.Content = productoSeleccionado.Nombre;
+            elementoPedido.LblDescripcionProducto.Content = productoSeleccionado.Descripcion;
+            elementoPedido.LblPrecioProducto.Content = "$" + productoSeleccionado.Precio;
+            elementoPedido.ProductoVentaPedidos = productoSeleccionado;
+            elementoPedido.TbxCantidadProducto.Text = _productosEnPedido[productoSeleccionado.Codigo].ToString();
+
+            SkpContenedorProductosPedido.Children.Add(elementoPedido);
+        }
+
+        private void ActualizarEnInterfazCantidadRequeridaProductos(string codigoProducto)
+        {
+            ElementoPedido elementoPedido = SkpContenedorProductosPedido.Children
+                                                        .OfType<ElementoPedido>()
+                                                        .FirstOrDefault(ep => ep.ProductoVentaPedidos.Codigo == codigoProducto);
+            if (elementoPedido != null)
+            {
+                elementoPedido.TbxCantidadProducto.Text = _productosEnPedido[codigoProducto].ToString();
+            }
+        }
+
+        private void CalcularCantidades()
+        {
+            _total = ObtenerTotal();
+            _subtotal = (_total / 1.16);
+            _iva = _total - _subtotal;
+        }
+
+        private void MostrarCantidades()
+        {
+            LblTotal.Content = _total.ToString("F2");
+            LblSubtotal.Content = _subtotal.ToString("F2");
+            LblIva.Content = _iva.ToString("F2");
+        }
+
+        private double ObtenerTotal()
+        {   
+            double total = 0;
+            List<ProductoVentaPedidos> productoVentaPedidos = _productosVenta.Where(pv => _productosEnPedido.Keys.ToList().Any(k => k == pv.Codigo)).ToList();
+            total = productoVentaPedidos.Sum(pv => (pv.Precio * _productosEnPedido[pv.Codigo]));
+            return total;
+        }
+
+        public void ImgBuscarClienteClicked(object sender, EventArgs e)
         {
             string textoIngresado = this.BarraBusquedaClientes.TxtBusqueda.Text;
             if (!string.IsNullOrWhiteSpace(textoIngresado))
@@ -135,17 +204,17 @@ namespace ItaliaPizza_Cliente.Vistas
                 } 
                 else
                 {
-                    LblMensajeAdvertencia.Content = MENSAJE_SIN_RESULTADOS;
+                    LblMensajeAdvertenciaCliente.Content = MENSAJE_SIN_RESULTADOS_BUSQUEDA_CLIENTE;
                 }
             } else
             {
-                LblMensajeAdvertencia.Content = MENSAJE_CAMPO_VACIO;
+                LblMensajeAdvertenciaCliente.Content = MENSAJE_CAMPO_VACIO;
             }
         }
 
-        private void TxtBusquedaChanged(object sender, EventArgs e)
+        private void TxtBusquedaClienteChanged(object sender, EventArgs e)
         {
-            this.LblMensajeAdvertencia.Content = "";
+            this.LblMensajeAdvertenciaCliente.Content = "";
             this.BarraBusquedaClientes.ListaClientes.Visibility = Visibility.Collapsed;
         }
 
@@ -167,16 +236,24 @@ namespace ItaliaPizza_Cliente.Vistas
             string valorBusqueda = BarraBusquedaProductos.TxtBusqueda.Text.ToString();
             if (!string.IsNullOrWhiteSpace(valorBusqueda))
             {
-                List<ProductoVenta> resultadoBusquedaProductos = new List<ProductoVenta>();
+                List<ProductoVentaPedidos> resultadoBusquedaProductos = new List<ProductoVentaPedidos>();
                 resultadoBusquedaProductos = _productosVenta.Where(producto =>
-                    producto.Nombre.Contains(valorBusqueda)
-                    || producto.Codigo.Contains(valorBusqueda)
+                    producto.Nombre.ToLower().Contains(valorBusqueda.ToLower())
+                    || producto.Codigo.ToLower().Contains(valorBusqueda.ToLower())
                 ).ToList();
                 if (resultadoBusquedaProductos.Count != 0)
                 {
                     SkpContenedorProductos.Children.Clear();
                     MostrarProductosVenta(resultadoBusquedaProductos);
+                } 
+                else
+                {
+                    LblMensajeAdvertenciaProducto.Content = MENSAJE_SIN_RESULTADOS_BUSQUEDA_PRODUCTO;
                 }
+            } 
+            else
+            {
+                LblMensajeAdvertenciaProducto.Content = MENSAJE_CAMPO_VACIO;
             }
         }
 

@@ -6,71 +6,73 @@
       xmlns:uc="clr-namespace:ItaliaPizza_Cliente.Recursos.ControlesUsuario"
       xmlns:local="clr-namespace:ItaliaPizza_Cliente.Vistas"
       mc:Ignorable="d" 
-      d:DesignHeight="770" d:DesignWidth="1300" Background="#F6F6F6"
-      Title="RegistroPedido">
+      d:DesignHeight="800" d:DesignWidth="1300" Background="#F6F6F6"
+      Title="RegistroPedido"
+      x:Name="RegistroPedidoPage">
 
     <Viewbox>
-        <Grid Height="770" Width="1300">
-            <uc:BarraDeBusqueda x:Name="BarraBusquedaProductos" Margin="26,28,719,694" Width="550"/>
+        <Grid Height="800" Width="1300">
+            <uc:BarraDeBusqueda x:Name="BarraBusquedaProductos" Margin="28,22,722,731" Width="550"/>
+            <Label x:Name="LblMensajeAdvertenciaProducto" Margin="32,65,862,706" Foreground="#FFB35353" Content=""/>
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" Margin="14,191,492,21">
                 <StackPanel x:Name="SkpContenedorProductos" Orientation="Vertical">
 
                 </StackPanel>
             </ScrollViewer>
-            <Border BorderBrush="Black" Margin="29,90,600,632" Background="White" CornerRadius="10,10,10,10">
-                <ScrollViewer VerticalScrollBarVisibility="Disabled">
+            <Border BorderBrush="Black" Margin="29,96,600,659" Background="White" CornerRadius="10,10,10,10">
+                <ScrollViewer VerticalScrollBarVisibility="Disabled" Margin="-1,-1,1,1">
                     <StackPanel x:Name="SkpCategoriasProductoVenta" Orientation="Horizontal">
                         <Label Content="Todas" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="10"/>
                     </StackPanel>
                 </ScrollViewer>
             </Border>
-            <Label Content="Elegir producto" HorizontalAlignment="Left" Margin="31,149,0,0" VerticalAlignment="Top" FontSize="18"/>
+            <Label Content="Elegir producto" HorizontalAlignment="Left" Margin="31,147,0,0" VerticalAlignment="Top" FontSize="18"/>
             <Border BorderBrush="Black" Margin="844,5,9,6" Background="White" CornerRadius="10,10,10,10">
-                <Label Content="Pedido actual" Margin="16,0,307,723" FontWeight="Bold" FontSize="16" Height="33" VerticalAlignment="Bottom"/>
+                <Label Content="Pedido actual" Margin="16,0,307,753" FontWeight="Bold" FontSize="16" Height="33" VerticalAlignment="Bottom"/>
             </Border>
-            <Button Margin="859,700,24,16" BorderThickness="0,0,0,0" Background="#FFF8D72A" Content="Proceder al pago" FontSize="24" FontFamily="Futura Md BT">
+            <Button Margin="859,734,24,16" BorderThickness="0,0,0,0" Background="#FFF8D72A" Content="Proceder al pago" FontSize="24" FontFamily="Futura Md BT">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="20"/>
                     </Style>
                 </Button.Resources>
             </Button>
-            <Label x:Name="LblMensajeAdvertencia" Margin="864,80,30,666" Foreground="#FFB35353"/>
-            <Border Margin="864,102,27,618" Background="#FFEEEEEE" CornerRadius="0,0,20,20">
+            <Label x:Name="LblMensajeAdvertenciaCliente" Margin="864,84,30,687" Foreground="#FFB35353"/>
+            <Border Margin="864,114,27,622" Background="#FFEEEEEE" CornerRadius="0,0,20,20">
 
             </Border>
             <Image Source="/Recursos/Iconos/icono_usuario.png" Margin="876,109,383,624"/>
-            <Label x:Name="LblNombreCliente" Margin="930,101,46,640" FontFamily="Segoe UI Variable Display" FontSize="15"/>
-            <Button x:Name="BtnComerEstablecimiento" Content="Comer en establecimiento" Margin="862,162,212,580" BorderThickness="0,0,0,0" Background="#FFD6B400" Foreground="White" FontWeight="Bold" Click="BtnComerEstablecimiento_Click">
+            <Label x:Name="LblNombreCliente" Margin="930,117,46,648" FontFamily="Segoe UI Variable Display" FontSize="15"/>
+            <Button x:Name="BtnComerEstablecimiento" Content="Comer en establecimiento" Margin="862,184,212,580" BorderThickness="0,0,0,0" Background="#FFD6B400" Foreground="White" FontWeight="Bold" Click="BtnComerEstablecimiento_Click">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="15"/>
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button x:Name="BtnEntregaDomicilio" Content="Entrega a domicilio" Margin="1096,161,26,583" BorderThickness="0,0,0,0" Foreground="#FF918C8C" FontWeight="Bold" Click="BtnEntregaDomicilio_Click">
+            <Button x:Name="BtnEntregaDomicilio" Content="Entrega a domicilio" Margin="1096,187,26,583" BorderThickness="0,0,0,0" Foreground="#FF918C8C" FontWeight="Bold" Click="BtnEntregaDomicilio_Click">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="15"/>
                     </Style>
                 </Button.Resources>
             </Button>
-            <Label Content="Productos" Margin="862,190,293,551"/>
-            <Border CornerRadius="10" Background="#FFEEEEEE" Margin="862,218,31,160"/>
+            <Label Content="Productos" Margin="862,223,293,550"/>
+            <Border CornerRadius="10" Background="#FFEEEEEE" Margin="862,253,31,160"/>
 
-            <ScrollViewer HorizontalScrollBarVisibility="Disabled" Margin="871,221,46,177">
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" Margin="871,261,46,171">
                 <StackPanel x:Name="SkpContenedorProductosPedido">
                 </StackPanel>
             </ScrollViewer>
-            <Label x:Name="Subtotal" Content="Subtotal" Margin="864,612,296,129"/>
-            <Label x:Name="Subtotal_Copiar" Content="IVA" Margin="865,635,295,103"/>
-            <Separator Background="#7F000000" Margin="861,662,27,104" Foreground="{x:Null}"/>
-            <Label x:Name="Subtotal_Copiar1" Content="Total" Margin="864,663,296,75" FontSize="15"/>
-            <Label x:Name="Subtotal_Copiar2" Content="123344" Margin="0,612,29,0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" VerticalAlignment="Top" Width="116"/>
-            <Label x:Name="Subtotal_Copiar3" Content="12333" Margin="0,635,29,0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" VerticalAlignment="Top" Width="116"/>
-            <Label x:Name="Subtotal_Copiar4" Content="Hola" Margin="0,663,29,0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" VerticalAlignment="Top" Width="116" FontSize="15"/>
-            <Label x:Name="LblCorreoElectronicoCliente" Margin="930,121,103,620" FontFamily="Segoe UI Variable Display" FontSize="15"/>
-            <uc:BarraDeBusquedaConLista x:Name="BarraBusquedaClientes" Margin="864,41,28,522"/>
+            <Label x:Name="Subtotal" Content="Subtotal" Margin="864,653,296,121"/>
+            <Label x:Name="Subtotal_Copiar" Content="IVA" Margin="865,676,295,98"/>
+            <Separator Background="#7F000000" Margin="861,688,27,78" Foreground="{x:Null}"/>
+            <Label x:Name="Subtotal_Copiar1" Content="Total" Margin="864,704,296,66" FontSize="15"/>
+            <Label x:Name="LblSubtotal" Content="" Margin="0,653,29,0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" VerticalAlignment="Top" Width="116"/>
+            <Label x:Name="LblIva" Content="" Margin="0,676,29,0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" VerticalAlignment="Top" Width="116"/>
+            <Label x:Name="LblTotal" Content="" Margin="0,704,29,0" HorizontalAlignment="Right" HorizontalContentAlignment="Right" VerticalAlignment="Top" Width="116" FontSize="15"/>
+            <Label x:Name="LblCorreoElectronicoCliente" Margin="930,138,103,630" FontFamily="Segoe UI Variable Display" FontSize="15"/>
+            <uc:BarraDeBusquedaConLista x:Name="BarraBusquedaClientes" Margin="864,41,28,555"/>
         </Grid>
     </Viewbox>
 </Page>

@@ -20,15 +20,18 @@ namespace ItaliaPizza_Servicios.Auxiliares
                 var producto = productos.FirstOrDefault(p => p.CodigoProducto == productoVenta.CodigoProducto);
                 if (producto != null)
                 {
-                    productosEnVenta.Add(new ProductoVentaPedidos()
+                    if (producto.EsActivo == true)
                     {
-                        Codigo = productoVenta.CodigoProducto,
-                        Foto = productoVenta.Foto,
-                        Nombre = producto.Nombre,
-                        Descripcion = producto.Descripcion,
-                        Precio = (double) productoVenta.Precio,
-                        IdCategoria = (int) productoVenta.IdCategoriaProductoVenta
-                    });
+                        productosEnVenta.Add(new ProductoVentaPedidos()
+                        {
+                            Codigo = productoVenta.CodigoProducto,
+                            Foto = productoVenta.Foto,
+                            Nombre = producto.Nombre,
+                            Descripcion = producto.Descripcion,
+                            Precio = (double)productoVenta.Precio,
+                            IdCategoria = (int)productoVenta.IdCategoriaProductoVenta
+                        });
+                    }
                 }
             }
 

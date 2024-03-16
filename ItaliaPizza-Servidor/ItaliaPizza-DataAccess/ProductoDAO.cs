@@ -1,6 +1,5 @@
 ﻿using System;
 ﻿using ItaliaPizza_Contratos.DTOs;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.Data.SqlClient;
@@ -15,8 +14,7 @@ namespace ItaliaPizza_DataAccess
     {
 
         public ProductoDAO() { }
-    public class ProductoDAO
-    {
+
         public List<CategoriasInsumo> RecuperarCategoriasInsumo()
         {
             List<CategoriasInsumo> categoriasInsumo = new List<CategoriasInsumo>();
@@ -25,7 +23,7 @@ namespace ItaliaPizza_DataAccess
             {
                 using (var context = new ItaliaPizzaEntities())
                 {
-                    categoriasInsumo = context.CategoriasInsumo.ToList();                    
+                    categoriasInsumo = context.CategoriasInsumo.ToList();
                 }
             }
             catch (EntityException ex)
@@ -80,16 +78,11 @@ namespace ItaliaPizza_DataAccess
         public List<Productos> RecuperarProductos()
         {
             List<Productos> productos = new List<Productos>();
-        public List<UnidadesMedida> RecuperarUnidadesMedida()
-        {
-            List<UnidadesMedida> unidadesMedida = new List<UnidadesMedida>();
-
             try
             {
                 using (var context = new ItaliaPizzaEntities())
                 {
                     productos = context.Productos.ToList();
-                    unidadesMedida = context.UnidadesMedida.ToList();
                 }
             }
             catch (EntityException ex)
@@ -111,22 +104,16 @@ namespace ItaliaPizza_DataAccess
             return productos;
         }
 
-        public List<ProductosVenta> RecuperarProductosVenta()
-        {
-            List<ProductosVenta> productosVenta = new List<ProductosVenta>();
-            return unidadesMedida;
-        }
 
-        public bool ValidarCodigoProducto(string codigoProducto)
+        public List<UnidadesMedida> RecuperarUnidadesMedida()
         {
-            bool existeProducto = true;
+            List<UnidadesMedida> unidadesMedida = new List<UnidadesMedida>();
 
             try
             {
                 using (var context = new ItaliaPizzaEntities())
                 {
-                    productosVenta = context.ProductosVenta.ToList();
-                    existeProducto = context.Productos.Any(p => p.CodigoProducto == codigoProducto);
+                    unidadesMedida = context.UnidadesMedida.ToList();
                 }
             }
             catch (EntityException ex)
@@ -145,7 +132,69 @@ namespace ItaliaPizza_DataAccess
                 Console.WriteLine(ex.StackTrace);
             }
 
+
+            return unidadesMedida;
+
+        }
+
+        public List<ProductosVenta> RecuperarProductosParaVenta()
+        {
+            List<ProductosVenta> productosVenta = new List<ProductosVenta>();
+
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    productosVenta = context.ProductosVenta.Where(pv =>
+                    context.Recetas.Any(r => r.CodigoProducto == pv.CodigoProducto)
+                    || context.Insumos.Any(i => i.CodigoProducto == pv.CodigoProducto))
+                        .ToList();
+                }
+            }
+            catch (EntityException ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (SqlException ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (Exception ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
             return productosVenta;
+        }
+
+        public bool ValidarCodigoProducto(string codigoProducto)
+        {
+            bool existeProducto = true;
+
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    existeProducto = context.Productos.Any(p => p.CodigoProducto == codigoProducto);
+                }
+            }
+            catch (EntityException ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (SqlException ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (Exception ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
             return existeProducto;
         }
 
@@ -250,5 +299,40 @@ namespace ItaliaPizza_DataAccess
 
             return filasAfectadas;
         }
+
+        public bool ValidarSiProductoEnVentaEsInventariado(string codigoProducto)
+        {
+            bool productoEsInventariado = false;
+
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    Insumos insumo = context.Insumos.FirstOrDefault(i => i.CodigoProducto == codigoProducto);
+                    if (insumo != default)
+                    {
+                        productoEsInventariado = true;
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (SqlException ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (Exception ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+
+            return productoEsInventariado;
+        }
+
     }
 }
