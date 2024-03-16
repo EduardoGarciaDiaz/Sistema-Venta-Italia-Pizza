@@ -24,8 +24,6 @@ namespace ItaliaPizza_Cliente
         public MainWindow()
         {
             InitializeComponent();
-            RegistroUsuario registroUsuario = new RegistroUsuario();    
-            frameNavigation.Navigate(registroUsuario);
         }
     }
 }

@@ -81,7 +81,7 @@ namespace ItaliaPizza_Servicios
         public bool ValidarCorreoUnico(string correo)
         {
             bool esUnico = false;
-            if (String.IsNullOrEmpty(correo))
+            if (!String.IsNullOrEmpty(correo))
             {
                 esUnico = UsuarioDAO.CorreoEsUnico(correo);
             }
@@ -91,9 +91,9 @@ namespace ItaliaPizza_Servicios
         public bool ValidarNombreDeUsuarioUnico(string nombreDeUsuario)
         {
             bool esUnico = false;
-            if (String.IsNullOrEmpty(nombreDeUsuario))
+            if (!String.IsNullOrEmpty(nombreDeUsuario))
             {
-                esUnico = UsuarioDAO.CorreoEsUnico(nombreDeUsuario);
+                esUnico = EmpleadoDAO.NombreUsuarioEsUnico(nombreDeUsuario);
             }
             return esUnico;
         }

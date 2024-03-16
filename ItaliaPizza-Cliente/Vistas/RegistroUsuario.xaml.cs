@@ -1,4 +1,5 @@
 ﻿using ItaliaPizza_Cliente.ServicioItaliaPizza;
+using ItaliaPizza_Cliente.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,17 +28,20 @@ namespace ItaliaPizza_Cliente.Vistas
         private const string CAMPO_VACIO = "* Campo obligatorio";
         private const string CORREO_INVALIDO = "* Correo no valido";
         private const string TELEFONO_INVALIDO = "* Telefono no valido";
+        private const string NOMBRE_USUARIO_REPETIDO = "El nombre de usuario capturado ya existe, ingrese uno que no exista.";
+        private const string CORREO_REPETIDO ="El correo capturado ya existe, ingrese uno que no exista.";
         private readonly string EMAIL_RULES_CHAR = "^(?=.{1,90}$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         private readonly string EMAIL_ALLOW_CHAR = "^[a-zA-Z0-9@,._=]{1,90}$";
 
         public RegistroUsuario()
         {
             InitializeComponent();
+            PrepareWindow();
         }
 
         private void PrepareWindow()
         {
-
+            ObtenerTiposEmpleados();
         }
 
         private void ObtenerTiposEmpleados()
@@ -45,7 +49,7 @@ namespace ItaliaPizza_Cliente.Vistas
             ServicioUsuariosClient proxyServicioUsuariosClient = new ServicioUsuariosClient();
             var tiposEmpleados = proxyServicioUsuariosClient.RecuperarTiposEmpleado().ToList();
             cbmTipoEmpleado.ItemsSource = tiposEmpleados;
-            cbmTipoEmpleado.DisplayMemberPath = tiposEmpleados.First().Nombre;
+            cbmTipoEmpleado.DisplayMemberPath = "Nombre";
         }
 
         private bool ValidarCamposLlenosUsuario()
@@ -63,11 +67,12 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             if(rdbEmpleado.IsChecked == false && rdbCliente.IsChecked == false)
             {
-                 lblTipoEmpleadoError.Content = CAMPO_VACIO;
+                 lblTipoUsuarioError.Content = CAMPO_VACIO;
+                camposLlenos = false;
             }
             else
             {
-                lblTipoEmpleadoError.Content = String.Empty;
+                lblTipoUsuarioError.Content = String.Empty;
             }
             return camposLlenos;
         }
@@ -108,7 +113,7 @@ namespace ItaliaPizza_Cliente.Vistas
             {
                 lblContrasena.Content = String.Empty;
             }
-            if (cbmTipoEmpleado.SelectedItem != null)
+            if (cbmTipoEmpleado.SelectedItem == null)
             {
                 lblTipoEmpleadoError.Content = CAMPO_VACIO;
                 camposLlenos = false;
@@ -123,7 +128,7 @@ namespace ItaliaPizza_Cliente.Vistas
         private bool ValidarFormatos()
         {
             bool formatosValidos = true;
-            if (!Regex.IsMatch(txbCorreo.Text.Trim(), EMAIL_RULES_CHAR) || !Regex.IsMatch(txbCorreo.Text.Trim(), EMAIL_ALLOW_CHAR))
+            if (!Regex.IsMatch(txbCorreo.Text.Trim().ToLower(), EMAIL_RULES_CHAR) || !Regex.IsMatch(txbCorreo.Text.Trim().ToLower(), EMAIL_ALLOW_CHAR))
             {
                 lblCorreoError.Content = CORREO_INVALIDO;
                 formatosValidos = false;
@@ -164,31 +169,215 @@ namespace ItaliaPizza_Cliente.Vistas
             }
         }
 
-        private void BtnGuardarUsuario_Click(object sender, MouseButtonEventArgs e)
+        private bool ValidarCamposUnicos()
         {
-            bool sePuedeGuardar = true;
+            bool sonUnicos = true;
+            ServicioUsuariosClient servicioUsuariosClient = new ServicioUsuariosClient();
+            if (!servicioUsuariosClient.ValidarNombreDeUsuarioUnico(txbNombreUsuario.Text.Trim()))
+            {
+                sonUnicos = false;
+                lblNombreUsuarioError.Content = NOMBRE_USUARIO_REPETIDO;
+            }
+            else
+            {
+                lblNombreUsuarioError.Content = String.Empty;
+            }
+            if (!servicioUsuariosClient.ValidarCorreoUnico(txbCorreo.Text.Trim().ToLower()))
+            {
+                sonUnicos = false;
+                lblCorreoError.Content = CORREO_REPETIDO;
+            }
+            else
+            {
+                lblCorreoError.Content = String.Empty;
+
+            }
+            return sonUnicos;
+        }
+
+        private bool GuardarCliente(UsuarioDto usuarioNuevo)
+        {
+            ServicioUsuariosClient proxyServicioUsuariosClient = new ServicioUsuariosClient();
+            return proxyServicioUsuariosClient.GuardarCliente(usuarioNuevo);
+        }
+
+        private bool GuardarEmpleado(EmpleadoDto empleadoNuevo)
+        {
+            ServicioUsuariosClient proxyServicioUsuariosClient = new ServicioUsuariosClient();
+            return proxyServicioUsuariosClient.GuardarEmpleado(empleadoNuevo);
+        }
+
+        private void MostrarMensajeGuardadoConExito(bool exito)
+        {
+            if (exito)
+            {
+                VentanaEmergente ventanaEmergente = new VentanaEmergente("Registro Exitoso", "Se ha guardado correctamente al usuario nuevo.", Window.GetWindow(this), 2);
+                LimpiarCampos();
+            }
+            else
+            {
+                VentanaEmergente ventanaEmergente = new VentanaEmergente("Error ", "Ocurrio un error al guardar al usuario nuevo.", Window.GetWindow(this), 1);
+            }
+        }
+
+        private void LimpiarCampos()
+        {
+            txbNombre.Text = String.Empty;
+            txb1erApellido.Text = String.Empty;
+            txb2doApellido.Text = String.Empty;
+            txbTelefono.Text = String.Empty;
+            txbCorreo.Text = String.Empty;
+            rdbEmpleado.IsChecked = false;
+            rdbCliente.IsChecked = false;
+            rdbEmpleado.Background = new SolidColorBrush(Colors.WhiteSmoke);
+            rdbCliente.Background = new SolidColorBrush(Colors.WhiteSmoke);
+            txbCiudad.Text = String.Empty;
+            txbColonia.Text = String.Empty;
+            txbCalle.Text = String.Empty;
+            txbCodigoPostal.Text = String.Empty;
+            txbNumeroExterior.Text = String.Empty;
+            txbNombreUsuario.Text = String.Empty;
+            txbContrasena.Password = String.Empty;
+            cbmTipoEmpleado.SelectedIndex = -1;
+            brdCoverDatosEmpleado.Visibility = Visibility.Visible;
+        }
+
+        private void GuardarUsuario()
+        {
+            bool sePuedeGuardar;
+            bool esEmpleado = (bool)rdbEmpleado.IsChecked;
             sePuedeGuardar = ValidarCamposLlenosUsuario();
-            if(rdbEmpleado.IsChecked == true)
+            if (esEmpleado)
             {
                 sePuedeGuardar = ValidarCamposLLenosEmpleado();
             }
             if (sePuedeGuardar)
             {
-                sePuedeGuardar =  ValidarFormatos();
+                sePuedeGuardar = ValidarFormatos();
+                if (esEmpleado && sePuedeGuardar)
+                {
+                    sePuedeGuardar = ValidarCamposUnicos();
+                }
             }
             if (sePuedeGuardar)
             {
-
-            }
-            else
-            {
-
+                DireccionDto direccion = CrearObjetoDireccion();
+                UsuarioDto usuarioNuevo = CrearObjetoUsuario(direccion);
+                if (esEmpleado)
+                {
+                    EmpleadoDto empleadoNuevo = CrearObjetoEmpleado(usuarioNuevo);
+                    bool  fueGuardado = GuardarEmpleado(empleadoNuevo);
+                    MostrarMensajeGuardadoConExito(fueGuardado);
+                }
+                else
+                {
+                    bool fueGuardado = GuardarCliente(usuarioNuevo);
+                    MostrarMensajeGuardadoConExito(fueGuardado);
+                }                
             }
         }
 
-        private void BtnCancelarRegistro(object sender, MouseButtonEventArgs e)
+        private DireccionDto CrearObjetoDireccion()
         {
-
+            return new DireccionDto()
+            {
+                IdDireccion = 0,
+                Ciudad = txbCiudad.Text.Trim(),
+                Colonia = txbColonia.Text.Trim(),
+                Calle = txbCalle.Text.Trim(),
+                CodigoPostal = txbCodigoPostal.Text.Trim(),
+                Numero = int.Parse(txbNumeroExterior.Text.Trim())
+            };
         }
+
+        private UsuarioDto CrearObjetoUsuario(DireccionDto direccionNueva)
+        {
+            return new UsuarioDto()
+            {
+                IdUsuario = 0,
+                NombreCompleto = txbNombre.Text.Trim() + " " + txb1erApellido.Text.Trim() + " " + txb2doApellido.Text.Trim(),
+                NumeroTelefono = txbTelefono.Text.Trim(),
+                CorreoElectronico = txbCorreo.Text.Trim().ToLower(),
+                EsActivo = true,
+                IdDireccion = 0,
+                Direccion = direccionNueva
+            };
+        }
+
+        private EmpleadoDto CrearObjetoEmpleado(UsuarioDto usuarioNuevo)
+        {
+            return new EmpleadoDto()
+            {
+                NombreUsuario = txbNombreUsuario.Text.Trim(),
+                Contraseña = txbContrasena.Password.Trim(),
+                IdTipoEmpleado = (cbmTipoEmpleado.SelectedItem as TipoEmpleadoDto).IdTipoEmpleado,
+                TipoEmpleado = (cbmTipoEmpleado.SelectedItem as TipoEmpleadoDto).Nombre,
+                IdUsuario = 0,
+                Usuario = usuarioNuevo
+            };
+        }
+
+        private void BtnGuardarUsuario_Click(object sender, MouseButtonEventArgs e)
+        {
+            GuardarUsuario();
+        }
+        private void BtnGuardarUsuario_Click(object sender, RoutedEventArgs e)
+        {
+            GuardarUsuario();
+        }
+
+        private void MostrarMensajeConfirmacion()
+        {
+            VentanaEmergente ventanaEmergente = new VentanaEmergente("Cuidado!!!", "¿Seguro que desea cancelar el registro?, se perderán los datos del usuario?", "Si, Cancelar Registro", "No, Cancelar Accion", Window.GetWindow(this), 3);
+            if (ventanaEmergente.AceptarAccion)
+            {
+                LimpiarCampos();
+            }
+        }
+
+        private void BtnCancelarRegistro_Click(object sender, MouseButtonEventArgs e)
+        {
+           MostrarMensajeConfirmacion();
+        }
+
+        private void BtnCancelarRegistro_Click(object sender, RoutedEventArgs e)
+        {
+            MostrarMensajeConfirmacion();
+        }
+
+        private void rdbEmpleado_Checked(object sender, RoutedEventArgs e)
+        {
+            brdCoverDatosEmpleado.Visibility = Visibility.Collapsed;
+            rdbEmpleado.Background = new SolidColorBrush(Colors.Black);
+            rdbCliente.Background = new SolidColorBrush(Colors.WhiteSmoke);
+        }
+
+        private void rdbCliente_Checked(object sender, RoutedEventArgs e)
+        {
+            brdCoverDatosEmpleado.Visibility =Visibility.Visible;
+            rdbEmpleado.Background = new SolidColorBrush(Colors.WhiteSmoke);
+            rdbCliente.Background = new SolidColorBrush(Colors.Black);
+            txbNombreUsuario.Text = string.Empty;
+            txbContrasena.Password = string.Empty;
+        }
+
+        private void bttVerContrasena_Click(object sender, MouseButtonEventArgs e)
+        {
+            lblContrasenaVer.Content = txbContrasena.Password.ToString();
+            txbContrasena.Visibility = Visibility.Hidden;
+            lblContrasenaVer.Visibility = Visibility.Visible;
+        }
+
+        private void bttVerContrasena_Leave(object sender, MouseEventArgs e)
+        {
+            if(lblContrasenaVer != null && lblContrasenaVer.IsVisible)
+            {
+                txbContrasena.Password = lblContrasenaVer.Content.ToString();
+                txbContrasena.Visibility = Visibility.Visible;
+                lblContrasenaVer.Visibility = Visibility.Hidden;
+            }
+        }
+
     }
+    
 }
