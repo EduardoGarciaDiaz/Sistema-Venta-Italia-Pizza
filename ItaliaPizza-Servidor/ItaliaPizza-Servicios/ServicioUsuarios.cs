@@ -69,13 +69,14 @@ namespace ItaliaPizza_Servicios
         public List<ClienteBusqueda> BuscarCliente(string nombre)
         {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
-            return usuarioDAO.RecuperarClientesPorNombre(nombre).ConvertAll(usuario => 
+            return usuarioDAO.RecuperarClientesPorNombre(nombre).ConvertAll(usuario =>
                 new ClienteBusqueda
                 {
                     IdCliente = usuario.IdUsuario,
                     Nombre = usuario.NombreCompleto,
                     Correo = usuario.CorreoElectronico
                 });
+        }
 
                 
         public List<TipoEmpleadoDto> RecuperarTiposEmpleado()
@@ -93,9 +94,10 @@ namespace ItaliaPizza_Servicios
         public bool ValidarCorreoUnico(string correo)
         {
             bool esUnico = false;
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
             if (!String.IsNullOrEmpty(correo))
             {
-                esUnico = UsuarioDAO.CorreoEsUnico(correo);
+                esUnico = usuarioDAO.CorreoEsUnico(correo);
             }
             return esUnico;
         }

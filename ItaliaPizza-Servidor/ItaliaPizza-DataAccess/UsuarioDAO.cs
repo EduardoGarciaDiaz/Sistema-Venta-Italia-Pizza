@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.Data.SqlClient;
 ﻿using ItaliaPizza_Contratos.DTOs;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,15 +14,11 @@ namespace ItaliaPizza_DataAccess
 
         public UsuarioDAO() { }
 
+
+
         public List<Usuarios> RecuperarClientesPorNombre(string nombre)
         {
             List<Usuarios> clientes = new List<Usuarios>();
-
-    public static class UsuarioDAO
-    {
-        public static int GuardarUsuarioNuevoBD(Usuarios usuarioNuevo)
-        {
-            int resultadoOperacion = 0;
             try
             {
                 using (var context = new ItaliaPizzaEntities())
@@ -56,19 +50,38 @@ namespace ItaliaPizza_DataAccess
             return clientes;
         }
 
+
+        public static int GuardarUsuarioNuevoBD(Usuarios usuarioNuevo)
+        {
+            int resultadoOperacion = 0;
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
                     context.Usuarios.Add(usuarioNuevo);
                     context.SaveChanges();
                     resultadoOperacion = usuarioNuevo.IdUsuario;
                 }
             }
+            catch (EntityException ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (SqlException ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
             catch (Exception ex)
             {
-
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
             }
             return resultadoOperacion;
         }
 
-        public static bool CorreoEsUnico(String correo)
+        public bool CorreoEsUnico(String correo)
         {
             bool resultadoOperacion;
             try
@@ -85,8 +98,6 @@ namespace ItaliaPizza_DataAccess
             }
             return resultadoOperacion;
         }
-
-
 
     }
 }

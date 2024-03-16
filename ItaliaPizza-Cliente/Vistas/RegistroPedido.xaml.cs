@@ -96,7 +96,8 @@ namespace ItaliaPizza_Cliente.Vistas
                 for (int j = 0; j < 4; j++)
                 {
                     ProductoVentaPedidos productoVenta = iterator.Current;
-                    ElementoProductoVenta elementoProductoVenta = new ElementoProductoVenta();
+                    ElementoProductoVenta elementoProductoVenta = new ElementoProductoVenta();                    
+                    elementoProductoVenta.ImgProducto.Source = ConvertidorBytes.ConvertirBytesABitmapImage(productoVenta.Foto);
                     elementoProductoVenta.LblNombreProducto.Content = productoVenta.Nombre;
                     elementoProductoVenta.LblCodigo.Content = productoVenta.Codigo;
                     elementoProductoVenta.LblDescripcionProducto.Text = productoVenta.Descripcion;

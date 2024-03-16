@@ -149,6 +149,7 @@
   </wsdl:message>
   <wsdl:message name="IServicioUsuarios_BuscarCliente_OutputMessage">
     <wsdl:part name="parameters" element="tns:BuscarClienteResponse" />
+  </wsdl:message>
   <wsdl:message name="IServicioUsuarios_GuardarEmpleado_InputMessage">
     <wsdl:part name="parameters" element="tns:GuardarEmpleado" />
   </wsdl:message>
@@ -442,7 +443,13 @@
     </wsdl:operation>
     <wsdl:operation name="BuscarCliente">
       <soap12:operation soapAction="http://tempuri.org/IServicioUsuarios/BuscarCliente" style="document" />
-      </wsdl:operation>
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GuardarEmpleado">
       <soap12:operation soapAction="http://tempuri.org/IServicioUsuarios/GuardarEmpleado" style="document" />
       <wsdl:input>
