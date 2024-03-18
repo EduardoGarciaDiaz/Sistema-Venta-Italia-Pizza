@@ -253,6 +253,9 @@
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.ClienteBusqueda.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.PedidoConsultaDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.ProductoVentaPedidos.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

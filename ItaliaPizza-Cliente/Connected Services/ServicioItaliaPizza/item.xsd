@@ -39,6 +39,30 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ProductoVentaPedidos" nillable="true" type="tns:ProductoVentaPedidos" />
+  <xs:complexType name="ArrayOfPedidoConsultaDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PedidoConsultaDTO" nillable="true" type="tns:PedidoConsultaDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPedidoConsultaDTO" nillable="true" type="tns:ArrayOfPedidoConsultaDTO" />
+  <xs:complexType name="PedidoConsultaDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CantidadProductos" type="xs:int" />
+      <xs:element minOccurs="0" name="Fecha" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="NombreCliente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroPedido" type="xs:int" />
+      <xs:element minOccurs="0" name="Total" type="xs:double" />
+      <xs:element minOccurs="0" name="estadoPedido" nillable="true" type="tns:EstadoPedido" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PedidoConsultaDTO" nillable="true" type="tns:PedidoConsultaDTO" />
+  <xs:complexType name="EstadoPedido">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IdEstadoPedido" type="xs:int" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EstadoPedido" nillable="true" type="tns:EstadoPedido" />
   <xs:complexType name="ArrayOfCategoria">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Categoria" nillable="true" type="tns:Categoria" />

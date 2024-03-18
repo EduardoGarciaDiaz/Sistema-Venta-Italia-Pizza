@@ -16,5 +16,8 @@ namespace ItaliaPizza_Contratos
 
         [OperationContract]
         int GuardarPedido(Pedido pedido);
+
+        [OperationContract]
+        List<PedidoConsultaDTO> RecuperarPedidos();
     }
 }

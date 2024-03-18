@@ -43,6 +43,12 @@ namespace ItaliaPizza_Servicios
             return numeroPedido;
         }
 
+        public List<PedidoConsultaDTO> RecuperarPedidos()
+        {
+            PedidoDAO pedidoDAO = new PedidoDAO();
+            return pedidoDAO.RecuperarPedidosParaConsulta();
+        }
+
         public List<TipoServicio> RecuperarTiposServicio()
         {
             List<TipoServicio> tipoServicios = new List<TipoServicio>();

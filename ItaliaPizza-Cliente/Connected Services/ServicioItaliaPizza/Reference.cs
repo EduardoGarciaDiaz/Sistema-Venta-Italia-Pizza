@@ -374,6 +374,192 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PedidoConsultaDTO", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs")]
+    [System.SerializableAttribute()]
+    public partial class PedidoConsultaDTO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CantidadProductosField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreClienteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NumeroPedidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double TotalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private ItaliaPizza_Cliente.ServicioItaliaPizza.EstadoPedido estadoPedidoField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CantidadProductos {
+            get {
+                return this.CantidadProductosField;
+            }
+            set {
+                if ((this.CantidadProductosField.Equals(value) != true)) {
+                    this.CantidadProductosField = value;
+                    this.RaisePropertyChanged("CantidadProductos");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime Fecha {
+            get {
+                return this.FechaField;
+            }
+            set {
+                if ((this.FechaField.Equals(value) != true)) {
+                    this.FechaField = value;
+                    this.RaisePropertyChanged("Fecha");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreCliente {
+            get {
+                return this.NombreClienteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreClienteField, value) != true)) {
+                    this.NombreClienteField = value;
+                    this.RaisePropertyChanged("NombreCliente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NumeroPedido {
+            get {
+                return this.NumeroPedidoField;
+            }
+            set {
+                if ((this.NumeroPedidoField.Equals(value) != true)) {
+                    this.NumeroPedidoField = value;
+                    this.RaisePropertyChanged("NumeroPedido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double Total {
+            get {
+                return this.TotalField;
+            }
+            set {
+                if ((this.TotalField.Equals(value) != true)) {
+                    this.TotalField = value;
+                    this.RaisePropertyChanged("Total");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public ItaliaPizza_Cliente.ServicioItaliaPizza.EstadoPedido estadoPedido {
+            get {
+                return this.estadoPedidoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.estadoPedidoField, value) != true)) {
+                    this.estadoPedidoField = value;
+                    this.RaisePropertyChanged("estadoPedido");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="EstadoPedido", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs")]
+    [System.SerializableAttribute()]
+    public partial class EstadoPedido : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdEstadoPedidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdEstadoPedido {
+            get {
+                return this.IdEstadoPedidoField;
+            }
+            set {
+                if ((this.IdEstadoPedidoField.Equals(value) != true)) {
+                    this.IdEstadoPedidoField = value;
+                    this.RaisePropertyChanged("IdEstadoPedido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Nombre {
+            get {
+                return this.NombreField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreField, value) != true)) {
+                    this.NombreField = value;
+                    this.RaisePropertyChanged("Nombre");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Categoria", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs")]
     [System.SerializableAttribute()]
     public partial class Categoria : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -1723,6 +1909,12 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioPedidos/GuardarPedido", ReplyAction="http://tempuri.org/IServicioPedidos/GuardarPedidoResponse")]
         System.Threading.Tasks.Task<int> GuardarPedidoAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.Pedido pedido);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioPedidos/RecuperarPedidos", ReplyAction="http://tempuri.org/IServicioPedidos/RecuperarPedidosResponse")]
+        ItaliaPizza_Cliente.ServicioItaliaPizza.PedidoConsultaDTO[] RecuperarPedidos();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioPedidos/RecuperarPedidos", ReplyAction="http://tempuri.org/IServicioPedidos/RecuperarPedidosResponse")]
+        System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.PedidoConsultaDTO[]> RecuperarPedidosAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1766,6 +1958,14 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         public System.Threading.Tasks.Task<int> GuardarPedidoAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.Pedido pedido) {
             return base.Channel.GuardarPedidoAsync(pedido);
+        }
+        
+        public ItaliaPizza_Cliente.ServicioItaliaPizza.PedidoConsultaDTO[] RecuperarPedidos() {
+            return base.Channel.RecuperarPedidos();
+        }
+        
+        public System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.PedidoConsultaDTO[]> RecuperarPedidosAsync() {
+            return base.Channel.RecuperarPedidosAsync();
         }
     }
     

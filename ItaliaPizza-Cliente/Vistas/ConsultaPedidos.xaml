@@ -34,13 +34,10 @@
                 </ScrollViewer>
             </Border>
             <ScrollViewer Margin="6,142,522,32">
-                <StackPanel Orientation="Vertical" Width="720">
-                    <uc:ElementoConsultaPedido/>
-                    <uc:ElementoConsultaPedido/>
-                    <uc:ElementoConsultaPedido/>
-                    <uc:ElementoConsultaPedido/>
+                <StackPanel x:Name="SkpContenedorPedidos" 
+                            Orientation="Vertical" 
+                            Width="720">
 
-                    <uc:ElementoConsultaPedido/>
                 </StackPanel>
             </ScrollViewer>
             <Border Margin="818,8,10,8" CornerRadius="20" Background="White">
