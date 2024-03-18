@@ -68,6 +68,9 @@
     <Compile Include="Recursos\ControlesUsuario\BarraDeBusquedaConLista.xaml.cs">
       <DependentUpon>BarraDeBusquedaConLista.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Recursos\ControlesUsuario\BarraDeBusquedaMini.xaml.cs">
+      <DependentUpon>BarraDeBusquedaMini.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Recursos\ControlesUsuario\BarraDeBusquedaRecetas.xaml.cs">
       <DependentUpon>BarraDeBusquedaRecetas.xaml</DependentUpon>
     </Compile>
@@ -80,11 +83,20 @@
     <Compile Include="Recursos\ControlesUsuario\ElementoInsumoReceta.xaml.cs">
       <DependentUpon>ElementoInsumoReceta.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Recursos\ControlesUsuario\ElementoInsumoRegistroReceta.xaml.cs">
+      <DependentUpon>ElementoInsumoRegistroReceta.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Recursos\ControlesUsuario\ElementoInsumoSeleccionado.xaml.cs">
+      <DependentUpon>ElementoInsumoSeleccionado.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Recursos\ControlesUsuario\ElementoPedido.xaml.cs">
       <DependentUpon>ElementoPedido.xaml</DependentUpon>
     </Compile>
     <Compile Include="Recursos\ControlesUsuario\ElementoProductoConsultaPedido.xaml.cs">
       <DependentUpon>ElementoProductoConsultaPedido.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Recursos\ControlesUsuario\ElementoProductoSinReceta.xaml.cs">
+      <DependentUpon>ElementoProductoSinReceta.xaml</DependentUpon>
     </Compile>
     <Compile Include="Recursos\ControlesUsuario\ElementoProductoVenta.xaml.cs">
       <DependentUpon>ElementoProductoVenta.xaml</DependentUpon>
@@ -104,11 +116,15 @@
     <Compile Include="Vistas\ConfirmacionRegistroPedido.xaml.cs">
       <DependentUpon>ConfirmacionRegistroPedido.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utilidades\Utilidad.cs" />
     <Compile Include="Vistas\ConsultaPedidos.xaml.cs">
       <DependentUpon>ConsultaPedidos.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\InicioSesion.xaml.cs">
       <DependentUpon>InicioSesion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Productos.xaml.cs">
+      <DependentUpon>Productos.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\Recetas.xaml.cs">
       <DependentUpon>Recetas.xaml</DependentUpon>
@@ -149,6 +165,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Recursos\ControlesUsuario\BarraDeBusquedaMini.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Recursos\ControlesUsuario\BarraDeBusquedaRecetas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -165,11 +185,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Recursos\ControlesUsuario\ElementoInsumoRegistroReceta.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Recursos\ControlesUsuario\ElementoInsumoSeleccionado.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Recursos\ControlesUsuario\ElementoPedido.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Recursos\ControlesUsuario\ElementoProductoConsultaPedido.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Recursos\ControlesUsuario\ElementoProductoSinReceta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -198,6 +230,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vistas\InicioSesion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\Productos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -263,6 +299,12 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.InsumoReceta.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.InsumoRegistroReceta.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.ProductoSinReceta.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.Receta.datasource">
@@ -344,6 +386,9 @@
     <Resource Include="Recursos\Iconos\icono_informacion.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Recursos\Iconos\imagen_producto_sin_foto.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Recursos\Iconos\icono_confirmacion.png" />
   </ItemGroup>
   <ItemGroup>
@@ -369,6 +414,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Recursos\Iconos\icono_exito.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Recursos\Iconos\icono_receta.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

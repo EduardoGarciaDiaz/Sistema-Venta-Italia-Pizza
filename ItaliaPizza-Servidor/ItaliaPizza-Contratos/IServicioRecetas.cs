@@ -19,5 +19,8 @@ namespace ItaliaPizza_Contratos
 
         [OperationContract]
         List<InsumoReceta> RecuperarInsumosReceta(int idReceta);
+
+        [OperationContract]
+        int GuardarReceta(RecetaProducto receta);
     }
 }

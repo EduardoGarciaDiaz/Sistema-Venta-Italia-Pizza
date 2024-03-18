@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace ItaliaPizza_Cliente.Utilidades
 {
@@ -40,6 +41,43 @@ namespace ItaliaPizza_Cliente.Utilidades
             Regex regex = new Regex(RESTRICCION_INSUMO_VALIDA);
 
             return regex.IsMatch(restriccionInsumo.Trim());
+        }
+
+        public static bool ValidarCantidadInsumo(float cantidadInsumo, string unidadMedida, Label lbError)
+        {
+            bool esCantidadValida = true;
+
+            string medidaEnteros = "Unidad";
+            string mensajeErrorCantidad = "Cantidad no válida.";
+
+            if (cantidadInsumo > 0 && unidadMedida == medidaEnteros)
+            {
+                esCantidadValida = ValidarCantidadUnitaria(cantidadInsumo, lbError);
+            }
+            else if (cantidadInsumo <= 0)
+            {
+                Utilidad.MostrarTextoError(lbError, mensajeErrorCantidad);
+
+                esCantidadValida = false;
+            }
+
+            return esCantidadValida;
+        }
+
+
+        public static bool ValidarCantidadUnitaria(float cantidadInsumo, Label lbError)
+        {
+            bool esCantidadValida = true;
+            string mensajeErrorCantidad = "Datos no válidos. Deben ser números enteros";
+
+            if (cantidadInsumo % 1 != 0)
+            {
+                Utilidad.MostrarTextoError(lbError, mensajeErrorCantidad);
+
+                esCantidadValida = false;
+            }
+
+            return esCantidadValida;
         }
     }
 }

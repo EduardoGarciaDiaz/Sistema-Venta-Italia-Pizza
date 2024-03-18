@@ -1,35 +1,34 @@
-﻿<UserControl x:Class="ItaliaPizza_Cliente.Recursos.ControlesUsuario.BarraDeBusqueda"
+﻿<UserControl x:Class="ItaliaPizza_Cliente.Recursos.ControlesUsuario.BarraDeBusquedaMini"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ItaliaPizza_Cliente.Recursos.ControlesUsuario"
-             mc:Ignorable="d" d:DesignWidth="550" Height="47">
-    <Viewbox Width="550" Height="47">
-        <Grid Width="550" Height="47">
-            <TextBox x:Name="TxtBusqueda" Margin="0,0,60,0" BorderThickness="0,0,0,0" FontSize="16" Padding="15,10,0,0" TextChanged="TxtBusqueda_TextChanged">
+             mc:Ignorable="d" 
+             d:DesignHeight="47" d:DesignWidth="280">
+    <Viewbox Height="47" Width="280">
+        <Grid Height="47" Width="280">
+            <TextBox x:Name="tbxBusqueda" Margin="0,0,60,0" BorderThickness="0,0,0,0" FontSize="16" Padding="15,10,0,0" TextChanged="TbxBusqueda_TextChanged" KeyDown="Enter_Pressed">
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="20"/>
                     </Style>
                 </TextBox.Resources>
             </TextBox>
-            <TextBlock x:Name="Placeholder" IsHitTestVisible="False" TextWrapping="Wrap" Text="Buscar un producto..." VerticalAlignment="Center" Foreground="DarkGray" HorizontalAlignment="Left" Width="491" FontSize="16" Height="47" Padding="16,10,0,0">
+            <TextBlock x:Name="Placeholder" IsHitTestVisible="False" TextWrapping="Wrap" Text="Buscar una receta..." VerticalAlignment="Center" Foreground="DarkGray" HorizontalAlignment="Left" Width="491" FontSize="16" Height="47" Padding="16,10,0,0">
                 <TextBlock.Style>
                     <Style TargetType="{x:Type TextBlock}">
                         <Setter Property="Visibility" Value="Collapsed"/>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding Text, ElementName=TxtBusqueda}" Value="">
+                            <DataTrigger Binding="{Binding Text, ElementName=tbxBusqueda}" Value="">
                                 <Setter Property="Visibility" Value="Visible"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </TextBlock.Style>
             </TextBlock>
-            <Image Source="/Recursos/Iconos/icono_buscar.png" 
-           Cursor="Hand"
-           MouseDown="ImgBuscar_Click" Margin="0,0,10,0" HorizontalAlignment="Right" Width="54"/>
+            <Image Source="/Recursos/Iconos/icono_buscar.png" Margin="225,3,5,4" x:Name="imgBuscar" MouseLeftButtonDown="ImgBuscar_Click" Cursor="Hand"/>
         </Grid>
     </Viewbox>
-
+    
 </UserControl>

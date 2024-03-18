@@ -4,18 +4,13 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ItaliaPizza_Cliente.Vistas"
+      xmlns:uc="clr-namespace:ItaliaPizza_Cliente.Recursos.ControlesUsuario"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1300" Background="#F6F6F6"
       Title="RegistroReceta">
 
     <Page.Resources>
-        <Style TargetType="{x:Type TextBox}" >
-            <Style.Resources>
-                <Style TargetType="{x:Type Border}">
-                    <Setter Property="CornerRadius" Value="15" />
-                </Style>
-            </Style.Resources>
-        </Style>
+
         <Style TargetType="{x:Type Button}" >
             <Style.Resources>
                 <Style TargetType="{x:Type Border}">
@@ -31,89 +26,53 @@
             <Label Content="Receta"  HorizontalAlignment="Left" Margin="115,45,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FFD6B400" FontSize="30"/>
 
             <!--Productos sin receta-->
-            <Rectangle HorizontalAlignment="Left" Height="641" Margin="115,100,0,0" VerticalAlignment="Top" Width="302" RadiusX="20" RadiusY="20" Fill="White"/>
-            <Label Content="Elige un producto para registrarle receta" HorizontalAlignment="Left" Margin="122,106,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
-            <TextBox HorizontalAlignment="Left" Margin="142,141,0,0" TextWrapping="Wrap" Text="Buscar producto" VerticalAlignment="Top" Width="236" Background="#FFEEEEEE" Foreground="#FF8E8E8E" BorderBrush="{x:Null}" Padding="4"/>
-            <ScrollViewer Background="BlueViolet" Margin="128,172,883,72">
-                <WrapPanel>
-                    <Grid x:Name="name" Visibility="Visible" Margin="5 5 0 5" Cursor="Hand" Height="126" Width="127">
-                        <Rectangle x:Name="nameRectangle"  Fill="#FF6C6868" Margin="0,0,0,0"  RadiusX="20" RadiusY="20" Visibility="Visible" IsEnabled="True"/>
+            <Rectangle HorizontalAlignment="Left" Height="641" Margin="83,100,0,0" VerticalAlignment="Top" Width="334" RadiusX="20" RadiusY="20" Fill="White"/>
+            <Label Content="Elige un producto para registrarle receta" HorizontalAlignment="Left" Margin="93,106,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
 
-                    </Grid>
-                    <Grid  Visibility="Visible" Margin="5 5 0 5" Cursor="Hand" Height="126" Width="127">
-                        <Rectangle  Fill="#FF6C6868" Margin="0,0,0,0"  RadiusX="20" RadiusY="20" Visibility="Visible" IsEnabled="True"/>
+            <!--<uc:BarraDeBusqueda x:Name="barraDeBusquedaProducto" Margin="-187,135,883,618" />-->
+            <uc:BarraDeBusquedaMini x:Name="barraDeBusquedaProducto" Width="300" Margin="93,135,907,615"/>
 
-                    </Grid>
-                    <Grid  Visibility="Visible" Margin="5 5 0 5" Cursor="Hand" Height="126" Width="127">
-                        <Rectangle  Fill="#FF6C6868" Margin="0,0,0,0"  RadiusX="20" RadiusY="20" Visibility="Visible" IsEnabled="True"/>
+            <ScrollViewer Background="Transparent" Margin="103,172,883,72" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <WrapPanel x:Name="wrapPanelProductosSinReceta">
 
-                    </Grid>
-                    <Grid  Visibility="Visible" Margin="5 5 0 5" Cursor="Hand" Height="126" Width="127">
-                        <Rectangle  Fill="#FF6C6868" Margin="0,0,0,0"  RadiusX="20" RadiusY="20" Visibility="Visible" IsEnabled="True"/>
 
-                    </Grid>
-                    <Grid  Visibility="Visible" Margin="5 5 0 5" Cursor="Hand" Height="126" Width="127">
-                        <Rectangle  Fill="#FF6C6868" Margin="0,0,0,0"  RadiusX="20" RadiusY="20" Visibility="Visible" IsEnabled="True"/>
-
-                    </Grid>
-                    <Grid  Visibility="Visible" Margin="5 5 0 5" Cursor="Hand" Height="126" Width="127">
-                        <Rectangle  Fill="#FF6C6868" Margin="0,0,0,0"  RadiusX="20" RadiusY="20" Visibility="Visible" IsEnabled="True"/>
-
-                    </Grid>
-                    <Grid  Visibility="Visible" Margin="5 5 0 5" Cursor="Hand" Height="126" Width="127">
-                        <Rectangle  Fill="#FF6C6868" Margin="0,0,0,0"  RadiusX="20" RadiusY="20" Visibility="Visible" IsEnabled="True"/>
-
-                    </Grid>
-                    <Grid  Visibility="Visible" Margin="5 5 0 5" Cursor="Hand" Height="126" Width="127">
-                        <Rectangle  Fill="#FF6C6868" Margin="0,0,0,0"  RadiusX="20" RadiusY="20" Visibility="Visible" IsEnabled="True"/>
-
-                    </Grid>
-                    <Grid  Visibility="Visible" Margin="5 5 0 5" Cursor="Hand" Height="126" Width="127">
-                        <Rectangle  Fill="#FF6C6868" Margin="0,0,0,0"  RadiusX="20" RadiusY="20" Visibility="Visible" IsEnabled="True"/>
-
-                    </Grid>
-                    <Grid  Visibility="Visible" Margin="5 5 0 5" Cursor="Hand" Height="126" Width="127">
-                        <Rectangle  Fill="#FF6C6868" Margin="0,0,0,0"  RadiusX="20" RadiusY="20" Visibility="Visible" IsEnabled="True"/>
-
-                    </Grid>
                 </WrapPanel>
             </ScrollViewer>
 
             <!--Insumos disponibles-->
-            <Rectangle HorizontalAlignment="Center" Height="641" Margin="0,100,0,0" VerticalAlignment="Top" Width="302" RadiusX="20" RadiusY="20" Fill="White"/>
-            <Label Content="Selecciona los insumos " HorizontalAlignment="Left" Margin="516,106,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
-            <TextBox HorizontalAlignment="Left" Margin="516,141,0,0" TextWrapping="Wrap" Text="Buscar insumo" VerticalAlignment="Top" Width="236" Background="#FFEEEEEE" Foreground="#FF8E8E8E" BorderBrush="{x:Null}" Padding="4"/>
+            <Rectangle HorizontalAlignment="Left" Height="641" Margin="479,100,0,0" VerticalAlignment="Top" Width="349" RadiusX="20" RadiusY="20" Fill="White"/>
+            <Label Content="Selecciona los insumos " HorizontalAlignment="Left" Margin="494,106,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
 
-            <ScrollViewer Background="BlueViolet" Margin="512,172,499,72">
-                <WrapPanel>
-                    <Grid x:Name="ss" Visibility="Visible" Margin="0 0 5 0" Cursor="Hand" Height="54" Width="267">
-                        <Rectangle x:Name="s" Height="50" Width="256" Fill="#FF6C6868" RadiusX="20" RadiusY="20" Visibility="Visible" IsEnabled="True"/>
-                    </Grid>
+
+            <uc:BarraDeBusquedaMini x:Name="barraDeBusquedaInsumo" Width="300" Margin="479,135,521,615"/>
+
+            <ScrollViewer Background="Transparent" Margin="490,172,486,72" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <WrapPanel x:Name="wrapPanelInsumos">
                 </WrapPanel>
             </ScrollViewer>
 
             <!--Insumos seleccionados-->
-            <Rectangle HorizontalAlignment="Left" Height="526" Margin="894,106,0,0" VerticalAlignment="Top" Width="302" RadiusX="20" RadiusY="20" Fill="White"/>
+            <Rectangle HorizontalAlignment="Left" Height="526" Margin="894,100,0,0" VerticalAlignment="Top" Width="332" RadiusX="20" RadiusY="20" Fill="White"/>
             <Label Content="Insumos seleccionados" HorizontalAlignment="Left" Margin="900,106,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
 
-            <ScrollViewer Background="BlueViolet" Margin="908,140,104,219">
-                <WrapPanel>
-                    <Grid x:Name="rr" Visibility="Visible" Cursor="Hand" Height="40" Width="271">
-                        <Button Width="30" Height="30" Margin="5" HorizontalAlignment="Left" ></Button>
-                        <Image></Image>
-                        <Rectangle x:Name="d" Width="230" HorizontalAlignment="Right" Margin="0 3 5 0" Fill="#FF6C6868"   RadiusX="20" RadiusY="20" Visibility="Visible" IsEnabled="True"/>
-
-                    </Grid>
+            <ScrollViewer Background="Transparent" Margin="908,140,90,219" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <WrapPanel x:Name="wrapPanelInsumosSeleccionados">
                 </WrapPanel>
             </ScrollViewer>
-            <Label Content="Pizza Clásica"  HorizontalAlignment="Left" Margin="812,45,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FFD6B400" FontSize="30" Width="465" HorizontalContentAlignment="Center"/>
+            <Label x:Name="lbNombreReceta" Content=""  HorizontalAlignment="Left" Margin="812,45,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FFD6B400" FontSize="30" Width="465" HorizontalContentAlignment="Center"/>
 
+
+            <Separator HorizontalAlignment="Left" Margin="908,591,0,0" VerticalAlignment="Top" Height="5" Width="270"/>
 
             <!--Botones-->
-            <Button Content="Guardar receta" HorizontalAlignment="Left" Margin="894,637,0,0" VerticalAlignment="Top" Height="57" Width="302" Foreground="Black" BorderBrush="#FFF8D72A" Background="#FFF8D72A" FontSize="24" FontWeight="Bold" Cursor="Hand"/>
-            <Button Content="Cancelar" HorizontalAlignment="Left" Margin="894,699,0,0" VerticalAlignment="Top" Height="57" Width="302" Foreground="#FFD67272" BorderBrush="#FFD67272" Background="#FFF6F6F6" FontSize="24" FontWeight="Bold" Cursor="Hand"/>
-            <Label Content="0 Insumos" HorizontalAlignment="Left" Margin="908,599,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="270"/>
-            <Separator HorizontalAlignment="Left" Margin="908,591,0,0" VerticalAlignment="Top" Height="5" Width="270"/>
+            <Button Content="Guardar receta" HorizontalAlignment="Left" Margin="894,637,0,0" VerticalAlignment="Top" Height="57" Width="302" Foreground="Black" BorderBrush="#FFF8D72A" Background="#FFF8D72A" FontSize="24" FontWeight="Bold" Cursor="Hand" Click="BtnGuardarReceta_Click"/>
+            <Button Content="Cancelar" HorizontalAlignment="Left" Margin="894,699,0,0" VerticalAlignment="Top" Height="57" Width="302" Foreground="#FFD67272" BorderBrush="#FFD67272" Background="#FFF6F6F6" FontSize="24" FontWeight="Bold" Cursor="Hand" Click="BtnCancelar_Click"/>
+            <Label x:Name="lbContadorInsumos" Content="0" HorizontalAlignment="Left" Margin="908,599,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="270"/>
+            <Label Content="Insumos" HorizontalAlignment="Left" Margin="941,599,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="237"/>
+
+
+            <TextBlock x:Name="tbkErrorRegistro" Visibility="Visible" TextWrapping="Wrap" Margin="909,297,0,0" FontSize="18" Foreground="#FFB1B1B1" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Height="89" Width="302" TextAlignment="Center">Primero debes seleccionar un producto</TextBlock>
+
 
         </Grid>
     </Viewbox>

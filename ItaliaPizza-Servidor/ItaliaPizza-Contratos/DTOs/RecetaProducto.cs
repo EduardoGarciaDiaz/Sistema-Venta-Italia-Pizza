@@ -8,18 +8,15 @@ using System.Threading.Tasks;
 namespace ItaliaPizza_Contratos.DTOs
 {
     [DataContract]
-    public class InsumoReceta
+    public class RecetaProducto
     {
         [DataMember]
-        public string Codigo { get; set; }
+        public int IdReceta { get; set; }
 
         [DataMember]
-        public string Nombre { get; set; }
+        public string CodigoProducto { get; set; }
 
         [DataMember]
-        public double Cantidad { get; set; }
-
-        [DataMember]
-        public UnidadMedida UnidadMedida { get; set; }
+        public InsumoReceta[] InsumosReceta { get; set; }
     }
 }

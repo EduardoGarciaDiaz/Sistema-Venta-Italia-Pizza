@@ -300,6 +300,28 @@ namespace ItaliaPizza_DataAccess
             return filasAfectadas;
         }
 
+        public List<ProductoSinReceta> RecuperarProductosSinReceta()
+        {
+            using (var context = new ItaliaPizzaEntities())
+            {
+                var productosSinReceta = from p in context.Productos
+                                         join pv in context.ProductosVenta on p.CodigoProducto equals pv.CodigoProducto
+                                         join r in context.Recetas on pv.CodigoProducto equals r.CodigoProducto into rGroup
+                                         from r in rGroup.DefaultIfEmpty()
+                                         where r.CodigoProducto == null
+                                         && !context.Insumos.Any(i => i.CodigoProducto == p.CodigoProducto)
+                                         && p.EsActivo == true
+                                         select new ProductoSinReceta
+                                         {
+                                             Codigo = p.CodigoProducto,
+                                             Nombre = p.Nombre,
+                                             Foto = pv.Foto,
+                                         };
+
+
+                return productosSinReceta.ToList();
+            }
+        }
         public bool ValidarSiProductoEnVentaEsInventariado(string codigoProducto)
         {
             bool productoEsInventariado = false;

@@ -120,14 +120,14 @@ namespace ItaliaPizza_Cliente.Vistas
             SkpContenedorProductos.Children.Clear();
             List<ProductoVentaPedidos>.Enumerator iterator = productosVenta.GetEnumerator();
             iterator.MoveNext();
-            for (int i = 0; i <= productosVenta.Count/4;  i++)
+            for (int i = 0; i <= productosVenta.Count / 4; i++)
             {
                 StackPanel stackPanel = new StackPanel();
                 stackPanel.Orientation = Orientation.Horizontal;
                 for (int j = 0; j < 4; j++)
                 {
                     ProductoVentaPedidos productoVenta = iterator.Current;
-                    ElementoProductoVenta elementoProductoVenta = new ElementoProductoVenta();                    
+                    ElementoProductoVenta elementoProductoVenta = new ElementoProductoVenta();
                     elementoProductoVenta.ImgProducto.Source = ConvertidorBytes.ConvertirBytesABitmapImage(productoVenta.Foto);
                     elementoProductoVenta.LblNombreProducto.Content = productoVenta.Nombre;
                     elementoProductoVenta.LblCodigo.Content = productoVenta.Codigo;
