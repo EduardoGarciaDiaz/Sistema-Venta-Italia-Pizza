@@ -68,6 +68,9 @@
     <Compile Include="Recursos\ControlesUsuario\BarraDeBusquedaConLista.xaml.cs">
       <DependentUpon>BarraDeBusquedaConLista.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Recursos\ControlesUsuario\BarraDeBusquedaMini.xaml.cs">
+      <DependentUpon>BarraDeBusquedaMini.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Recursos\ControlesUsuario\BarraDeBusquedaRecetas.xaml.cs">
       <DependentUpon>BarraDeBusquedaRecetas.xaml</DependentUpon>
     </Compile>
@@ -113,11 +116,15 @@
     <Compile Include="Vistas\ConfirmacionRegistroPedido.xaml.cs">
       <DependentUpon>ConfirmacionRegistroPedido.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utilidades\Utilidad.cs" />
     <Compile Include="Vistas\ConsultaPedidos.xaml.cs">
       <DependentUpon>ConsultaPedidos.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\InicioSesion.xaml.cs">
       <DependentUpon>InicioSesion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Productos.xaml.cs">
+      <DependentUpon>Productos.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\Recetas.xaml.cs">
       <DependentUpon>Recetas.xaml</DependentUpon>
@@ -157,6 +164,10 @@
     <Page Include="Recursos\ControlesUsuario\BarraDeBusquedaConLista.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Recursos\ControlesUsuario\BarraDeBusquedaMini.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Recursos\ControlesUsuario\BarraDeBusquedaRecetas.xaml">
       <SubType>Designer</SubType>
@@ -219,6 +230,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vistas\InicioSesion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\Productos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -396,6 +411,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Recursos\Iconos\icono_exito.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Recursos\Iconos\icono_receta.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

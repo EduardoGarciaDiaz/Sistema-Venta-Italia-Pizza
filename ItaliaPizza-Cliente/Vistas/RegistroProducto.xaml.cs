@@ -185,7 +185,7 @@ namespace ItaliaPizza_Cliente.Vistas
                     else
                     {
                         string mensajeErrorCodigo = "Código existente";
-                        MostrarEtiquetaError(lbErrorCodigo, mensajeErrorCodigo);
+                        Utilidad.MostrarTextoError(lbErrorCodigo, mensajeErrorCodigo);
                     }
                 }
             }
@@ -273,10 +273,10 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             string codigo = tbxCodigo.Text.Trim();
             string cantidad = tbxCantidad.Text.Trim();
-            float cantidadInsumo = ConvertirStringAFloat(cantidad, null);
+            float cantidadInsumo = Utilidad.ConvertirStringAFloat(cantidad, null);
             UnidadMedida unidadMedida = (UnidadMedida)cbxUnidadMedida.SelectedItem;
             string costo = tbxCostoUnitario.Text.Trim();
-            float costoUnitarioInsumo = ConvertirStringAFloat(costo, null);
+            float costoUnitarioInsumo = Utilidad.ConvertirStringAFloat(costo, null);
             string restricciones = tbxRestricciones.Text.Trim();
             Categoria categoria = (Categoria)cbxCategoria.SelectedItem;
 
@@ -297,7 +297,7 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             string codigo = tbxCodigo.Text.Trim();
             string precio = tbxPrecio.Text.Trim();
-            float precioProductoVenta = ConvertirStringAFloat(precio, null);
+            float precioProductoVenta = Utilidad.ConvertirStringAFloat(precio, null);
             Byte[] foto = _fotoBytes;
             Categoria categoria = (Categoria)cbxCategoria.SelectedItem;
 
@@ -340,15 +340,11 @@ namespace ItaliaPizza_Cliente.Vistas
             lbErrorRestricciones.Visibility = Visibility.Collapsed;
         }
 
-        private void MostrarEtiquetaError(Label lbError, string mensajeError)
-        {
-            lbError.Content = mensajeError;
-            lbError.Visibility = Visibility.Visible;
-        }
+
 
         private void MostrarErrorCampoObligatorio(Label lbError)
         {
-            MostrarEtiquetaError(lbError, MENSAJE_CAMPO_OBLIGATORIO);
+            Utilidad.MostrarTextoError(lbError, MENSAJE_CAMPO_OBLIGATORIO);
         }
 
         private bool ValidarRegistro()
@@ -421,7 +417,7 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             else if (!esCodigoProductoValido)
             {
-                MostrarEtiquetaError(lbErrorCodigo, mensajeErrorCodigo);
+                Utilidad.MostrarTextoError(lbErrorCodigo, mensajeErrorCodigo);
             }
 
             return esCodigoProductoValido;
@@ -482,7 +478,7 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             else if (!esNombreProductoValido)
             {
-                MostrarEtiquetaError(lbErrorNombre, mensajeErrorNombre);
+                Utilidad.MostrarTextoError(lbErrorNombre, mensajeErrorNombre);
             }
 
             return esNombreProductoValido;
@@ -515,7 +511,7 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             else if (!esDescripcionValida)
             {
-                MostrarEtiquetaError(lbErrorDescripcion, mensajeErrorDescripcion);
+                Utilidad.MostrarTextoError(lbErrorDescripcion, mensajeErrorDescripcion);
             }
 
             return esDescripcionValida;
@@ -565,65 +561,13 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             bool esCantidadValida = true;
 
-            string medidaEnteros = "Unidad";
-            string mensajeErrorCantidad = "Datos no válidos. Debe ser positiva la cantidad";
-
             string cantidad = tbxCantidad.Text.Trim();
-            float cantidadInsumo = ConvertirStringAFloat(cantidad, lbErrorCantidad);
+            float cantidadInsumo = Utilidad.ConvertirStringAFloat(cantidad, lbErrorCantidad);
             UnidadMedida unidadSeleccionada = (UnidadMedida)cbxUnidadMedida.SelectedItem;
             string nombreUnidadSeleccionada = unidadSeleccionada.Nombre;
 
-            if (string.IsNullOrEmpty(cantidad))
-            {
-                MostrarErrorCampoObligatorio(lbErrorCantidad);
-                esCantidadValida = false;
-            }
-            else if (cantidadInsumo >= 0 && nombreUnidadSeleccionada == medidaEnteros)
-            {
-                esCantidadValida = ValidarCantidadUnitaria(cantidadInsumo);
-            }
-            else if (cantidadInsumo <= 0)
-            {
-                MostrarEtiquetaError(lbErrorCantidad, mensajeErrorCantidad);
-                esCantidadValida = false;
-            }
+            esCantidadValida = UtilidadValidacion.ValidarCantidadInsumo(cantidadInsumo, nombreUnidadSeleccionada, lbErrorCantidad);
 
-            return esCantidadValida;
-        }
-
-        private float ConvertirStringAFloat(string numeroEnString, Label lbError)
-        {
-            float numeroConvertido = -1;
-
-            try
-            {
-                numeroConvertido = Convert.ToSingle(numeroEnString);
-            }
-            catch (FormatException)
-            {
-                string mensajeErrorFormato = "Solo puede incluir números. Ej. 2, .5";
-                MostrarEtiquetaError(lbError, mensajeErrorFormato);
-            }
-            catch (OverflowException)
-            {
-                string mensajeErrorOverFlow = "Cantidad no permitida, por favor corrigelo.";
-                MostrarEtiquetaError(lbError, mensajeErrorOverFlow);
-            }
-
-            return numeroConvertido;
-        }
-
-        private bool ValidarCantidadUnitaria(float cantidadInsumo)
-        {
-            bool esCantidadValida = true;
-            string mensajeErrorCantidad = "Datos no válidos. Deben ser números enteros";
-
-            if (cantidadInsumo % 1 != 0)
-            {
-                MostrarEtiquetaError(lbErrorCantidad, mensajeErrorCantidad);
-                esCantidadValida = false;
-            }
-            
             return esCantidadValida;
         }
 
@@ -634,7 +578,7 @@ namespace ItaliaPizza_Cliente.Vistas
             float costoMinimoValido = 0;
 
             string costo = tbxCostoUnitario.Text.Trim();
-            float costoUnitario = ConvertirStringAFloat(costo, lbErrorCostoUnitario);
+            float costoUnitario = Utilidad.ConvertirStringAFloat(costo, lbErrorCostoUnitario);
 
             if (string.IsNullOrEmpty(costo))
             {
@@ -644,7 +588,7 @@ namespace ItaliaPizza_Cliente.Vistas
             else if (costoUnitario <= costoMinimoValido)
             {
                 esCostoValido = false;
-                MostrarEtiquetaError(lbErrorCostoUnitario, mensajeErrorCosto);
+                Utilidad.MostrarTextoError(lbErrorCostoUnitario, mensajeErrorCosto);
             }
 
             return esCostoValido;
@@ -659,7 +603,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
             if (!esRestriccionValida)
             {
-                MostrarEtiquetaError(lbErrorRestricciones, mensajeErrorRestriccion);
+                Utilidad.MostrarTextoError(lbErrorRestricciones, mensajeErrorRestriccion);
             }
 
             return esRestriccionValida;
@@ -682,7 +626,7 @@ namespace ItaliaPizza_Cliente.Vistas
             bool esPrecioValido = true;
             string mensajeErrorPrecio = "Precio no válido.";
             string precio = tbxPrecio.Text.Trim();
-            float precioProductoVenta = ConvertirStringAFloat(precio, lbErrorPrecio);
+            float precioProductoVenta = Utilidad.ConvertirStringAFloat(precio, lbErrorPrecio);
             float precioMinimoValido = 0;
 
             if (string.IsNullOrEmpty(precio))
@@ -692,7 +636,7 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             else if (precioProductoVenta <= precioMinimoValido)
             {
-                MostrarEtiquetaError(lbErrorPrecio, mensajeErrorPrecio);
+                Utilidad.MostrarTextoError(lbErrorPrecio, mensajeErrorPrecio);
                 esPrecioValido = false;
             }
 
@@ -733,7 +677,7 @@ namespace ItaliaPizza_Cliente.Vistas
             if (result == MessageBoxResult.Yes)
             {
                 LimpiarCampos();
-                //NavigationService.GoBack();
+                NavigationService.GoBack();
             }
         }
 

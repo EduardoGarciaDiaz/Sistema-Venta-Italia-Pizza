@@ -35,7 +35,6 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
         {
             InitializeComponent();
             InsumoAsignado = insumo;
-            EsSeleccionado = false;
             CargarDatos();
         }
 

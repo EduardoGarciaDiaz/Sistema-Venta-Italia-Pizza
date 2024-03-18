@@ -29,7 +29,8 @@
             <Rectangle HorizontalAlignment="Left" Height="641" Margin="83,100,0,0" VerticalAlignment="Top" Width="334" RadiusX="20" RadiusY="20" Fill="White"/>
             <Label Content="Elige un producto para registrarle receta" HorizontalAlignment="Left" Margin="93,106,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
 
-            <uc:BarraDeBusqueda Margin="94,134,903,626" Height="35"/>
+            <!--<uc:BarraDeBusqueda x:Name="barraDeBusquedaProducto" Margin="-187,135,883,618" />-->
+            <uc:BarraDeBusquedaMini x:Name="barraDeBusquedaProducto" Width="300" Margin="93,135,907,615"/>
 
             <ScrollViewer Background="Transparent" Margin="103,172,883,72" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                 <WrapPanel x:Name="wrapPanelProductosSinReceta">
@@ -40,10 +41,10 @@
 
             <!--Insumos disponibles-->
             <Rectangle HorizontalAlignment="Left" Height="641" Margin="479,100,0,0" VerticalAlignment="Top" Width="349" RadiusX="20" RadiusY="20" Fill="White"/>
-            <Label Content="Selecciona los insumos " HorizontalAlignment="Left" Margin="516,106,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
+            <Label Content="Selecciona los insumos " HorizontalAlignment="Left" Margin="494,106,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
 
 
-            <uc:BarraDeBusquedaRecetas Margin="490,137,498,635" Height="28"/>
+            <uc:BarraDeBusquedaMini x:Name="barraDeBusquedaInsumo" Width="300" Margin="479,135,521,615"/>
 
             <ScrollViewer Background="Transparent" Margin="490,172,486,72" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                 <WrapPanel x:Name="wrapPanelInsumos">
@@ -58,16 +59,19 @@
                 <WrapPanel x:Name="wrapPanelInsumosSeleccionados">
                 </WrapPanel>
             </ScrollViewer>
-            <Label x:Name="lbNombreReceta" Content="Pizza Clásica"  HorizontalAlignment="Left" Margin="812,45,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FFD6B400" FontSize="30" Width="465" HorizontalContentAlignment="Center"/>
+            <Label x:Name="lbNombreReceta" Content=""  HorizontalAlignment="Left" Margin="812,45,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FFD6B400" FontSize="30" Width="465" HorizontalContentAlignment="Center"/>
 
+
+            <Separator HorizontalAlignment="Left" Margin="908,591,0,0" VerticalAlignment="Top" Height="5" Width="270"/>
 
             <!--Botones-->
             <Button Content="Guardar receta" HorizontalAlignment="Left" Margin="894,637,0,0" VerticalAlignment="Top" Height="57" Width="302" Foreground="Black" BorderBrush="#FFF8D72A" Background="#FFF8D72A" FontSize="24" FontWeight="Bold" Cursor="Hand" Click="BtnGuardarReceta_Click"/>
             <Button Content="Cancelar" HorizontalAlignment="Left" Margin="894,699,0,0" VerticalAlignment="Top" Height="57" Width="302" Foreground="#FFD67272" BorderBrush="#FFD67272" Background="#FFF6F6F6" FontSize="24" FontWeight="Bold" Cursor="Hand" Click="BtnCancelar_Click"/>
-            <Label x:Name="lbContadorInsumos" Content="0 Insumos" HorizontalAlignment="Left" Margin="908,599,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="270"/>
-            <Separator HorizontalAlignment="Left" Margin="908,591,0,0" VerticalAlignment="Top" Height="5" Width="270"/>
+            <Label x:Name="lbContadorInsumos" Content="0" HorizontalAlignment="Left" Margin="908,599,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="270"/>
+            <Label Content="Insumos" HorizontalAlignment="Left" Margin="941,599,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="237"/>
 
-            <TextBlock x:Name="lbErrorRegistro" Visibility="Visible" TextWrapping="Wrap" Margin="909,297,0,0" FontSize="18" Foreground="#FFB1B1B1" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Height="89" Width="302" TextAlignment="Center">Primero debes seleccionar un producto</TextBlock>
+
+            <TextBlock x:Name="tbkErrorRegistro" Visibility="Visible" TextWrapping="Wrap" Margin="909,297,0,0" FontSize="18" Foreground="#FFB1B1B1" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Height="89" Width="302" TextAlignment="Center">Primero debes seleccionar un producto</TextBlock>
 
 
         </Grid>

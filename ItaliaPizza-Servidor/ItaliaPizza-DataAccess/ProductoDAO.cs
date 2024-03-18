@@ -310,6 +310,7 @@ namespace ItaliaPizza_DataAccess
                                          from r in rGroup.DefaultIfEmpty()
                                          where r.CodigoProducto == null
                                          && !context.Insumos.Any(i => i.CodigoProducto == p.CodigoProducto)
+                                         && p.EsActivo == true
                                          select new ProductoSinReceta
                                          {
                                              Codigo = p.CodigoProducto,
