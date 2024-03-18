@@ -140,7 +140,7 @@ namespace ItaliaPizza_DataAccess
                 //TODO: Manejar excepcion
                 Console.WriteLine(ex.StackTrace);
             }
-            return clientes;
+            return cliente;
         }
 
 

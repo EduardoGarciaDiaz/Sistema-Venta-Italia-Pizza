@@ -536,6 +536,12 @@
     </wsdl:operation>
     <wsdl:operation name="Activar_DesactivarUsuario">
       <soap12:operation soapAction="http://tempuri.org/IServicioUsuarios/Activar_DesactivarUsuario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="RecuperarClientePorId">
       <soap12:operation soapAction="http://tempuri.org/IServicioUsuarios/RecuperarClientePorId" style="document" />

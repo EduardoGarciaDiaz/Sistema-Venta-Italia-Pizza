@@ -303,6 +303,9 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="Activar_DesactivarUsuarioResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="RecuperarClientePorId">
     <xs:complexType>
       <xs:sequence>
@@ -313,7 +316,7 @@
   <xs:element name="RecuperarClientePorIdResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="RecuperarClientePorIdResult" nillable="true" type="q14:Cliente" />
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="RecuperarClientePorIdResult" nillable="true" type="q16:Cliente" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

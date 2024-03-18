@@ -42,6 +42,7 @@ namespace ItaliaPizza_Contratos
         [OperationContract]
         bool Activar_DesactivarUsuario(int idUsuario, bool esEmpleado, bool esDesactivar);
 
+        [OperationContract]
         Cliente RecuperarClientePorId(int idCliente);
 
     }
