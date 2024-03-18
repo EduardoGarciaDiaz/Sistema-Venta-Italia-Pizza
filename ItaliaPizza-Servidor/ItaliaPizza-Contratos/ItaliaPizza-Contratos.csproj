@@ -54,11 +54,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< Updated upstream
-    <Compile Include="IServicioPrueba.cs" />
-=======
     <Compile Include="DTOs\Categoria.cs" />
     <Compile Include="DTOs\Cliente.cs" />
+    <Compile Include="DTOs\Categoria.cs" />
     <Compile Include="DTOs\ClienteBusqueda.cs" />
     <Compile Include="DTOs\DireccionDto.cs" />
     <Compile Include="DTOs\EmpleadoDto.cs" />
@@ -79,7 +77,6 @@
     <Compile Include="IServicioProductos.cs" />
     <Compile Include="IServicioRecetas.cs" />
     <Compile Include="IServicioUsuarios.cs" />
->>>>>>> Stashed changes
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

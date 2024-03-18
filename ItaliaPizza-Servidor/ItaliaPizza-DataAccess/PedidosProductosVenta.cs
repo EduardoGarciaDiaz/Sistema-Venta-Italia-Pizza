@@ -12,13 +12,14 @@ namespace ItaliaPizza_DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class UsuariosOrdenes
+    public partial class PedidosProductosVenta
     {
-        public int IdUsuarioOrden { get; set; }
+        public int IdPedidoProductoVenta { get; set; }
         public Nullable<int> NumeroPedido { get; set; }
-        public string NombreUsuario { get; set; }
+        public string CodigoProducto { get; set; }
+        public Nullable<int> CantidadProducto { get; set; }
     
-        public virtual Empleados Empleados { get; set; }
         public virtual Pedidos Pedidos { get; set; }
+        public virtual ProductosVenta ProductosVenta { get; set; }
     }
 }

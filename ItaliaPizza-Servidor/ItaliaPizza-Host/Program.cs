@@ -12,7 +12,7 @@ namespace ItaliaPizza_Host
     {
         static void Main(string[] args)
         {
-            using (ServiceHost host = new ServiceHost(typeof(ItaliaPizza_Servicios.Service1)))
+            using (ServiceHost host = new ServiceHost(typeof(ItaliaPizza_Servicios.ServicioItaliaPizza)))
             {
                 host.Open();
                 Console.WriteLine("Server is running");

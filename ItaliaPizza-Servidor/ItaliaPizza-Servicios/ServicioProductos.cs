@@ -124,7 +124,8 @@ namespace ItaliaPizza_Servicios
             {
                 productoDisponible = insumoDAO.ValidarDisponibilidadInsumo(codigoProducto, cantidadProductos);
 
-            } else
+            } 
+            else
             {
                 List<RecetasInsumos> insumosEnReceta = recetaTemporalDAO.RecuperarInsumosEnReceta(codigoProducto);
 

@@ -1,10 +1,6 @@
-<<<<<<< Updated upstream
-﻿using System;
-=======
-﻿using ItaliaPizza_Cliente.Recursos.ControlesUsuario;
-using ItaliaPizza_Cliente.ServicioItaliaPizza;
 using System;
->>>>>>> Stashed changes
+using ItaliaPizza_Cliente.Recursos.ControlesUsuario;
+using ItaliaPizza_Cliente.ServicioItaliaPizza;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,7 +28,7 @@ namespace ItaliaPizza_Cliente.Vistas
         private readonly Pedido _pedido;
         private Cliente _cliente;
 
-        public RegistroPagoPedido()
+        public RegistroPagoPedido(Pedido pedido)
         {
             this._pedido = pedido;
             InitializeComponent();

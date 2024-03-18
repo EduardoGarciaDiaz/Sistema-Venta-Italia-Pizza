@@ -18,6 +18,7 @@ namespace ItaliaPizza_DataAccess
         public Usuarios()
         {
             this.Empleados = new HashSet<Empleados>();
+            this.UsuariosPedidos = new HashSet<UsuariosPedidos>();
         }
     
         public int IdUsuario { get; set; }
@@ -30,5 +31,7 @@ namespace ItaliaPizza_DataAccess
         public virtual Direcciones Direcciones { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Empleados> Empleados { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UsuariosPedidos> UsuariosPedidos { get; set; }
     }
 }

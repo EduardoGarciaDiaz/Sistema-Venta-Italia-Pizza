@@ -3,15 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:uc="clr-namespace:ItaliaPizza_Cliente.Recursos.ControlesUsuario"
         xmlns:local="clr-namespace:ItaliaPizza_Cliente"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1300">
-
+        Title="MainWindow" Height="800" Width="1250"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        MinWidth="500">
     <Viewbox Stretch="Fill">
-<<<<<<< Updated upstream
-        <Grid Height="800" Width="1300">
-            <Frame x:Name="frameNavigation" Grid.Column="0" Grid.ColumnSpan="3" NavigationUIVisibility="Hidden" Source="/Vistas/InicioSesion.xaml" />
-=======
         <Grid Height="800" Width="1250">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width=".06*"/>
@@ -69,7 +68,9 @@
             <Border Grid.Row="0"
                     Grid.Column="4" 
                     Background="Transparent"
+
                     Cursor="Hand"
+
                     MouseLeftButtonDown="Salir_MouseLeftButtonDown"/>
 
             <StackPanel x:Name="SkpMenuLateral"
@@ -87,7 +88,6 @@
                NavigationUIVisibility="Hidden"
                Source="/Vistas/RegistroPedido.xaml"
             />
->>>>>>> Stashed changes
         </Grid>
     </Viewbox>
 </Window>
