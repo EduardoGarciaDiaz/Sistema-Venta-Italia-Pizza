@@ -27,6 +27,7 @@
     <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="d45d5b6e-831c-4505-90aa-6dfbdf9f4cef" SourceId="1" SourceUrl="http://localhost:8082/?xsd=xsd2" />
     <MetadataFile FileName="item3.xsd" MetadataType="Schema" ID="a812b400-b8f2-4ae0-838e-c0865eeb6371" SourceId="1" SourceUrl="http://localhost:8082/?xsd=xsd3" />
     <MetadataFile FileName="item.disco" MetadataType="Disco" ID="db42017d-43e5-4983-91ab-6704842199cc" SourceId="1" SourceUrl="http://localhost:8082/?disco" />
+    <MetadataFile FileName="item4.xsd" MetadataType="Schema" ID="6a8b0bc6-7f2c-427f-8b2e-44f3d446e3d2" SourceId="1" SourceUrl="http://localhost:8082/?xsd=xsd4" />
     <MetadataFile FileName="ServicioItaliaPizza.wsdl" MetadataType="Wsdl" ID="c0d20c7e-9b42-4011-92dc-967e4c38af8f" SourceId="1" SourceUrl="http://localhost:8082/?wsdl" />
   </Metadata>
   <Extensions>

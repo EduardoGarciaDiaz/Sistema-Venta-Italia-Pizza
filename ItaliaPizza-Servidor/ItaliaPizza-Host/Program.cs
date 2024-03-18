@@ -16,10 +16,6 @@ namespace ItaliaPizza_Host
             {
                 host.Open();
                 Console.WriteLine("Server is running");
-                foreach (TiposEmpleado tip in Class1.ProbarBD())
-                {
-                    Console.WriteLine(tip.Nombre);
-                }
                 Console.ReadLine();
             }
         }
