@@ -212,11 +212,13 @@ namespace ItaliaPizza_Cliente.Vistas
             if (exito)
             {
                 VentanaEmergente ventanaEmergente = new VentanaEmergente("Registro Exitoso", "Se ha guardado correctamente al usuario nuevo.", Window.GetWindow(this), 2);
+                ventanaEmergente.ShowDialog();
                 LimpiarCampos();
             }
             else
             {
                 VentanaEmergente ventanaEmergente = new VentanaEmergente("Error ", "Ocurrio un error al guardar al usuario nuevo.", Window.GetWindow(this), 1);
+                ventanaEmergente.ShowDialog();
             }
         }
 
@@ -329,6 +331,7 @@ namespace ItaliaPizza_Cliente.Vistas
         private void MostrarMensajeConfirmacion()
         {
             VentanaEmergente ventanaEmergente = new VentanaEmergente("Cuidado!!!", "¿Seguro que desea cancelar el registro?, se perderán los datos del usuario?", "Si, Cancelar Registro", "No, Cancelar Accion", Window.GetWindow(this), 3);
+            ventanaEmergente.ShowDialog();
             if (ventanaEmergente.AceptarAccion)
             {
                 LimpiarCampos();

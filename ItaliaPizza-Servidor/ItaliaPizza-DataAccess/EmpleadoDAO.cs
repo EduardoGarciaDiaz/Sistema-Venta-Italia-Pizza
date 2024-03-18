@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
+using System.Data.SqlClient;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -60,6 +63,37 @@ namespace ItaliaPizza_DataAccess
                 resultadoOperacion = false;
             }
             return resultadoOperacion;
+        }
+
+
+        public static  List<Empleados> RecuperarEmpleadoBD()
+        {
+
+            List<Empleados> empleados = new List<Empleados>();
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                     empleados = context.Empleados.Include(u => u.Usuarios.Direcciones).Include(e => e.TiposEmpleado).ToList();
+
+                }
+            }
+            catch (EntityException ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (SqlException ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (Exception ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            return empleados;
         }
     }
 }

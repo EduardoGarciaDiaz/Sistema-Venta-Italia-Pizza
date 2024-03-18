@@ -103,5 +103,50 @@ namespace ItaliaPizza_Servicios.Auxiliares
 
         }
 
+
+        public static DireccionDto ConvertirDireccionesADireccionDto(Direcciones direccion)
+        {
+            DireccionDto direccionDto = new DireccionDto()
+            {
+                IdDireccion = direccion.IdDireccion,
+                Colonia = direccion.Colonia,
+                Ciudad = direccion.Ciudad,
+                Calle = direccion.Calle,
+                CodigoPostal = direccion.CodigoPostal,
+                Numero = (int) direccion.Numero,
+            };
+            return direccionDto;
+        }
+
+
+        public static UsuarioDto ConvertirUsuariosAUsuarioDto(Usuarios usuario, Direcciones direccion)
+        {
+            UsuarioDto usuarioDto = new UsuarioDto()
+            {
+                IdUsuario = usuario.IdUsuario,
+                NombreCompleto = usuario.NombreCompleto,
+                NumeroTelefono = usuario.NumeroTelefono,
+                EsActivo = (bool)usuario.EsActivo,
+                CorreoElectronico = usuario.CorreoElectronico,
+                IdDireccion = (int)usuario.IdDireccion,
+                Direccion = ConvertirDireccionesADireccionDto(direccion)
+            };
+            return usuarioDto;
+        }
+
+        public static EmpleadoDto ConvertirEmpleadosAEmpleadoDto(Empleados empleado, String tipoEmpleado,  Usuarios usuario, Direcciones direccion)
+        {
+            EmpleadoDto empleadoDto = new EmpleadoDto()
+            {
+                IdUsuario =(int) empleado.IdUsuario,
+                IdTipoEmpleado = (int) empleado.IdTipoEmpleado,
+                Contraseña = empleado.Contraseña,
+                NombreUsuario = empleado.NombreUsuario,
+                Usuario = ConvertirUsuariosAUsuarioDto(usuario,direccion),
+                TipoEmpleado = tipoEmpleado
+            };
+            return empleadoDto;
+        }
+
     }
 }

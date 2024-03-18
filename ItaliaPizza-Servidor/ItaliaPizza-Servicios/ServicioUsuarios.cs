@@ -21,9 +21,10 @@ namespace ItaliaPizza_Servicios
                  exito= DireccionDAO.GuardarDireccionNuevaBD(direccionNueva);
                 if(exito > 0)
                 {
+                    UsuarioDAO usuarioDAO = new UsuarioDAO();
                     clienteNuevo.IdDireccion = exito;
                     Usuarios usuariosNuevo = AuxiliarConversorDTOADAO.ConvertirUsuarioDtoAUsuarios(clienteNuevo);
-                    exito = UsuarioDAO.GuardarUsuarioNuevoBD(usuariosNuevo);
+                    exito = usuarioDAO.GuardarUsuarioNuevoBD(usuariosNuevo);
                     if(exito > 0)
                     {
                         seGuardoCliente = true;
@@ -43,9 +44,10 @@ namespace ItaliaPizza_Servicios
                 exito = DireccionDAO.GuardarDireccionNuevaBD(direccionNueva);
                 if (exito > 0)
                 {
+                    UsuarioDAO usuarioDAO = new UsuarioDAO();
                     empleadoNuevo.Usuario.IdDireccion = exito;
                     Usuarios usuariosNuevo = AuxiliarConversorDTOADAO.ConvertirUsuarioDtoAUsuarios(empleadoNuevo.Usuario);
-                    exito = UsuarioDAO.GuardarUsuarioNuevoBD(usuariosNuevo);
+                    exito = usuarioDAO.GuardarUsuarioNuevoBD(usuariosNuevo);
                     if (exito > 0)
                     {
                         empleadoNuevo.IdUsuario = exito;
@@ -110,6 +112,69 @@ namespace ItaliaPizza_Servicios
                 esUnico = EmpleadoDAO.NombreUsuarioEsUnico(nombreDeUsuario);
             }
             return esUnico;
+        }
+
+        public List<UsuarioDto> RecuperarClientes()
+        {
+            List<UsuarioDto> usuariosDto = new List<UsuarioDto>();
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            var usuariosLista = usuarioDAO.RecuperarClientesBD();
+            var idDirecciones = usuariosLista.Select(usuario => usuario.IdDireccion).ToList();
+            var direccionesLista = DireccionDAO.RecuperarDireccionesBD(idDirecciones);
+            foreach (var usuario in usuariosLista)
+            {
+                usuariosDto.Add(AuxiliarConversorDTOADAO.ConvertirUsuariosAUsuarioDto(usuario, direccionesLista.FirstOrDefault(dir => dir.IdDireccion == usuario.IdDireccion)));
+            }
+            return usuariosDto;
+        }
+
+
+
+        public List<EmpleadoDto> RecuperarEmpleados()
+        {
+            List<EmpleadoDto> empleadosLista = new List<EmpleadoDto>();
+            var empelados = EmpleadoDAO.RecuperarEmpleadoBD();
+            foreach (var empleado in empelados)
+            {
+                empleadosLista.Add(AuxiliarConversorDTOADAO.ConvertirEmpleadosAEmpleadoDto(empleado, empleado.TiposEmpleado.Nombre, empleado.Usuarios, empleado.Usuarios.Direcciones));
+            }
+            return empleadosLista;
+        }
+
+        public bool Activar_DesactivarUsuario(int idUsuario, bool esEmpleado, bool esDesactivar)
+        {
+            bool exitoAccion;
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            if (esDesactivar)
+            {
+                if (esEmpleado)
+                {
+                    if (ListaEmpleadoActivos.EsEmpleadoNoActivo(idUsuario))
+                    {
+                        exitoAccion = usuarioDAO.DesactivarUsuario(idUsuario);
+                    }
+                    else
+                    {
+                        exitoAccion = false;
+                    }
+                }
+                else
+                {
+                    if (usuarioDAO.ValidarClienteTienePedidosPendientes(idUsuario))
+                    {
+                        exitoAccion = usuarioDAO.DesactivarUsuario(idUsuario);
+                    }
+                    else
+                    {
+                        exitoAccion = false;
+                    }
+                }
+            }
+            else
+            {
+                exitoAccion = usuarioDAO.ActivarUsuario(idUsuario);
+            }
+            return exitoAccion;
         }
     }
 }

@@ -193,4 +193,16 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="TipoEmpleadoDto" nillable="true" type="tns:TipoEmpleadoDto" />
+  <xs:complexType name="ArrayOfUsuarioDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UsuarioDto" nillable="true" type="tns:UsuarioDto" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUsuarioDto" nillable="true" type="tns:ArrayOfUsuarioDto" />
+  <xs:complexType name="ArrayOfEmpleadoDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="EmpleadoDto" nillable="true" type="tns:EmpleadoDto" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEmpleadoDto" nillable="true" type="tns:ArrayOfEmpleadoDto" />
 </xs:schema>

@@ -33,6 +33,15 @@ namespace ItaliaPizza_Contratos
         [OperationContract]
         bool ValidarCorreoUnico(String correo);
 
+        [OperationContract]
+        List<UsuarioDto> RecuperarClientes();
+
+        [OperationContract]
+        List<EmpleadoDto> RecuperarEmpleados();
+
+        [OperationContract]
+        bool Activar_DesactivarUsuario(int idUsuario, bool esEmpleado, bool esDesactivar);
+
 
     }
 

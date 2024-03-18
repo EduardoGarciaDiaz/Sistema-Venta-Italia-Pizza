@@ -74,7 +74,6 @@ namespace ItaliaPizza_Cliente.Utilidades
                 ventanaEmergente.Left = left;
                 ventanaEmergente.Top = top;
                 ventanaEmergente.VerticalAlignment = VerticalAlignment.Center;
-                ventanaEmergente.ShowDialog();
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -27,6 +28,24 @@ namespace ItaliaPizza_DataAccess
             }
             return resultadoOperacion;
         }
+
+        public static List<Direcciones> RecuperarDireccionesBD(List<int?> idDirecciones)
+        {
+            List<Direcciones> direcciones = new List<Direcciones>();
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    direcciones = context.Direcciones.Where(direccion => idDirecciones.Contains(direccion.IdDireccion)).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return direcciones;        
+        }
+
     }
 
 }
