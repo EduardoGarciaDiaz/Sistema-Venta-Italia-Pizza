@@ -62,6 +62,9 @@
     <Compile Include="DTOs\EmpleadoDto.cs" />
     <Compile Include="DTOs\Insumo.cs" />
     <Compile Include="DTOs\InsumoReceta.cs" />
+    <Compile Include="DTOs\InsumoRegistroReceta.cs" />
+    <Compile Include="DTOs\ProductoSinReceta.cs" />
+    <Compile Include="DTOs\RecetaProducto.cs" />
     <Compile Include="DTOs\Pedido.cs" />
     <Compile Include="DTOs\Producto.cs" />
     <Compile Include="DTOs\ProductoVentaPedidos.cs" />

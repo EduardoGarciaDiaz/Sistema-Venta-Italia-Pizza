@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ItaliaPizza_Contratos.DTOs
 {
     [DataContract]
-    public class InsumoReceta
+    public class InsumoRegistroReceta
     {
         [DataMember]
         public string Codigo { get; set; }
@@ -17,7 +17,7 @@ namespace ItaliaPizza_Contratos.DTOs
         public string Nombre { get; set; }
 
         [DataMember]
-        public double Cantidad { get; set; }
+        public Categoria Categoria { get; set; }
 
         [DataMember]
         public UnidadMedida UnidadMedida { get; set; }

@@ -52,6 +52,27 @@ namespace ItaliaPizza_Servicios.Auxiliares
             return productosVenta;
         }
 
+        public static Recetas ConvertirRecetaProductoARecetas(RecetaProducto receta)
+        {
+            Recetas recetas = new Recetas()
+            {
+                CodigoProducto = receta.CodigoProducto
+            };
+
+            return recetas;
+        }
+
+        public static RecetasInsumos ConvertirInsumoRecetaARecetasInsumos(InsumoReceta insumoReceta, int idReceta)
+        {
+            RecetasInsumos recetasInsumos = new RecetasInsumos()
+            {
+                CantidadInsumo = insumoReceta.Cantidad,
+                IdReceta = idReceta,
+                CodigoProducto = insumoReceta.Codigo
+            };
+
+            return recetasInsumos;
+        }
         public static Direcciones ConvertirDireccionDtoADirecciones(DireccionDto direccionDto)
         {
             Direcciones direccion = new Direcciones() 

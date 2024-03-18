@@ -530,7 +530,7 @@ namespace ItaliaPizza_Cliente.Vistas
                 datosInsumoValido = false;
             }
 
-            if (!ValidarCantidadValidaInsumo())
+            if (!ValidarCantidadInsumo())
             {
                 datosInsumoValido = false;
             }
@@ -561,7 +561,7 @@ namespace ItaliaPizza_Cliente.Vistas
             return esUnidadMedidaValida;
         }
 
-        private bool ValidarCantidadValidaInsumo()
+        private bool ValidarCantidadInsumo()
         {
             bool esCantidadValida = true;
 
@@ -570,16 +570,17 @@ namespace ItaliaPizza_Cliente.Vistas
 
             string cantidad = tbxCantidad.Text.Trim();
             float cantidadInsumo = ConvertirStringAFloat(cantidad, lbErrorCantidad);
-            string itemSeleccionado = cbxUnidadMedida.SelectedItem.ToString();
+            UnidadMedida unidadSeleccionada = (UnidadMedida)cbxUnidadMedida.SelectedItem;
+            string nombreUnidadSeleccionada = unidadSeleccionada.Nombre;
 
             if (string.IsNullOrEmpty(cantidad))
             {
                 MostrarErrorCampoObligatorio(lbErrorCantidad);
                 esCantidadValida = false;
             }
-            else if (cantidadInsumo >= 0 && itemSeleccionado == medidaEnteros)
+            else if (cantidadInsumo >= 0 && nombreUnidadSeleccionada == medidaEnteros)
             {
-                 esCantidadValida = ValidarCantidadUnitaria(cantidadInsumo);
+                esCantidadValida = ValidarCantidadUnitaria(cantidadInsumo);
             }
             else if (cantidadInsumo <= 0)
             {
@@ -669,11 +670,6 @@ namespace ItaliaPizza_Cliente.Vistas
             bool esProductoVentaValido = true;
 
             if (!ValidarPrecioProductoVenta())
-            {
-                esProductoVentaValido = false;
-            }
-            
-            if(!ValidarTamañoImagen())
             {
                 esProductoVentaValido = false;
             }
