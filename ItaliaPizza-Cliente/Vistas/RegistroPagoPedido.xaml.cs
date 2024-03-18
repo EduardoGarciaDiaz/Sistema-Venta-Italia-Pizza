@@ -51,9 +51,9 @@ namespace ItaliaPizza_Cliente.Vistas
                     LblDireccionCliente.Text = _cliente.DireccionCliente;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
+                
             }
         }
 

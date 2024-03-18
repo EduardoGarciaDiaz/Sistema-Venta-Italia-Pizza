@@ -120,9 +120,6 @@
       <DependentUpon>RegistroPagoPedido.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utilidades\UtilidadValidacion.cs" />
-    <Compile Include="Vistas\InicioSesion.xaml.cs">
-      <DependentUpon>InicioSesion.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Vistas\RegistroProducto.xaml.cs">
       <DependentUpon>RegistroProducto.xaml</DependentUpon>
     </Compile>
