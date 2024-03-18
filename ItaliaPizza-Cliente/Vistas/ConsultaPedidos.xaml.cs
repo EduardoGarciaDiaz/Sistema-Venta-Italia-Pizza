@@ -25,7 +25,6 @@ namespace ItaliaPizza_Cliente.Vistas
             InitializeComponent();
             this.BqdClientes.Placeholder.Text = "Ingresa nombre de cliente...";
             this.DpkFechaBusqueda.SelectedDate = DateTime.Now;
-            
         }
     }
 }

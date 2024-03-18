@@ -107,9 +107,6 @@
     <Compile Include="Vistas\ConsultaPedidos.xaml.cs">
       <DependentUpon>ConsultaPedidos.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Vistas\ConsultaPedidos.xaml.cs">
-      <DependentUpon>ConsultaPedidos.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Vistas\InicioSesion.xaml.cs">
       <DependentUpon>InicioSesion.xaml</DependentUpon>
     </Compile>
