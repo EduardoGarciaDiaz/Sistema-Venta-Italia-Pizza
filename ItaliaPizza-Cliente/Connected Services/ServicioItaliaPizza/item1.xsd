@@ -11,16 +11,6 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="OperacionPedidosEjemplo">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="OperacionPedidosEjemploResponse">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
   <xs:element name="RecuperarTiposServicio">
     <xs:complexType>
       <xs:sequence />

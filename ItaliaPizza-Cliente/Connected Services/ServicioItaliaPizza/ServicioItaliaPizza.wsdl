@@ -54,12 +54,6 @@
   <wsdl:message name="IServicioOrdenesCompra_OperacionOrdenesEjemplo_OutputMessage">
     <wsdl:part name="parameters" element="tns:OperacionOrdenesEjemploResponse" />
   </wsdl:message>
-  <wsdl:message name="IServicioPedidos_OperacionPedidosEjemplo_InputMessage">
-    <wsdl:part name="parameters" element="tns:OperacionPedidosEjemplo" />
-  </wsdl:message>
-  <wsdl:message name="IServicioPedidos_OperacionPedidosEjemplo_OutputMessage">
-    <wsdl:part name="parameters" element="tns:OperacionPedidosEjemploResponse" />
-  </wsdl:message>
   <wsdl:message name="IServicioPedidos_RecuperarTiposServicio_InputMessage">
     <wsdl:part name="parameters" element="tns:RecuperarTiposServicio" />
   </wsdl:message>
@@ -193,10 +187,6 @@
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IServicioPedidos">
-    <wsdl:operation name="OperacionPedidosEjemplo">
-      <wsdl:input wsaw:Action="http://tempuri.org/IServicioPedidos/OperacionPedidosEjemplo" message="tns:IServicioPedidos_OperacionPedidosEjemplo_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IServicioPedidos/OperacionPedidosEjemploResponse" message="tns:IServicioPedidos_OperacionPedidosEjemplo_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="RecuperarTiposServicio">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioPedidos/RecuperarTiposServicio" message="tns:IServicioPedidos_RecuperarTiposServicio_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioPedidos/RecuperarTiposServicioResponse" message="tns:IServicioPedidos_RecuperarTiposServicio_OutputMessage" />
@@ -304,15 +294,6 @@
   <wsdl:binding name="NetTcpBinding_IServicioPedidos" type="tns:IServicioPedidos">
     <wsp:PolicyReference URI="#NetTcpBinding_IServicioPedidos_policy" />
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
-    <wsdl:operation name="OperacionPedidosEjemplo">
-      <soap12:operation soapAction="http://tempuri.org/IServicioPedidos/OperacionPedidosEjemplo" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="RecuperarTiposServicio">
       <soap12:operation soapAction="http://tempuri.org/IServicioPedidos/RecuperarTiposServicio" style="document" />
       <wsdl:input>
