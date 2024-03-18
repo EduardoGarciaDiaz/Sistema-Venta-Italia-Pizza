@@ -58,6 +58,21 @@
     <Compile Include="Recursos\ControlesUsuario\ElementoTicketPedido.xaml.cs">
       <DependentUpon>ElementoTicketPedido.xaml</DependentUpon>
     </Compile>
+<<<<<<< Updated upstream
+=======
+    <Compile Include="Utilidades\ConvertidorBytes.cs" />
+    <Compile Include="Utilidades\EnumEstadosPedido.cs" />
+    <Compile Include="Utilidades\EnumTiposServicio.cs" />
+    <Compile Include="Utilidades\VentanaEmergente.xaml.cs">
+      <DependentUpon>VentanaEmergente.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\ConfirmacionRegistroPedido.xaml.cs">
+      <DependentUpon>ConfirmacionRegistroPedido.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\ConsultaPedidos.xaml.cs">
+      <DependentUpon>ConsultaPedidos.xaml</DependentUpon>
+    </Compile>
+>>>>>>> Stashed changes
     <Compile Include="Vistas\InicioSesion.xaml.cs">
       <DependentUpon>InicioSesion.xaml</DependentUpon>
     </Compile>
@@ -80,6 +95,21 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+<<<<<<< Updated upstream
+=======
+    <Page Include="Utilidades\VentanaEmergente.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\ConfirmacionRegistroPedido.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\ConsultaPedidos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+>>>>>>> Stashed changes
     <Page Include="Vistas\InicioSesion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -107,6 +137,49 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+<<<<<<< Updated upstream
+=======
+    <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.Categoria.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.Cliente.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.ClienteBusqueda.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.ProductoVentaPedidos.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.TipoServicio.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.InsumoReceta.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.Receta.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.TipoEmpleadoDto.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.UnidadMedida.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServicioItaliaPizza\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ServicioItaliaPizza\item1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ServicioItaliaPizza\item2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ServicioItaliaPizza\item3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ServicioItaliaPizza\ServicioItaliaPizza.wsdl" />
+>>>>>>> Stashed changes
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -120,6 +193,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Recursos\Iconos\icono_usuario.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Recursos\Iconos\icono_exito.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
