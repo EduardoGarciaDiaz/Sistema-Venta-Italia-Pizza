@@ -7,7 +7,7 @@
              mc:Ignorable="d" d:DesignWidth="550" Height="47">
 
     <Grid>
-        <TextBox x:Name="TxtBusqueda" Margin="0,0,60,0" BorderThickness="0,0,0,0" FontSize="16" Padding="15,10,0,0">
+        <TextBox x:Name="TxtBusqueda" Margin="0,0,60,0" BorderThickness="0,0,0,0" FontSize="16" Padding="15,10,0,0" TextChanged="TxtBusqueda_TextChanged">
             <TextBox.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="20"/>
@@ -26,6 +26,9 @@
                 </Style>
             </TextBlock.Style>
         </TextBlock>
-        <Image Source="/Recursos/Iconos/icono_buscar.png" Margin="501,3,5,4"/>
+        <Image Source="/Recursos/Iconos/icono_buscar.png" 
+               Cursor="Hand"
+               Margin="501,3,5,4" 
+               MouseDown="ImgBuscar_Click"/>
     </Grid>
 </UserControl>

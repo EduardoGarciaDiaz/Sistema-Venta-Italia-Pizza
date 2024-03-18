@@ -1,5 +1,5 @@
+﻿using System;
 ﻿using ItaliaPizza_Contratos.DTOs;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.Data.SqlClient;
@@ -9,8 +9,12 @@ using System.Threading.Tasks;
 
 namespace ItaliaPizza_DataAccess
 {
+
     public class ProductoDAO
     {
+
+        public ProductoDAO() { }
+
         public List<CategoriasInsumo> RecuperarCategoriasInsumo()
         {
             List<CategoriasInsumo> categoriasInsumo = new List<CategoriasInsumo>();
@@ -19,7 +23,7 @@ namespace ItaliaPizza_DataAccess
             {
                 using (var context = new ItaliaPizzaEntities())
                 {
-                    categoriasInsumo = context.CategoriasInsumo.ToList();                    
+                    categoriasInsumo = context.CategoriasInsumo.ToList();
                 }
             }
             catch (EntityException ex)
@@ -71,6 +75,36 @@ namespace ItaliaPizza_DataAccess
             return categoriasProductoVenta;
         }
 
+        public List<Productos> RecuperarProductos()
+        {
+            List<Productos> productos = new List<Productos>();
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    productos = context.Productos.ToList();
+                }
+            }
+            catch (EntityException ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (SqlException ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (Exception ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+
+            return productos;
+        }
+
+
         public List<UnidadesMedida> RecuperarUnidadesMedida()
         {
             List<UnidadesMedida> unidadesMedida = new List<UnidadesMedida>();
@@ -98,7 +132,41 @@ namespace ItaliaPizza_DataAccess
                 Console.WriteLine(ex.StackTrace);
             }
 
+
             return unidadesMedida;
+
+        }
+
+        public List<ProductosVenta> RecuperarProductosParaVenta()
+        {
+            List<ProductosVenta> productosVenta = new List<ProductosVenta>();
+
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    productosVenta = context.ProductosVenta.Where(pv =>
+                    context.Recetas.Any(r => r.CodigoProducto == pv.CodigoProducto)
+                    || context.Insumos.Any(i => i.CodigoProducto == pv.CodigoProducto))
+                        .ToList();
+                }
+            }
+            catch (EntityException ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (SqlException ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (Exception ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            return productosVenta;
         }
 
         public bool ValidarCodigoProducto(string codigoProducto)
@@ -127,7 +195,6 @@ namespace ItaliaPizza_DataAccess
                 //TODO: Manejar excepcion
                 Console.WriteLine(ex.StackTrace);
             }
-
             return existeProducto;
         }
 
@@ -254,5 +321,39 @@ namespace ItaliaPizza_DataAccess
                 return productosSinReceta.ToList();
             }
         }
+        public bool ValidarSiProductoEnVentaEsInventariado(string codigoProducto)
+        {
+            bool productoEsInventariado = false;
+
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    Insumos insumo = context.Insumos.FirstOrDefault(i => i.CodigoProducto == codigoProducto);
+                    if (insumo != default)
+                    {
+                        productoEsInventariado = true;
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (SqlException ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (Exception ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+
+            return productoEsInventariado;
+        }
+
     }
 }

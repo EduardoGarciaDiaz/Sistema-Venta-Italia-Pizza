@@ -115,6 +115,15 @@
           <Property Name="IdEstadoPedido" Type="int" />
           <Property Name="IdTipoServicio" Type="int" />
         </EntityType>
+        <EntityType Name="PedidosProductosVenta">
+          <Key>
+            <PropertyRef Name="IdPedidoProductoVenta" />
+          </Key>
+          <Property Name="IdPedidoProductoVenta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NumeroPedido" Type="int" />
+          <Property Name="CodigoProducto" Type="nvarchar" MaxLength="15" />
+          <Property Name="CantidadProducto" Type="int" />
+        </EntityType>
         <EntityType Name="Productos">
           <Key>
             <PropertyRef Name="CodigoProducto" />
@@ -193,13 +202,14 @@
           <Property Name="EsActivo" Type="bit" />
           <Property Name="IdDireccion" Type="int" />
         </EntityType>
-        <EntityType Name="UsuariosOrdenes">
+        <EntityType Name="UsuariosPedidos">
           <Key>
             <PropertyRef Name="IdUsuarioOrden" />
           </Key>
           <Property Name="IdUsuarioOrden" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NumeroPedido" Type="int" />
           <Property Name="NombreUsuario" Type="nvarchar" MaxLength="20" />
+          <Property Name="IdCliente" Type="int" />
         </EntityType>
         <Association Name="FK__CortesCaj__Nombr__440B1D61">
           <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
@@ -357,6 +367,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__PedidosPr__Codig__03F0984C">
+          <End Role="ProductosVenta" Type="Self.ProductosVenta" Multiplicity="0..1" />
+          <End Role="PedidosProductosVenta" Type="Self.PedidosProductosVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductosVenta">
+              <PropertyRef Name="CodigoProducto" />
+            </Principal>
+            <Dependent Role="PedidosProductosVenta">
+              <PropertyRef Name="CodigoProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PedidosPr__Numer__02FC7413">
+          <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="0..1" />
+          <End Role="PedidosProductosVenta" Type="Self.PedidosProductosVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedidos">
+              <PropertyRef Name="NumeroPedido" />
+            </Principal>
+            <Dependent Role="PedidosProductosVenta">
+              <PropertyRef Name="NumeroPedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Productos__Codig__534D60F1">
           <End Role="Productos" Type="Self.Productos" Multiplicity="1" />
           <End Role="ProductosVenta" Type="Self.ProductosVenta" Multiplicity="0..1" />
@@ -443,25 +477,37 @@
         </Association>
         <Association Name="FK__UsuariosO__Nombr__72C60C4A">
           <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
-          <End Role="UsuariosOrdenes" Type="Self.UsuariosOrdenes" Multiplicity="*" />
+          <End Role="UsuariosPedidos" Type="Self.UsuariosPedidos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Empleados">
               <PropertyRef Name="NombreUsuario" />
             </Principal>
-            <Dependent Role="UsuariosOrdenes">
+            <Dependent Role="UsuariosPedidos">
               <PropertyRef Name="NombreUsuario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__UsuariosO__Numer__71D1E811">
           <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="0..1" />
-          <End Role="UsuariosOrdenes" Type="Self.UsuariosOrdenes" Multiplicity="*" />
+          <End Role="UsuariosPedidos" Type="Self.UsuariosPedidos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Pedidos">
               <PropertyRef Name="NumeroPedido" />
             </Principal>
-            <Dependent Role="UsuariosOrdenes">
+            <Dependent Role="UsuariosPedidos">
               <PropertyRef Name="NumeroPedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UsuariosP__IdCli__04E4BC85">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="UsuariosPedidos" Type="Self.UsuariosPedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="UsuariosPedidos">
+              <PropertyRef Name="IdCliente" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -478,6 +524,7 @@
           <EntitySet Name="OrdenesCompra" EntityType="Self.OrdenesCompra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrdenesCompraInsumos" EntityType="Self.OrdenesCompraInsumos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pedidos" EntityType="Self.Pedidos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PedidosProductosVenta" EntityType="Self.PedidosProductosVenta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Productos" EntityType="Self.Productos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductosVenta" EntityType="Self.ProductosVenta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Proveedores" EntityType="Self.Proveedores" Schema="dbo" store:Type="Tables" />
@@ -487,7 +534,7 @@
           <EntitySet Name="TiposServicio" EntityType="Self.TiposServicio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UnidadesMedida" EntityType="Self.UnidadesMedida" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UsuariosOrdenes" EntityType="Self.UsuariosOrdenes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsuariosPedidos" EntityType="Self.UsuariosPedidos" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__CortesCaj__Nombr__440B1D61" Association="Self.FK__CortesCaj__Nombr__440B1D61">
             <End Role="Empleados" EntitySet="Empleados" />
             <End Role="CortesCaja" EntitySet="CortesCaja" />
@@ -540,6 +587,14 @@
             <End Role="TiposServicio" EntitySet="TiposServicio" />
             <End Role="Pedidos" EntitySet="Pedidos" />
           </AssociationSet>
+          <AssociationSet Name="FK__PedidosPr__Codig__03F0984C" Association="Self.FK__PedidosPr__Codig__03F0984C">
+            <End Role="ProductosVenta" EntitySet="ProductosVenta" />
+            <End Role="PedidosProductosVenta" EntitySet="PedidosProductosVenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PedidosPr__Numer__02FC7413" Association="Self.FK__PedidosPr__Numer__02FC7413">
+            <End Role="Pedidos" EntitySet="Pedidos" />
+            <End Role="PedidosProductosVenta" EntitySet="PedidosProductosVenta" />
+          </AssociationSet>
           <AssociationSet Name="FK__Productos__Codig__534D60F1" Association="Self.FK__Productos__Codig__534D60F1">
             <End Role="Productos" EntitySet="Productos" />
             <End Role="ProductosVenta" EntitySet="ProductosVenta" />
@@ -570,11 +625,15 @@
           </AssociationSet>
           <AssociationSet Name="FK__UsuariosO__Nombr__72C60C4A" Association="Self.FK__UsuariosO__Nombr__72C60C4A">
             <End Role="Empleados" EntitySet="Empleados" />
-            <End Role="UsuariosOrdenes" EntitySet="UsuariosOrdenes" />
+            <End Role="UsuariosPedidos" EntitySet="UsuariosPedidos" />
           </AssociationSet>
           <AssociationSet Name="FK__UsuariosO__Numer__71D1E811" Association="Self.FK__UsuariosO__Numer__71D1E811">
             <End Role="Pedidos" EntitySet="Pedidos" />
-            <End Role="UsuariosOrdenes" EntitySet="UsuariosOrdenes" />
+            <End Role="UsuariosPedidos" EntitySet="UsuariosPedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UsuariosP__IdCli__04E4BC85" Association="Self.FK__UsuariosP__IdCli__04E4BC85">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="UsuariosPedidos" EntitySet="UsuariosPedidos" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -636,7 +695,7 @@
           <NavigationProperty Name="TiposEmpleado" Relationship="Self.FK__Empleados__IdTip__3D5E1FD2" FromRole="Empleados" ToRole="TiposEmpleado" />
           <NavigationProperty Name="Usuarios" Relationship="Self.FK__Empleados__IdUsu__3E52440B" FromRole="Empleados" ToRole="Usuarios" />
           <NavigationProperty Name="GastosVarios" Relationship="Self.FK__GastosVar__Nombr__412EB0B6" FromRole="Empleados" ToRole="GastosVarios" />
-          <NavigationProperty Name="UsuariosOrdenes" Relationship="Self.FK__UsuariosO__Nombr__72C60C4A" FromRole="Empleados" ToRole="UsuariosOrdenes" />
+          <NavigationProperty Name="UsuariosPedidos" Relationship="Self.FK__UsuariosO__Nombr__72C60C4A" FromRole="Empleados" ToRole="UsuariosPedidos" />
         </EntityType>
         <EntityType Name="EstadosOrdenCompra">
           <Key>
@@ -716,7 +775,19 @@
           <Property Name="IdTipoServicio" Type="Int32" />
           <NavigationProperty Name="EstadosPedido" Relationship="Self.FK__Pedidos__IdEstad__6E01572D" FromRole="Pedidos" ToRole="EstadosPedido" />
           <NavigationProperty Name="TiposServicio" Relationship="Self.FK__Pedidos__IdTipoS__6EF57B66" FromRole="Pedidos" ToRole="TiposServicio" />
-          <NavigationProperty Name="UsuariosOrdenes" Relationship="Self.FK__UsuariosO__Numer__71D1E811" FromRole="Pedidos" ToRole="UsuariosOrdenes" />
+          <NavigationProperty Name="PedidosProductosVenta" Relationship="Self.FK__PedidosPr__Numer__02FC7413" FromRole="Pedidos" ToRole="PedidosProductosVenta" />
+          <NavigationProperty Name="UsuariosPedidos" Relationship="Self.FK__UsuariosO__Numer__71D1E811" FromRole="Pedidos" ToRole="UsuariosPedidos" />
+        </EntityType>
+        <EntityType Name="PedidosProductosVenta">
+          <Key>
+            <PropertyRef Name="IdPedidoProductoVenta" />
+          </Key>
+          <Property Name="IdPedidoProductoVenta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NumeroPedido" Type="Int32" />
+          <Property Name="CodigoProducto" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="CantidadProducto" Type="Int32" />
+          <NavigationProperty Name="Pedidos" Relationship="Self.FK__PedidosPr__Numer__02FC7413" FromRole="PedidosProductosVenta" ToRole="Pedidos" />
+          <NavigationProperty Name="ProductosVenta" Relationship="Self.FK__PedidosPr__Codig__03F0984C" FromRole="PedidosProductosVenta" ToRole="ProductosVenta" />
         </EntityType>
         <EntityType Name="Productos">
           <Key>
@@ -739,6 +810,7 @@
           <Property Name="Foto" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="IdCategoriaProductoVenta" Type="Int32" />
           <NavigationProperty Name="CategoriasProductoVenta" Relationship="Self.FK__Productos__IdCat__5441852A" FromRole="ProductosVenta" ToRole="CategoriasProductoVenta" />
+          <NavigationProperty Name="PedidosProductosVenta" Relationship="Self.FK__PedidosPr__Codig__03F0984C" FromRole="ProductosVenta" ToRole="PedidosProductosVenta" />
           <NavigationProperty Name="Productos" Relationship="Self.FK__Productos__Codig__534D60F1" FromRole="ProductosVenta" ToRole="Productos" />
           <NavigationProperty Name="Recetas" Relationship="Self.FK__Recetas__CodigoP__571DF1D5" FromRole="ProductosVenta" ToRole="Recetas" />
         </EntityType>
@@ -811,16 +883,19 @@
           <Property Name="IdDireccion" Type="Int32" />
           <NavigationProperty Name="Direcciones" Relationship="Self.FK__Usuarios__IdDire__38996AB5" FromRole="Usuarios" ToRole="Direcciones" />
           <NavigationProperty Name="Empleados" Relationship="Self.FK__Empleados__IdUsu__3E52440B" FromRole="Usuarios" ToRole="Empleados" />
+          <NavigationProperty Name="UsuariosPedidos" Relationship="Self.FK__UsuariosP__IdCli__04E4BC85" FromRole="Usuarios" ToRole="UsuariosPedidos" />
         </EntityType>
-        <EntityType Name="UsuariosOrdenes">
+        <EntityType Name="UsuariosPedidos">
           <Key>
             <PropertyRef Name="IdUsuarioOrden" />
           </Key>
           <Property Name="IdUsuarioOrden" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NumeroPedido" Type="Int32" />
           <Property Name="NombreUsuario" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Empleados" Relationship="Self.FK__UsuariosO__Nombr__72C60C4A" FromRole="UsuariosOrdenes" ToRole="Empleados" />
-          <NavigationProperty Name="Pedidos" Relationship="Self.FK__UsuariosO__Numer__71D1E811" FromRole="UsuariosOrdenes" ToRole="Pedidos" />
+          <Property Name="IdCliente" Type="Int32" />
+          <NavigationProperty Name="Empleados" Relationship="Self.FK__UsuariosO__Nombr__72C60C4A" FromRole="UsuariosPedidos" ToRole="Empleados" />
+          <NavigationProperty Name="Pedidos" Relationship="Self.FK__UsuariosO__Numer__71D1E811" FromRole="UsuariosPedidos" ToRole="Pedidos" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK__UsuariosP__IdCli__04E4BC85" FromRole="UsuariosPedidos" ToRole="Usuarios" />
         </EntityType>
         <Association Name="FK__Insumos__IdCateg__5070F446">
           <End Role="CategoriasInsumo" Type="Self.CategoriasInsumo" Multiplicity="0..1" />
@@ -920,12 +995,12 @@
         </Association>
         <Association Name="FK__UsuariosO__Nombr__72C60C4A">
           <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
-          <End Role="UsuariosOrdenes" Type="Self.UsuariosOrdenes" Multiplicity="*" />
+          <End Role="UsuariosPedidos" Type="Self.UsuariosPedidos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Empleados">
               <PropertyRef Name="NombreUsuario" />
             </Principal>
-            <Dependent Role="UsuariosOrdenes">
+            <Dependent Role="UsuariosPedidos">
               <PropertyRef Name="NombreUsuario" />
             </Dependent>
           </ReferentialConstraint>
@@ -1038,15 +1113,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UsuariosO__Numer__71D1E811">
+        <Association Name="FK__PedidosPr__Numer__02FC7413">
           <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="0..1" />
-          <End Role="UsuariosOrdenes" Type="Self.UsuariosOrdenes" Multiplicity="*" />
+          <End Role="PedidosProductosVenta" Type="Self.PedidosProductosVenta" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Pedidos">
               <PropertyRef Name="NumeroPedido" />
             </Principal>
-            <Dependent Role="UsuariosOrdenes">
+            <Dependent Role="PedidosProductosVenta">
               <PropertyRef Name="NumeroPedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UsuariosO__Numer__71D1E811">
+          <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="0..1" />
+          <End Role="UsuariosPedidos" Type="Self.UsuariosPedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedidos">
+              <PropertyRef Name="NumeroPedido" />
+            </Principal>
+            <Dependent Role="UsuariosPedidos">
+              <PropertyRef Name="NumeroPedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PedidosPr__Codig__03F0984C">
+          <End Role="ProductosVenta" Type="Self.ProductosVenta" Multiplicity="0..1" />
+          <End Role="PedidosProductosVenta" Type="Self.PedidosProductosVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductosVenta">
+              <PropertyRef Name="CodigoProducto" />
+            </Principal>
+            <Dependent Role="PedidosProductosVenta">
+              <PropertyRef Name="CodigoProducto" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1086,6 +1185,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__UsuariosP__IdCli__04E4BC85">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="UsuariosPedidos" Type="Self.UsuariosPedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="UsuariosPedidos">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ItaliaPizzaEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="CategoriasInsumo" EntityType="Self.CategoriasInsumo" />
           <EntitySet Name="CategoriasProductoVenta" EntityType="Self.CategoriasProductoVenta" />
@@ -1099,6 +1210,7 @@
           <EntitySet Name="OrdenesCompra" EntityType="Self.OrdenesCompra" />
           <EntitySet Name="OrdenesCompraInsumos" EntityType="Self.OrdenesCompraInsumos" />
           <EntitySet Name="Pedidos" EntityType="Self.Pedidos" />
+          <EntitySet Name="PedidosProductosVenta" EntityType="Self.PedidosProductosVenta" />
           <EntitySet Name="Productos" EntityType="Self.Productos" />
           <EntitySet Name="ProductosVenta" EntityType="Self.ProductosVenta" />
           <EntitySet Name="Proveedores" EntityType="Self.Proveedores" />
@@ -1108,7 +1220,7 @@
           <EntitySet Name="TiposServicio" EntityType="Self.TiposServicio" />
           <EntitySet Name="UnidadesMedida" EntityType="Self.UnidadesMedida" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
-          <EntitySet Name="UsuariosOrdenes" EntityType="Self.UsuariosOrdenes" />
+          <EntitySet Name="UsuariosPedidos" EntityType="Self.UsuariosPedidos" />
           <AssociationSet Name="FK__Insumos__IdCateg__5070F446" Association="Self.FK__Insumos__IdCateg__5070F446">
             <End Role="CategoriasInsumo" EntitySet="CategoriasInsumo" />
             <End Role="Insumos" EntitySet="Insumos" />
@@ -1143,7 +1255,7 @@
           </AssociationSet>
           <AssociationSet Name="FK__UsuariosO__Nombr__72C60C4A" Association="Self.FK__UsuariosO__Nombr__72C60C4A">
             <End Role="Empleados" EntitySet="Empleados" />
-            <End Role="UsuariosOrdenes" EntitySet="UsuariosOrdenes" />
+            <End Role="UsuariosPedidos" EntitySet="UsuariosPedidos" />
           </AssociationSet>
           <AssociationSet Name="FK__OrdenesCo__IdEst__628FA481" Association="Self.FK__OrdenesCo__IdEst__628FA481">
             <End Role="EstadosOrdenCompra" EntitySet="EstadosOrdenCompra" />
@@ -1181,9 +1293,17 @@
             <End Role="TiposServicio" EntitySet="TiposServicio" />
             <End Role="Pedidos" EntitySet="Pedidos" />
           </AssociationSet>
+          <AssociationSet Name="FK__PedidosPr__Numer__02FC7413" Association="Self.FK__PedidosPr__Numer__02FC7413">
+            <End Role="Pedidos" EntitySet="Pedidos" />
+            <End Role="PedidosProductosVenta" EntitySet="PedidosProductosVenta" />
+          </AssociationSet>
           <AssociationSet Name="FK__UsuariosO__Numer__71D1E811" Association="Self.FK__UsuariosO__Numer__71D1E811">
             <End Role="Pedidos" EntitySet="Pedidos" />
-            <End Role="UsuariosOrdenes" EntitySet="UsuariosOrdenes" />
+            <End Role="UsuariosPedidos" EntitySet="UsuariosPedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PedidosPr__Codig__03F0984C" Association="Self.FK__PedidosPr__Codig__03F0984C">
+            <End Role="ProductosVenta" EntitySet="ProductosVenta" />
+            <End Role="PedidosProductosVenta" EntitySet="PedidosProductosVenta" />
           </AssociationSet>
           <AssociationSet Name="FK__Productos__Codig__534D60F1" Association="Self.FK__Productos__Codig__534D60F1">
             <End Role="Productos" EntitySet="Productos" />
@@ -1196,6 +1316,10 @@
           <AssociationSet Name="FK__RecetasIn__IdRec__59FA5E80" Association="Self.FK__RecetasIn__IdRec__59FA5E80">
             <End Role="Recetas" EntitySet="Recetas" />
             <End Role="RecetasInsumos" EntitySet="RecetasInsumos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UsuariosP__IdCli__04E4BC85" Association="Self.FK__UsuariosP__IdCli__04E4BC85">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="UsuariosPedidos" EntitySet="UsuariosPedidos" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -1326,6 +1450,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="PedidosProductosVenta">
+            <EntityTypeMapping TypeName="ItaliaPizzaModel.PedidosProductosVenta">
+              <MappingFragment StoreEntitySet="PedidosProductosVenta">
+                <ScalarProperty Name="IdPedidoProductoVenta" ColumnName="IdPedidoProductoVenta" />
+                <ScalarProperty Name="NumeroPedido" ColumnName="NumeroPedido" />
+                <ScalarProperty Name="CodigoProducto" ColumnName="CodigoProducto" />
+                <ScalarProperty Name="CantidadProducto" ColumnName="CantidadProducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Productos">
             <EntityTypeMapping TypeName="ItaliaPizzaModel.Productos">
               <MappingFragment StoreEntitySet="Productos">
@@ -1413,12 +1547,13 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UsuariosOrdenes">
-            <EntityTypeMapping TypeName="ItaliaPizzaModel.UsuariosOrdenes">
-              <MappingFragment StoreEntitySet="UsuariosOrdenes">
+          <EntitySetMapping Name="UsuariosPedidos">
+            <EntityTypeMapping TypeName="ItaliaPizzaModel.UsuariosPedidos">
+              <MappingFragment StoreEntitySet="UsuariosPedidos">
                 <ScalarProperty Name="IdUsuarioOrden" ColumnName="IdUsuarioOrden" />
                 <ScalarProperty Name="NumeroPedido" ColumnName="NumeroPedido" />
                 <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

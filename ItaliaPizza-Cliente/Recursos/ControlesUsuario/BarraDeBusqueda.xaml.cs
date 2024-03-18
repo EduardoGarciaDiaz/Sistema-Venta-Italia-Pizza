@@ -20,9 +20,22 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
     /// </summary>
     public partial class BarraDeBusqueda : UserControl
     {
+        public EventHandler ImgBuscarClicked;
+        public EventHandler TxtBusquedaChanged_EventHandler;
+
         public BarraDeBusqueda()
         {
             InitializeComponent();
+        }
+
+        private void ImgBuscar_Click(object sender, MouseButtonEventArgs e)
+        {
+            ImgBuscarClicked?.Invoke(this, e);
+        }
+
+        private void TxtBusqueda_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TxtBusquedaChanged_EventHandler?.Invoke(this, e);
         }
     }
 }

@@ -103,5 +103,80 @@ namespace ItaliaPizza_Servicios
 
             return insumos;
         }
+        
+        public List<Categoria> RecuperarCategoriasProductoVenta ()
+        {
+            List<Categoria> categoriasProductoVenta = new List<Categoria>();
+            categoriasProductoVenta.AddRange(
+                new ProductoDAO().RecuperarCategoriasProductoVenta().Select(categoriaProductoVenta => 
+                    new Categoria
+                    {
+                        Id = categoriaProductoVenta.IdCategoriaProductoVenta,
+                        Nombre = categoriaProductoVenta.Nombre
+                    }));
+
+            return categoriasProductoVenta;
+        }
+
+        public List<ProductoVentaPedidos> RecuperarProductosVenta()
+        {
+            List<ProductoVentaPedidos> productosVenta = new List<ProductoVentaPedidos> ();
+            ProductoDAO productoDAO = new ProductoDAO();
+            productosVenta = MapeadorProductosAProductoVenta
+                .MapearProductosAProductosVenta(
+                    productoDAO.RecuperarProductosParaVenta(), 
+                    productoDAO.RecuperarProductos());
+            return productosVenta;
+        }
+
+        public bool ValidarDisponibilidadDeProducto(string codigoProducto, int cantidadProductos)
+        {
+            bool productoDisponible = true;
+            ProductoDAO productoDAO = new ProductoDAO();
+            RecetaTemporalDAO recetaTemporalDAO = new RecetaTemporalDAO();
+            InsumoDAO insumoDAO = new InsumoDAO();
+
+            if (productoDAO.ValidarSiProductoEnVentaEsInventariado(codigoProducto))
+            {
+                productoDisponible = insumoDAO.ValidarDisponibilidadInsumo(codigoProducto, cantidadProductos);
+
+            } 
+            else
+            {
+                List<RecetasInsumos> insumosEnReceta = recetaTemporalDAO.RecuperarInsumosEnReceta(codigoProducto);
+
+                foreach (RecetasInsumos insumo in insumosEnReceta)
+                {
+                    bool insumoDisponible =
+                        insumoDAO.ValidarDisponibilidadInsumo(insumo.CodigoProducto, ((int)insumo.CantidadInsumo * cantidadProductos));
+                    if (!insumoDisponible)
+                    {
+                        productoDisponible = false;
+                        break;
+                    }
+                }
+            }
+            return productoDisponible;
+        }
+
+        public bool DisminuirCantidadInsumoPorProducto(string codigoProducto, int cantidadRequerida)
+        {
+            bool insumosDisminuidos = false;
+            RecetaTemporalDAO recetaTemporalDAO = new RecetaTemporalDAO();
+            InsumoDAO insumoDAO = new InsumoDAO();
+            List<RecetasInsumos> insumosEnReceta = recetaTemporalDAO.RecuperarInsumosEnReceta(codigoProducto);
+
+            foreach (RecetasInsumos insumo in insumosEnReceta)
+            {
+                bool insumoDisminuido =
+                    insumoDAO.DisminuirCantidadInsumo(insumo.CodigoProducto, ((int)insumo.CantidadInsumo * cantidadRequerida));
+                if (!insumoDisminuido)
+                {
+                    insumosDisminuidos = false;
+                    break;
+                }
+            }
+            return insumosDisminuidos;
+        }
     }
 }

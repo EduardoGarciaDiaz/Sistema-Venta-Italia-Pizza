@@ -31,5 +31,14 @@ namespace ItaliaPizza_Contratos
 
         [OperationContract]
         List<InsumoRegistroReceta> RecuperarInsumos();
+
+        [OperationContract]
+        List<Categoria> RecuperarCategoriasProductoVenta();
+
+        [OperationContract]
+        List<ProductoVentaPedidos> RecuperarProductosVenta();
+
+        [OperationContract]
+        bool ValidarDisponibilidadDeProducto(string codigoProducto, int cantidadProductos);
     }
 }

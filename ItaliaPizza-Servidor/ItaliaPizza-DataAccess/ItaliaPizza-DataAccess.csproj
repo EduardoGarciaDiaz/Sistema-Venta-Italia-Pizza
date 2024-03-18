@@ -63,9 +63,11 @@
     <Compile Include="CortesCaja.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="DireccionDAO.cs" />
     <Compile Include="Direcciones.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="EmpleadoDAO.cs" />
     <Compile Include="Empleados.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>
@@ -103,7 +105,11 @@
     <Compile Include="OrdenesCompraInsumos.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="PedidoDAO.cs" />
     <Compile Include="Pedidos.cs">
+      <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PedidosProductosVenta.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>
     <Compile Include="ProductoDAO.cs" />
@@ -124,19 +130,22 @@
     <Compile Include="RecetasInsumos.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="RecetaTemporalDAO.cs" />
     <Compile Include="TiposEmpleado.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="TipoServicioDAO.cs" />
     <Compile Include="TiposServicio.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>
     <Compile Include="UnidadesMedida.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="UsuarioDAO.cs" />
     <Compile Include="Usuarios.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>
-    <Compile Include="UsuariosOrdenes.cs">
+    <Compile Include="UsuariosPedidos.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -155,6 +164,12 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ItaliaPizza-Contratos\ItaliaPizza-Contratos.csproj">
+      <Project>{ac163cad-9d78-43bb-9d76-a7f3777baa60}</Project>
+      <Name>ItaliaPizza-Contratos</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="ItaliaPizzaModelo.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ItaliaPizzaModelo.edmx</DependentUpon>
@@ -165,12 +180,6 @@
       <DependentUpon>ItaliaPizzaModelo.edmx</DependentUpon>
       <LastGenOutput>ItaliaPizzaModelo.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ItaliaPizza-Contratos\ItaliaPizza-Contratos.csproj">
-      <Project>{ac163cad-9d78-43bb-9d76-a7f3777baa60}</Project>
-      <Name>ItaliaPizza-Contratos</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

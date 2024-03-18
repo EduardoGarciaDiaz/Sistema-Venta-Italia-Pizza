@@ -73,5 +73,56 @@ namespace ItaliaPizza_Servicios.Auxiliares
 
             return recetasInsumos;
         }
+        public static Direcciones ConvertirDireccionDtoADirecciones(DireccionDto direccionDto)
+        {
+            Direcciones direccion = new Direcciones() 
+            {
+                IdDireccion = direccionDto.IdDireccion,
+                Colonia = direccionDto.Colonia,
+                Ciudad = direccionDto.Ciudad,
+                Calle = direccionDto.Calle,
+                CodigoPostal = direccionDto.CodigoPostal,
+                Numero = direccionDto.Numero,                
+            };
+            return direccion;
+        }
+
+        public static Usuarios ConvertirUsuarioDtoAUsuarios(UsuarioDto usuarioDto)
+        {
+            Usuarios usuario = new Usuarios()
+            {
+                IdUsuario = usuarioDto.IdUsuario,
+                NombreCompleto = usuarioDto.NombreCompleto,
+                NumeroTelefono = usuarioDto.NumeroTelefono,
+                EsActivo = usuarioDto.EsActivo,
+                CorreoElectronico = usuarioDto.CorreoElectronico,
+                IdDireccion = usuarioDto.IdDireccion
+            };
+            return usuario;
+        }
+
+        public static Empleados ConvertirEmpleadoDtoAEmpleado(EmpleadoDto empleadoDto)
+        {
+            Empleados empleado = new Empleados()
+            {
+                IdUsuario = empleadoDto.IdUsuario,
+                IdTipoEmpleado = empleadoDto.IdTipoEmpleado,
+                Contraseña = empleadoDto.Contraseña,
+                NombreUsuario = empleadoDto.NombreUsuario,
+            };
+            return empleado;
+        }
+
+        public static TipoEmpleadoDto ConvertirTiposEmpleadoATiposEmpleadoDto(TiposEmpleado tiposEmpleado)
+        {
+            TipoEmpleadoDto tip = new TipoEmpleadoDto() 
+            {
+                IdTipoEmpleado = tiposEmpleado.IdTipoEmpleado,
+                Nombre = tiposEmpleado.Nombre,
+            };
+            return tip;
+
+        }
+
     }
 }

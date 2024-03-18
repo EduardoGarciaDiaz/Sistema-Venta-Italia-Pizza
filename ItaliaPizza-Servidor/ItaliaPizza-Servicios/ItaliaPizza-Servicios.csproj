@@ -54,6 +54,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Auxiliares\MapeadorProductosAProductoVenta.cs" />
     <Compile Include="Auxiliares\AuxiliarPreparacionDatos.cs" />
     <Compile Include="Auxiliares\AuxiliarConversorDTOADAO.cs" />
     <Compile Include="ServicioOrdenesCompra.cs" />

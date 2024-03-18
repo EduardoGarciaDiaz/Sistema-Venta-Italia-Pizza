@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ItaliaPizza_Contratos.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
@@ -11,6 +12,9 @@ namespace ItaliaPizza_Contratos
     public interface IServicioPedidos
     {
         [OperationContract]
-        void OperacionPedidosEjemplo();
+        List<TipoServicio> RecuperarTiposServicio();
+
+        [OperationContract]
+        int GuardarPedido(Pedido pedido);
     }
 }

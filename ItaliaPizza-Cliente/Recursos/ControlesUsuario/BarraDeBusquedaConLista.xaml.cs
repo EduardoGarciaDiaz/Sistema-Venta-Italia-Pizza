@@ -21,48 +21,30 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
     /// </summary>
     public partial class BarraDeBusquedaConLista : UserControl
     {
-        ObservableCollection<Cliente> clientes;
+
+        public EventHandler TxtBusqueda_EventHandler;
+        public EventHandler ImgBuscar_EventHandler;
+        public EventHandler Lista_SelectionChanged_EventHandler;
 
         public BarraDeBusquedaConLista()
         {
-            clientes = new ObservableCollection<Cliente>();
             InitializeComponent();
-            this.DataContext = clientes;
-        }
-
-        public void AgregarClienteALista(Cliente cliente)
-        {
-            this.clientes.Add(cliente);
         }
 
         private void ListaClientes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Cliente clienteSeleccionado = ListaClientes.SelectedItem as Cliente;
-            ListaClientes.Visibility = Visibility.Hidden;
-            MessageBox.Show(clienteSeleccionado.Nombre);
+            Lista_SelectionChanged_EventHandler?.Invoke(this, e);
+        }
+
+        private void ImgBuscar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ImgBuscar_EventHandler?.Invoke(this, e);
         }
 
         private void TxtBusqueda_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (string.IsNullOrEmpty(TxtBusqueda.Text.ToString()))
-            {
-                ListaClientes.Visibility = Visibility.Hidden;
-            } else
-            {
-                ListaClientes.Visibility = Visibility.Visible;
-            }
+            TxtBusqueda_EventHandler?.Invoke(this, e);
         }
     }
 
-    public class Cliente
-    {
-        public string Nombre { get; set; }
-        public string CorreoElectronico { get; set; }
-
-        public Cliente(string nombre, string correoElectronico)
-        {
-            Nombre = nombre;
-            CorreoElectronico = correoElectronico;
-        }
-    }
 }
