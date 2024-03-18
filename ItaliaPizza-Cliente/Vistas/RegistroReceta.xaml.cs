@@ -26,6 +26,9 @@ namespace ItaliaPizza_Cliente.Vistas
         private const string COLOR_HEXADECIMAL_PRODUCTO_SELECCIONADO = "#F8D72A";
         private const string COLOR_HEXADECIMAL_ELEMENTO_DEFAULT = "#F6F6F6";
         private const string COLOR_HEXADECIMAL_INSUMO_SELECCIONADO = "#FF7B7B7B";
+        private const int VENTANA_ERROR = 1;
+        private const int VENTANA_INFORMACION = 2;
+        private const int VENTANA_CONFIRMACION = 3;
         private int _numeroInsumosSeleccionados = 0;
         private ProductoSinReceta[] _productosSinReceta;
         private InsumoRegistroReceta[] _insumosDisponibles;
@@ -398,9 +401,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
             LimpiarCampos();
 
-            MessageBoxResult result = System.Windows.MessageBox.Show(
-                    mensajeExito,
-                    tituloExito, MessageBoxButton.OK);
+            VentanaEmergente ventanaEmergente = new VentanaEmergente(tituloExito, mensajeExito, Window.GetWindow(this), VENTANA_INFORMACION);
         }
 
         private void LimpiarCampos()
@@ -471,17 +472,14 @@ namespace ItaliaPizza_Cliente.Vistas
             }
         }
 
-
         private void BtnCancelar_Click(object sender, RoutedEventArgs e)
         {
             string tituloCancelar = "Cancelar Registro";
             string mensajeCancelar = "¿Estás seguro de que deseas cancelar el registro de la receta?";
 
-            MessageBoxResult result = System.Windows.MessageBox.Show(
-                    mensajeCancelar,
-                    tituloCancelar, MessageBoxButton.YesNo);
+            VentanaEmergente ventanaEmergente = new VentanaEmergente(tituloCancelar, mensajeCancelar, "Sí", "No", Window.GetWindow(this), VENTANA_CONFIRMACION);
 
-            if (result == MessageBoxResult.Yes)
+            if (ventanaEmergente.AceptarAccion)
             {
                 LimpiarCampos();
                 NavigationService.GoBack();
@@ -525,6 +523,7 @@ namespace ItaliaPizza_Cliente.Vistas
                 }
             }
         }
+
         private void TbxBusquedaProducto_TextChanged(object sender, EventArgs e)
         {
             if (barraDeBusquedaProducto.tbxBusqueda.Text.Trim() == string.Empty)

@@ -29,19 +29,60 @@ namespace ItaliaPizza_Cliente.Vistas
         private const int SELECCION_POR_DEFECTO_COMBO_BOX = 0;
         private const string ATRIBUTO_A_MOSTRAR_COMBO_BOX = "Nombre";
         private const string MENSAJE_CAMPO_OBLIGATORIO = "*Campo obligatorio";
+        private const int VENTANA_ERROR = 1;
+        private const int VENTANA_INFORMACION = 2;
+        private const int VENTANA_CONFIRMACION = 3;
         private Byte[] _fotoBytes;
         private string _rutaFoto;
 
         public RegistroProducto()
         {
             InitializeComponent();
+            this.Loaded += RegistroProducto_Loaded;
+        }
+
+        private void RegistroProducto_Loaded(object sender, RoutedEventArgs e)
+        {
             CargarComboBoxes();
         }
 
         private void CargarComboBoxes()
         {
-            CargarComboBoxCategorias();
-            CargarComboBoxUnidadMedida();
+            try
+            {
+                CargarComboBoxCategorias();
+                CargarComboBoxUnidadMedida();
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (CommunicationException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
         }
 
         private void CargarComboBoxCategorias()
@@ -73,36 +114,8 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             Categoria[] categorias = new Categoria[0]; 
 
-            try
-            {
-                ServicioProductosClient servicioProductosCliente = new ServicioProductosClient();
-                categorias = servicioProductosCliente.RecuperarCategorias();
-            }
-            catch (EndpointNotFoundException ex)
-            {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
-            }
-            catch (TimeoutException ex)
-            {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
-            }
-            catch (FaultException ex)
-            {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
-            }
-            catch (CommunicationException ex)
-            {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
-            }
-            catch (Exception ex)
-            {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
-            }
+            ServicioProductosClient servicioProductosCliente = new ServicioProductosClient();
+            categorias = servicioProductosCliente.RecuperarCategorias();
 
             return categorias;
         }
@@ -136,36 +149,8 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             UnidadMedida[] unidadesMedida = new UnidadMedida[0];
 
-            try
-            {
-                ServicioProductosClient servicioProductosCliente = new ServicioProductosClient();
-                unidadesMedida = servicioProductosCliente.RecuperarUnidadesMedida();
-            }
-            catch (EndpointNotFoundException ex)
-            {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
-            }
-            catch (TimeoutException ex)
-            {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
-            }
-            catch (FaultException ex)
-            {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
-            }
-            catch (CommunicationException ex)
-            {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
-            }
-            catch (Exception ex)
-            {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
-            }
+            ServicioProductosClient servicioProductosCliente = new ServicioProductosClient();
+            unidadesMedida = servicioProductosCliente.RecuperarUnidadesMedida();
 
             return unidadesMedida;
         }
@@ -193,7 +178,6 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void GuardarProducto()
         {
-            //TRY-CATCH
             int filasAfectadas = -1;
             Producto producto = GenerarProductoAGuardar();
 
@@ -204,28 +188,33 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             catch (EndpointNotFoundException ex)
             {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (TimeoutException ex)
             {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (FaultException ex)
             {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (CommunicationException ex)
             {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (Exception ex)
             {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
 
             if (filasAfectadas > 0)
@@ -319,9 +308,8 @@ namespace ItaliaPizza_Cliente.Vistas
 
             LimpiarCampos();
 
-            MessageBoxResult result = System.Windows.MessageBox.Show(
-                    mensajeExito,
-                    tituloExito, MessageBoxButton.OK);
+            VentanaEmergente ventanaEmergente = new VentanaEmergente(tituloExito, mensajeExito, Window.GetWindow(this),
+                VENTANA_INFORMACION);
         }
 
         private void LimpiarEtiquetasError()
@@ -425,7 +413,6 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private bool ValidarCodigoUnico()
         {
-            //TRY-CATCH
             bool esCodigoUnico = false;
 
             string codigoProducto = tbxCodigo.Text.Trim();
@@ -437,28 +424,33 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             catch (EndpointNotFoundException ex)
             {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (TimeoutException ex)
             {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (FaultException ex)
             {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (CommunicationException ex)
             {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (Exception ex)
             {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
 
             return esCodigoUnico;
@@ -653,13 +645,10 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             else
             {
-                // TODO: Ventana emergente personalizada
                 string tituloError = "Habilita una sección";
                 string mensajeError = "Debes indicar si el producto está destinado a la venta o si es inventariado";
 
-                MessageBoxResult result = System.Windows.MessageBox.Show(
-                    mensajeError,
-                    tituloError, MessageBoxButton.OK);
+                VentanaEmergente ventanaEmergente = new VentanaEmergente(tituloError, mensajeError, Window.GetWindow(this), VENTANA_INFORMACION);
             }
 
             return haySeccionHabilitada;
@@ -670,11 +659,9 @@ namespace ItaliaPizza_Cliente.Vistas
             string tituloCancelar = "Cancelar Registro";
             string mensajeCancelar = "¿Estás seguro de que deseas cancelar el registro del producto?";
 
-            MessageBoxResult result = System.Windows.MessageBox.Show(
-                    mensajeCancelar,
-                    tituloCancelar, MessageBoxButton.YesNo);
+            VentanaEmergente ventanaEmergente = new VentanaEmergente(tituloCancelar, mensajeCancelar,"Sí", "No", Window.GetWindow(this), VENTANA_CONFIRMACION);
 
-            if (result == MessageBoxResult.Yes)
+            if (ventanaEmergente.AceptarAccion)
             {
                 LimpiarCampos();
                 NavigationService.GoBack();
@@ -783,9 +770,8 @@ namespace ItaliaPizza_Cliente.Vistas
                 {
                     string tituloErrorImagen = "Error al cargar la imagen";
                     string mensajeErrorImagen = "Ocurrió un error al cargar la imagen";
-                    MessageBoxResult result = System.Windows.MessageBox.Show(
-                    mensajeErrorImagen,
-                    tituloErrorImagen, MessageBoxButton.OK);
+                    VentanaEmergente ventanaEmergente = new VentanaEmergente(tituloErrorImagen, mensajeErrorImagen,
+                        Window.GetWindow(this), VENTANA_ERROR);
 
                     esTamañoValido = false;
                 }
@@ -806,9 +792,8 @@ namespace ItaliaPizza_Cliente.Vistas
                             string mensajeErrorImagen = "El tamaño de la imagen es muy grande, debe ser menor o igual a " 
                                 + tamañoMaximoKB + " KB";
 
-                            MessageBoxResult result = System.Windows.MessageBox.Show(
-                            mensajeErrorImagen,
-                            tituloErrorImagen, MessageBoxButton.OK);
+                            VentanaEmergente ventanaEmergente = new VentanaEmergente(tituloErrorImagen, mensajeErrorImagen,
+                                Window.GetWindow(this), VENTANA_ERROR);
 
                             esTamañoValido = false;
                         }

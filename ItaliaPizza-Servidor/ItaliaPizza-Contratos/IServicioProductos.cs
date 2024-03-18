@@ -1,4 +1,5 @@
 ﻿using ItaliaPizza_Contratos.DTOs;
+using ItaliaPizza_Contratos.Excepciones;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,15 +16,19 @@ namespace ItaliaPizza_Contratos
         void OperacionProductosEjemplo();
 
         [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
         List<Categoria> RecuperarCategorias();
 
         [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
         List<UnidadMedida> RecuperarUnidadesMedida();
 
         [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
         bool ValidarCodigoProducto(string codigoProducto);
 
         [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
         int GuardarProducto(Producto producto);
 
         [OperationContract]
