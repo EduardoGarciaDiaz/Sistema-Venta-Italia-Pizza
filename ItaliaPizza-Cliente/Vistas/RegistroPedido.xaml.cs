@@ -109,6 +109,7 @@ namespace ItaliaPizza_Cliente.Vistas
                 label.Padding = new Thickness(10);
                 label.Foreground = _colorBrushGrisTexto;
                 label.Tag = categoria.Id;
+                label.Cursor = Cursors.Hand;
                 label.MouseLeftButtonDown += FiltrarProductosPorCategoria;
                 SkpCategoriasProductoVenta.Children.Add(label);
             }
@@ -316,7 +317,14 @@ namespace ItaliaPizza_Cliente.Vistas
                     bool productoDisponible = servicioProductosClient.ValidarDisponibilidadDeProducto(elementoPedido.ProductoVentaPedidos.Codigo, int.Parse(elementoPedido.TbxCantidadProducto.Text));
                     if (productoDisponible)
                     {
-                        _productosEnPedido[elementoPedido.ProductoVentaPedidos.Codigo] = int.Parse(cantidadIngresada);
+                        if (_productosEnPedido.ContainsKey(elementoPedido.ProductoVentaPedidos.Codigo))
+                        {
+                            _productosEnPedido[elementoPedido.ProductoVentaPedidos.Codigo] = int.Parse(cantidadIngresada);
+                        }
+                        else
+                        {
+                            _productosEnPedido.Add(elementoPedido.ProductoVentaPedidos.Codigo, int.Parse(cantidadIngresada));
+                        }
                         elementoPedido.LblMensajeInsumosInsuficientes.Visibility = Visibility.Collapsed;
                         CalcularCantidades();
                         MostrarCantidades();
@@ -324,7 +332,7 @@ namespace ItaliaPizza_Cliente.Vistas
                     else
                     {
                         elementoPedido.LblMensajeInsumosInsuficientes.Visibility = Visibility.Visible;
-                        _productosEnPedido[elementoPedido.ProductoVentaPedidos.Codigo] = 0;
+                        _productosEnPedido.Remove(elementoPedido.ProductoVentaPedidos.Codigo);
                         CalcularCantidades();
                         MostrarCantidades();
                     }
@@ -358,7 +366,7 @@ namespace ItaliaPizza_Cliente.Vistas
             else
             {
                 elementoPedido.LblMensajeInsumosInsuficientes.Visibility = Visibility.Collapsed;
-                _productosEnPedido[elementoPedido.ProductoVentaPedidos.Codigo] = 0;
+                _productosEnPedido.Remove(elementoPedido.ProductoVentaPedidos.Codigo);
                 CalcularCantidades();
                 MostrarCantidades();
             }
@@ -583,9 +591,9 @@ namespace ItaliaPizza_Cliente.Vistas
                 {
                     CantidadProductos = _productosEnPedido.Count,
                     Fecha = DateTime.Now,
-                    productosIncluidos = _productosEnPedido,
+                    ProductosIncluidos = ListarProductosEnPedido(),
                     IdCliente = _clienteSeleccionado.IdCliente,
-                    IdTipoServicio = _tipoServicioSeleccionado.Id,
+                    TipoServicio = _tipoServicioSeleccionado,
                     Total = _total,
                     IdEstadoPedido = (int) EnumEstadosPedido.EnProceso
                 };
@@ -598,6 +606,17 @@ namespace ItaliaPizza_Cliente.Vistas
                 LblMensajeSeleccionClienteProductoObligatoria.Visibility = Visibility.Visible;
                 MostrarLabelDuranteSegundos(LblMensajeSeleccionClienteProductoObligatoria, 3);
             }
+        }
+
+        private Dictionary<ProductoVentaPedidos, int> ListarProductosEnPedido()
+        {
+            Dictionary<ProductoVentaPedidos, int> productosPedido = new Dictionary<ProductoVentaPedidos, int>();
+            foreach (string key in _productosEnPedido.Keys)
+            {
+                ProductoVentaPedidos producto = _productosVenta.FirstOrDefault(p => p.Codigo == key);
+                productosPedido.Add(producto, _productosEnPedido[key]);
+            }
+            return productosPedido;
         }
 
         private void BrdEliminarDatosPedido_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

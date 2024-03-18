@@ -47,5 +47,44 @@ namespace ItaliaPizza_DataAccess
             return insumoDisponible;
         }
 
+        public bool DisminuirCantidadInsumo(string codigoInsumo, int cantidadParaDisminuir)
+        {
+            bool insumoDisminuido = false;
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    Insumos insumo = context.Insumos.FirstOrDefault(i => i.CodigoProducto == codigoInsumo);
+                    if (insumo != default)
+                    {
+                        insumo.Cantidad = insumo.Cantidad - cantidadParaDisminuir;
+                    }
+                    int registrosAfectados = context.SaveChanges();
+                    if (registrosAfectados > 0)
+                    {
+                        insumoDisminuido = true;
+                    }
+
+                }
+            }
+            catch (EntityException ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (SqlException ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (Exception ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+
+            return insumoDisminuido;
+        }
+
     }
 }

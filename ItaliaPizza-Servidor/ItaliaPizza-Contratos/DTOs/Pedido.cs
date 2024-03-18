@@ -26,16 +26,16 @@ namespace ItaliaPizza_Contratos.DTOs
         public int IdEstadoPedido { get; set; }
 
         [DataMember]
-        public int IdTipoServicio { get; set; }
+        public TipoServicio TipoServicio { get; set; }
 
         [DataMember]
         public int IdCliente { get; set; }
 
         [DataMember]
-        public string nombreUsuarioCajero { get; set; }
+        public string NombreUsuarioCajero { get; set; }
 
         [DataMember]
-        public Dictionary<string, int> productosIncluidos { get; set; }
+        public Dictionary<ProductoVentaPedidos, int> ProductosIncluidos { get; set; }
 
     }
 }

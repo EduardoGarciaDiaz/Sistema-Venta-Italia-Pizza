@@ -12,7 +12,7 @@
     <Viewbox>
         <Grid Height="770" Width="1300">
             <uc:BarraDeBusqueda x:Name="BqdClientes" Margin="22,19,728,704" Width="550"/>
-            <DatePicker x:Name="DpkFechaBusqueda" Margin="587,22,532,705" Background="White" Padding="15,10,11,2" BorderThickness="0,0,0,0" FirstDayOfWeek="Monday" Text="Hola">
+            <DatePicker x:Name="DpkFechaBusqueda" Margin="587,22,532,705" Background="White" Padding="15,10,11,2" BorderThickness="0,0,0,0" FirstDayOfWeek="Monday">
                 <DatePicker.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="15"/>

@@ -54,12 +54,6 @@
   <wsdl:message name="IServicioOrdenesCompra_OperacionOrdenesEjemplo_OutputMessage">
     <wsdl:part name="parameters" element="tns:OperacionOrdenesEjemploResponse" />
   </wsdl:message>
-  <wsdl:message name="IServicioPedidos_OperacionPedidosEjemplo_InputMessage">
-    <wsdl:part name="parameters" element="tns:OperacionPedidosEjemplo" />
-  </wsdl:message>
-  <wsdl:message name="IServicioPedidos_OperacionPedidosEjemplo_OutputMessage">
-    <wsdl:part name="parameters" element="tns:OperacionPedidosEjemploResponse" />
-  </wsdl:message>
   <wsdl:message name="IServicioPedidos_RecuperarTiposServicio_InputMessage">
     <wsdl:part name="parameters" element="tns:RecuperarTiposServicio" />
   </wsdl:message>
@@ -198,6 +192,12 @@
   <wsdl:message name="IServicioUsuarios_Activar_DesactivarUsuario_OutputMessage">
     <wsdl:part name="parameters" element="tns:Activar_DesactivarUsuarioResponse" />
   </wsdl:message>
+  <wsdl:message name="IServicioUsuarios_RecuperarClientePorId_InputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperarClientePorId" />
+  </wsdl:message>
+  <wsdl:message name="IServicioUsuarios_RecuperarClientePorId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperarClientePorIdResponse" />
+  </wsdl:message>
   <wsdl:portType name="IServicioOrdenesCompra">
     <wsdl:operation name="OperacionOrdenesEjemplo">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioOrdenesCompra/OperacionOrdenesEjemplo" message="tns:IServicioOrdenesCompra_OperacionOrdenesEjemplo_InputMessage" />
@@ -205,10 +205,6 @@
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IServicioPedidos">
-    <wsdl:operation name="OperacionPedidosEjemplo">
-      <wsdl:input wsaw:Action="http://tempuri.org/IServicioPedidos/OperacionPedidosEjemplo" message="tns:IServicioPedidos_OperacionPedidosEjemplo_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IServicioPedidos/OperacionPedidosEjemploResponse" message="tns:IServicioPedidos_OperacionPedidosEjemplo_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="RecuperarTiposServicio">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioPedidos/RecuperarTiposServicio" message="tns:IServicioPedidos_RecuperarTiposServicio_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioPedidos/RecuperarTiposServicioResponse" message="tns:IServicioPedidos_RecuperarTiposServicio_OutputMessage" />
@@ -307,6 +303,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioUsuarios/Activar_DesactivarUsuario" message="tns:IServicioUsuarios_Activar_DesactivarUsuario_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioUsuarios/Activar_DesactivarUsuarioResponse" message="tns:IServicioUsuarios_Activar_DesactivarUsuario_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="RecuperarClientePorId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioUsuarios/RecuperarClientePorId" message="tns:IServicioUsuarios_RecuperarClientePorId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioUsuarios/RecuperarClientePorIdResponse" message="tns:IServicioUsuarios_RecuperarClientePorId_OutputMessage" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IServicioOrdenesCompra" type="tns:IServicioOrdenesCompra">
     <wsp:PolicyReference URI="#NetTcpBinding_IServicioOrdenesCompra_policy" />
@@ -324,15 +324,6 @@
   <wsdl:binding name="NetTcpBinding_IServicioPedidos" type="tns:IServicioPedidos">
     <wsp:PolicyReference URI="#NetTcpBinding_IServicioPedidos_policy" />
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
-    <wsdl:operation name="OperacionPedidosEjemplo">
-      <soap12:operation soapAction="http://tempuri.org/IServicioPedidos/OperacionPedidosEjemplo" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="RecuperarTiposServicio">
       <soap12:operation soapAction="http://tempuri.org/IServicioPedidos/RecuperarTiposServicio" style="document" />
       <wsdl:input>
@@ -545,6 +536,9 @@
     </wsdl:operation>
     <wsdl:operation name="Activar_DesactivarUsuario">
       <soap12:operation soapAction="http://tempuri.org/IServicioUsuarios/Activar_DesactivarUsuario" style="document" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarClientePorId">
+      <soap12:operation soapAction="http://tempuri.org/IServicioUsuarios/RecuperarClientePorId" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

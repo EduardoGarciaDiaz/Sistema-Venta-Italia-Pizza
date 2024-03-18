@@ -123,7 +123,9 @@ namespace ItaliaPizza_Servicios
             if (productoDAO.ValidarSiProductoEnVentaEsInventariado(codigoProducto))
             {
                 productoDisponible = insumoDAO.ValidarDisponibilidadInsumo(codigoProducto, cantidadProductos);
-            } else
+
+            } 
+            else
             {
                 List<RecetasInsumos> insumosEnReceta = recetaTemporalDAO.RecuperarInsumosEnReceta(codigoProducto);
 
@@ -139,6 +141,26 @@ namespace ItaliaPizza_Servicios
                 }
             }
             return productoDisponible;
+        }
+
+        public bool DisminuirCantidadInsumoPorProducto(string codigoProducto, int cantidadRequerida)
+        {
+            bool insumosDisminuidos = false;
+            RecetaTemporalDAO recetaTemporalDAO = new RecetaTemporalDAO();
+            InsumoDAO insumoDAO = new InsumoDAO();
+            List<RecetasInsumos> insumosEnReceta = recetaTemporalDAO.RecuperarInsumosEnReceta(codigoProducto);
+
+            foreach (RecetasInsumos insumo in insumosEnReceta)
+            {
+                bool insumoDisminuido =
+                    insumoDAO.DisminuirCantidadInsumo(insumo.CodigoProducto, ((int)insumo.CantidadInsumo * cantidadRequerida));
+                if (!insumoDisminuido)
+                {
+                    insumosDisminuidos = false;
+                    break;
+                }
+            }
+            return insumosDisminuidos;
         }
     }
 }

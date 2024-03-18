@@ -1,0 +1,75 @@
+﻿<Window x:Class="ItaliaPizza_Cliente.Vistas.ConfirmacionRegistroPedido"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ItaliaPizza_Cliente.Vistas"
+        mc:Ignorable="d"
+        Title="ConfirmacionRegistroPedido" Height="300" Width="500"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="CanResizeWithGrip"
+        WindowStartupLocation="CenterScreen"
+        MinWidth="450">
+    <Viewbox>
+        <Grid Width="500" Height="300">
+
+            <Border Background="White"
+            CornerRadius="8"
+            BorderThickness="2"
+            BorderBrush="#FF848383"
+            Grid.Column="0"
+            Grid.ColumnSpan="22"
+            Grid.RowSpan="6"/>
+
+            <Image Source="/Recursos/Iconos/icono_exito.png" Margin="217,14,217,230"/>
+
+            <Label Content="¡Pedido registrado correctamente!"
+           Foreground="#D6B400"
+           FontSize="20" 
+           FontFamily="Segoe UI Variable Display Semibold" HorizontalContentAlignment="Center" Margin="0,73,0,185"/>
+
+            <Label Content="Numero de pedido:"
+           Foreground="#FF767676"
+           FontSize="16" 
+           FontFamily="Segoe UI Variable Display Semibold" HorizontalContentAlignment="Right" Margin="92,111,251,153"/>
+
+            <Label x:Name="LblNumeroPedido"
+           Foreground="#FF767676"
+           FontSize="16" 
+           FontFamily="Segoe UI Variable Display Semibold" Margin="248,110,95,156" Content=""/>
+
+            <Label Content="Cliente:"
+            Foreground="#FF767676"
+            FontSize="16" 
+            FontFamily="Segoe UI Variable Display Semibold" HorizontalContentAlignment="Right" Margin="178,133,251,131"/>
+
+            <Border Background="#F6f6f6"
+            Margin="196,173,202,67"
+            CornerRadius="10"/>
+
+            <Label Content="Cambio"
+            Foreground="#FF767676" 
+            FontFamily="Segoe UI Variable Display Semibold" Margin="201,173,208,99" FontSize="14" HorizontalContentAlignment="Center"/>
+
+            <Label x:Name="LblNombreCliente"
+        Foreground="#FF767676"
+        FontSize="16" 
+        FontFamily="Segoe UI Variable Display Semibold" Margin="248,131,29,135" Content=""/>
+
+            <Label x:Name="LblCambio" Content="" Margin="201,193,207,66" FontSize="20" HorizontalContentAlignment="Center"/>
+
+            <Button Margin="161,248,160,8"
+            Content="Aceptar"
+            Background="#F8D72A" BorderThickness="0,0,0,0" FontSize="20" FontFamily="Segoe UI Variable Display Semibold" Click="Button_Click">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="15"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </Grid>
+    </Viewbox>
+    
+</Window>

@@ -20,14 +20,25 @@
       <xs:element minOccurs="0" name="Fecha" type="xs:dateTime" />
       <xs:element minOccurs="0" name="IdCliente" type="xs:int" />
       <xs:element minOccurs="0" name="IdEstadoPedido" type="xs:int" />
-      <xs:element minOccurs="0" name="IdTipoServicio" type="xs:int" />
+      <xs:element minOccurs="0" name="NombreUsuarioCajero" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NumeroPedido" type="xs:int" />
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ProductosIncluidos" nillable="true" type="q1:ArrayOfKeyValueOfProductoVentaPedidosintrqgyTOB1" />
+      <xs:element minOccurs="0" name="TipoServicio" nillable="true" type="tns:TipoServicio" />
       <xs:element minOccurs="0" name="Total" type="xs:double" />
-      <xs:element minOccurs="0" name="nombreUsuarioCajero" nillable="true" type="xs:string" />
-      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="productosIncluidos" nillable="true" type="q1:ArrayOfKeyValueOfstringint" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Pedido" nillable="true" type="tns:Pedido" />
+  <xs:complexType name="ProductoVentaPedidos">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Foto" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="IdCategoria" type="xs:int" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Precio" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProductoVentaPedidos" nillable="true" type="tns:ProductoVentaPedidos" />
   <xs:complexType name="ArrayOfCategoria">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Categoria" nillable="true" type="tns:Categoria" />
@@ -92,17 +103,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfProductoVentaPedidos" nillable="true" type="tns:ArrayOfProductoVentaPedidos" />
-  <xs:complexType name="ProductoVentaPedidos">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Foto" nillable="true" type="xs:base64Binary" />
-      <xs:element minOccurs="0" name="IdCategoria" type="xs:int" />
-      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Precio" type="xs:double" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ProductoVentaPedidos" nillable="true" type="tns:ProductoVentaPedidos" />
   <xs:complexType name="ArrayOfReceta">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Receta" nillable="true" type="tns:Receta" />
@@ -205,4 +205,14 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfEmpleadoDto" nillable="true" type="tns:ArrayOfEmpleadoDto" />
+  <xs:complexType name="Cliente">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CorreoElectronicoCliente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DireccionCliente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdCliente" type="xs:int" />
+      <xs:element minOccurs="0" name="NombreCliente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroTelefonoCliente" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Cliente" nillable="true" type="tns:Cliente" />
 </xs:schema>

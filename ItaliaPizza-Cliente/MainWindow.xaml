@@ -68,6 +68,9 @@
             <Border Grid.Row="0"
                     Grid.Column="4" 
                     Background="Transparent"
+
+                    Cursor="Hand"
+
                     MouseLeftButtonDown="Salir_MouseLeftButtonDown"/>
 
             <StackPanel x:Name="SkpMenuLateral"

@@ -100,16 +100,29 @@ namespace ItaliaPizza_DataAccess
             return resultadoOperacion;
         }
 
-        public List<Usuarios> RecuperarClientesBD()
+
+        public Cliente RecuperarDatosClientePorId(int id)
         {
-            List<Usuarios> clientes = new List<Usuarios>();
+            Cliente cliente = new Cliente();
             try
             {
                 using (var context = new ItaliaPizzaEntities())
                 {
-                    clientes = context.Usuarios.Where(usuario => context.Empleados.FirstOrDefault(empleado =>
-                    empleado.IdUsuario == usuario.IdUsuario) == null).ToList();
-                    
+
+                    Usuarios usuarioCliente = context.Usuarios.FirstOrDefault(c => c.IdUsuario == id);
+                    if (usuarioCliente != null)
+                    {
+                        cliente.IdCliente = usuarioCliente.IdUsuario;
+                        cliente.NombreCliente = usuarioCliente.NombreCompleto;
+                        cliente.CorreoElectronicoCliente = usuarioCliente.CorreoElectronico;
+                        cliente.NumeroTelefonoCliente = usuarioCliente.NumeroTelefono;
+                        cliente.DireccionCliente =
+                            usuarioCliente.Direcciones.Calle + ", " +
+                            usuarioCliente.Direcciones.Numero + ". " +
+                            usuarioCliente.Direcciones.Colonia + ". " +
+                            usuarioCliente.Direcciones.CodigoPostal + ". " +
+                            usuarioCliente.Direcciones.Ciudad;
+                    }
                 }
             }
             catch (EntityException ex)
@@ -129,6 +142,37 @@ namespace ItaliaPizza_DataAccess
             }
             return clientes;
         }
+
+
+        public List<Usuarios> RecuperarClientesBD()
+        {
+            List<Usuarios> clientes = new List<Usuarios>();
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    clientes = context.Usuarios.Where(usuario => context.Empleados.FirstOrDefault(empleado =>
+                    empleado.IdUsuario == usuario.IdUsuario) == null).ToList();
+                }
+             }
+            catch (EntityException ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (SqlException ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (Exception ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            return clientes;
+        }
+
 
         public bool DesactivarUsuario(int idUsuario)
         {
@@ -153,6 +197,7 @@ namespace ItaliaPizza_DataAccess
             }
             return resultadoOperacion;
         }
+
 
         public bool ActivarUsuario(int idUsuario)
         {

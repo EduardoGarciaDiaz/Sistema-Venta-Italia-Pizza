@@ -35,7 +35,8 @@
             </ListView.View>
         </ListView>
 
-        <Image Source="/Recursos/Iconos/icono_buscar.png" Margin="356,5,18,162" MouseDown="ImgBuscar_MouseDown"/>
+        <Image Source="/Recursos/Iconos/icono_buscar.png" Margin="356,5,18,162" MouseDown="ImgBuscar_MouseDown"
+               Cursor="Hand"/>
 
 
     </Grid>

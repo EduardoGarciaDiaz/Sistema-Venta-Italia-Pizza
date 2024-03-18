@@ -176,5 +176,11 @@ namespace ItaliaPizza_Servicios
             }
             return exitoAccion;
         }
+        
+        public Cliente RecuperarClientePorId (int idCliente)
+        {
+            UsuarioDAO usuarioDAO=new UsuarioDAO();
+            return usuarioDAO.RecuperarDatosClientePorId(idCliente);
+        }
     }
 }

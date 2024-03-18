@@ -12,9 +12,6 @@ namespace ItaliaPizza_Contratos
     public interface IServicioPedidos
     {
         [OperationContract]
-        void OperacionPedidosEjemplo();
-
-        [OperationContract]
         List<TipoServicio> RecuperarTiposServicio();
 
         [OperationContract]

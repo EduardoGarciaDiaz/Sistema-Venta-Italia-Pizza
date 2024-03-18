@@ -24,7 +24,6 @@ namespace ItaliaPizza_Contratos.DTOs
         [DataMember]
         public bool EsActivo { get; set; }
 
-
         [DataMember]
         public int IdDireccion { get; set; }
 

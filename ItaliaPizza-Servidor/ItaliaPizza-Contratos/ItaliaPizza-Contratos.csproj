@@ -55,6 +55,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTOs\Categoria.cs" />
+    <Compile Include="DTOs\Cliente.cs" />
+    <Compile Include="DTOs\Categoria.cs" />
     <Compile Include="DTOs\ClienteBusqueda.cs" />
     <Compile Include="DTOs\DireccionDto.cs" />
     <Compile Include="DTOs\EmpleadoDto.cs" />

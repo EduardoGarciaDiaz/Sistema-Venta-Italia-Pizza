@@ -20,14 +20,38 @@
         <Label x:Name="LblNombreProducto" Content="Pizza Clasica" Margin="8,0,66,38" FontSize="15"/>
         <Label x:Name="LblDescripcionProducto" Content="Peperoni y queso" Margin="8,18,66,21" FontFamily="Segoe UI Variable Small Semibold" Foreground="#FF727272"/>
         <Label x:Name="LblPrecioProducto" Content="$120.00" Margin="8,35,0,5" HorizontalAlignment="Left" Width="195" FontSize="13" FontFamily="Segoe UI Variable Text Semibold" Foreground="#FF4C4C4C"/>
-        <Button x:Name="BtnSumarCantidadProducto" Content="-" FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Left" Width="40" Margin="207,9,0,0" BorderBrush="#FFEEEEEE" BorderThickness="0,0,0,0" Foreground="#FF6C6C6C" Click="BtnRestarCantidadProducto_Click">
+        <Button x:Name="BtnSumarCantidadProducto" 
+                Content="-" 
+                FontSize="18" 
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Left" 
+                Width="40" 
+                Margin="207,9,0,0" 
+                BorderBrush="#FFEEEEEE" 
+                BorderThickness="0,0,0,0" 
+                Foreground="#FF6C6C6C" 
+                Click="BtnRestarCantidadProducto_Click"
+                Cursor="Hand">
+            
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="5"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="BtnRestarCantidadProducto" Content="+" FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Left" Width="40" Margin="28,9,0,0" BorderBrush="#FFEEEEEE" BorderThickness="0,0,0,0" Foreground="#FF6C6C6C" Grid.Column="1" Click="BtnSumarCantidadProducto_Click">
+        <Button x:Name="BtnRestarCantidadProducto" 
+                Content="+" 
+                FontSize="18" 
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Left" 
+                Width="40" 
+                Margin="28,9,0,0" 
+                BorderBrush="#FFEEEEEE" 
+                BorderThickness="0,0,0,0" 
+                Foreground="#FF6C6C6C" 
+                Grid.Column="1" 
+                Click="BtnSumarCantidadProducto_Click"
+                Cursor="Hand">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="5"/>

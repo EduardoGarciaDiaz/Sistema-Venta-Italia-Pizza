@@ -10,21 +10,25 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ItaliaPizza_Cliente.Vistas
 {
     /// <summary>
-    /// Lógica de interacción para ConsultaPedidos.xaml
+    /// Lógica de interacción para ConfirmacionRegistroPedido.xaml
     /// </summary>
-    public partial class ConsultaPedidos : Page
+    public partial class ConfirmacionRegistroPedido : Window
     {
-        public ConsultaPedidos()
+        public EventHandler Click;
+
+        public ConfirmacionRegistroPedido()
         {
             InitializeComponent();
-            this.BqdClientes.Placeholder.Text = "Ingresa nombre de cliente...";
-            this.DpkFechaBusqueda.SelectedDate = DateTime.Now;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Click?.Invoke(this, EventArgs.Empty);
         }
     }
 }
