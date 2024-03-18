@@ -65,5 +65,37 @@ namespace ItaliaPizza_DataAccess
 
             return insumosReceta;
         }
+
+        public int GuardarReceta(Recetas receta)
+        {
+            int id = -1;
+
+            using (var context = new ItaliaPizzaEntities())
+            {
+                context.Recetas.Add(receta);
+                int filasAfectadas = context.SaveChanges();
+
+                if (filasAfectadas > 0)
+                {
+                    id = receta.IdReceta;
+                }
+            }
+
+            return id;
+        }
+
+        public int GuardarRecetaInsumos(List<RecetasInsumos> recetasInsumos)
+        {
+            int filasAfectadas = -1;
+
+            using (var context = new ItaliaPizzaEntities())
+            {
+                context.RecetasInsumos.AddRange(recetasInsumos);
+                filasAfectadas = context.SaveChanges();
+            }
+
+            return filasAfectadas;
+        }
+
     }
 }

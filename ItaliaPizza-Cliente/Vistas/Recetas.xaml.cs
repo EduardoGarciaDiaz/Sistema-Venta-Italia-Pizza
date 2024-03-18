@@ -107,6 +107,13 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void MostrarReceta(Receta receta)
         {
+            ElementoReceta elementoReceta = CrearElementoReceta(receta);
+
+            wrapPanelRecetas.Children.Add(elementoReceta);
+        }
+
+        private ElementoReceta CrearElementoReceta(Receta receta)
+        {
             ElementoReceta elementoReceta = new ElementoReceta();
             elementoReceta.lbNombreReceta.Content = receta.Nombre;
             elementoReceta.Tag = receta.Id;
@@ -121,7 +128,7 @@ namespace ItaliaPizza_Cliente.Vistas
             elementoReceta.gridReceta_Click += ElementoReceta_Click;
             elementoReceta.imgEditar_Click += ImgEditarReceta_Click;
 
-            wrapPanelRecetas.Children.Add(elementoReceta);
+            return elementoReceta;
         }
 
         private void ElementoReceta_Click(object sender, EventArgs e)
@@ -190,14 +197,22 @@ namespace ItaliaPizza_Cliente.Vistas
             {
                 foreach (InsumoReceta insumo in insumosReceta)
                 {
-                    ElementoInsumoReceta elementoInsumoReceta = new ElementoInsumoReceta();
-                    elementoInsumoReceta.lbNombreInsumo.Content = insumo.Nombre;
-                    elementoInsumoReceta.lbCantidadInsumo.Content = insumo.Cantidad;
-                    elementoInsumoReceta.lbUnidadMedidaInsumo.Content = insumo.UnidadMedida.Nombre;
+                    ElementoInsumoReceta elementoInsumoReceta = CrearElementoInsumoReceta(insumo);
 
                     stackPanelInsumos.Children.Add(elementoInsumoReceta);
                 }
             }
+        }
+
+        private ElementoInsumoReceta CrearElementoInsumoReceta(InsumoReceta insumo)
+        {
+            ElementoInsumoReceta elementoInsumoReceta = new ElementoInsumoReceta();
+
+            elementoInsumoReceta.lbNombreInsumo.Content = insumo.Nombre;
+            elementoInsumoReceta.lbCantidadInsumo.Content = insumo.Cantidad;
+            elementoInsumoReceta.lbUnidadMedidaInsumo.Content = insumo.UnidadMedida.Nombre;
+
+            return elementoInsumoReceta;
         }
 
         private void ImgBuscar_Click(object sender, EventArgs e)

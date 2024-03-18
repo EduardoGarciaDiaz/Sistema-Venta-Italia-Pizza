@@ -89,6 +89,18 @@
   <wsdl:message name="IServicioProductos_GuardarProducto_OutputMessage">
     <wsdl:part name="parameters" element="tns:GuardarProductoResponse" />
   </wsdl:message>
+  <wsdl:message name="IServicioProductos_RecuperarProductosSinReceta_InputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperarProductosSinReceta" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProductos_RecuperarProductosSinReceta_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperarProductosSinRecetaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProductos_RecuperarInsumos_InputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperarInsumos" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProductos_RecuperarInsumos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperarInsumosResponse" />
+  </wsdl:message>
   <wsdl:message name="IServicioRecetas_OperacionRecetasEjemplo_InputMessage">
     <wsdl:part name="parameters" element="tns:OperacionRecetasEjemplo" />
   </wsdl:message>
@@ -106,6 +118,12 @@
   </wsdl:message>
   <wsdl:message name="IServicioRecetas_RecuperarInsumosReceta_OutputMessage">
     <wsdl:part name="parameters" element="tns:RecuperarInsumosRecetaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioRecetas_GuardarReceta_InputMessage">
+    <wsdl:part name="parameters" element="tns:GuardarReceta" />
+  </wsdl:message>
+  <wsdl:message name="IServicioRecetas_GuardarReceta_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GuardarRecetaResponse" />
   </wsdl:message>
   <wsdl:message name="IServicioUsuarios_OperacionUsuariosEjemplo_InputMessage">
     <wsdl:part name="parameters" element="tns:OperacionUsuariosEjemplo" />
@@ -146,6 +164,14 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioProductos/GuardarProducto" message="tns:IServicioProductos_GuardarProducto_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioProductos/GuardarProductoResponse" message="tns:IServicioProductos_GuardarProducto_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="RecuperarProductosSinReceta">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProductos/RecuperarProductosSinReceta" message="tns:IServicioProductos_RecuperarProductosSinReceta_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProductos/RecuperarProductosSinRecetaResponse" message="tns:IServicioProductos_RecuperarProductosSinReceta_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarInsumos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProductos/RecuperarInsumos" message="tns:IServicioProductos_RecuperarInsumos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProductos/RecuperarInsumosResponse" message="tns:IServicioProductos_RecuperarInsumos_OutputMessage" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IServicioRecetas">
     <wsdl:operation name="OperacionRecetasEjemplo">
@@ -159,6 +185,10 @@
     <wsdl:operation name="RecuperarInsumosReceta">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioRecetas/RecuperarInsumosReceta" message="tns:IServicioRecetas_RecuperarInsumosReceta_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioRecetas/RecuperarInsumosRecetaResponse" message="tns:IServicioRecetas_RecuperarInsumosReceta_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarReceta">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioRecetas/GuardarReceta" message="tns:IServicioRecetas_GuardarReceta_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioRecetas/GuardarRecetaResponse" message="tns:IServicioRecetas_GuardarReceta_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IServicioUsuarios">
@@ -241,6 +271,24 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="RecuperarProductosSinReceta">
+      <soap12:operation soapAction="http://tempuri.org/IServicioProductos/RecuperarProductosSinReceta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarInsumos">
+      <soap12:operation soapAction="http://tempuri.org/IServicioProductos/RecuperarInsumos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="NetTcpBinding_IServicioRecetas" type="tns:IServicioRecetas">
     <wsp:PolicyReference URI="#NetTcpBinding_IServicioRecetas_policy" />
@@ -265,6 +313,15 @@
     </wsdl:operation>
     <wsdl:operation name="RecuperarInsumosReceta">
       <soap12:operation soapAction="http://tempuri.org/IServicioRecetas/RecuperarInsumosReceta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarReceta">
+      <soap12:operation soapAction="http://tempuri.org/IServicioRecetas/GuardarReceta" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

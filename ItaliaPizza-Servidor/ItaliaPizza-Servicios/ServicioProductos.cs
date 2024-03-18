@@ -87,5 +87,21 @@ namespace ItaliaPizza_Servicios
 
             return filasAfectadas;
         }
+
+        public List<ProductoSinReceta> RecuperarProductosSinReceta()
+        {
+            ProductoDAO productoDAO = new ProductoDAO();
+            List<ProductoSinReceta> productosSinReceta = productoDAO.RecuperarProductosSinReceta();
+
+            return productosSinReceta;
+        }
+
+        public List<InsumoRegistroReceta> RecuperarInsumos()
+        {
+            InsumoDAO insumoDAO = new InsumoDAO();
+            List<InsumoRegistroReceta> insumos = insumoDAO.RecuperarInsumos();
+
+            return insumos;
+        }
     }
 }

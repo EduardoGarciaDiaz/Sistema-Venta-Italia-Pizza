@@ -58,6 +58,35 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ProductoVenta" nillable="true" type="tns:ProductoVenta" />
+  <xs:complexType name="ArrayOfProductoSinReceta">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProductoSinReceta" nillable="true" type="tns:ProductoSinReceta" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfProductoSinReceta" nillable="true" type="tns:ArrayOfProductoSinReceta" />
+  <xs:complexType name="ProductoSinReceta">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Foto" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProductoSinReceta" nillable="true" type="tns:ProductoSinReceta" />
+  <xs:complexType name="ArrayOfInsumoRegistroReceta">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="InsumoRegistroReceta" nillable="true" type="tns:InsumoRegistroReceta" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfInsumoRegistroReceta" nillable="true" type="tns:ArrayOfInsumoRegistroReceta" />
+  <xs:complexType name="InsumoRegistroReceta">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Categoria" nillable="true" type="tns:Categoria" />
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnidadMedida" nillable="true" type="tns:UnidadMedida" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="InsumoRegistroReceta" nillable="true" type="tns:InsumoRegistroReceta" />
   <xs:complexType name="ArrayOfReceta">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Receta" nillable="true" type="tns:Receta" />
@@ -82,9 +111,18 @@
   <xs:complexType name="InsumoReceta">
     <xs:sequence>
       <xs:element minOccurs="0" name="Cantidad" type="xs:double" />
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UnidadMedida" nillable="true" type="tns:UnidadMedida" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="InsumoReceta" nillable="true" type="tns:InsumoReceta" />
+  <xs:complexType name="RecetaProducto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdReceta" type="xs:int" />
+      <xs:element minOccurs="0" name="InsumosReceta" nillable="true" type="tns:ArrayOfInsumoReceta" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RecetaProducto" nillable="true" type="tns:RecetaProducto" />
 </xs:schema>

@@ -77,11 +77,20 @@
     <Compile Include="Recursos\ControlesUsuario\ElementoInsumoReceta.xaml.cs">
       <DependentUpon>ElementoInsumoReceta.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Recursos\ControlesUsuario\ElementoInsumoRegistroReceta.xaml.cs">
+      <DependentUpon>ElementoInsumoRegistroReceta.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Recursos\ControlesUsuario\ElementoInsumoSeleccionado.xaml.cs">
+      <DependentUpon>ElementoInsumoSeleccionado.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Recursos\ControlesUsuario\ElementoPedido.xaml.cs">
       <DependentUpon>ElementoPedido.xaml</DependentUpon>
     </Compile>
     <Compile Include="Recursos\ControlesUsuario\ElementoProductoConsultaPedido.xaml.cs">
       <DependentUpon>ElementoProductoConsultaPedido.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Recursos\ControlesUsuario\ElementoProductoSinReceta.xaml.cs">
+      <DependentUpon>ElementoProductoSinReceta.xaml</DependentUpon>
     </Compile>
     <Compile Include="Recursos\ControlesUsuario\ElementoProductoVenta.xaml.cs">
       <DependentUpon>ElementoProductoVenta.xaml</DependentUpon>
@@ -150,11 +159,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Recursos\ControlesUsuario\ElementoInsumoRegistroReceta.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Recursos\ControlesUsuario\ElementoInsumoSeleccionado.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Recursos\ControlesUsuario\ElementoPedido.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Recursos\ControlesUsuario\ElementoProductoConsultaPedido.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Recursos\ControlesUsuario\ElementoProductoSinReceta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -223,6 +244,12 @@
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.InsumoReceta.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.InsumoRegistroReceta.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.ProductoSinReceta.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.Receta.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -288,6 +315,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Recursos\Iconos\icono_cerrar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Recursos\Iconos\icono_eliminar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Recursos\Iconos\imagen_producto_sin_foto.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

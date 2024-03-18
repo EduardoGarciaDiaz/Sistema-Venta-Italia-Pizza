@@ -78,6 +78,7 @@
     <Compile Include="GastosVarios.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="InsumoDAO.cs" />
     <Compile Include="Insumos.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>
