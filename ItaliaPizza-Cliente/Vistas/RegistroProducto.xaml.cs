@@ -183,8 +183,8 @@ namespace ItaliaPizza_Cliente.Vistas
 
             try
             {
-                ServicioProductosClient servicioProductosClient = new ServicioProductosClient();
-                filasAfectadas = servicioProductosClient.GuardarProducto(producto);
+                ServicioProductosClient servicioProductosCliente = new ServicioProductosClient();
+                filasAfectadas = servicioProductosCliente.GuardarProducto(producto);
             }
             catch (EndpointNotFoundException ex)
             {
