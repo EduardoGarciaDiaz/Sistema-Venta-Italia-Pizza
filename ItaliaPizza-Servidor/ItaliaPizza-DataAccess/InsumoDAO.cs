@@ -89,7 +89,7 @@ namespace ItaliaPizza_DataAccess
             return insumoDisminuido;
         }
 
-                public List<InsumoRegistroReceta> RecuperarInsumos()
+        public List<InsumoRegistroReceta> RecuperarInsumos()
         {
             using (var context = new ItaliaPizzaEntities())
             {
@@ -98,6 +98,7 @@ namespace ItaliaPizza_DataAccess
                               join um in context.UnidadesMedida on i.IdUnidadMedida equals um.IdUnidadMedida
                               join ci in context.CategoriasInsumo on i.IdCategoriaInsumo equals ci.IdCategoriaInsumo
                               where !context.ProductosVenta.Any(i => i.CodigoProducto == p.CodigoProducto)
+                              && p.EsActivo == true
                               select new InsumoRegistroReceta
                               {
                                   Codigo = p.CodigoProducto,

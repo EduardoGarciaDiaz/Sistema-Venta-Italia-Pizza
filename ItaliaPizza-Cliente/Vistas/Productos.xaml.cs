@@ -13,23 +13,22 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
+namespace ItaliaPizza_Cliente.Vistas
 {
     /// <summary>
-    /// Lógica de interacción para ElementoConsultaPedido.xaml
+    /// Lógica de interacción para Productos.xaml
     /// </summary>
-    public partial class ElementoConsultaPedido : UserControl
+    public partial class Productos : Page
     {
-        public event RoutedEventHandler Click;
-
-        public ElementoConsultaPedido()
+        public Productos()
         {
             InitializeComponent();
         }
 
-        private void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void BtnRegistrarProducto_Click(object sender, RoutedEventArgs e)
         {
-            Click?.Invoke(this, e);
+            RegistroProducto registroProducto = new RegistroProducto();
+            NavigationService.Navigate(registroProducto);
         }
     }
 }

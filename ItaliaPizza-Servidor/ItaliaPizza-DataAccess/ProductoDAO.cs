@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ItaliaPizza_DataAccess.Excepciones;
 
 namespace ItaliaPizza_DataAccess
 {
@@ -25,24 +26,24 @@ namespace ItaliaPizza_DataAccess
                 {
                     categoriasInsumo = context.CategoriasInsumo.ToList();
                 }
+
+                return categoriasInsumo;
             }
             catch (EntityException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (SqlException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (Exception ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
-
-            return categoriasInsumo;
         }
 
         public List<CategoriasProductoVenta> RecuperarCategoriasProductoVenta()
@@ -55,24 +56,24 @@ namespace ItaliaPizza_DataAccess
                 {
                     categoriasProductoVenta = context.CategoriasProductoVenta.ToList();
                 }
+
+                return categoriasProductoVenta;
             }
             catch (EntityException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (SqlException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (Exception ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
-
-            return categoriasProductoVenta;
         }
 
         public List<Productos> RecuperarProductos()
@@ -115,26 +116,24 @@ namespace ItaliaPizza_DataAccess
                 {
                     unidadesMedida = context.UnidadesMedida.ToList();
                 }
+
+                return unidadesMedida;
             }
             catch (EntityException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (SqlException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (Exception ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
-
-
-            return unidadesMedida;
-
         }
 
         public List<ProductosVenta> RecuperarProductosParaVenta()
@@ -179,23 +178,24 @@ namespace ItaliaPizza_DataAccess
                 {
                     existeProducto = context.Productos.Any(p => p.CodigoProducto == codigoProducto);
                 }
+
+                return existeProducto;
             }
             catch (EntityException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (SqlException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (Exception ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
-            return existeProducto;
         }
 
         public int GuardarProducto(Productos producto)
@@ -212,24 +212,24 @@ namespace ItaliaPizza_DataAccess
                         filasAfectadas = context.SaveChanges();
                     }
                 }
+
+                return filasAfectadas;
             }
             catch (EntityException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (SqlException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (Exception ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
-
-            return filasAfectadas;
         }
 
         public int GuardarInsumo(Insumos insumo)
@@ -310,6 +310,7 @@ namespace ItaliaPizza_DataAccess
                                          from r in rGroup.DefaultIfEmpty()
                                          where r.CodigoProducto == null
                                          && !context.Insumos.Any(i => i.CodigoProducto == p.CodigoProducto)
+                                         && p.EsActivo == true
                                          select new ProductoSinReceta
                                          {
                                              Codigo = p.CodigoProducto,

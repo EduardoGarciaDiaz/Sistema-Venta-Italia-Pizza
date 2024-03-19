@@ -1,9 +1,12 @@
 ﻿using ItaliaPizza_Contratos.DTOs;
+using ItaliaPizza_Contratos.Excepciones;
 using ItaliaPizza_DataAccess;
+using ItaliaPizza_DataAccess.Excepciones;
 using ItaliaPizza_Servicios.Auxiliares;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,70 +21,126 @@ namespace ItaliaPizza_Servicios
 
         public List<Categoria> RecuperarCategorias()
         {
-            ProductoDAO gestionProducto = new ProductoDAO();
+            ProductoDAO productoDAO = new ProductoDAO();
 
-            List<CategoriasInsumo> categoriasInsumo = gestionProducto.RecuperarCategoriasInsumo();
-            List<CategoriasProductoVenta> categoriasProductoVenta = gestionProducto.RecuperarCategoriasProductoVenta();
+            try
+            {
+                List<CategoriasInsumo> categoriasInsumo = productoDAO.RecuperarCategoriasInsumo();
+                List<CategoriasProductoVenta> categoriasProductoVenta = productoDAO.RecuperarCategoriasProductoVenta();
 
-            List<Categoria> categorias = AuxiliarPreparacionDatos.PrepararListaCategorias(categoriasProductoVenta, categoriasInsumo);
+                List<Categoria> categorias = AuxiliarPreparacionDatos.PrepararListaCategorias(categoriasProductoVenta, categoriasInsumo);
 
-            return categorias;
+                return categorias;
+            }
+            catch (ExcepcionDataAccess ex)
+            {
+                ExcepcionServidorItaliaPizza respuestaExcepcion = new ExcepcionServidorItaliaPizza
+                {
+                    Mensaje = ex.Message,
+                    StackTrace = ex.StackTrace,
+                };
+
+                throw new FaultException<ExcepcionServidorItaliaPizza>(respuestaExcepcion, new FaultReason(respuestaExcepcion.Mensaje));
+            }
         }
 
         public List<UnidadMedida> RecuperarUnidadesMedida()
         {
             List<UnidadMedida> listaUnidades = new List<UnidadMedida>();
-            ProductoDAO gestionProducto = new ProductoDAO();
-            List<UnidadesMedida> unidadesMedida = gestionProducto.RecuperarUnidadesMedida();
+            ProductoDAO productoDAO = new ProductoDAO();
 
-            listaUnidades.AddRange(unidadesMedida.Select(unidad => new UnidadMedida
+            try
             {
-                Id = unidad.IdUnidadMedida,
-                Nombre = unidad.Nombre
-            }));
+                List<UnidadesMedida> unidadesMedida = productoDAO.RecuperarUnidadesMedida();
 
-            return listaUnidades;
+                listaUnidades.AddRange(unidadesMedida.Select(unidad => new UnidadMedida
+                {
+                    Id = unidad.IdUnidadMedida,
+                    Nombre = unidad.Nombre
+                }));
+
+                return listaUnidades;
+            }
+            catch (ExcepcionDataAccess ex)
+            {
+                ExcepcionServidorItaliaPizza respuestaExcepcion = new ExcepcionServidorItaliaPizza
+                {
+                    Mensaje = ex.Message,
+                    StackTrace = ex.StackTrace,
+                };
+
+                throw new FaultException<ExcepcionServidorItaliaPizza>(respuestaExcepcion, new FaultReason(respuestaExcepcion.Mensaje));
+            }
         }
 
 
         public bool ValidarCodigoProducto(string codigoProducto)
         {
             bool esCodigoUnico = false;
+            ProductoDAO productoDAO = new ProductoDAO();
 
-            ProductoDAO gestionProducto = new ProductoDAO();
-            bool existeProducto = gestionProducto.ValidarCodigoProducto(codigoProducto);
-            
-            if (!existeProducto)
+            try
             {
-                esCodigoUnico = true;
-            }
+                bool existeProducto = productoDAO.ValidarCodigoProducto(codigoProducto);
 
-            return esCodigoUnico;
+                if (!existeProducto)
+                {
+                    esCodigoUnico = true;
+                }
+
+                return esCodigoUnico;
+            }
+            catch (ExcepcionDataAccess ex)
+            {
+                ExcepcionServidorItaliaPizza respuestaExcepcion = new ExcepcionServidorItaliaPizza
+                {
+                    Mensaje = ex.Message,
+                    StackTrace = ex.StackTrace,
+                };
+
+                throw new FaultException<ExcepcionServidorItaliaPizza>(respuestaExcepcion, new FaultReason(respuestaExcepcion.Mensaje));
+            }
         }
 
         public int GuardarProducto(Producto producto)
         {
-            ProductoDAO gestionProducto = new ProductoDAO();
+            int filasAfectadas = -1;
+            ProductoDAO productoDAO = new ProductoDAO();
 
-            Insumo insumo = producto.Insumo;
-            ProductoVenta productoVenta = producto.ProductoVenta;
-
-            Productos productoNuevo = AuxiliarConversorDTOADAO.ConvertirProductoAProductos(producto);
-
-            int filasAfectadas = gestionProducto.GuardarProducto(productoNuevo);
-
-            if (filasAfectadas > 0)
+            if (producto != null)
             {
-                if (insumo != null)
-                {
-                    Insumos insumoNuevo = AuxiliarConversorDTOADAO.ConvertirInsumoAInsumos(insumo);
-                    gestionProducto.GuardarInsumo(insumoNuevo);
-                }
+                Insumo insumo = producto.Insumo;
+                ProductoVenta productoVenta = producto.ProductoVenta;
+                Productos productoNuevo = AuxiliarConversorDTOADAO.ConvertirProductoAProductos(producto);
 
-                if (productoVenta != null)
+                try
                 {
-                    ProductosVenta productoVentaNuevo = AuxiliarConversorDTOADAO.ConvertirProductoVentaAProductosVenta(productoVenta);
-                    gestionProducto.GuardarProductoVenta(productoVentaNuevo);
+                    filasAfectadas = productoDAO.GuardarProducto(productoNuevo);
+
+                    if (filasAfectadas > 0)
+                    {
+                        if (insumo != null)
+                        {
+                            Insumos insumoNuevo = AuxiliarConversorDTOADAO.ConvertirInsumoAInsumos(insumo);
+                            productoDAO.GuardarInsumo(insumoNuevo);
+                        }
+
+                        if (productoVenta != null)
+                        {
+                            ProductosVenta productoVentaNuevo = AuxiliarConversorDTOADAO.ConvertirProductoVentaAProductosVenta(productoVenta);
+                            productoDAO.GuardarProductoVenta(productoVentaNuevo);
+                        }
+                    }
+                }
+                catch (ExcepcionDataAccess ex)
+                {
+                    ExcepcionServidorItaliaPizza respuestaExcepcion = new ExcepcionServidorItaliaPizza
+                    {
+                        Mensaje = ex.Message,
+                        StackTrace = ex.StackTrace,
+                    };
+
+                    throw new FaultException<ExcepcionServidorItaliaPizza>(respuestaExcepcion, new FaultReason(respuestaExcepcion.Mensaje));
                 }
             }
 

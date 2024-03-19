@@ -266,15 +266,12 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void BtnRegistrarReceta_Click(object sender, RoutedEventArgs e)
         {
-            // TODO
-            //NavigationService.Navigate(new RegistroReceta());
+            NavigationService.Navigate(new RegistroReceta());
         }
 
         private void ImgEditarReceta_Click(object sender, EventArgs e)
         {
-            // TODO
+            // TODO NavigationService.Navigate(new EdicionReceta());
         }
-
-
     }
 }

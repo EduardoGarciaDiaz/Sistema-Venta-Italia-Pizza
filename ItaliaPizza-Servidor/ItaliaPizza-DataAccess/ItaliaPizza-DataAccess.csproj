@@ -77,6 +77,8 @@
     <Compile Include="EstadosPedido.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="Excepciones\ExcepcionDataAccess.cs" />
+    <Compile Include="Excepciones\ManejadorExcepcion.cs" />
     <Compile Include="GastosVarios.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>

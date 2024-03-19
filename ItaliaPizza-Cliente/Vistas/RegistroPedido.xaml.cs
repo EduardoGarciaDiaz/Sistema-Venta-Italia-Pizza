@@ -118,34 +118,30 @@ namespace ItaliaPizza_Cliente.Vistas
         public void MostrarProductosVenta(List<ProductoVentaPedidos> productosVenta)
         {
             SkpContenedorProductos.Children.Clear();
-            List<ProductoVentaPedidos>.Enumerator iterator = productosVenta.GetEnumerator();
-            iterator.MoveNext();
-            for (int i = 0; i <= productosVenta.Count/4;  i++)
+
+            StackPanel stackPanel = null;
+            for (int i = 0; i < productosVenta.Count; i++)
             {
-                StackPanel stackPanel = new StackPanel();
-                stackPanel.Orientation = Orientation.Horizontal;
-                for (int j = 0; j < 4; j++)
+                if (i % 4 == 0)
                 {
-                    ProductoVentaPedidos productoVenta = iterator.Current;
-                    ElementoProductoVenta elementoProductoVenta = new ElementoProductoVenta();                    
-                    elementoProductoVenta.ImgProducto.Source = ConvertidorBytes.ConvertirBytesABitmapImage(productoVenta.Foto);
-                    elementoProductoVenta.LblNombreProducto.Content = productoVenta.Nombre;
-                    elementoProductoVenta.LblCodigo.Content = productoVenta.Codigo;
-                    elementoProductoVenta.LblDescripcionProducto.Text = productoVenta.Descripcion;
-                    elementoProductoVenta.LblPrecioProducto.Content = "$" + productoVenta.Precio.ToString();
-                    elementoProductoVenta.Click += ElementoProductoVenta_Click;
-
-                    stackPanel.Children.Add(elementoProductoVenta);
-
-                    iterator.MoveNext();
-                    if (iterator.Current == null)
+                    stackPanel = new StackPanel
                     {
-                        break;
-                    }
+                        Orientation = Orientation.Horizontal
+                    };
+                    SkpContenedorProductos.Children.Add(stackPanel);
                 }
-                this.SkpContenedorProductos.Children.Add(stackPanel);
+                ProductoVentaPedidos productoVenta = productosVenta[i];
+                ElementoProductoVenta elementoProductoVenta = new ElementoProductoVenta
+                {
+                    ImgProducto = { Source = ConvertidorBytes.ConvertirBytesABitmapImage(productoVenta.Foto) },
+                    LblNombreProducto = { Content = productoVenta.Nombre },
+                    LblCodigo = { Content = productoVenta.Codigo },
+                    LblDescripcionProducto = { Text = productoVenta.Descripcion },
+                    LblPrecioProducto = { Content = $"${productoVenta.Precio}" }
+                };
+                elementoProductoVenta.Click += ElementoProductoVenta_Click;
+                stackPanel.Children.Add(elementoProductoVenta);
             }
-            iterator.Dispose();
         }
 
         private void ElementoProductoVenta_Click(object sender, RoutedEventArgs e)

@@ -73,5 +73,49 @@ namespace ItaliaPizza_DataAccess
 
             return pedidoNuevoId;
         }
+
+        public List<PedidoConsultaDTO> RecuperarPedidosParaConsulta()
+        {
+            List<PedidoConsultaDTO> pedidos = new List<PedidoConsultaDTO>();
+
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    pedidos = context.Pedidos.ToList().ConvertAll(p =>
+                    new PedidoConsultaDTO
+                    {
+                        NumeroPedido = p.NumeroPedido,
+                        Fecha = (DateTime) p.FechaPedido,
+                        estadoPedido = new EstadoPedido()
+                        {
+                            IdEstadoPedido = p.EstadosPedido.IdEstadoPedido,
+                            Nombre = p.EstadosPedido.Nombre
+                        },
+                        CantidadProductos = (int) p.CantidadProductos,
+                        Total = (double) p.TotalParaPagar,
+                        NombreCliente = p.UsuariosPedidos.FirstOrDefault().Usuarios.NombreCompleto
+                    });
+                }
+            }
+            catch (EntityException ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+
+            }
+            catch (SqlException ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (Exception ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);;
+            }
+
+            return pedidos;
+        }
     }
 }
