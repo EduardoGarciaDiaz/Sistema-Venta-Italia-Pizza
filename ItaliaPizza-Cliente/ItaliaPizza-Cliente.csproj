@@ -422,5 +422,8 @@
     <Resource Include="Recursos\Iconos\icono_modificar_usuario.png" />
     <Resource Include="Recursos\Iconos\icono_exito.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Recursos\Iconos\icono_mas.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

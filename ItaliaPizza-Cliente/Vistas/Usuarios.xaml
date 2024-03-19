@@ -4,9 +4,9 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ItaliaPizza_Cliente.Vistas"
-      mc:Ignorable="d" 
-      d:DesignHeight="800" d:DesignWidth="1300" Background="#F6F6F6"
-      Title="Usuarios">
+      mc:Ignorable="d"       
+      xmlns:uc="clr-namespace:ItaliaPizza_Cliente.Recursos.ControlesUsuario" Background="#F6F6F6"
+      Title="Usuarios" Height="757" Width="1242">
 
     <Page.Resources>
         <Style x:Key="fieldTags" TargetType="{x:Type Label}">
@@ -15,7 +15,7 @@
             <Setter Property="FontWeight" Value="Bold" />
             <Setter Property="Margin" Value="0,0,0,5" />
             <Setter Property="Foreground" Value="Gray"/>
-            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontSize" Value="20"/>
         </Style>
         <Style x:Key="textBoxBorder" TargetType="{x:Type Border}">
             <Setter Property="CornerRadius" Value="11"/>
@@ -59,6 +59,7 @@
             <Setter Property="FontSize" Value="30"/>
             <Setter Property="FontFamily" Value="Tahoma"/>
             <Setter Property="Foreground" Value="#F8D72A"/>
+            <Setter Property="Padding" Value="0"/>
         </Style>
         <Style x:Key="errorLabel" TargetType="{x:Type Label}">
             <Setter Property="FontSize" Value="10"/>
@@ -75,26 +76,115 @@
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Margin" Value="0"/>
         </Style>
+        <Style x:Key="ListItem" TargetType="ListBoxItem">
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="Padding" Value="3"/>
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="9"/>
+                </Style>
+            </Style.Resources>
+        </Style>
     </Page.Resources>
 
-    <Viewbox Stretch="UniformToFill">
+    <Viewbox Stretch="Fill">
 
-        <Grid x:Name="grdDatosUsuario" Width="1300" Height="800">
+        <Grid x:Name="grdDatosUsuario" Height="800" Width="1296">
 
-            
-            
-            <ScrollViewer Margin="0,168,10,95" >
-                <StackPanel x:Name="stpUsuariosLista" Orientation="Vertical"   Width="1240">
-                    
-                </StackPanel>
+            <Label Content="Usuarios" Style="{StaticResource subTitleLabel}" Margin="27,6,1151,756"/>
+
+            <uc:BarraDeBusqueda x:Name="barraBusquedaUsuario" Margin="34,51,881,705"/>
+
+
+            <Border Style="{StaticResource ButtonBorder}" Margin="38,117,177,644" BorderThickness="0" Background="White" Height="40">
+                <Grid  x:Name="grdFiltros">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition  Width="auto"/>
+                        <ColumnDefinition  Width="auto"/>
+                        <ColumnDefinition  Width="auto"/>
+                        <ColumnDefinition  Width="auto"/>
+                        <ColumnDefinition  Width="auto"/>
+                        <ColumnDefinition  Width="auto"/>
+                        <ColumnDefinition  Width="auto"/>
+                        <ColumnDefinition  Width="auto"/>
+                        <ColumnDefinition  Width="auto"/>
+                        <ColumnDefinition  Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border x:Name="brdTodos" Grid.Column="0" Style="{StaticResource ButtonBorder}" BorderThickness="0" Height="34"  Margin="10,0,10,0">
+                        <Button Content="Todos" Foreground="gray" Style="{StaticResource CustomButton}" Click="BtnTodos_Click" />
+                    </Border>
+                    <Border x:Name="brdEmpleados" Grid.Column="1" Style="{StaticResource ButtonBorder}" BorderThickness="0" Height="34" Margin="10,0,10,0">
+                        <Button Content="Empleados" Foreground="gray" Style="{StaticResource CustomButton}" Click="BtnEmpleados_Click"/>
+                    </Border>
+                    <Border x:Name="brdClientes" Grid.Column="2" Style="{StaticResource ButtonBorder}" BorderThickness="0" Height="34" Margin="10,0,0,0">
+                        <Button Content="Clientes" Foreground="gray" Style="{StaticResource CustomButton}" Click="BtnClientes_Click"/>
+                    </Border>
+                    <Separator Grid.Column="3" Margin="1,0,1,0" Width="28" Background="Black" RenderTransformOrigin="0.5,0.5" Height="1" >
+                        <Separator.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="90"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Separator.RenderTransform>
+                    </Separator>
+                    <Label Grid.Column="4" Content="Tipo empleado:"   Style="{StaticResource fieldTags}"/>
+
+                    <Border x:Name="brdFiltro1" Margin="5" CornerRadius="13" Background="#000000" Opacity=".55" Grid.Column="5" Visibility="Collapsed">
+                        <StackPanel Orientation="Horizontal" Margin="5,0">
+                            <Label  VerticalAlignment="Center" Padding="0" Style="{StaticResource fieldTags}" Foreground="white"/>
+                            <Image Source="/Recursos/Iconos/icono_eliminar.png" Margin="0,5,0,5" MouseDown="BtnQuitarFiltroEmpleado_Click"/>
+                        </StackPanel>
+                    </Border>
+                    <Border x:Name="brdFiltro2" Margin="5" CornerRadius="13" Background="#000000" Opacity=".55" Grid.Column="6" Visibility="Collapsed">
+                        <StackPanel Orientation="Horizontal" Margin="5,0">
+                            <Label  VerticalAlignment="Center" Padding="0" Style="{StaticResource fieldTags}" Foreground="white"/>
+                            <Image Source="/Recursos/Iconos/icono_eliminar.png" Margin="0,5,0,5" MouseDown="BtnQuitarFiltroEmpleado_Click"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border x:Name="brdFiltro3" Margin="5" CornerRadius="13" Background="#000000" Opacity=".55" Grid.Column="7" Visibility="Collapsed">
+                        <StackPanel Orientation="Horizontal" Margin="5,0">
+                            <Label  VerticalAlignment="Center" Padding="0" Style="{StaticResource fieldTags}" Foreground="white"/>
+                            <Image Source="/Recursos/Iconos/icono_eliminar.png" Margin="0,5,0,5" MouseDown="BtnQuitarFiltroEmpleado_Click"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border x:Name="brdFiltro4" Margin="5" CornerRadius="13" Background="#000000" Opacity=".55" Grid.Column="8" Visibility="Collapsed">
+                        <StackPanel Orientation="Horizontal" Margin="5,0">
+                            <Label  VerticalAlignment="Center" Padding="0" Style="{StaticResource fieldTags}" Foreground="white"/>
+                            <Image Source="/Recursos/Iconos/icono_eliminar.png" Margin="0,5,0,5" MouseDown="BtnQuitarFiltroEmpleado_Click"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Image x:Name="btnFiltros" Grid.Column="9" HorizontalAlignment="Right" Source="/Recursos/Iconos/icono_mas.png" Margin="5" MouseDown="BtnFiltrosEmpleados_Click"/>
+                </Grid>
+            </Border>
+
+
+            <ScrollViewer Margin="84,188,32,113" Width="1180" VerticalScrollBarVisibility="Auto">
+                <WrapPanel x:Name="wrpUsuariosLista" />
             </ScrollViewer>
 
 
-            <Border Style="{StaticResource ButtonBorder}" Margin="436,715,434,18" Background="#F8D72A">
-                <Button Content="Registra Usuario" Style="{StaticResource CustomButton}" />
+
+            <Border Style="{StaticResource ButtonBorder}" Margin="509,712,0,21" Background="#F8D72A"  HorizontalAlignment="Left" Padding="0">
+                <Button Content="Registra Usuario" Padding="20,0,20,0" Style="{StaticResource CustomButton}" />
             </Border>
+            
+            <ListBox x:Name="ltbListaTiposEmpleados" Visibility="Visible" Background="#F0F0F0" BorderThickness="0" SelectionChanged="TiposEmpleados_Selection" Margin="992,159,186,616">
+                <ListBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </ListBox.Resources>
+            </ListBox>
+
         </Grid>
-        
+
     </Viewbox>
 
 </Page>

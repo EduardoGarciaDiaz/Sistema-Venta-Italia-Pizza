@@ -107,7 +107,7 @@
   </wsdl:message>
   <wsdl:message name="IServicioProductos_RecuperarInsumos_OutputMessage">
     <wsdl:part name="parameters" element="tns:RecuperarInsumosResponse" />
-    </wsdl:message>
+  </wsdl:message>
   <wsdl:message name="IServicioProductos_RecuperarCategoriasProductoVenta_InputMessage">
     <wsdl:part name="parameters" element="tns:RecuperarCategoriasProductoVenta" />
   </wsdl:message>
@@ -260,7 +260,7 @@
     <wsdl:operation name="RecuperarInsumos">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioProductos/RecuperarInsumos" message="tns:IServicioProductos_RecuperarInsumos_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioProductos/RecuperarInsumosResponse" message="tns:IServicioProductos_RecuperarInsumos_OutputMessage" />
-        </wsdl:operation>
+    </wsdl:operation>
     <wsdl:operation name="RecuperarCategoriasProductoVenta">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioProductos/RecuperarCategoriasProductoVenta" message="tns:IServicioProductos_RecuperarCategoriasProductoVenta_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioProductos/RecuperarCategoriasProductoVentaResponse" message="tns:IServicioProductos_RecuperarCategoriasProductoVenta_OutputMessage" />
@@ -423,14 +423,6 @@
     </wsdl:operation>
     <wsdl:operation name="RecuperarProductosSinReceta">
       <soap12:operation soapAction="http://tempuri.org/IServicioProductos/RecuperarProductosSinReceta" style="document" />
-    <wsdl:operation name="RecuperarCategoriasProductoVenta">
-          <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-      <soap12:operation soapAction="http://tempuri.org/IServicioProductos/RecuperarCategoriasProductoVenta" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -440,14 +432,23 @@
     </wsdl:operation>
     <wsdl:operation name="RecuperarInsumos">
       <soap12:operation soapAction="http://tempuri.org/IServicioProductos/RecuperarInsumos" style="document" />
-    <wsdl:operation name="RecuperarProductosVenta">
-    <wsdl:input>
+      <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="RecuperarCategoriasProductoVenta">
+      <soap12:operation soapAction="http://tempuri.org/IServicioProductos/RecuperarCategoriasProductoVenta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarProductosVenta">
       <soap12:operation soapAction="http://tempuri.org/IServicioProductos/RecuperarProductosVenta" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />

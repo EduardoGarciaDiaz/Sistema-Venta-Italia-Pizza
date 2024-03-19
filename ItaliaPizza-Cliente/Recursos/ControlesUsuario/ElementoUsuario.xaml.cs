@@ -26,15 +26,16 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
         public EventHandler btnModificarUusuario_Click;
         public EventHandler btnDesactivarActivarUsuario_Click;
         public int Id;
-        public EmpleadoDto empleado { get; }
-        public UsuarioDto usuario {  get; }
+        public EmpleadoDto empleado { get; set; }
+        public UsuarioDto usuario { get; set; }
+        public bool esActivo { get; set; }
         
 
 
         public ElementoUsuario(EmpleadoDto empleado)
         {
             InitializeComponent();
-            this.empleado = empleado;
+            this.empleado = empleado;            
             InsatanciarEmpleado();
             MostrarDatosUsuario(empleado.Usuario);
             lblTipoEmpleado.Text = empleado.TipoEmpleado;
@@ -53,16 +54,16 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
         private void InsatanciarEmpleado()
         {
             imgTipoUsuario.Source = new BitmapImage(new Uri("/Recursos/iconos/icono_empleado.png", UriKind.Relative));
+            brdEncabezado.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F8D72A"));
             lblTipoUsuario.Content = "Empleado";
-            lblTipoEmpleadoTag.Visibility = Visibility.Visible;
             lblTipoEmpleado.Visibility = Visibility.Visible;
         }
 
         private void InstanciaCliente()
         {
             imgTipoUsuario.Source = new BitmapImage(new Uri("/Recursos/iconos/icono_usuario_consulta.png", UriKind.Relative));
+            brdEncabezado.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2A6BF8"));
             lblTipoUsuario.Content = "Cliente";
-            lblTipoEmpleadoTag.Visibility = Visibility.Hidden;
             lblTipoEmpleado.Visibility = Visibility.Hidden;
         }
 
@@ -80,6 +81,7 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
 
         private void MostrarSiEstaActivo(bool esActivo)
         {
+            this.esActivo = esActivo;
             if (esActivo)
             {
                 brdActivoBackGorund.Background = new SolidColorBrush(Colors.Red);

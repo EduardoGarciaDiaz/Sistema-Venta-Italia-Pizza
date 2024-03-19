@@ -26,7 +26,7 @@
                 </Style>
             </TextBlock.Style>
         </TextBlock>
-        <Image Source="/Recursos/Iconos/icono_buscar.png" 
+        <Image x:Name="imgBuscar" Source="/Recursos/Iconos/icono_buscar.png" 
                Cursor="Hand"
                Margin="501,3,5,4" 
                MouseDown="ImgBuscar_Click"/>
