@@ -25,7 +25,7 @@ namespace ItaliaPizza_Servicios.Auxiliares
             bool respuesta = false;
             if(idUsuario != 0)
             {
-                respuesta = empleadosActivos.ContainsKey(idUsuario);   
+                respuesta = !empleadosActivos.ContainsKey(idUsuario);   
             }
             return respuesta;
         }

@@ -335,6 +335,9 @@ namespace ItaliaPizza_Cliente.Vistas
             if (ventanaEmergente.AceptarAccion)
             {
                 LimpiarCampos();
+                Usuarios paginaUsuarios = new Usuarios();
+                MainWindow ventanaPrincipal = (MainWindow)Window.GetWindow(this);
+                ventanaPrincipal.FrameNavigator.NavigationService.Navigate(paginaUsuarios);
             }
         }
 

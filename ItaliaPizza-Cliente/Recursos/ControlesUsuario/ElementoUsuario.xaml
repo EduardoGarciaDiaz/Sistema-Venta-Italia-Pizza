@@ -34,7 +34,7 @@
         <Label x:Name="lblDireccionTag" Content="Direccion: " FontSize="18" Padding="0" Margin="137,176,271,103" HorizontalContentAlignment="Left" VerticalContentAlignment="Top" FontWeight="Bold"/>
         <TextBlock x:Name="lblDireccion" Padding="0" Text="Xalapa-Enriques 19910, Col. revolucion, calle melancolia, boulevard con esquina de los sueños rotos # 133" FontSize="14" Margin="229,179,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Normal" TextWrapping="Wrap" Width="264" Height="68"/>
 
-        <TextBlock x:Name="lblTipoEmpleado" Text="Chef " Padding="0" FontSize="16" Margin="45,181,413,100" FontWeight="Normal" TextWrapping="Wrap" Height="24" MaxHeight="36"/>
+        <TextBlock x:Name="lblTipoEmpleado" Text="Chef " Padding="5" FontSize="16" Margin="31,171,396,102" FontWeight="Normal" TextWrapping="Wrap" MaxHeight="36"/>
 
         <Image Source="/Recursos/Iconos/icono_modificar_usuario.png" Margin="356,260,90,6" MouseDown="BtnModificarUsuario_Click"/>
 

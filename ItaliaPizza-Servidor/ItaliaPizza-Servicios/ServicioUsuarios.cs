@@ -119,11 +119,9 @@ namespace ItaliaPizza_Servicios
             List<UsuarioDto> usuariosDto = new List<UsuarioDto>();
             UsuarioDAO usuarioDAO = new UsuarioDAO();
             var usuariosLista = usuarioDAO.RecuperarClientesBD();
-            var idDirecciones = usuariosLista.Select(usuario => usuario.IdDireccion).ToList();
-            var direccionesLista = DireccionDAO.RecuperarDireccionesBD(idDirecciones);
             foreach (var usuario in usuariosLista)
             {
-                usuariosDto.Add(AuxiliarConversorDTOADAO.ConvertirUsuariosAUsuarioDto(usuario, direccionesLista.FirstOrDefault(dir => dir.IdDireccion == usuario.IdDireccion)));
+                usuariosDto.Add(AuxiliarConversorDTOADAO.ConvertirUsuariosAUsuarioDto(usuario,usuario.Direcciones));
             }
             return usuariosDto;
         }

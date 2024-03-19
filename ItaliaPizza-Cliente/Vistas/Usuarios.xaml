@@ -94,7 +94,7 @@
 
             <Label Content="Usuarios" Style="{StaticResource subTitleLabel}" Margin="27,6,1151,756"/>
 
-            <uc:BarraDeBusqueda x:Name="barraBusquedaUsuario" Margin="34,51,881,705"/>
+            <uc:BarraDeBusqueda x:Name="barraBusquedaUsuario" Margin="37,56,707,697"/>
 
 
             <Border Style="{StaticResource ButtonBorder}" Margin="38,117,177,644" BorderThickness="0" Background="White" Height="40">
@@ -160,7 +160,7 @@
                         </StackPanel>
                     </Border>
 
-                    <Image x:Name="btnFiltros" Grid.Column="9" HorizontalAlignment="Right" Source="/Recursos/Iconos/icono_mas.png" Margin="5" MouseDown="BtnFiltrosEmpleados_Click"/>
+                    <Image x:Name="btnFiltros" IsEnabled="False" Grid.Column="9" HorizontalAlignment="Right" Source="/Recursos/Iconos/icono_mas.png" Margin="5" MouseDown="BtnFiltrosEmpleados_Click"/>
                 </Grid>
             </Border>
 
@@ -172,10 +172,10 @@
 
 
             <Border Style="{StaticResource ButtonBorder}" Margin="509,712,0,21" Background="#F8D72A"  HorizontalAlignment="Left" Padding="0">
-                <Button Content="Registra Usuario" Padding="20,0,20,0" Style="{StaticResource CustomButton}" />
+                <Button Content="Registra Usuario" Padding="20,0,20,0" Style="{StaticResource CustomButton}" Click="BtnRegistrarUsuario_Click" />
             </Border>
             
-            <ListBox x:Name="ltbListaTiposEmpleados" Visibility="Visible" Background="#F0F0F0" BorderThickness="0" SelectionChanged="TiposEmpleados_Selection" Margin="992,159,186,616">
+            <ListBox x:Name="ltbListaTiposEmpleados" Visibility="Hidden"  Background="#F0F0F0" BorderThickness="0" SelectionChanged="TiposEmpleados_Selection" Margin="992,159,186,598">
                 <ListBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="10"/>

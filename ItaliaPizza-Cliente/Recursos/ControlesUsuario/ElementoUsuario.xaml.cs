@@ -84,13 +84,13 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
             this.esActivo = esActivo;
             if (esActivo)
             {
-                brdActivoBackGorund.Background = new SolidColorBrush(Colors.Red);
-                btnEsActivo.HorizontalAlignment = HorizontalAlignment.Left;
+                brdActivoBackGorund.Background = new SolidColorBrush(Colors.Black);
+                btnEsActivo.HorizontalAlignment = HorizontalAlignment.Right;
             }
             else
             {
-                brdActivoBackGorund.Background = new SolidColorBrush(Colors.Black);
-                btnEsActivo.HorizontalAlignment = HorizontalAlignment.Right;
+                brdActivoBackGorund.Background = new SolidColorBrush(Colors.Red);
+                btnEsActivo.HorizontalAlignment = HorizontalAlignment.Left;
             }
         }
 
