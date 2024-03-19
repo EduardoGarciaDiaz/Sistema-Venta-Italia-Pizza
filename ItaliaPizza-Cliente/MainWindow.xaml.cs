@@ -25,22 +25,23 @@ namespace ItaliaPizza_Cliente
         public MainWindow()
         {
             InitializeComponent();
+            AgregarBotonPedido();
             AgregarBotonPedidos();
             AgregarBotonProductos();
             AgregarBotonAgregarUsuario();
             AgregarBotonRecetas();
         }
 
-        private void AgregarBotonPedidos()
+        private void AgregarBotonPedido()
         {
             BtnMenuLateral pedidos = new BtnMenuLateral();
             pedidos.ImgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_carrito_seleccionado.png", UriKind.Relative));
             pedidos.LblNombreBoton.Content = "Pedido";
-            pedidos.Click += BtnPedidosClick;
+            pedidos.Click += BtnPedidoClick;
             SkpMenuLateral.Children.Add(pedidos);
         }
 
-        private void BtnPedidosClick(object sender, RoutedEventArgs e)
+        private void BtnPedidoClick(object sender, RoutedEventArgs e)
         {
             RegistroPedido registroPedido = new RegistroPedido();
             FrameNavigator.NavigationService.Navigate(registroPedido);
@@ -90,6 +91,22 @@ namespace ItaliaPizza_Cliente
         {
             Recetas recetas = new Recetas();
             FrameNavigator.NavigationService.Navigate(recetas);
+        }
+
+        private void AgregarBotonPedidos()
+        {
+            BtnMenuLateral pedidos = new BtnMenuLateral();
+            pedidos.ImgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_pedidos.png",
+                UriKind.Relative));
+            pedidos.LblNombreBoton.Content = "Pedidos";
+            pedidos.Click += BtnPedidosClick;
+            SkpMenuLateral.Children.Add(pedidos);
+        }
+
+        private void BtnPedidosClick(object sender, RoutedEventArgs e)
+        {
+            ConsultaPedidos consultaPedidos = new ConsultaPedidos();
+            FrameNavigator.NavigationService.Navigate(consultaPedidos);
         }
 
         private void Salir_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

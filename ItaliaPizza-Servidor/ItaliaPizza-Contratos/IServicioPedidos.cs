@@ -19,6 +19,14 @@ namespace ItaliaPizza_Contratos
         int GuardarPedido(Pedido pedido);
 
         [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
+        List<PedidoConsultaDTO> RecuperarPedidosEnProceso();
+
+        [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
+        List<PedidoConsultaDTO> RecuperarPedidosPreparados();
+
+        [OperationContract]
         List<PedidoConsultaDTO> RecuperarPedidos();
 
         [OperationContract]

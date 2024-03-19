@@ -2234,6 +2234,22 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioPedidos/GuardarPedido", ReplyAction="http://tempuri.org/IServicioPedidos/GuardarPedidoResponse")]
         System.Threading.Tasks.Task<int> GuardarPedidoAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.Pedido pedido);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioPedidos/RecuperarPedidosEnProceso", ReplyAction="http://tempuri.org/IServicioPedidos/RecuperarPedidosEnProcesoResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioPedidos/RecuperarPedidosEnProcesoExcepcionServidorIta" +
+            "liaPizzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        ItaliaPizza_Cliente.ServicioItaliaPizza.PedidoConsultaDTO[] RecuperarPedidosEnProceso();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioPedidos/RecuperarPedidosEnProceso", ReplyAction="http://tempuri.org/IServicioPedidos/RecuperarPedidosEnProcesoResponse")]
+        System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.PedidoConsultaDTO[]> RecuperarPedidosEnProcesoAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioPedidos/RecuperarPedidosPreparados", ReplyAction="http://tempuri.org/IServicioPedidos/RecuperarPedidosPreparadosResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioPedidos/RecuperarPedidosPreparadosExcepcionServidorIt" +
+            "aliaPizzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        ItaliaPizza_Cliente.ServicioItaliaPizza.PedidoConsultaDTO[] RecuperarPedidosPreparados();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioPedidos/RecuperarPedidosPreparados", ReplyAction="http://tempuri.org/IServicioPedidos/RecuperarPedidosPreparadosResponse")]
+        System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.PedidoConsultaDTO[]> RecuperarPedidosPreparadosAsync();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioPedidos/RecuperarPedidos", ReplyAction="http://tempuri.org/IServicioPedidos/RecuperarPedidosResponse")]
         ItaliaPizza_Cliente.ServicioItaliaPizza.PedidoConsultaDTO[] RecuperarPedidos();
         
@@ -2298,6 +2314,22 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         public System.Threading.Tasks.Task<int> GuardarPedidoAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.Pedido pedido) {
             return base.Channel.GuardarPedidoAsync(pedido);
+        }
+        
+        public ItaliaPizza_Cliente.ServicioItaliaPizza.PedidoConsultaDTO[] RecuperarPedidosEnProceso() {
+            return base.Channel.RecuperarPedidosEnProceso();
+        }
+        
+        public System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.PedidoConsultaDTO[]> RecuperarPedidosEnProcesoAsync() {
+            return base.Channel.RecuperarPedidosEnProcesoAsync();
+        }
+        
+        public ItaliaPizza_Cliente.ServicioItaliaPizza.PedidoConsultaDTO[] RecuperarPedidosPreparados() {
+            return base.Channel.RecuperarPedidosPreparados();
+        }
+        
+        public System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.PedidoConsultaDTO[]> RecuperarPedidosPreparadosAsync() {
+            return base.Channel.RecuperarPedidosPreparadosAsync();
         }
         
         public ItaliaPizza_Cliente.ServicioItaliaPizza.PedidoConsultaDTO[] RecuperarPedidos() {
