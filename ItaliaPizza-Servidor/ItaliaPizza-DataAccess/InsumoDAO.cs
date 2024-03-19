@@ -9,6 +9,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ItaliaPizza_DataAccess.Excepciones;
 
 namespace ItaliaPizza_DataAccess
 {
@@ -91,31 +92,49 @@ namespace ItaliaPizza_DataAccess
 
         public List<InsumoRegistroReceta> RecuperarInsumos()
         {
-            using (var context = new ItaliaPizzaEntities())
+            try
             {
-                var insumos = from p in context.Productos
-                              join i in context.Insumos on p.CodigoProducto equals i.CodigoProducto
-                              join um in context.UnidadesMedida on i.IdUnidadMedida equals um.IdUnidadMedida
-                              join ci in context.CategoriasInsumo on i.IdCategoriaInsumo equals ci.IdCategoriaInsumo
-                              where !context.ProductosVenta.Any(i => i.CodigoProducto == p.CodigoProducto)
-                              && p.EsActivo == true
-                              select new InsumoRegistroReceta
-                              {
-                                  Codigo = p.CodigoProducto,
-                                  Nombre = p.Nombre,
-                                  Categoria = new Categoria()
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    var insumos = from p in context.Productos
+                                  join i in context.Insumos on p.CodigoProducto equals i.CodigoProducto
+                                  join um in context.UnidadesMedida on i.IdUnidadMedida equals um.IdUnidadMedida
+                                  join ci in context.CategoriasInsumo on i.IdCategoriaInsumo equals ci.IdCategoriaInsumo
+                                  where !context.ProductosVenta.Any(i => i.CodigoProducto == p.CodigoProducto)
+                                  && p.EsActivo == true
+                                  select new InsumoRegistroReceta
                                   {
-                                      Id = ci.IdCategoriaInsumo,
-                                      Nombre = ci.Nombre
-                                  },
-                                  UnidadMedida = new UnidadMedida()
-                                  {
-                                      Id = um.IdUnidadMedida,
-                                      Nombre = um.Nombre
-                                  }
-                              };
+                                      Codigo = p.CodigoProducto,
+                                      Nombre = p.Nombre,
+                                      Categoria = new Categoria()
+                                      {
+                                          Id = ci.IdCategoriaInsumo,
+                                          Nombre = ci.Nombre
+                                      },
+                                      UnidadMedida = new UnidadMedida()
+                                      {
+                                          Id = um.IdUnidadMedida,
+                                          Nombre = um.Nombre
+                                      }
+                                  };
 
-                return insumos.ToList();
+                    return insumos.ToList();
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
         }
 

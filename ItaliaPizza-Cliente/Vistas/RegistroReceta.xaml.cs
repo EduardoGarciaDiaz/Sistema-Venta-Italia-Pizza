@@ -27,7 +27,6 @@ namespace ItaliaPizza_Cliente.Vistas
         private const string COLOR_HEXADECIMAL_PRODUCTO_SELECCIONADO = "#F8D72A";
         private const string COLOR_HEXADECIMAL_ELEMENTO_DEFAULT = "#F6F6F6";
         private const string COLOR_HEXADECIMAL_INSUMO_SELECCIONADO = "#FF7B7B7B";
-        private const int VENTANA_ERROR = 1;
         private const int VENTANA_INFORMACION = 2;
         private const int VENTANA_CONFIRMACION = 3;
         private int _numeroInsumosSeleccionados = 0;

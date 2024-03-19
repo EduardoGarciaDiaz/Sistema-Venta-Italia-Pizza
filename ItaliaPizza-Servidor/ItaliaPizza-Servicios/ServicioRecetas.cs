@@ -1,5 +1,6 @@
 ﻿using ItaliaPizza_Contratos.DTOs;
 using ItaliaPizza_DataAccess;
+using ItaliaPizza_DataAccess.Excepciones;
 using ItaliaPizza_Servicios.Auxiliares;
 using System;
 using System.Collections.Generic;
@@ -20,9 +21,16 @@ namespace ItaliaPizza_Servicios
         {
             RecetaDAO recetaDAO = new RecetaDAO();
 
-            List<Receta> recetas = recetaDAO.RecuperarRecetas();
+            try
+            {
+                List<Receta> recetas = recetaDAO.RecuperarRecetas();
 
-            return recetas;
+                return recetas;
+            }
+            catch (ExcepcionDataAccess ex)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(ex);
+            }
         }
 
         public List<InsumoReceta> RecuperarInsumosReceta(int idReceta)
@@ -33,7 +41,14 @@ namespace ItaliaPizza_Servicios
             {
                 RecetaDAO recetaDAO = new RecetaDAO();
 
-                insumosReceta = recetaDAO.RecuperarInsumosReceta(idReceta);
+                try
+                {
+                    insumosReceta = recetaDAO.RecuperarInsumosReceta(idReceta);
+                }
+                catch (ExcepcionDataAccess ex)
+                {
+                    throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(ex);
+                }
             }
 
             return insumosReceta;
@@ -44,21 +59,28 @@ namespace ItaliaPizza_Servicios
             int filasAfectadas = -1;
 
             RecetaDAO recetaDAO = new RecetaDAO();
-
             Recetas nuevaReceta = AuxiliarConversorDTOADAO.ConvertirRecetaProductoARecetas(receta);
-            int id = recetaDAO.GuardarReceta(nuevaReceta);
-            receta.IdReceta = id;
 
-            List<RecetasInsumos> recetasInsumo = new List<RecetasInsumos>();
-
-            foreach (InsumoReceta insumoReceta in receta.InsumosReceta)
+            try
             {
-                recetasInsumo.Add(AuxiliarConversorDTOADAO.ConvertirInsumoRecetaARecetasInsumos(insumoReceta, receta.IdReceta));
+                int id = recetaDAO.GuardarReceta(nuevaReceta);
+                receta.IdReceta = id;
+
+                List<RecetasInsumos> recetasInsumo = new List<RecetasInsumos>();
+
+                foreach (InsumoReceta insumoReceta in receta.InsumosReceta)
+                {
+                    recetasInsumo.Add(AuxiliarConversorDTOADAO.ConvertirInsumoRecetaARecetasInsumos(insumoReceta, receta.IdReceta));
+                }
+
+                filasAfectadas = recetaDAO.GuardarRecetaInsumos(recetasInsumo);
+
+                return filasAfectadas;
             }
-
-            filasAfectadas = recetaDAO.GuardarRecetaInsumos(recetasInsumo);
-
-            return filasAfectadas;
+            catch (ExcepcionDataAccess ex)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(ex);
+            }
         }
     }
 }
