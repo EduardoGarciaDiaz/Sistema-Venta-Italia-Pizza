@@ -1,5 +1,7 @@
 ﻿using ItaliaPizza_Contratos.DTOs;
 using ItaliaPizza_DataAccess;
+using ItaliaPizza_DataAccess.Excepciones;
+using ItaliaPizza_Servicios.Auxiliares;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +45,21 @@ namespace ItaliaPizza_Servicios
             return numeroPedido;
         }
 
+        public Pedido RecuperarPedido(int numeroPedido)
+        {
+            PedidoDAO pedidoDAO = new PedidoDAO();
+            Pedido pedido = new Pedido();
+            try
+            {
+                pedido = pedidoDAO.RecuperarPedido(numeroPedido);
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
+            return pedido;
+        }
+
         public List<PedidoConsultaDTO> RecuperarPedidos()
         {
             PedidoDAO pedidoDAO = new PedidoDAO();
@@ -61,6 +78,19 @@ namespace ItaliaPizza_Servicios
                 }    
             );
             return tipoServicios;
+        }
+
+        public int ActualizarEstadoPedido(int numeroPedido, int idEstadoPedido)
+        {
+            PedidoDAO pedidoDAO = new PedidoDAO();
+            try
+            {
+                return pedidoDAO.ActualizarEstadoPedido(numeroPedido, idEstadoPedido);
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
         }
     }
 }
