@@ -30,6 +30,12 @@ namespace ItaliaPizza_Cliente.Vistas
         public Recetas()
         {
             InitializeComponent();
+
+            this.Loaded += Recetas_Loaded;
+        }
+
+        private void Recetas_Loaded(object sender, RoutedEventArgs e)
+        {
             CargarRecetas();
             AgregarEventos();
         }
@@ -67,28 +73,33 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             catch (EndpointNotFoundException ex)
             {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (TimeoutException ex)
             {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (FaultException ex)
             {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (CommunicationException ex)
             {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (Exception ex)
             {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
         }
 
@@ -136,7 +147,6 @@ namespace ItaliaPizza_Cliente.Vistas
             ElementoReceta recetaSeleccionada = sender as ElementoReceta;
             gridInsumosReceta.Visibility = Visibility.Visible;
             int idReceta = (int)recetaSeleccionada.Tag;
-
             lbNombreReceta.Content = recetaSeleccionada.lbNombreReceta.Content;
 
             CargarInsumosReceta(idReceta);
@@ -161,28 +171,33 @@ namespace ItaliaPizza_Cliente.Vistas
                 }
                 catch (EndpointNotFoundException ex)
                 {
-                    // TODO: Manejar excepcion
-                    Console.WriteLine(ex.StackTrace);
+                    VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
                 }
                 catch (TimeoutException ex)
                 {
-                    // TODO: Manejar excepcion
-                    Console.WriteLine(ex.StackTrace);
+                    VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                }
+                catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
                 }
                 catch (FaultException ex)
                 {
-                    // TODO: Manejar excepcion
-                    Console.WriteLine(ex.StackTrace);
+                    VentanasEmergentes.MostrarVentanaErrorServidor();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
                 }
                 catch (CommunicationException ex)
                 {
-                    // TODO: Manejar excepcion
-                    Console.WriteLine(ex.StackTrace);
+                    VentanasEmergentes.MostrarVentanaErrorServidor();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
                 }
                 catch (Exception ex)
                 {
-                    // TODO: Manejar excepcion
-                    Console.WriteLine(ex.StackTrace);
+                    VentanasEmergentes.MostrarVentanaErrorInesperado();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
                 }
             }
 
