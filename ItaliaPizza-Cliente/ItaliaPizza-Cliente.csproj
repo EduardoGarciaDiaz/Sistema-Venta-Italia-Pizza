@@ -111,7 +111,9 @@
       <DependentUpon>ElementoUsuario.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utilidades\ConvertidorBytes.cs" />
+    <Compile Include="Utilidades\EmpleadoSingleton.cs" />
     <Compile Include="Utilidades\EnumEstadosPedido.cs" />
+    <Compile Include="Utilidades\EnumTiposEmpleado.cs" />
     <Compile Include="Utilidades\EnumTiposServicio.cs" />
     <Compile Include="Utilidades\ManejadorExcepcion.cs" />
     <Compile Include="Utilidades\VentanaEmergente.xaml.cs">
@@ -307,6 +309,9 @@
     </None>
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.EmpleadoDto.datasource">
        <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.Pedido.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.PedidoConsultaDTO.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>

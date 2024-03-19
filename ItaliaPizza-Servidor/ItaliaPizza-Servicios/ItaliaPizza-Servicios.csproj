@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Auxiliares\ListaEmpleadoActivos.cs" />
+    <Compile Include="Auxiliares\ExcepcionServidorItaliaPizzaManager.cs" />
     <Compile Include="Auxiliares\MapeadorProductosAProductoVenta.cs" />
     <Compile Include="Auxiliares\AuxiliarPreparacionDatos.cs" />
     <Compile Include="Auxiliares\AuxiliarConversorDTOADAO.cs" />

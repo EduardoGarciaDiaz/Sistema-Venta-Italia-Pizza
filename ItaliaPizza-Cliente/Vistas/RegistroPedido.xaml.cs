@@ -169,7 +169,7 @@ namespace ItaliaPizza_Cliente.Vistas
                     }
                     else
                     {
-                        MostrarLabelDuranteSegundos(LblProductoNoDisponible, 2);
+                        Utilidad.MostrarLabelDuranteSegundos(LblProductoNoDisponible, 2);
                     }
                 }
                 catch (EndpointNotFoundException ex)
@@ -217,7 +217,7 @@ namespace ItaliaPizza_Cliente.Vistas
                 }
                 else
                 {
-                    MostrarLabelDuranteSegundos(LblProductoNoDisponible, 2);
+                    Utilidad.MostrarLabelDuranteSegundos(LblProductoNoDisponible, 2);
                 }
             }
             catch (EndpointNotFoundException ex)
@@ -454,7 +454,7 @@ namespace ItaliaPizza_Cliente.Vistas
             } else
             {
                 LblMensajeAdvertenciaCliente.Content = MENSAJE_CAMPO_VACIO;
-                MostrarLabelDuranteSegundos(LblMensajeAdvertenciaCliente, 2);
+                Utilidad.MostrarLabelDuranteSegundos(LblMensajeAdvertenciaCliente, 2);
             }
         }
 
@@ -513,7 +513,7 @@ namespace ItaliaPizza_Cliente.Vistas
             else
             {
                 LblMensajeAdvertenciaProducto.Content = MENSAJE_CAMPO_VACIO;
-                MostrarLabelDuranteSegundos(LblMensajeAdvertenciaProducto, 2);
+                Utilidad.MostrarLabelDuranteSegundos(LblMensajeAdvertenciaProducto, 2);
             }
         }
 
@@ -533,20 +533,6 @@ namespace ItaliaPizza_Cliente.Vistas
             BtnEntregaDomicilio.Foreground= _colorBrushGrisTexto;
             BtnComerEstablecimiento.Foreground= _colorBrushWhite;
             _tipoServicioSeleccionado = _tiposServicio.ElementAt((int)EnumTiposServicio.EnEstablecimiento);
-        }
-
-        private void MostrarLabelDuranteSegundos(Label label, int segundos)
-        {
-            label.Visibility = Visibility.Visible;
-
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(segundos);
-            timer.Tick += (sender, e) =>
-            {
-                label.Visibility = Visibility.Collapsed;
-                timer.Stop();
-            };
-            timer.Start();
         }
 
         private void FiltrarProductosPorCategoria(object sender, MouseButtonEventArgs e) 
@@ -600,7 +586,7 @@ namespace ItaliaPizza_Cliente.Vistas
             else
             {
                 LblMensajeSeleccionClienteProductoObligatoria.Visibility = Visibility.Visible;
-                MostrarLabelDuranteSegundos(LblMensajeSeleccionClienteProductoObligatoria, 3);
+                Utilidad.MostrarLabelDuranteSegundos(LblMensajeSeleccionClienteProductoObligatoria, 3);
             }
         }
 

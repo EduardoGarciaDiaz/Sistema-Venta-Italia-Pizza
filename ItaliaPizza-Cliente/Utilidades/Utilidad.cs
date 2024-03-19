@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace ItaliaPizza_Cliente.Utilidades
 {
@@ -47,6 +48,20 @@ namespace ItaliaPizza_Cliente.Utilidades
 
                 elemento.Visibility = Visibility.Visible;
             }
+        }
+
+        public static void MostrarLabelDuranteSegundos(Label label, int segundos)
+        {
+            label.Visibility = Visibility.Visible;
+
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(segundos);
+            timer.Tick += (sender, e) =>
+            {
+                label.Visibility = Visibility.Collapsed;
+                timer.Stop();
+            };
+            timer.Start();
         }
     }
 }

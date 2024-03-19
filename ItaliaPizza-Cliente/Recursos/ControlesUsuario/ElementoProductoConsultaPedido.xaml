@@ -12,10 +12,30 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <Label Content="Pizza clasica amarilla" Margin="6,0,193,21" FontFamily="Segoe UI Semibold" FontSize="16"/>
-        <Label Content="Pizza clasica amarilla" Margin="6,21,116,4" FontFamily="Segoe UI Semibold" Foreground="#FF6C6C6C"/>
+        <Label x:Name="lbNombreProducto" 
+               Content="" 
+               Margin="6,0,78,21" 
+               FontFamily="Segoe UI Semibold" 
+               FontSize="16"/>
+        <Label x:Name="lbDescripcionProducto" 
+               Content="" 
+               Margin="6,21,116,4" 
+               FontFamily="Segoe UI Semibold" 
+               Foreground="#FF6C6C6C"/>
+        
         <Label Content="x" Margin="308,3,49,21" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
-        <Label Content="1234" Margin="331,3,13,21" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
-        <Label Content="$120.00" Margin="305,20,13,4" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Foreground="#FF474747" FontFamily="Segoe UI Semibold" FontSize="14"/>
+        <Label x:Name="lbCantidadProductos" 
+               Content="" 
+               Margin="331,3,13,21" 
+               HorizontalContentAlignment="Right" 
+               VerticalContentAlignment="Center"/>
+        <Label x:Name="lbPrecioProducto" 
+               Content="" 
+               Margin="305,20,13,4" 
+               HorizontalContentAlignment="Right" 
+               VerticalContentAlignment="Center" 
+               Foreground="#FF474747" 
+               FontFamily="Segoe UI Semibold" 
+               FontSize="14"/>
     </Grid>
 </UserControl>

@@ -1,9 +1,11 @@
 ﻿using ItaliaPizza_Contratos.DTOs;
+using ItaliaPizza_DataAccess.Excepciones;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -116,6 +118,94 @@ namespace ItaliaPizza_DataAccess
             }
 
             return pedidos;
+        }
+
+        public Pedido RecuperarPedido(int numeroPedido)
+        {
+            Pedido pedido = new Pedido();
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    Pedidos pedidoConsulta = context.Pedidos.FirstOrDefault(p => p.NumeroPedido == numeroPedido);
+                    if (pedidoConsulta != null)
+                    {
+
+                        pedido = new Pedido()
+                        {
+                            NumeroPedido = pedidoConsulta.NumeroPedido,
+                            Fecha = (DateTime)pedidoConsulta.FechaPedido,
+                            CantidadProductos = (int)pedidoConsulta.CantidadProductos,
+                            Total = (double)pedidoConsulta.TotalParaPagar,
+                            IdEstadoPedido = (int)pedidoConsulta.IdEstadoPedido,
+                            TipoServicio = new TipoServicio()
+                            {
+                                Id = pedidoConsulta.TiposServicio.IdTipoServicio,
+                                Nombre = pedidoConsulta.TiposServicio.Nombre
+                            },
+                            IdCliente = (int)pedidoConsulta.UsuariosPedidos.FirstOrDefault().IdCliente,
+                            ProductosIncluidos = new Dictionary<ProductoVentaPedidos, int>(
+                                pedidoConsulta.PedidosProductosVenta.ToDictionary(
+                                        p => new ProductoVentaPedidos
+                                        {
+                                            Codigo = p.CodigoProducto,
+                                            Descripcion = p.ProductosVenta.Productos.Descripcion,
+                                            Precio = (double)p.ProductosVenta.Precio,
+                                            IdCategoria = p.ProductosVenta.CategoriasProductoVenta.IdCategoriaProductoVenta,
+                                            Nombre = p.ProductosVenta.Productos.Nombre
+                                        },
+                                        p => p.CantidadProducto ?? 0
+                                    )
+                                )
+                        };
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            return pedido;
+        }
+
+        public int ActualizarEstadoPedido(int numeroPedido, int idEstado)
+        {
+            int resultado = -1;
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    context.Pedidos.FirstOrDefault(p => p.NumeroPedido == numeroPedido).IdEstadoPedido = idEstado;
+                    resultado = context.SaveChanges();
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            return resultado;
         }
     }
 }

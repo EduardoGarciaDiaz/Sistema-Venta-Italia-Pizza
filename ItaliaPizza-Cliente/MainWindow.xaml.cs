@@ -35,7 +35,7 @@ namespace ItaliaPizza_Cliente
         {
             BtnMenuLateral pedidos = new BtnMenuLateral();
             pedidos.ImgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_carrito_seleccionado.png", UriKind.Relative));
-            pedidos.LblNombreBoton.Content = "Pedidos";
+            pedidos.LblNombreBoton.Content = "Pedido";
             pedidos.Click += BtnPedidosClick;
             SkpMenuLateral.Children.Add(pedidos);
         }

@@ -1,4 +1,5 @@
 ﻿using ItaliaPizza_Contratos.DTOs;
+using ItaliaPizza_Contratos.Excepciones;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,5 +20,13 @@ namespace ItaliaPizza_Contratos
 
         [OperationContract]
         List<PedidoConsultaDTO> RecuperarPedidos();
+
+        [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
+        Pedido RecuperarPedido(int numeroPedido);
+
+        [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
+        int ActualizarEstadoPedido(int numeroPedido, int idEstadoPedido);
     }
 }
