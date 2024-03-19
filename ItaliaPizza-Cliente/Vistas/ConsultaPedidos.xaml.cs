@@ -38,68 +38,130 @@ namespace ItaliaPizza_Cliente.Vistas
         public ConsultaPedidos()
         {
             InitializeComponent();
+            EmpleadoSingleton.getInstance().TipoEmpleado = new TipoEmpleadoDto
+            {
+                Nombre = "x",
+                IdTipoEmpleado = 3
+            };
+            this.Loaded += ConsultaPedidos_Loaded;
+        }
+
+        private void ConsultaPedidos_Loaded(object sender, RoutedEventArgs e)
+        {
             this.BqdClientes.Placeholder.Text = "Ingresa nombre de cliente...";
             this.BqdClientes.ImgBuscarClicked += ImgBuscarPedidoPorCliente;
+            lbEnProceso.Tag = (int)EnumEstadosPedido.EnProceso;
+            lbPreparados.Tag = (int)EnumEstadosPedido.Preparado;
+            lbEntregados.Tag = (int)EnumEstadosPedido.Entregado;
+            lbCancelados.Tag = (int)EnumEstadosPedido.Cancelado;
+            MostrarFiltrosEstado();
+            RecuperarPedidos();
+        }
 
-            ServicioPedidosClient servicioPedidosClient = new ServicioPedidosClient();
-            _pedidos = servicioPedidosClient.RecuperarPedidos().ToList();
+        private void MostrarFiltrosEstado()
+        {
+            int idTipoEmpleado = EmpleadoSingleton.getInstance().TipoEmpleado.IdTipoEmpleado;
+            switch (idTipoEmpleado)
+            {
+                case (int)EnumTiposEmpleado.Mesero:
+                    
+                    skpContenedorEstados.Children.Remove(lbEnProceso);
+                    skpContenedorEstados.Children.Remove(lbEntregados);
+                    RemoverFiltrosTodosYCancelados();
+                    break;
+
+                case (int)EnumTiposEmpleado.Chef:
+                    skpContenedorEstados.Children.Remove(lbEntregados);
+                    skpContenedorEstados.Children.Remove(lbPreparados);
+                    RemoverFiltrosTodosYCancelados();
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private void RemoverFiltrosTodosYCancelados()
+        {
+            skpContenedorEstados.Children.Remove(lbCancelados);
+            skpContenedorEstados.Children.Remove(lblTodosPedidos);
+        }
+
+        private void RecuperarPedidos()
+        {
+            ServicioPedidosClient servicioPedidosCliente = new ServicioPedidosClient();
+            int idTipoEmpleado = EmpleadoSingleton.getInstance().TipoEmpleado.IdTipoEmpleado;
+            if (idTipoEmpleado == (int)EnumTiposEmpleado.Cajero)
+            {
+                _pedidos = servicioPedidosCliente.RecuperarPedidos().ToList();
+            } else if (idTipoEmpleado == (int)EnumTiposEmpleado.Chef)
+            {
+                _pedidos = servicioPedidosCliente.RecuperarPedidosEnProceso().ToList();
+            } else
+            {
+                _pedidos = servicioPedidosCliente.RecuperarPedidosPreparados().ToList();
+            }
             MostrarPedidos(_pedidos);
         }
 
         private void MostrarPedidos(List<PedidoConsultaDTO> pedidos)
         {
             SkpContenedorPedidos.Children.Clear();
-            if (pedidos != null)
+            pedidos?.ForEach(pedido =>
             {
-                foreach (var pedido in pedidos)
+                var elementoConsultaPedido = new ElementoConsultaPedido
                 {
-                    ElementoConsultaPedido elementoConsultaPedido = new ElementoConsultaPedido();
-                    elementoConsultaPedido.LblNumeroPedido.Content = pedido.NumeroPedido;
-                    elementoConsultaPedido.LblNombreCliente.Content = pedido.NombreCliente;
-                    elementoConsultaPedido.LblCantidadProductos.Content = pedido.CantidadProductos + " productos.";
-                    elementoConsultaPedido.LblFecha.Content = pedido.Fecha.ToShortDateString();
-                    elementoConsultaPedido.LblTotalPedido.Content = "$" + pedido.Total.ToString("F2");
-                    elementoConsultaPedido.LblEstadoPedido.Content = pedido.estadoPedido.Nombre;
-                    CambiarColorLabelEstado(pedido.estadoPedido.IdEstadoPedido, elementoConsultaPedido.LblEstadoPedido);
-                    elementoConsultaPedido.Click += ElementoConsultaPedidoClick;
+                    LblNumeroPedido = { Content = pedido.NumeroPedido },
+                    LblNombreCliente = { Content = pedido.NombreCliente },
+                    LblCantidadProductos = { Content = $"{pedido.CantidadProductos} productos." },
+                    LblFecha = { Content = pedido.Fecha.ToShortDateString() },
+                    LblTotalPedido = { Content = $"${pedido.Total:F2}" },
+                    LblEstadoPedido = { Content = pedido.estadoPedido.Nombre }
+                };
+                CambiarColorLabelEstado(pedido.estadoPedido.IdEstadoPedido, elementoConsultaPedido.LblEstadoPedido);
+                elementoConsultaPedido.Click += ElementoConsultaPedidoClick;
 
-                    SkpContenedorPedidos.Children.Add(elementoConsultaPedido);
-                }
-            }
+                SkpContenedorPedidos.Children.Add(elementoConsultaPedido);
+            });
         }
 
         private void CambiarColorLabelEstado(int idEstadoPedido, Label lbEstadoPedido)
         {
-            if (idEstadoPedido == (int)EnumEstadosPedido.EnProceso)
+            switch (idEstadoPedido)
             {
-                lbEstadoPedido.Background = _colorBrushAmarillo;
-                lbEstadoPedido.Foreground = new SolidColorBrush(Colors.White);
-            }
-            if (idEstadoPedido == (int)EnumEstadosPedido.Preparado)
-            {
-                lbEstadoPedido.Background = new SolidColorBrush(Colors.White);
-                lbEstadoPedido.BorderThickness = new Thickness(2);
-                lbEstadoPedido.BorderBrush = new SolidColorBrush(Colors.Black); ;
-                lbEstadoPedido.Foreground = new SolidColorBrush(Colors.Black);
-            }
-            if (idEstadoPedido == (int)EnumEstadosPedido.Entregado)
-            {
-                lbEstadoPedido.Background = _colorBrushNegro;
-                lbEstadoPedido.Foreground = new SolidColorBrush(Colors.White);
-            }
-            if (idEstadoPedido == (int) EnumEstadosPedido.Cancelado)
-            {
-                lbEstadoPedido.Background = _colorBrushRojo;
-                lbEstadoPedido.Foreground = new SolidColorBrush(Colors.White);
+                case (int)EnumEstadosPedido.EnProceso:
+                    lbEstadoPedido.Background = _colorBrushAmarillo;
+                    lbEstadoPedido.Foreground = new SolidColorBrush(Colors.White);
+                    break;
+
+                case (int)EnumEstadosPedido.Preparado:
+                    lbEstadoPedido.Background = new SolidColorBrush(Colors.White);
+                    lbEstadoPedido.BorderThickness = new Thickness(2);
+                    lbEstadoPedido.BorderBrush = new SolidColorBrush(Colors.Black);
+                    lbEstadoPedido.Foreground = new SolidColorBrush(Colors.Black);
+                    break;
+
+                case (int)EnumEstadosPedido.Entregado:
+                    lbEstadoPedido.Background = _colorBrushNegro;
+                    lbEstadoPedido.Foreground = new SolidColorBrush(Colors.White);
+                    break;
+
+                case (int)EnumEstadosPedido.Cancelado:
+                    lbEstadoPedido.Background = _colorBrushRojo;
+                    lbEstadoPedido.Foreground = new SolidColorBrush(Colors.White);
+                    break;
+
+                default:
+                    break;
             }
         }
 
         private void ElementoConsultaPedidoClick(object sender, RoutedEventArgs e)
         {
             ElementoConsultaPedido elementoConsultaPedido = sender as ElementoConsultaPedido;
-            ServicioPedidosClient servicioPedidosClient = new ServicioPedidosClient();
+            ServicioPedidosClient servicioPedidosCliente = new ServicioPedidosClient();
             int numeroPedido = int.Parse(elementoConsultaPedido.LblNumeroPedido.Content.ToString());
-            Pedido pedido = servicioPedidosClient.RecuperarPedido(numeroPedido);
+            Pedido pedido = servicioPedidosCliente.RecuperarPedido(numeroPedido);
             if (pedido != null)
             {
                 _pedidoSeleccionado = pedido;
@@ -138,39 +200,42 @@ namespace ItaliaPizza_Cliente.Vistas
         private void MostrarContenidoDeBoton(int idEstadoPedido)
         {
             EmpleadoSingleton empleadoSingleton = EmpleadoSingleton.getInstance();
-            empleadoSingleton.TipoEmpleado = new TipoEmpleadoDto
+            int tipoEmpleado = empleadoSingleton.TipoEmpleado.IdTipoEmpleado;
+
+            switch (idEstadoPedido)
             {
-                IdTipoEmpleado = 3,
-                Nombre = "X"
-            };
-            if (idEstadoPedido == (int)EnumEstadosPedido.EnProceso 
-                && empleadoSingleton.TipoEmpleado.IdTipoEmpleado == (int) EnumTiposEmpleado.Chef)
-            {
-                btnActualizarEstadoPedido.Background = _colorBrushAmarillo;
-                btnActualizarEstadoPedido.Content = "Marcar como preparado";
-                btnActualizarEstadoPedido.Foreground = new SolidColorBrush(Colors.White);
-                btnActualizarEstadoPedido.BorderThickness = new Thickness(0);
-            }
-            if (idEstadoPedido == (int)EnumEstadosPedido.EnProceso
-                && empleadoSingleton.TipoEmpleado.IdTipoEmpleado == (int) EnumTiposEmpleado.Cajero)
-            {
-                btnActualizarEstadoPedido.Background = new SolidColorBrush(Colors.White);
-                btnActualizarEstadoPedido.BorderBrush = _colorBrushRojo;
-                btnActualizarEstadoPedido.Foreground = _colorBrushRojo;
-                btnActualizarEstadoPedido.BorderThickness = new Thickness(2);
-                btnActualizarEstadoPedido.Content = "Cancelar pedido";
-            }
-            if (idEstadoPedido == (int)EnumEstadosPedido.Preparado)
-            {
-                btnActualizarEstadoPedido.Background = new SolidColorBrush(Colors.Black);
-                btnActualizarEstadoPedido.Foreground = new SolidColorBrush(Colors.White);
-                btnActualizarEstadoPedido.BorderThickness = new Thickness(0);
-                btnActualizarEstadoPedido.Content = "Marcar como entregado";
+                case (int)EnumEstadosPedido.EnProceso when tipoEmpleado == (int)EnumTiposEmpleado.Chef:
+                    ConfigurarBoton(_colorBrushAmarillo, "Marcar como preparado", new SolidColorBrush(Colors.White), new Thickness(0));
+                    break;
+
+                case (int)EnumEstadosPedido.EnProceso when tipoEmpleado == (int)EnumTiposEmpleado.Cajero:
+                    ConfigurarBoton(new SolidColorBrush(Colors.White), "Cancelar pedido", _colorBrushRojo, new Thickness(2), true);
+                    break;
+
+                case (int)EnumEstadosPedido.Preparado:
+                    ConfigurarBoton(new SolidColorBrush(Colors.Black), "Marcar como entregado", new SolidColorBrush(Colors.White), new Thickness(0));
+                    break;
+
+                case (int)EnumEstadosPedido.Cancelado:
+                case (int)EnumEstadosPedido.Entregado:
+                    btnActualizarEstadoPedido.Visibility = Visibility.Collapsed;
+                    return;
+
+                default:
+                    break;
             }
             btnActualizarEstadoPedido.Visibility = Visibility.Visible;
-            if (idEstadoPedido == (int)EnumEstadosPedido.Cancelado || idEstadoPedido == (int)EnumEstadosPedido.Entregado)
+        }
+
+        private void ConfigurarBoton(SolidColorBrush background, string content, SolidColorBrush foreground, Thickness borderThickness, bool customBorderBrush = false)
+        {
+            btnActualizarEstadoPedido.Background = background;
+            btnActualizarEstadoPedido.Content = content;
+            btnActualizarEstadoPedido.Foreground = foreground;
+            btnActualizarEstadoPedido.BorderThickness = borderThickness;
+            if (customBorderBrush)
             {
-                btnActualizarEstadoPedido.Visibility = Visibility.Collapsed;
+                btnActualizarEstadoPedido.BorderBrush = _colorBrushRojo;
             }
         }
 
@@ -244,57 +309,21 @@ namespace ItaliaPizza_Cliente.Vistas
             labelSeleccionado.Foreground = _colorBrushAmarillo;
         }
 
-        private void LbEnProceso_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            CambiarColorFiltroCategoria((Label)sender);
-            List<PedidoConsultaDTO> productosFiltrados = _pedidos.Where(p => 
-                p.estadoPedido.IdEstadoPedido == (int)EnumEstadosPedido.EnProceso).ToList();
-            if (productosFiltrados.Count > 0)
-            {
-                MostrarPedidos(productosFiltrados);
-            }
-            else
-            {
-                SkpContenedorPedidos.Children.Clear();
-            }
+            var label = (Label)sender;
+            int estadoPedidoId = Convert.ToInt32(label.Tag);
+
+            CambiarColorFiltroCategoria(label);
+            FiltrarYMostrarPedidosPorEstado(estadoPedidoId);
         }
 
-        private void LbPreparado_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void FiltrarYMostrarPedidosPorEstado(int idEstadoPedido)
         {
-            CambiarColorFiltroCategoria((Label)sender);
             List<PedidoConsultaDTO> productosFiltrados = _pedidos.Where(p =>
-                p.estadoPedido.IdEstadoPedido == (int)EnumEstadosPedido.Preparado).ToList();
-            if (productosFiltrados.Count > 0)
-            {
-                MostrarPedidos(productosFiltrados);
-            }
-            else
-            {
-                SkpContenedorPedidos.Children.Clear();
-            }
-        }
+                p.estadoPedido.IdEstadoPedido == idEstadoPedido).ToList();
 
-        private void LbEntregado_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            CambiarColorFiltroCategoria((Label)sender);
-            List<PedidoConsultaDTO> productosFiltrados = _pedidos.Where(p =>
-                p.estadoPedido.IdEstadoPedido == (int)EnumEstadosPedido.Entregado).ToList();
-            if (productosFiltrados.Count > 0)
-            {
-                MostrarPedidos(productosFiltrados);
-            }
-            else
-            {
-                SkpContenedorPedidos.Children.Clear();
-            }
-        }
-
-        private void LbCancelado_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            CambiarColorFiltroCategoria((Label)sender);
-            List<PedidoConsultaDTO> productosFiltrados = _pedidos.Where(p =>
-                p.estadoPedido.IdEstadoPedido == (int)EnumEstadosPedido.Cancelado).ToList();
-            if (productosFiltrados.Count > 0)
+            if (productosFiltrados.Any())
             {
                 MostrarPedidos(productosFiltrados);
             }
@@ -306,43 +335,48 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void BtnActualizarEstadoPedido_Click(object sender, RoutedEventArgs e)
         {
-            if (_pedidoSeleccionado != null)
+            if (_pedidoSeleccionado == null) return;
+
+            var servicioPedidosClient = new ServicioPedidosClient();
+            var empleadoSingleton = EmpleadoSingleton.getInstance();
+            int nuevoEstadoPedido = DeterminarNuevoEstadoPedido(_pedidoSeleccionado.IdEstadoPedido, empleadoSingleton.TipoEmpleado.IdTipoEmpleado);
+
+            if (nuevoEstadoPedido != -1)
             {
-                ServicioPedidosClient servicioPedidosClient = new ServicioPedidosClient();
-                int idEstadoPedido = _pedidoSeleccionado.IdEstadoPedido;
-                int resultado = -1;
-                EmpleadoSingleton empleadoSingleton = EmpleadoSingleton.getInstance();
-                empleadoSingleton.TipoEmpleado = new TipoEmpleadoDto
+                int resultado = servicioPedidosClient.ActualizarEstadoPedido(_pedidoSeleccionado.NumeroPedido, nuevoEstadoPedido);
+
+                if (resultado > 0)
                 {
-                    IdTipoEmpleado = 3,
-                    Nombre = "x"
-                };
-                if (idEstadoPedido == (int)EnumEstadosPedido.EnProceso
-                && empleadoSingleton.TipoEmpleado.IdTipoEmpleado == (int)EnumTiposEmpleado.Chef)
-                {
-                    resultado =
-                        servicioPedidosClient.ActualizarEstadoPedido(_pedidoSeleccionado.NumeroPedido, (int)EnumEstadosPedido.Preparado);
+                    ActualizarUIPostCambioEstado(servicioPedidosClient);
                 }
-                if (idEstadoPedido == (int)EnumEstadosPedido.EnProceso
-                    && empleadoSingleton.TipoEmpleado.IdTipoEmpleado == (int)EnumTiposEmpleado.Cajero)
-                {
-                    resultado =
-                         servicioPedidosClient.ActualizarEstadoPedido(_pedidoSeleccionado.NumeroPedido, (int)EnumEstadosPedido.Cancelado);
-                }
-                if (idEstadoPedido == (int)EnumEstadosPedido.Preparado)
-                {
-                    resultado =
-                        servicioPedidosClient.ActualizarEstadoPedido(_pedidoSeleccionado.NumeroPedido, (int)EnumEstadosPedido.Entregado);
-                }
-                if (resultado >  0)
-                {
-                    _pedidos = servicioPedidosClient.RecuperarPedidos().ToList();
-                    _pedidoSeleccionado = servicioPedidosClient.RecuperarPedido(_pedidoSeleccionado.NumeroPedido);
-                    Cliente cliente = new ServicioUsuariosClient().RecuperarClientePorId(_pedidoSeleccionado.IdCliente);
-                    MostrarPedidos(_pedidos);
-                    MostrarPedido(_pedidoSeleccionado, cliente);
-                }
-            }            
+            }
         }
+
+        private int DeterminarNuevoEstadoPedido(int idEstadoActual, int idTipoEmpleado)
+        {
+            if (idEstadoActual == (int)EnumEstadosPedido.EnProceso && idTipoEmpleado == (int)EnumTiposEmpleado.Chef)
+            {
+                return (int)EnumEstadosPedido.Preparado;
+            }
+            if (idEstadoActual == (int)EnumEstadosPedido.EnProceso && idTipoEmpleado == (int)EnumTiposEmpleado.Cajero)
+            {
+                return (int)EnumEstadosPedido.Cancelado;
+            }
+            if (idEstadoActual == (int)EnumEstadosPedido.Preparado)
+            {
+                return (int)EnumEstadosPedido.Entregado;
+            }
+            return -1;
+        }
+
+        private void ActualizarUIPostCambioEstado(ServicioPedidosClient servicioPedidosClient)
+        {
+            
+            _pedidoSeleccionado = servicioPedidosClient.RecuperarPedido(_pedidoSeleccionado.NumeroPedido);
+            Cliente cliente = new ServicioUsuariosClient().RecuperarClientePorId(_pedidoSeleccionado.IdCliente);
+            RecuperarPedidos();
+            MostrarPedido(_pedidoSeleccionado, cliente);
+        }
+
     }
 }

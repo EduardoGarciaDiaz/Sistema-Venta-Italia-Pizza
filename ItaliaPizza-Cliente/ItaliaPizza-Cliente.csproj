@@ -428,5 +428,8 @@
   <ItemGroup>
     <Resource Include="Recursos\Iconos\icono_receta.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Recursos\Iconos\icono_pedidos.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

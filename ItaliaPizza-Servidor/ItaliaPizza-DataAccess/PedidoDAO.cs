@@ -120,6 +120,50 @@ namespace ItaliaPizza_DataAccess
             return pedidos;
         }
 
+        public List<PedidoConsultaDTO> RecuperarPedidosPorEstado(int estado)
+        {
+            List<PedidoConsultaDTO> pedidos = new List<PedidoConsultaDTO>();
+
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    pedidos = context.Pedidos.Where(pedido => pedido.IdEstadoPedido == estado).ToList().ConvertAll(p =>
+                    new PedidoConsultaDTO
+                    {
+                        NumeroPedido = p.NumeroPedido,
+                        Fecha = (DateTime)p.FechaPedido,
+                        estadoPedido = new EstadoPedido()
+                        {
+                            IdEstadoPedido = p.EstadosPedido.IdEstadoPedido,
+                            Nombre = p.EstadosPedido.Nombre
+                        },
+                        CantidadProductos = (int)p.CantidadProductos,
+                        Total = (double)p.TotalParaPagar,
+                        NombreCliente = p.UsuariosPedidos.FirstOrDefault().Usuarios.NombreCompleto
+                    });
+                }
+            }
+            catch (EntityException ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+
+            }
+            catch (SqlException ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (Exception ex)
+            {
+                //TODO: Manejar excepcion
+                Console.WriteLine(ex.StackTrace); ;
+            }
+
+            return pedidos;
+        }
+
         public Pedido RecuperarPedido(int numeroPedido)
         {
             Pedido pedido = new Pedido();
@@ -206,6 +250,38 @@ namespace ItaliaPizza_DataAccess
                 throw new ExcepcionDataAccess(ex.Message);
             }
             return resultado;
+        }
+
+        public List<EstadoPedido> RecuperarEstadosPedido()
+        {
+            List<EstadoPedido> estados = new List<EstadoPedido>();
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    estados = context.EstadosPedido.ToList().ConvertAll(ep => new EstadoPedido
+                    {
+                        Nombre = ep.Nombre,
+                        IdEstadoPedido = ep.IdEstadoPedido
+                    });
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            return estados;
         }
     }
 }

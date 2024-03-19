@@ -29,11 +29,13 @@ namespace ItaliaPizza_Servicios
                     bool insumoDisminuido;
                     if (productoDAO.ValidarSiProductoEnVentaEsInventariado(productosVenta.Codigo))
                     {
-                        insumoDisminuido = insumoDAO.DisminuirCantidadInsumo(productosVenta.Codigo, pedido.ProductosIncluidos[productosVenta]);
+                        insumoDisminuido = 
+                            insumoDAO.DisminuirCantidadInsumo(productosVenta.Codigo, pedido.ProductosIncluidos[productosVenta]);
                     }
                     else
                     {
-                        insumoDisminuido = DisminuirCantidadInsumoPorProducto(productosVenta.Codigo, pedido.ProductosIncluidos[productosVenta]);
+                        insumoDisminuido = 
+                            DisminuirCantidadInsumoPorProducto(productosVenta.Codigo, pedido.ProductosIncluidos[productosVenta]);
                     }
                     if (!insumoDisminuido)
                     {
@@ -91,6 +93,40 @@ namespace ItaliaPizza_Servicios
             {
                 throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
             }
+        }
+
+        public List<PedidoConsultaDTO> RecuperarPedidosEnProceso()
+        {
+            PedidoDAO pedidoDAO = new PedidoDAO();
+            List<PedidoConsultaDTO> pedidos = new List<PedidoConsultaDTO>();
+            try
+            {
+                EstadoPedido estado = pedidoDAO.RecuperarEstadosPedido().FirstOrDefault(e => 
+                e.Nombre.ToLower().Contains("en proceso"));
+                pedidos = pedidoDAO.RecuperarPedidosPorEstado(estado.IdEstadoPedido);
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
+            return pedidos;
+        }
+
+        public List<PedidoConsultaDTO> RecuperarPedidosPreparados()
+        {
+            PedidoDAO pedidoDAO = new PedidoDAO();
+            List<PedidoConsultaDTO> pedidos = new List<PedidoConsultaDTO>();
+            try
+            {
+                EstadoPedido estado = pedidoDAO.RecuperarEstadosPedido().FirstOrDefault(e =>
+                e.Nombre.ToLower().Contains("preparado"));
+                pedidos = pedidoDAO.RecuperarPedidosPorEstado(estado.IdEstadoPedido);
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
+            return pedidos;
         }
     }
 }
