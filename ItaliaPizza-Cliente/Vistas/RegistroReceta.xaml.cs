@@ -479,7 +479,7 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             _numeroInsumosSeleccionados = 0;
             _elementoProductoSinRecetaSeleccionado = null;
-            _insumosSeleccionados = null;
+            _insumosSeleccionados = new List<InsumoReceta>();
             lbNombreReceta.Content = string.Empty;
             ActualizarContadorInsumos();
             MostrarInsumos();
@@ -527,7 +527,13 @@ namespace ItaliaPizza_Cliente.Vistas
                 float cantidadInsumo = Utilidad.ConvertirStringAFloat(cantidad, insumoSeleccionado.lbErrorInsumoSeleccionado);
 
                 string unidadMedida = (string)insumoSeleccionado.lbUnidadMedida.Content;
-                sonCantidadesValidas = UtilidadValidacion.ValidarCantidadInsumo(cantidadInsumo, unidadMedida, insumoSeleccionado.lbErrorInsumoSeleccionado);
+                sonCantidadesValidas = UtilidadValidacion.ValidarCantidadInsumo(
+                    cantidadInsumo, unidadMedida, insumoSeleccionado.lbErrorInsumoSeleccionado);
+
+                if (!sonCantidadesValidas)
+                {
+                    break;
+                }
             }
 
             return sonCantidadesValidas;
