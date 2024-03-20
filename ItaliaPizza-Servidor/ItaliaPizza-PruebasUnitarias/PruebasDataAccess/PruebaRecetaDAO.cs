@@ -521,5 +521,49 @@ namespace ItaliaPizza_PruebasUnitarias.PruebasDataAccess
 
             Assert.Equal(resultadoEsperado, resultadoObtenido);
         }
+
+        [Fact]
+        public void PruebaRecuperarInsumosEnRecetaExitosa()
+        {
+            RecetaDAO recetaDAO = new RecetaDAO();
+            List<RecetasInsumos> resultadoObtenido = recetaDAO.RecuperarInsumosEnReceta(_configuracion.CodigoProductoVentaPrueba);
+
+            List<RecetasInsumos> resultadoEsperado = new List<RecetasInsumos>
+            {
+                new RecetasInsumos
+                {
+                    CantidadInsumo = 1,
+                    IdReceta = _configuracion.IdRecetaPrueba,
+                    CodigoProducto = "CodigoInsumoPU1"
+                }
+            };
+
+            Assert.NotNull(resultadoObtenido);
+            Assert.True(resultadoEsperado.All(re => resultadoObtenido.Any(
+                ro => ro.CodigoProducto == re.CodigoProducto
+                && ro.IdReceta == re.IdReceta)));
+        }
+
+        [Fact]
+        public void PruebaRecuperarInsumosEnRecetaFallida()
+        {
+            RecetaDAO recetaDAO = new RecetaDAO();
+
+            List<RecetasInsumos> resultadoEsperado = new List<RecetasInsumos>
+            {
+                new RecetasInsumos
+                {
+                    CantidadInsumo = -1,
+                    IdReceta = -1,
+                    CodigoProducto = "-1NoRegistrado"
+                }
+            };
+
+            List<RecetasInsumos> resultadoObtenido = recetaDAO.RecuperarInsumosEnReceta(_configuracion.CodigoProductoVentaPrueba);
+
+            Assert.NotNull(resultadoObtenido);
+            Assert.False(resultadoEsperado.All(re => resultadoObtenido.Any(ro => ro.CodigoProducto == re.CodigoProducto
+            && ro.IdReceta == re.IdReceta)));
+        }
     }
 }
