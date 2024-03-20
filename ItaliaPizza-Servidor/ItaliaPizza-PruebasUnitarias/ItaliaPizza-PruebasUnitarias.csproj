@@ -89,6 +89,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PruebasDataAccess\PruebaCategoriaDAO.cs" />
     <Compile Include="PruebasDataAccess\PruebaRecetaDAO.cs" />
+    <Compile Include="PruebasDataAccess\PruebaUnidadMedida.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
