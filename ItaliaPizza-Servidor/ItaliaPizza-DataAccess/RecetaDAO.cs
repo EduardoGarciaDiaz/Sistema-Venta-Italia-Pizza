@@ -104,67 +104,73 @@ namespace ItaliaPizza_DataAccess
         {
             int id = -1;
 
-            try
+            if (receta != null)
             {
-                using (var context = new ItaliaPizzaEntities())
+                try
                 {
-                    context.Recetas.Add(receta);
-                    int filasAfectadas = context.SaveChanges();
-
-                    if (filasAfectadas > 0)
+                    using (var context = new ItaliaPizzaEntities())
                     {
-                        id = receta.IdReceta;
+                        context.Recetas.Add(receta);
+                        int filasAfectadas = context.SaveChanges();
+
+                        if (filasAfectadas > 0)
+                        {
+                            id = receta.IdReceta;
+                        }
                     }
                 }
+                catch (EntityException ex)
+                {
+                    ManejadorExcepcion.ManejarExcepcionError(ex);
+                    throw new ExcepcionDataAccess(ex.Message);
+                }
+                catch (SqlException ex)
+                {
+                    ManejadorExcepcion.ManejarExcepcionError(ex);
+                    throw new ExcepcionDataAccess(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                    throw new ExcepcionDataAccess(ex.Message);
+                }
+            }
 
-                return id;
-            }
-            catch (EntityException ex)
-            {
-                ManejadorExcepcion.ManejarExcepcionError(ex);
-                throw new ExcepcionDataAccess(ex.Message);
-            }
-            catch (SqlException ex)
-            {
-                ManejadorExcepcion.ManejarExcepcionError(ex);
-                throw new ExcepcionDataAccess(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                ManejadorExcepcion.ManejarExcepcionFatal(ex);
-                throw new ExcepcionDataAccess(ex.Message);
-            }
+            return id;
         }
 
         public int GuardarRecetaInsumos(List<RecetasInsumos> recetasInsumos)
         {
             int filasAfectadas = -1;
 
-            try
+            if (recetasInsumos != null)
             {
-                using (var context = new ItaliaPizzaEntities())
+                try
                 {
-                    context.RecetasInsumos.AddRange(recetasInsumos);
-                    filasAfectadas = context.SaveChanges();
+                    using (var context = new ItaliaPizzaEntities())
+                    {
+                        context.RecetasInsumos.AddRange(recetasInsumos);
+                        filasAfectadas = context.SaveChanges();
+                    }
                 }
+                catch (EntityException ex)
+                {
+                    ManejadorExcepcion.ManejarExcepcionError(ex);
+                    throw new ExcepcionDataAccess(ex.Message);
+                }
+                catch (SqlException ex)
+                {
+                    ManejadorExcepcion.ManejarExcepcionError(ex);
+                    throw new ExcepcionDataAccess(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                    throw new ExcepcionDataAccess(ex.Message);
+                }
+            }
 
-                return filasAfectadas;
-            }
-            catch (EntityException ex)
-            {
-                ManejadorExcepcion.ManejarExcepcionError(ex);
-                throw new ExcepcionDataAccess(ex.Message);
-            }
-            catch (SqlException ex)
-            {
-                ManejadorExcepcion.ManejarExcepcionError(ex);
-                throw new ExcepcionDataAccess(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                ManejadorExcepcion.ManejarExcepcionFatal(ex);
-                throw new ExcepcionDataAccess(ex.Message);
-            }
+            return filasAfectadas;
         }
 
         public List<RecetasInsumos> RecuperarInsumosEnReceta(string codigoProducto)
