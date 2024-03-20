@@ -81,6 +81,7 @@
     <Compile Include="DTOs\UnidadMedida.cs" />
     <Compile Include="DTOs\UsuarioDto.cs" />
     <Compile Include="Excepciones\ExcepcionServidorItaliaPizza.cs" />
+    <Compile Include="IServicioInicioSesion.cs" />
     <Compile Include="IServicioOrdenesCompra.cs" />
     <Compile Include="IServicioPedidos.cs" />
     <Compile Include="IServicioProductos.cs" />

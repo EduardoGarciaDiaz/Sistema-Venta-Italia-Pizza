@@ -100,7 +100,7 @@ namespace ItaliaPizza_DataAccess
         }
 
 
-        public static  List<Empleados> RecuperarEmpleadoBD()
+        public static  List<Empleados> RecuperarEmpleadosBD()
         {
 
             List<Empleados> empleados = new List<Empleados>();
@@ -108,7 +108,7 @@ namespace ItaliaPizza_DataAccess
             {
                 using (var context = new ItaliaPizzaEntities())
                 {
-                     empleados = context.Empleados.Include(u => u.Usuarios.Direcciones).Include(e => e.TiposEmpleado).ToList();
+                     empleados = context.Empleados.Include(u => u.Usuarios.Direcciones).Include(e=> e.Usuarios).Include(e => e.TiposEmpleado).ToList();
 
                 }
             }
@@ -128,6 +128,63 @@ namespace ItaliaPizza_DataAccess
                 throw new ExcepcionDataAccess(ex.Message);
             }
             return empleados;
+        }
+
+        public static Empleados RecuperarEmpleadoProNombreUsuarioBD(string nombreUsuario)
+        {
+
+            Empleados empleados = new Empleados();
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    empleados = context.Empleados.Include(e => e.Usuarios).Include(u => u.Usuarios.Direcciones).Include(e => e.TiposEmpleado).FirstOrDefault(empl => empl.NombreUsuario.Equals(nombreUsuario));
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            return empleados;
+        }
+
+        public static bool ValidarCredencialesBD(string nombreUsuario, string contraseña)
+        {
+            bool resultadoOperacion = false;
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    resultadoOperacion = context.Empleados.Any(emp => emp.NombreUsuario.Equals(nombreUsuario) && emp.Contraseña.Equals(contraseña));                   
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            return resultadoOperacion;
         }
     }
 }

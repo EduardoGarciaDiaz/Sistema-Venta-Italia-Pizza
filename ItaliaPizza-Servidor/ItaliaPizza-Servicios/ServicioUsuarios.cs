@@ -178,7 +178,7 @@ namespace ItaliaPizza_Servicios
             List<EmpleadoDto> empleadosLista = new List<EmpleadoDto>();
             try
             {
-                var empleados = EmpleadoDAO.RecuperarEmpleadoBD();
+                var empleados = EmpleadoDAO.RecuperarEmpleadosBD();
                 foreach (var empleado in empleados)
                 {
                     empleadosLista.Add(AuxiliarConversorDTOADAO.ConvertirEmpleadosAEmpleadoDto(empleado, empleado.TiposEmpleado.Nombre, empleado.Usuarios, empleado.Usuarios.Direcciones));
@@ -249,5 +249,20 @@ namespace ItaliaPizza_Servicios
             }
         }
 
+        public EmpleadoDto RecuperarEmpleadoPorNombreUsuario(string nombreUsuario)
+        {
+            EmpleadoDto empleadoDto;
+            try
+            {
+                var empleado = EmpleadoDAO.RecuperarEmpleadoProNombreUsuarioBD(nombreUsuario);
+                empleadoDto = AuxiliarConversorDTOADAO.ConvertirEmpleadosAEmpleadoDto(empleado,empleado.TiposEmpleado.Nombre, empleado.Usuarios, empleado.Usuarios.Direcciones);
+                ListaEmpleadoActivos.RegistrarUsuarioEnLista(empleadoDto.IdUsuario, empleado.NombreUsuario);
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
+            return empleadoDto;
+        }
     }
 }

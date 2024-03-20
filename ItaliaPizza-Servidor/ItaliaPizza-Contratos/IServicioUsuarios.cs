@@ -53,6 +53,10 @@ namespace ItaliaPizza_Contratos
         [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
         Cliente RecuperarClientePorId(int idCliente);
 
+        [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
+        EmpleadoDto RecuperarEmpleadoPorNombreUsuario(string nombreUsuario);
+
     }
 
     

@@ -29,7 +29,28 @@ namespace ItaliaPizza_Servicios.Auxiliares
             }
             return respuesta;
         }
-       
+
+        public static bool EsEmpleadoNoActivo(string nombreUsuario)
+        {
+            bool respuesta = true;
+            if (!String.IsNullOrEmpty(nombreUsuario))
+            {
+                foreach (var item in empleadosActivos)
+                {
+                    if (item.Value.Equals(nombreUsuario))
+                    {
+                        respuesta = false;
+                        break;
+                    }
+                };
+            }
+            else
+            {
+                respuesta = true;
+            }
+            return respuesta;
+        }
+
         public static void QuitarEmpleadoDeLista(int idUser)
         {
             if (idUser != 0 && empleadosActivos.ContainsKey(idUser))
@@ -37,6 +58,7 @@ namespace ItaliaPizza_Servicios.Auxiliares
                 empleadosActivos.Remove(idUser);
             }
         }
+
 
 
     }

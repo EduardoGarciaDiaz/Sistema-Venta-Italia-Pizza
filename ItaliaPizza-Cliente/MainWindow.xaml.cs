@@ -1,4 +1,5 @@
 ﻿using ItaliaPizza_Cliente.Recursos.ControlesUsuario;
+using ItaliaPizza_Cliente.Utilidades;
 using ItaliaPizza_Cliente.Vistas;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,7 @@ namespace ItaliaPizza_Cliente
             AgregarBotonPedido();
             AgregarBotonPedidos();
             AgregarBotonProductos();
-            AgregarBotonAgregarUsuario();
+            AgregarBotonConsultaUsuarios();
             AgregarBotonRecetas();
         }
 
@@ -62,7 +63,7 @@ namespace ItaliaPizza_Cliente
             FrameNavigator.NavigationService.Navigate(producto);
         }
 
-        private void AgregarBotonAgregarUsuario()
+        private void AgregarBotonConsultaUsuarios()
         {
             BtnMenuLateral usuario = new BtnMenuLateral();
             usuario.ImgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_agregar_usuario.png", UriKind.Relative));
@@ -73,8 +74,8 @@ namespace ItaliaPizza_Cliente
 
         private void BtnUsuarioClick(object sender, RoutedEventArgs e)
         {
-            RegistroUsuario registroUsuario = new RegistroUsuario();
-            FrameNavigator.NavigationService.Navigate(registroUsuario);
+            Usuarios usuarios = new Usuarios();
+            FrameNavigator.NavigationService.Navigate(usuarios);
         }
 
         private void AgregarBotonRecetas()
@@ -109,8 +110,25 @@ namespace ItaliaPizza_Cliente
             FrameNavigator.NavigationService.Navigate(consultaPedidos);
         }
 
+        private void AgregarBotonConsultaOrdenesDeCompra()
+        {
+            BtnMenuLateral ordenes = new BtnMenuLateral();
+            ordenes.ImgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_Orden_Compra.png",
+                UriKind.Relative));
+            ordenes.LblNombreBoton.Content = "Ordenes";
+            ordenes.Click += BtnPedidosClick;
+            SkpMenuLateral.Children.Add(ordenes);
+        }
+
+        private void BtnOrdenesCompraClick(object sender, RoutedEventArgs e)
+        {
+            ConsultaOrdenesDeCompra consultaOrdenesDeCompra = new ConsultaOrdenesDeCompra();
+            FrameNavigator.NavigationService.Navigate(consultaOrdenesDeCompra);
+        }
+
         private void Salir_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            EmpleadoSingleton.LimpiarSingleton();
             this.Close();
         }
     }

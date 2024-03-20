@@ -3198,6 +3198,14 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioUsuarios/RecuperarClientePorId", ReplyAction="http://tempuri.org/IServicioUsuarios/RecuperarClientePorIdResponse")]
         System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.Cliente> RecuperarClientePorIdAsync(int idCliente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioUsuarios/RecuperarEmpleadoPorNombreUsuario", ReplyAction="http://tempuri.org/IServicioUsuarios/RecuperarEmpleadoPorNombreUsuarioResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioUsuarios/RecuperarEmpleadoPorNombreUsuarioExcepcionSe" +
+            "rvidorItaliaPizzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        ItaliaPizza_Cliente.ServicioItaliaPizza.EmpleadoDto RecuperarEmpleadoPorNombreUsuario(string nombreUsuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioUsuarios/RecuperarEmpleadoPorNombreUsuario", ReplyAction="http://tempuri.org/IServicioUsuarios/RecuperarEmpleadoPorNombreUsuarioResponse")]
+        System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.EmpleadoDto> RecuperarEmpleadoPorNombreUsuarioAsync(string nombreUsuario);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -3306,6 +3314,14 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         public System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.Cliente> RecuperarClientePorIdAsync(int idCliente) {
             return base.Channel.RecuperarClientePorIdAsync(idCliente);
         }
+        
+        public ItaliaPizza_Cliente.ServicioItaliaPizza.EmpleadoDto RecuperarEmpleadoPorNombreUsuario(string nombreUsuario) {
+            return base.Channel.RecuperarEmpleadoPorNombreUsuario(nombreUsuario);
+        }
+        
+        public System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.EmpleadoDto> RecuperarEmpleadoPorNombreUsuarioAsync(string nombreUsuario) {
+            return base.Channel.RecuperarEmpleadoPorNombreUsuarioAsync(nombreUsuario);
+        }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -3352,6 +3368,69 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         public System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.ProveedorDto[]> RecuperarProveedoresAsync() {
             return base.Channel.RecuperarProveedoresAsync();
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServicioItaliaPizza.IServicioInicioSesion")]
+    public interface IServicioInicioSesion {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioInicioSesion/ValidarCredenciales", ReplyAction="http://tempuri.org/IServicioInicioSesion/ValidarCredencialesResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioInicioSesion/ValidarCredencialesExcepcionServidorItal" +
+            "iaPizzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        int ValidarCredenciales(string nombreUsuario, string contraseña);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioInicioSesion/ValidarCredenciales", ReplyAction="http://tempuri.org/IServicioInicioSesion/ValidarCredencialesResponse")]
+        System.Threading.Tasks.Task<int> ValidarCredencialesAsync(string nombreUsuario, string contraseña);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServicioInicioSesion/CerrarSesion")]
+        void CerrarSesion(int idEmpleado);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServicioInicioSesion/CerrarSesion")]
+        System.Threading.Tasks.Task CerrarSesionAsync(int idEmpleado);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IServicioInicioSesionChannel : ItaliaPizza_Cliente.ServicioItaliaPizza.IServicioInicioSesion, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class ServicioInicioSesionClient : System.ServiceModel.ClientBase<ItaliaPizza_Cliente.ServicioItaliaPizza.IServicioInicioSesion>, ItaliaPizza_Cliente.ServicioItaliaPizza.IServicioInicioSesion {
+        
+        public ServicioInicioSesionClient() {
+        }
+        
+        public ServicioInicioSesionClient(string endpointConfigurationName) : 
+                base(endpointConfigurationName) {
+        }
+        
+        public ServicioInicioSesionClient(string endpointConfigurationName, string remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public ServicioInicioSesionClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public ServicioInicioSesionClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(binding, remoteAddress) {
+        }
+        
+        public int ValidarCredenciales(string nombreUsuario, string contraseña) {
+            return base.Channel.ValidarCredenciales(nombreUsuario, contraseña);
+        }
+        
+        public System.Threading.Tasks.Task<int> ValidarCredencialesAsync(string nombreUsuario, string contraseña) {
+            return base.Channel.ValidarCredencialesAsync(nombreUsuario, contraseña);
+        }
+        
+        public void CerrarSesion(int idEmpleado) {
+            base.Channel.CerrarSesion(idEmpleado);
+        }
+        
+        public System.Threading.Tasks.Task CerrarSesionAsync(int idEmpleado) {
+            return base.Channel.CerrarSesionAsync(idEmpleado);
         }
     }
 }
