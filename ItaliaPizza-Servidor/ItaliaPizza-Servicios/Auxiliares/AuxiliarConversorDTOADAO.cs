@@ -169,5 +169,59 @@ namespace ItaliaPizza_Servicios.Auxiliares
             return empleadoDto;
         }
 
+        public static InsumoOrdenCompraDto ConvertirInsumosAInsumoOrdenCompraDto(Insumos insumo)
+        {
+            InsumoOrdenCompraDto insumoDto = new InsumoOrdenCompraDto()
+            {
+                Nombre = insumo.Productos.Nombre.ToString(),
+                Codigo = insumo.CodigoProducto,
+                CostoUnitario = (float)insumo.Costo,
+                Existencia = (float)insumo.Cantidad,
+                UnidadMedida = insumo.UnidadesMedida.Nombre
+            };
+            return insumoDto;
+        }
+
+        public static ProveedorDto ConvertirProveedoresAProveedoresDto(Proveedores proveedores, Direcciones direcciones)
+        {
+            ProveedorDto proveedorDto = new ProveedorDto()
+            {
+                IdProveedor = proveedores.IdProveedor,
+                NombreCompleto = proveedores.NombreCompleto,
+                RFC = proveedores.RFC,
+                CorreoElectronico = proveedores.CorreoElectronico,
+                NumeroTelefono = proveedores.NumeroTelefono, 
+                IdDireccion = (int)proveedores.IdDireccion,
+                Direccion = ConvertirDireccionesADireccionDto(direcciones)
+            };
+            return proveedorDto;
+        }
+
+        public static OrdenesCompraInsumos ConvertirElementoOrdenCompraAOrdenesCompraInsumos(int idOrdenCompra , ElementoOrdenCompraDto elementoOrdenCompra)
+        {
+            OrdenesCompraInsumos ordenesCompraInsumo = new OrdenesCompraInsumos() 
+            { 
+                IdOrdenCompraInsumo = elementoOrdenCompra.IdElementoOrdenCompra,
+                IdOrdenCompra = idOrdenCompra,
+                CodigoProducto = elementoOrdenCompra.InsumoOrdenCompraDto.Codigo,
+                CantidadInsumosAdquiridos = elementoOrdenCompra.CantidadInsumosAdquiridos,                 
+            };
+            return ordenesCompraInsumo;
+        }
+
+        public static OrdenesCompra ConvertirOrdenDeCompraDtoAOrdenesDeCompras(OrdenDeCompraDto ordenDeCompraDto)
+        {
+            OrdenesCompra ordenesCompra = new OrdenesCompra()
+            {
+                IdOrdenCompra = ordenDeCompraDto.IdOrdenCompra,
+                IdEstadoOrdenCompra = ordenDeCompraDto.IdEstadoOrdenCompra,
+                Fecha = ordenDeCompraDto.Fecha,
+                IdProveedor = ordenDeCompraDto.IdProveedor,            
+            };
+            return ordenesCompra;
+        }
+
+
     }
+
 }

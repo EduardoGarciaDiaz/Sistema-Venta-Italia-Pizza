@@ -1,0 +1,152 @@
+﻿<Page x:Class="ItaliaPizza_Cliente.Vistas.RegistroOrdenCompra"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"       
+      xmlns:uc="clr-namespace:ItaliaPizza_Cliente.Recursos.ControlesUsuario" 
+      xmlns:local="clr-namespace:ItaliaPizza_Cliente.Vistas"
+      mc:Ignorable="d"      
+      d:DesignHeight="800" d:DesignWidth="1300" Background="#F6F6F6"
+      Title="RegistroOrdenCompra">
+
+
+    <Page.Resources>
+        <Style x:Key="fieldTags" TargetType="{x:Type Label}">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Margin" Value="0,0,0,5" />
+            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+        <Style x:Key="textBoxBorder" TargetType="{x:Type Border}">
+            <Setter Property="CornerRadius" Value="11"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="2"/>
+        </Style>
+        <Style x:Key="buttonBorder" TargetType="{x:Type Border}">
+            <Setter Property="CornerRadius" Value="11"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="Background" Value="#F8D72A"/>
+        </Style>
+        <Style x:Key="subTitleLabel" TargetType="{x:Type Label}">
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="FontFamily" Value="Tahoma"/>
+            <Setter Property="Foreground" Value="#F8D72A"/>
+        </Style>
+        <Style x:Key="errorLabel" TargetType="{x:Type Label}">
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="Foreground" Value="Red"/>
+            <Setter Property="HorizontalContentAlignment" Value="Right"/>
+        </Style>
+        <Style x:Key="CustomButton" TargetType="Button">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontFamily" Value="Tahoma"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="2"/>
+        </Style>
+    </Page.Resources>
+
+
+    <Viewbox Stretch="Fill">
+
+
+        <Canvas  Width="1300" Height="800">
+
+
+            <Border  Background="White" Height="231" Width="618" Canvas.Left="32" Canvas.Top="101" HorizontalAlignment="Center" VerticalAlignment="Top" CornerRadius="15">
+                <Canvas x:Name="cnvDatosProveedor" Background="Transparent">
+                    <Label Content="Datos Proveedor" Style="{StaticResource subTitleLabel}"/>
+                    <ListBox x:Name="lstProveedores" Height="41" Width="350" Canvas.Left="8" Canvas.Top="52" HorizontalAlignment="Left" VerticalAlignment="Center" SelectionChanged="lstProveedores_Selected">
+                        <ListBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </ListBox.Resources>
+                    </ListBox>
+
+                    <Border Style="{StaticResource textBoxBorder}" Background="#D6B400" BorderBrush="White" Height="38" Width="218" Canvas.Left="382" Canvas.Top="54" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <Button Content="Registrar Proveedor" Style="{StaticResource CustomButton}" Foreground="White" Click="BtnRegistrarProveedor_Click"/>
+                    </Border>
+
+                    <Label Content="Nombre :" FontWeight="Black" Foreground="Black" Style="{StaticResource fieldTags}" Canvas.Left="4" Canvas.Top="101" VerticalAlignment="Top"/>
+                    <Label Name="lblNombreProveedor" Content="" Style="{StaticResource fieldTags}" Canvas.Left="83" Canvas.Top="103" VerticalAlignment="Top"/>
+
+                    <Label Content="RFC :" FontWeight="Black" Foreground="Black" Style="{StaticResource fieldTags}" Canvas.Left="5" Canvas.Top="132" VerticalAlignment="Top"/>
+                    <Label x:Name="lblRFCProveedor" Content="" Style="{StaticResource fieldTags}" Canvas.Left="51" Canvas.Top="133" VerticalAlignment="Top"/>
+
+                    <Label Content="Telefono:" FontWeight="Black" Foreground="Black" Style="{StaticResource fieldTags}" Canvas.Left="295" Canvas.Top="133" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                    <Label x:Name="lblTelefonoProveedor" Content="" Style="{StaticResource fieldTags}" Canvas.Left="377" Canvas.Top="135" VerticalAlignment="Top"/>
+
+                    <Label Content="Correo :" FontWeight="Black" Foreground="Black" Style="{StaticResource fieldTags}" Canvas.Left="4" Canvas.Top="164" VerticalAlignment="Top"/>
+                    <Label x:Name="lblCorreo" Content="" Style="{StaticResource fieldTags}" Canvas.Left="74" Canvas.Top="165" VerticalAlignment="Top"/>
+
+                    <Label Content="Dirección :" FontWeight="Black" Foreground="Black" Style="{StaticResource fieldTags}" Canvas.Left="5" Canvas.Top="197" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                    <Label x:Name="lblDireccion" Content="" Style="{StaticResource fieldTags}" Canvas.Left="96" Canvas.Top="199" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+
+                </Canvas>
+            </Border>
+
+
+            <Border  Background="White" Height="440" Width="615" Canvas.Left="33" Canvas.Top="348" HorizontalAlignment="Left" VerticalAlignment="Center" CornerRadius="15">
+                <Canvas x:Name="cnvInsumos">
+                    <Label Content="Insumos" Style="{StaticResource subTitleLabel}"/>
+                    <uc:BarraDeBusqueda x:Name="barraBusquedaInsumo" Canvas.Left="14" Canvas.Top="53" Width="538" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40"/>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="321" Width="587" Canvas.Left="14" Canvas.Top="111" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <StackPanel Name="stpListaInsumos" Orientation="Vertical">
+
+                        </StackPanel>
+                    </ScrollViewer>
+                </Canvas>
+            </Border>
+
+            <Border Background="White" Height="685" Width="597" Canvas.Left="680" Canvas.Top="99" HorizontalAlignment="Center" VerticalAlignment="Top" CornerRadius="15">
+                <Canvas Name="cnvOrdenDeCompra" >
+                    <Label Content="Orden de compra" Style="{StaticResource subTitleLabel}"/>
+                    <Image Source="/Recursos/Iconos/icono_eliminar.png" Canvas.Left="517" Canvas.Top="12" HorizontalAlignment="Left" VerticalAlignment="Center" MouseDown="BtnLimpiarOrden_Click"/>
+                    <Label Content="Limpiar orden" Style="{StaticResource fieldTags}" FontSize="10" Canvas.Left="505" Canvas.Top="45" VerticalAlignment="Top"/>
+                    <ScrollViewer  Height="456" Width="595" Canvas.Left="1" Canvas.Top="63" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <StackPanel x:Name="stpInsumosOrdenCompra">
+
+                        </StackPanel>
+                    </ScrollViewer>
+                    <Separator Height="10" FontWeight="Black" FontSize="20" Canvas.Top="529" Width="562" Canvas.Left="19" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                    <Label Content="Total Productos: " Foreground="Black" FontWeight="Black" Style="{StaticResource fieldTags}" Canvas.Left="23" Canvas.Top="552" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                    <Label x:Name="lblTotalProducto" Content="10000" Style="{StaticResource fieldTags}" Canvas.Left="159" Canvas.Top="553" VerticalAlignment="Top" Width="76" HorizontalAlignment="Center"/>
+
+                    <Label Content="Costos de orden de compra: " Foreground="Black" FontWeight="Black" Style="{StaticResource fieldTags}" Canvas.Left="22" Canvas.Top="583" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                    <Label x:Name="lblTotalCosto" Content="10000" Style="{StaticResource fieldTags}" Canvas.Left="250" Canvas.Top="585" Width="76" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+
+                    <Border  Style="{StaticResource buttonBorder}" Background="#7BD252" Canvas.Left="325" Canvas.Top="552" HorizontalAlignment="Left" VerticalAlignment="Center" Width="243">
+                        <Button Content="Enviar Orden de Compra" Style="{StaticResource CustomButton}" Click="BtnEnviarOrdenCompra_Click"/>
+                    </Border>
+
+                    <Border  Style="{StaticResource buttonBorder}"  Canvas.Left="324" Canvas.Top="598" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <Button Content="Guardar Orden de Compra" Style="{StaticResource CustomButton}" Click="BtnGuardarOrden_Click"/>
+                    </Border>
+
+                    <Border  Style="{StaticResource buttonBorder}" Background="Transparent" BorderBrush="Red" Canvas.Left="323" Canvas.Top="643" HorizontalAlignment="Left" VerticalAlignment="Center" Width="244">
+                        <Button Content="Cancelar" Style="{StaticResource CustomButton}" Foreground="Red" Click="BtnCancelarOrden_Click"/>
+                    </Border>
+
+                </Canvas>
+            </Border>
+
+
+
+        </Canvas>
+
+
+    </Viewbox>
+
+
+
+</Page>

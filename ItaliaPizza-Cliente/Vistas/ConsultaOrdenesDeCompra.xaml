@@ -1,0 +1,33 @@
+﻿<Page x:Class="ItaliaPizza_Cliente.Vistas.ConsultaOrdenesDeCompra"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ItaliaPizza_Cliente.Vistas"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1300" Background="#F6F6F6"
+      Title="ConsultarOrdenesDeCompra">
+
+    <Viewbox >
+        <Grid Height="800" Width="1300">
+            <TextBox Text="La funcionalidad de Consultar sera implementada proximamente" HorizontalContentAlignment="Center" TextWrapping="Wrap" Background="White"  FontSize="32" Margin="291,232,344,429" RenderTransformOrigin="0.5,0.5">
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="20"/>
+                    </Style>
+                </TextBox.Resources>                
+            </TextBox>
+
+            <Button Content="Registrar orden de compra" FontSize="24" Background="Yellow" Margin="400,617,447,64" RenderTransformOrigin="0.5,0.5" Click="BtnRegistrarOrdenCompra_Click">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="20"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+
+        </Grid>
+
+    </Viewbox>
+</Page>

@@ -101,6 +101,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ItaliaPizzaModelo.edmx</DependentUpon>
     </Compile>
+    <Compile Include="OrdenDeCompraDAO.cs" />
     <Compile Include="OrdenesCompra.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>
@@ -122,6 +123,7 @@
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProveedorDAO.cs" />
     <Compile Include="Proveedores.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>

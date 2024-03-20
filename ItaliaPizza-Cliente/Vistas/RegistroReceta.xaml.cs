@@ -491,7 +491,7 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             bool esGuardadoValido = true;
             string mensajeErrorSinProducto = "Primero debes seleccionar un producto para guardarle la receta";
-            string mensajeErrorSinInsumo = "No puedes guardar una receta sin insumos";
+            string mensajeErrorSinInsumo = "No puedes guardar una receta sin insumosDisponibles";
 
             LimpiarMensajesError();
 

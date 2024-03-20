@@ -80,6 +80,9 @@
     <Compile Include="Recursos\ControlesUsuario\ElementoConsultaPedido.xaml.cs">
       <DependentUpon>ElementoConsultaPedido.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Recursos\ControlesUsuario\ElementoInsumoOrdenCompra.xaml.cs">
+      <DependentUpon>ElementoInsumoOrdenCompra.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Recursos\ControlesUsuario\ElementoInsumoReceta.xaml.cs">
       <DependentUpon>ElementoInsumoReceta.xaml</DependentUpon>
     </Compile>
@@ -110,6 +113,9 @@
     <Compile Include="Recursos\ControlesUsuario\ElementoUsuario.xaml.cs">
       <DependentUpon>ElementoUsuario.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Recursos\ControlesUsuario\ElementoInsumoOrdenCompraSeleccionado.xaml.cs">
+      <DependentUpon>ElementoInsumoOrdenCompraSeleccionado.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utilidades\ConvertidorBytes.cs" />
     <Compile Include="Utilidades\EmpleadoSingleton.cs" />
     <Compile Include="Utilidades\EnumEstadosPedido.cs" />
@@ -127,6 +133,9 @@
     <Compile Include="Vistas\ConsultaPedidos.xaml.cs">
       <DependentUpon>ConsultaPedidos.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Vistas\ConsultaOrdenesDeCompra.xaml.cs">
+      <DependentUpon>ConsultaOrdenesDeCompra.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\InicioSesion.xaml.cs">
       <DependentUpon>InicioSesion.xaml</DependentUpon>
     </Compile>
@@ -135,6 +144,9 @@
     </Compile>
     <Compile Include="Vistas\Recetas.xaml.cs">
       <DependentUpon>Recetas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\RegistroOrdenCompra.xaml.cs">
+      <DependentUpon>RegistroOrdenCompra.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\RegistroPedido.xaml.cs">
       <DependentUpon>RegistroPedido.xaml</DependentUpon>
@@ -191,6 +203,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Recursos\ControlesUsuario\ElementoInsumoOrdenCompra.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Recursos\ControlesUsuario\ElementoInsumoReceta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -231,6 +247,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Recursos\ControlesUsuario\ElementoInsumoOrdenCompraSeleccionado.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Utilidades\VentanaEmergente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -243,6 +263,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Vistas\ConsultaOrdenesDeCompra.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Vistas\InicioSesion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -252,6 +276,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vistas\Recetas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\RegistroOrdenCompra.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -308,7 +336,10 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.EmpleadoDto.datasource">
-       <DependentUpon>Reference.svcmap</DependentUpon>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.InsumoOrdenCompraDto.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.Pedido.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -317,6 +348,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.ProductoVentaPedidos.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.ProveedorDto.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.TipoServicio.datasource">
@@ -453,6 +487,9 @@
   <ItemGroup>
     <Resource Include="Recursos\Iconos\icono_mas.png" />
     <Resource Include="Recursos\Iconos\icono_receta.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Recursos\Iconos\icono_menos.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -237,5 +237,17 @@ namespace ItaliaPizza_Servicios
             }
             return insumosDisminuidos;
         }
+
+        public List<InsumoOrdenCompraDto> RecuperarInsumosActivos()
+        {
+            List<InsumoOrdenCompraDto> insumoOrdenCompras = new List<InsumoOrdenCompraDto>();
+            InsumoDAO insumoDAO = new InsumoDAO();
+            var insumosActivos = insumoDAO.RecuperarInsumosActivos();
+            foreach (var item in insumosActivos)
+            {
+                insumoOrdenCompras.Add(AuxiliarConversorDTOADAO.ConvertirInsumosAInsumoOrdenCompraDto(item));
+            }
+            return insumoOrdenCompras;
+        }
     }
 }

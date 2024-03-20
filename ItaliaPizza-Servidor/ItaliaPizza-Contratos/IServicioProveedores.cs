@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,15 +10,9 @@ using System.Threading.Tasks;
 namespace ItaliaPizza_Contratos
 {
     [ServiceContract]
-    public interface IServicioOrdenesCompra
+    public interface IServicioProveedores
     {
         [OperationContract]
-        void OperacionOrdenesEjemplo();
-
-        [OperationContract]
-        int GuardarOrdenDeCompraNueva(OrdenDeCompraDto ordenDeCompraDto);
-
-        [OperationContract]
-        bool EnviarOrdenDeCompra(int idOrdenDeCompra);
+        List<ProveedorDto> RecuperarProveedores();
     }
 }

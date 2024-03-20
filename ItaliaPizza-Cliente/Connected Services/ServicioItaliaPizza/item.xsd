@@ -1,6 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:8082/?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:complexType name="OrdenDeCompraDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Fecha" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="IdEstadoOrdenCompra" type="xs:int" />
+      <xs:element minOccurs="0" name="IdOrdenCompra" type="xs:int" />
+      <xs:element minOccurs="0" name="IdProveedor" type="xs:int" />
+      <xs:element minOccurs="0" name="Proveedor" nillable="true" type="tns:ProveedorDto" />
+      <xs:element minOccurs="0" name="listaElementosOrdenCompra" nillable="true" type="tns:ArrayOfElementoOrdenCompraDto" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OrdenDeCompraDto" nillable="true" type="tns:OrdenDeCompraDto" />
+  <xs:complexType name="ProveedorDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CorreoElectronico" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Direccion" nillable="true" type="tns:DireccionDto" />
+      <xs:element minOccurs="0" name="IdDireccion" type="xs:int" />
+      <xs:element minOccurs="0" name="IdProveedor" type="xs:int" />
+      <xs:element minOccurs="0" name="NombreCompleto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroTelefono" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RFC" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProveedorDto" nillable="true" type="tns:ProveedorDto" />
+  <xs:complexType name="DireccionDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Calle" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Ciudad" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoPostal" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Colonia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdDireccion" type="xs:int" />
+      <xs:element minOccurs="0" name="Numero" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DireccionDto" nillable="true" type="tns:DireccionDto" />
+  <xs:complexType name="ArrayOfElementoOrdenCompraDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ElementoOrdenCompraDto" nillable="true" type="tns:ElementoOrdenCompraDto" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfElementoOrdenCompraDto" nillable="true" type="tns:ArrayOfElementoOrdenCompraDto" />
+  <xs:complexType name="ElementoOrdenCompraDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CantidadInsumosAdquiridos" type="xs:int" />
+      <xs:element minOccurs="0" name="IdElementoOrdenCompra" type="xs:int" />
+      <xs:element minOccurs="0" name="InsumoOrdenCompraDto" nillable="true" type="tns:InsumoOrdenCompraDto" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ElementoOrdenCompraDto" nillable="true" type="tns:ElementoOrdenCompraDto" />
+  <xs:complexType name="InsumoOrdenCompraDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CostoUnitario" type="xs:float" />
+      <xs:element minOccurs="0" name="Existencia" type="xs:float" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnidadMedida" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="InsumoOrdenCompraDto" nillable="true" type="tns:InsumoOrdenCompraDto" />
   <xs:complexType name="ArrayOfTipoServicio">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="TipoServicio" nillable="true" type="tns:TipoServicio" />
@@ -156,6 +214,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfProductoVentaPedidos" nillable="true" type="tns:ArrayOfProductoVentaPedidos" />
+  <xs:complexType name="ArrayOfInsumoOrdenCompraDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="InsumoOrdenCompraDto" nillable="true" type="tns:InsumoOrdenCompraDto" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfInsumoOrdenCompraDto" nillable="true" type="tns:ArrayOfInsumoOrdenCompraDto" />
   <xs:complexType name="ArrayOfReceta">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Receta" nillable="true" type="tns:Receta" />
@@ -231,17 +295,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="UsuarioDto" nillable="true" type="tns:UsuarioDto" />
-  <xs:complexType name="DireccionDto">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Calle" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Ciudad" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoPostal" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Colonia" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="IdDireccion" type="xs:int" />
-      <xs:element minOccurs="0" name="Numero" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="DireccionDto" nillable="true" type="tns:DireccionDto" />
   <xs:complexType name="ArrayOfTipoEmpleadoDto">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="TipoEmpleadoDto" nillable="true" type="tns:TipoEmpleadoDto" />
@@ -277,4 +330,10 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Cliente" nillable="true" type="tns:Cliente" />
+  <xs:complexType name="ArrayOfProveedorDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProveedorDto" nillable="true" type="tns:ProveedorDto" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfProveedorDto" nillable="true" type="tns:ArrayOfProveedorDto" />
 </xs:schema>

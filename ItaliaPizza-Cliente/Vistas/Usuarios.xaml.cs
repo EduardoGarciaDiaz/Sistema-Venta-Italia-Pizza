@@ -43,6 +43,7 @@ namespace ItaliaPizza_Cliente.Vistas
             CargarTiposEmpleados(tiposEmpleado);
             barraBusquedaUsuario.Background = new SolidColorBrush(Colors.White);
             barraBusquedaUsuario.ImgBuscarClicked += ImgBuscar_Click;
+            barraBusquedaUsuario.Placeholder.Text = "Busca un usuario por nombre, direccion o telefono...";
             ResaltarFiltroSeleccionado(brdTodos);
         }
 
