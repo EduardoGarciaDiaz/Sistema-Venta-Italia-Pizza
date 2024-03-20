@@ -4,6 +4,7 @@ using ItaliaPizza_Cliente.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,25 +24,30 @@ namespace ItaliaPizza_Cliente.Vistas
     /// </summary>
     public partial class ConsultaPedidos : Page
     {
-        private List<PedidoConsultaDTO> _pedidos;
-        SolidColorBrush _colorBrushAmarillo = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFD6B400"));
-        SolidColorBrush _colorBrushRojo = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFD67272"));
-        SolidColorBrush _colorBrushNegro = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#00000000"));
-        SolidColorBrush _colorBrushGris = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF656565"));
 
         private string MENSAJE_SIN_RESULTADOS_BUSQUEDA_PRODUCTO = "No existen pedidos para el cliente ingresado";
         private string MENSAJE_CAMPO_VACIO = "Por favor, ingresa algo en la barra para realizar la busqueda.";
         private string MENSAJE_SIN_RESULTADOS_SELECCION_FECHA = "No hay pedidos en la fecha seleccionada.";
+        private string MARCAR_COMO_PREPARADO = "Marcar como preparado";
+        private string CANCELAR_PEDIDO = "Cancelar pedido";
+        private string MARCAR_COMO_ENTREGADO = "Marcar como entregado";
 
+        private SolidColorBrush _colorBrushAmarillo = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFD6B400"));
+        private SolidColorBrush _colorBrushRojo = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFD67272"));
+        private SolidColorBrush _colorBrushNegro = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#00000000"));
+        private SolidColorBrush _colorBrushGris = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF656565"));
+
+        private List<PedidoConsultaDTO> _pedidos;
         private Pedido _pedidoSeleccionado;
 
         public ConsultaPedidos()
         {
             InitializeComponent();
+            //TEMPORAL
             EmpleadoSingleton.getInstance().TipoEmpleado = new TipoEmpleadoDto
             {
-                Nombre = "x",
-                IdTipoEmpleado = 3
+                Nombre = "X",
+                IdTipoEmpleado = 1
             };
             this.Loaded += ConsultaPedidos_Loaded;
         }
@@ -55,7 +61,141 @@ namespace ItaliaPizza_Cliente.Vistas
             lbEntregados.Tag = (int)EnumEstadosPedido.Entregado;
             lbCancelados.Tag = (int)EnumEstadosPedido.Cancelado;
             MostrarFiltrosEstado();
+
             RecuperarPedidos();
+        }
+
+        private void BtnActualizarEstadoPedido_Click(object sender, RoutedEventArgs e)
+        {
+            if (_pedidoSeleccionado == null) return;
+
+            var servicioPedidosClient = new ServicioPedidosClient();
+            var empleadoSingleton = EmpleadoSingleton.getInstance();
+            int nuevoEstadoPedido = DeterminarNuevoEstadoPedido(_pedidoSeleccionado.IdEstadoPedido, empleadoSingleton.TipoEmpleado.IdTipoEmpleado);
+
+            if (nuevoEstadoPedido != -1)
+            {
+                int resultado = servicioPedidosClient.ActualizarEstadoPedido(_pedidoSeleccionado.NumeroPedido, nuevoEstadoPedido);
+
+                if (resultado > 0)
+                {
+                    ActualizarUIPostCambioEstado(servicioPedidosClient);
+                }
+            }
+        }
+
+        private void ElementoConsultaPedidoClick(object sender, RoutedEventArgs e)
+        {
+            ElementoConsultaPedido elementoConsultaPedido = sender as ElementoConsultaPedido;
+            ServicioPedidosClient servicioPedidosCliente = new ServicioPedidosClient();
+            int numeroPedido = int.Parse(elementoConsultaPedido.LblNumeroPedido.Content.ToString());
+            try
+            {
+                Pedido pedido = servicioPedidosCliente.RecuperarPedido(numeroPedido);
+                if (pedido != null)
+                {
+                    _pedidoSeleccionado = pedido;
+                    ServicioUsuariosClient servicioUsuarios = new ServicioUsuariosClient();
+                    Cliente cliente = servicioUsuarios.RecuperarClientePorId(pedido.IdCliente);
+                    bdrSeleccionaUnPedido.Visibility = Visibility.Collapsed;
+                    MostrarPedido(pedido, cliente);
+                }
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (CommunicationException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+        }
+
+        private void ImgBuscarPedidoPorCliente(object sender, EventArgs e)
+        {
+            string valorBusqueda = BqdClientes.TxtBusqueda.Text.ToString();
+            if (!(ValidarCamposVacios(valorBusqueda)))
+            {
+                List<PedidoConsultaDTO> resultadoBusquedaPedidos = new List<PedidoConsultaDTO>();
+                resultadoBusquedaPedidos = _pedidos.Where(
+                    pedido => pedido.NombreCliente.ToLower().Contains(valorBusqueda.ToLower())).ToList();
+                if (resultadoBusquedaPedidos.Count != 0)
+                {
+                    MostrarPedidos(resultadoBusquedaPedidos);
+                }
+                else
+                {
+                    LblMensajeAdvertenciaPedido.Content = MENSAJE_SIN_RESULTADOS_BUSQUEDA_PRODUCTO;
+                }
+            }
+            else
+            {
+                LblMensajeAdvertenciaPedido.Content = MENSAJE_CAMPO_VACIO;
+                Utilidad.MostrarLabelDuranteSegundos(LblMensajeAdvertenciaPedido, 2);
+            }
+        }
+
+        private void TxtBusquedaPedidoChanged(object sender, EventArgs e)
+        {
+            this.LblMensajeAdvertenciaPedido.Content = "";
+            if (string.IsNullOrWhiteSpace(BqdClientes.TxtBusqueda.Text))
+            {
+                MostrarPedidos(_pedidos);
+            }
+        }
+
+        private void DpkFechaBusqueda_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DateTime fechaSeleccionada = (DateTime)(sender as DatePicker).SelectedDate;
+            List<PedidoConsultaDTO> resultadoSeleccionFecha = new List<PedidoConsultaDTO>();
+            resultadoSeleccionFecha = _pedidos.Where(pedido => pedido.Fecha.Date == fechaSeleccionada.Date).ToList();
+            if (resultadoSeleccionFecha.Any())
+            {
+                MostrarPedidos(resultadoSeleccionFecha);
+                CambiarColorFiltroCategoria(lblTodosPedidos);
+            }
+            else
+            {
+                lblMensajeSinResultados.Content = MENSAJE_SIN_RESULTADOS_SELECCION_FECHA;
+                Utilidad.MostrarLabelDuranteSegundos(lblMensajeSinResultados, 2);
+            }
+        }
+
+        private void LblTodosProductos_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            CambiarColorFiltroCategoria((Label)sender);
+            MostrarPedidos(_pedidos);
+        }
+
+        private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var label = (Label)sender;
+            int estadoPedidoId = Convert.ToInt32(label.Tag);
+
+            CambiarColorFiltroCategoria(label);
+            FiltrarYMostrarPedidosPorEstado(estadoPedidoId);
         }
 
         private void MostrarFiltrosEstado()
@@ -91,17 +231,52 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             ServicioPedidosClient servicioPedidosCliente = new ServicioPedidosClient();
             int idTipoEmpleado = EmpleadoSingleton.getInstance().TipoEmpleado.IdTipoEmpleado;
-            if (idTipoEmpleado == (int)EnumTiposEmpleado.Cajero)
+            try
             {
-                _pedidos = servicioPedidosCliente.RecuperarPedidos().ToList();
-            } else if (idTipoEmpleado == (int)EnumTiposEmpleado.Chef)
-            {
-                _pedidos = servicioPedidosCliente.RecuperarPedidosEnProceso().ToList();
-            } else
-            {
-                _pedidos = servicioPedidosCliente.RecuperarPedidosPreparados().ToList();
+                if (idTipoEmpleado == (int)EnumTiposEmpleado.Cajero)
+                {
+                    _pedidos = servicioPedidosCliente.RecuperarPedidos().ToList();
+                }
+                else if (idTipoEmpleado == (int)EnumTiposEmpleado.Chef)
+                {
+                    _pedidos = servicioPedidosCliente.RecuperarPedidosEnProceso().ToList();
+                }
+                else
+                {
+                    _pedidos = servicioPedidosCliente.RecuperarPedidosPreparados().ToList();
+                }
+                MostrarPedidos(_pedidos);
             }
-            MostrarPedidos(_pedidos);
+            catch (EndpointNotFoundException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (CommunicationException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
         }
 
         private void MostrarPedidos(List<PedidoConsultaDTO> pedidos)
@@ -156,45 +331,32 @@ namespace ItaliaPizza_Cliente.Vistas
             }
         }
 
-        private void ElementoConsultaPedidoClick(object sender, RoutedEventArgs e)
-        {
-            ElementoConsultaPedido elementoConsultaPedido = sender as ElementoConsultaPedido;
-            ServicioPedidosClient servicioPedidosCliente = new ServicioPedidosClient();
-            int numeroPedido = int.Parse(elementoConsultaPedido.LblNumeroPedido.Content.ToString());
-            Pedido pedido = servicioPedidosCliente.RecuperarPedido(numeroPedido);
-            if (pedido != null)
-            {
-                _pedidoSeleccionado = pedido;
-                ServicioUsuariosClient servicioUsuarios = new ServicioUsuariosClient();
-                Cliente cliente = servicioUsuarios.RecuperarClientePorId(pedido.IdCliente);
-                bdrSeleccionaUnPedido.Visibility = Visibility.Collapsed;
-                MostrarPedido(pedido, cliente);
-            }
-        }
-
         private void MostrarPedido(Pedido pedido, Cliente cliente)
         {
-            skpContenedorProductos.Children.Clear();
-            lbNumeroPedido.Content = "#" + pedido.NumeroPedido;
-            lbNombreCliente.Content = cliente.NombreCliente;
-            lbCorreoElectronicoCliente.Content = cliente.CorreoElectronicoCliente;
-            lbTipoServicio.Content = pedido.TipoServicio.Nombre;
-
-            foreach (var producto in pedido.ProductosIncluidos.Keys)
+            if (pedido != null && cliente != null)
             {
-                ElementoProductoConsultaPedido consultaPedido = new ElementoProductoConsultaPedido
+                skpContenedorProductos.Children.Clear();
+                lbNumeroPedido.Content = "#" + pedido.NumeroPedido;
+                lbNombreCliente.Content = cliente.NombreCliente;
+                lbCorreoElectronicoCliente.Content = cliente.CorreoElectronicoCliente;
+                lbTipoServicio.Content = pedido.TipoServicio.Nombre;
+
+                foreach (var producto in pedido.ProductosIncluidos.Keys)
                 {
-                    lbNombreProducto = {Content = producto.Nombre},
-                    lbDescripcionProducto = { Content =  producto.Descripcion},
-                    lbCantidadProductos = {Content = pedido.ProductosIncluidos[producto]},
-                    lbPrecioProducto = {Content = "$" + producto.Precio},
-                };
-                skpContenedorProductos.Children.Add(consultaPedido);
+                    ElementoProductoConsultaPedido consultaPedido = new ElementoProductoConsultaPedido
+                    {
+                        lbNombreProducto = { Content = producto.Nombre },
+                        lbDescripcionProducto = { Content = producto.Descripcion },
+                        lbCantidadProductos = { Content = pedido.ProductosIncluidos[producto] },
+                        lbPrecioProducto = { Content = "$" + producto.Precio },
+                    };
+                    skpContenedorProductos.Children.Add(consultaPedido);
+                }
+                lbSubtotal.Content = (pedido.Total / 1.16).ToString("F2");
+                lbIVA.Content = (pedido.Total - (pedido.Total / 1.16)).ToString("F2");
+                lbTotal.Content = pedido.Total.ToString("F2");
+                MostrarContenidoDeBoton(pedido.IdEstadoPedido);
             }
-            lbSubtotal.Content = (pedido.Total / 1.16).ToString("F2");
-            lbIVA.Content = (pedido.Total - (pedido.Total / 1.16)).ToString("F2");
-            lbTotal.Content = pedido.Total.ToString("F2");
-            MostrarContenidoDeBoton(pedido.IdEstadoPedido);
         }
 
         private void MostrarContenidoDeBoton(int idEstadoPedido)
@@ -205,15 +367,15 @@ namespace ItaliaPizza_Cliente.Vistas
             switch (idEstadoPedido)
             {
                 case (int)EnumEstadosPedido.EnProceso when tipoEmpleado == (int)EnumTiposEmpleado.Chef:
-                    ConfigurarBoton(_colorBrushAmarillo, "Marcar como preparado", new SolidColorBrush(Colors.White), new Thickness(0));
+                    ConfigurarBoton(_colorBrushAmarillo, MARCAR_COMO_PREPARADO, new SolidColorBrush(Colors.White), new Thickness(0));
                     break;
 
                 case (int)EnumEstadosPedido.EnProceso when tipoEmpleado == (int)EnumTiposEmpleado.Cajero:
-                    ConfigurarBoton(new SolidColorBrush(Colors.White), "Cancelar pedido", _colorBrushRojo, new Thickness(2), true);
+                    ConfigurarBoton(new SolidColorBrush(Colors.White), CANCELAR_PEDIDO, _colorBrushRojo, new Thickness(2), true);
                     break;
 
                 case (int)EnumEstadosPedido.Preparado:
-                    ConfigurarBoton(new SolidColorBrush(Colors.Black), "Marcar como entregado", new SolidColorBrush(Colors.White), new Thickness(0));
+                    ConfigurarBoton(new SolidColorBrush(Colors.Black), MARCAR_COMO_ENTREGADO, new SolidColorBrush(Colors.White), new Thickness(0));
                     break;
 
                 case (int)EnumEstadosPedido.Cancelado:
@@ -239,65 +401,9 @@ namespace ItaliaPizza_Cliente.Vistas
             }
         }
 
-        private void ImgBuscarPedidoPorCliente(object sender, EventArgs e)
-        {
-            string valorBusqueda = BqdClientes.TxtBusqueda.Text.ToString();
-            if (!(ValidarCamposVacios(valorBusqueda)))
-            {
-                List<PedidoConsultaDTO> resultadoBusquedaPedidos = new List<PedidoConsultaDTO>();
-                resultadoBusquedaPedidos = _pedidos.Where(
-                    pedido => pedido.NombreCliente.ToLower().Contains(valorBusqueda.ToLower())).ToList();
-                if (resultadoBusquedaPedidos.Count != 0)
-                {
-                    MostrarPedidos(resultadoBusquedaPedidos);
-                }
-                else
-                {
-                    LblMensajeAdvertenciaPedido.Content = MENSAJE_SIN_RESULTADOS_BUSQUEDA_PRODUCTO;
-                }
-            }
-            else
-            {
-                LblMensajeAdvertenciaPedido.Content = MENSAJE_CAMPO_VACIO;
-                Utilidad.MostrarLabelDuranteSegundos(LblMensajeAdvertenciaPedido, 2);
-            }
-        }
-
         private bool ValidarCamposVacios(string text)
         {
             return string.IsNullOrWhiteSpace(text);
-        }
-
-        private void TxtBusquedaPedidoChanged(object sender, EventArgs e)
-        {
-            this.LblMensajeAdvertenciaPedido.Content = "";
-            if (string.IsNullOrWhiteSpace(BqdClientes.TxtBusqueda.Text))
-            {
-                MostrarPedidos(_pedidos);
-            }
-        }
-
-        private void DpkFechaBusqueda_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-            DateTime fechaSeleccionada = (DateTime) (sender as DatePicker).SelectedDate;
-            List<PedidoConsultaDTO> resultadoSeleccionFecha = new List<PedidoConsultaDTO>();
-            resultadoSeleccionFecha = _pedidos.Where(pedido => pedido.Fecha.Date == fechaSeleccionada.Date).ToList();
-            if (resultadoSeleccionFecha.Count != 0)
-            {
-                MostrarPedidos(resultadoSeleccionFecha);
-                CambiarColorFiltroCategoria(lblTodosPedidos);
-            }
-            else
-            {
-                lblMensajeSinResultados.Content = MENSAJE_SIN_RESULTADOS_SELECCION_FECHA;
-                Utilidad.MostrarLabelDuranteSegundos(lblMensajeSinResultados, 2);
-            }
-        }
-
-        private void LblTodosProductos_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            CambiarColorFiltroCategoria((Label)sender);
-            MostrarPedidos(_pedidos);
         }
 
         private void CambiarColorFiltroCategoria(Label labelSeleccionado)
@@ -307,15 +413,6 @@ namespace ItaliaPizza_Cliente.Vistas
                 label.Foreground = _colorBrushGris;
             }
             labelSeleccionado.Foreground = _colorBrushAmarillo;
-        }
-
-        private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            var label = (Label)sender;
-            int estadoPedidoId = Convert.ToInt32(label.Tag);
-
-            CambiarColorFiltroCategoria(label);
-            FiltrarYMostrarPedidosPorEstado(estadoPedidoId);
         }
 
         private void FiltrarYMostrarPedidosPorEstado(int idEstadoPedido)
@@ -330,25 +427,6 @@ namespace ItaliaPizza_Cliente.Vistas
             else
             {
                 SkpContenedorPedidos.Children.Clear();
-            }
-        }
-
-        private void BtnActualizarEstadoPedido_Click(object sender, RoutedEventArgs e)
-        {
-            if (_pedidoSeleccionado == null) return;
-
-            var servicioPedidosClient = new ServicioPedidosClient();
-            var empleadoSingleton = EmpleadoSingleton.getInstance();
-            int nuevoEstadoPedido = DeterminarNuevoEstadoPedido(_pedidoSeleccionado.IdEstadoPedido, empleadoSingleton.TipoEmpleado.IdTipoEmpleado);
-
-            if (nuevoEstadoPedido != -1)
-            {
-                int resultado = servicioPedidosClient.ActualizarEstadoPedido(_pedidoSeleccionado.NumeroPedido, nuevoEstadoPedido);
-
-                if (resultado > 0)
-                {
-                    ActualizarUIPostCambioEstado(servicioPedidosClient);
-                }
             }
         }
 
@@ -372,10 +450,43 @@ namespace ItaliaPizza_Cliente.Vistas
         private void ActualizarUIPostCambioEstado(ServicioPedidosClient servicioPedidosClient)
         {
             
-            _pedidoSeleccionado = servicioPedidosClient.RecuperarPedido(_pedidoSeleccionado.NumeroPedido);
-            Cliente cliente = new ServicioUsuariosClient().RecuperarClientePorId(_pedidoSeleccionado.IdCliente);
-            RecuperarPedidos();
-            MostrarPedido(_pedidoSeleccionado, cliente);
+            try
+            {
+                _pedidoSeleccionado = servicioPedidosClient.RecuperarPedido(_pedidoSeleccionado.NumeroPedido);
+                Cliente cliente = new ServicioUsuariosClient().RecuperarClientePorId(_pedidoSeleccionado.IdCliente);
+                RecuperarPedidos();
+                MostrarPedido(_pedidoSeleccionado, cliente);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (CommunicationException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
         }
 
     }

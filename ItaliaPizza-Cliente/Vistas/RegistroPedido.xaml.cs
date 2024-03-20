@@ -27,120 +27,79 @@ namespace ItaliaPizza_Cliente.Vistas
     public partial class RegistroPedido : Page
     {
 
-        private ObservableCollection<ClienteBusqueda> _clientes;
+        private string MENSAJE_BUSQUEDA_OTRO_CLIENTE = "Cambiar cliente...";
         private string MENSAJE_CAMPO_VACIO = "Por favor, ingresa algo en la barra para realizar la busqueda.";
         private string MENSAJE_SIN_RESULTADOS_BUSQUEDA_CLIENTE = "El nombre ingresado no corresponde a ningun cliente.";
         private string MENSAJE_SIN_RESULTADOS_BUSQUEDA_PRODUCTO = "El nombre ingresado no corresponde a ningun cliente.";
-        private string MENSAJE_BUSQUEDA_OTRO_CLIENTE = "Cambiar cliente...";
-        private TipoServicio _tipoServicioSeleccionado = new TipoServicio();
+
+        private SolidColorBrush _colorBrushAmarillo = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFD6B400"));
+        private SolidColorBrush _colorBrushGris = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFDDDDDD"));
+        private SolidColorBrush _colorBrushGrisTexto = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF918C8C"));
+        private SolidColorBrush _colorBrushWhite = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFFFF"));
+
+        private ObservableCollection<ClienteBusqueda> _clientes;
+        private List<ProductoVentaPedidos> _productosVenta;
+        private Dictionary<string, int> _productosEnPedido = new Dictionary<string, int>();
         private List<TipoServicio> _tiposServicio;
-        SolidColorBrush _colorBrushAmarillo = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFD6B400"));
-        SolidColorBrush _colorBrushGris = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFDDDDDD"));
-        SolidColorBrush _colorBrushWhite = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFFFFF"));
-        SolidColorBrush _colorBrushGrisTexto = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF918C8C"));
-        List<ProductoVentaPedidos> _productosVenta;
-        Dictionary<string, int> _productosEnPedido = new Dictionary<string, int>();
-        ClienteBusqueda _clienteSeleccionado = new ClienteBusqueda();
-        private double _total = 0;
-        private double _subtotal = 0;
+
         private double _iva = 0;
+        private double _subtotal = 0;
+        private double _total = 0;
+
+        private ClienteBusqueda _clienteSeleccionado = new ClienteBusqueda();
+        private TipoServicio _tipoServicioSeleccionado = new TipoServicio();
 
         public RegistroPedido()
         {
             _clientes = new ObservableCollection<ClienteBusqueda>();
             InitializeComponent();
+            this.Loaded += RegistroPedido_Loaded;
+        }
 
-            this.BarraBusquedaClientes.DataContext = _clientes;
-            this.BarraBusquedaClientes.ImgBuscar_EventHandler += ImgBuscarClienteClicked;
-            this.BarraBusquedaClientes.TxtBusqueda_EventHandler += TxtBusquedaClienteChanged;
-            this.BarraBusquedaClientes.Lista_SelectionChanged_EventHandler += ListaSelectionChanged;
-            this.BarraBusquedaProductos.ImgBuscarClicked += ImgBuscarProductosClicked;
-            this.BarraBusquedaProductos.TxtBusquedaChanged_EventHandler += TxtBusquedaProductoChanged;
-            _clienteSeleccionado = null;
-
-            ServicioProductosClient servicioProductosClient = new ServicioProductosClient();
-            ServicioPedidosClient servicioPedidosClient = new ServicioPedidosClient();
+        private void RegistroPedido_Loaded(object sender, RoutedEventArgs e)
+        {
+            InicializarElementos();
+            MostrarCantidades();
+            ServicioProductosClient servicioProductosCliente = new ServicioProductosClient();
+            ServicioPedidosClient servicioPedidosCliente = new ServicioPedidosClient();
             try
             {
-                List<Categoria> categoriasProductoVenta = servicioProductosClient.RecuperarCategoriasProductoVenta().ToList();
+                List<Categoria> categoriasProductoVenta = servicioProductosCliente.RecuperarCategoriasProductoVenta().ToList();
                 MostrarCategoriasProductoVenta(categoriasProductoVenta);
-                _productosVenta = servicioProductosClient.RecuperarProductosVenta().ToList();
+                _productosVenta = servicioProductosCliente.RecuperarProductosVenta().ToList();
                 MostrarProductosVenta(_productosVenta);
-                _tiposServicio = servicioPedidosClient.RecuperarTiposServicio().ToList();
+                _tiposServicio = servicioPedidosCliente.RecuperarTiposServicio().ToList();
                 _tipoServicioSeleccionado = _tiposServicio.ElementAt((int)EnumTiposServicio.EnEstablecimiento);
             }
             catch (EndpointNotFoundException ex)
             {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (TimeoutException ex)
             {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (FaultException ex)
             {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (CommunicationException ex)
             {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (Exception ex)
             {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
-            }
-            MostrarCantidades();
-    }
-
-        public void MostrarCategoriasProductoVenta(List<Categoria> categorias)
-        {
-            foreach (Categoria categoria in categorias)
-            {
-                Label label = new Label();
-                label.Content = categoria.Nombre.ToString();
-                label.FontSize = 18;
-                label.VerticalAlignment = VerticalAlignment.Center;
-                label.HorizontalAlignment = HorizontalAlignment.Center;
-                label.Padding = new Thickness(10);
-                label.Foreground = _colorBrushGrisTexto;
-                label.Tag = categoria.Id;
-                label.Cursor = Cursors.Hand;
-                label.MouseLeftButtonDown += FiltrarProductosPorCategoria;
-                SkpCategoriasProductoVenta.Children.Add(label);
-            }
-        }
-
-        public void MostrarProductosVenta(List<ProductoVentaPedidos> productosVenta)
-        {
-            SkpContenedorProductos.Children.Clear();
-
-            StackPanel stackPanel = null;
-            for (int i = 0; i < productosVenta.Count; i++)
-            {
-                if (i % 4 == 0)
-                {
-                    stackPanel = new StackPanel
-                    {
-                        Orientation = Orientation.Horizontal
-                    };
-                    SkpContenedorProductos.Children.Add(stackPanel);
-                }
-                ProductoVentaPedidos productoVenta = productosVenta[i];
-                ElementoProductoVenta elementoProductoVenta = new ElementoProductoVenta
-                {
-                    ImgProducto = { Source = ConvertidorBytes.ConvertirBytesABitmapImage(productoVenta.Foto) },
-                    LblNombreProducto = { Content = productoVenta.Nombre },
-                    LblCodigo = { Content = productoVenta.Codigo },
-                    LblDescripcionProducto = { Text = productoVenta.Descripcion },
-                    LblPrecioProducto = { Content = $"${productoVenta.Precio}" }
-                };
-                elementoProductoVenta.Click += ElementoProductoVenta_Click;
-                stackPanel.Children.Add(elementoProductoVenta);
+                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
         }
 
@@ -174,95 +133,35 @@ namespace ItaliaPizza_Cliente.Vistas
                 }
                 catch (EndpointNotFoundException ex)
                 {
-                    // TODO: Manejar excepcion
-                    Console.WriteLine(ex.StackTrace);
+                    VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
                 }
                 catch (TimeoutException ex)
                 {
-                    // TODO: Manejar excepcion
-                    Console.WriteLine(ex.StackTrace);
+                    VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                }
+                catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
                 }
                 catch (FaultException ex)
                 {
-                    // TODO: Manejar excepcion
-                    Console.WriteLine(ex.StackTrace);
+                    VentanasEmergentes.MostrarVentanaErrorServidor();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
                 }
                 catch (CommunicationException ex)
                 {
-                    // TODO: Manejar excepcion
-                    Console.WriteLine(ex.StackTrace);
+                    VentanasEmergentes.MostrarVentanaErrorServidor();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
                 }
                 catch (Exception ex)
                 {
-                    // TODO: Manejar excepcion
-                    Console.WriteLine(ex.StackTrace);
+                    VentanasEmergentes.MostrarVentanaErrorInesperado();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
                 }
             }
-        }
-
-        private void SumarCantidadAProducto(string codigoProducto)
-        {
-            int cantidadActualProductos = _productosEnPedido[codigoProducto];
-            int cantidadNuevaRequeridaProductos = cantidadActualProductos + 1;
-            ServicioProductosClient servicioProductosClient = new ServicioProductosClient();
-            try
-            {
-                bool productoDisponibleParaVenta = servicioProductosClient.ValidarDisponibilidadDeProducto(codigoProducto, cantidadNuevaRequeridaProductos);
-                if (productoDisponibleParaVenta)
-                {
-                    _productosEnPedido[codigoProducto]++;
-                    ActualizarEnInterfazCantidadRequeridaProductos(codigoProducto);
-                    CalcularCantidades();
-                    MostrarCantidades();
-                }
-                else
-                {
-                    Utilidad.MostrarLabelDuranteSegundos(LblProductoNoDisponible, 2);
-                }
-            }
-            catch (EndpointNotFoundException ex)
-            {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
-            }
-            catch (TimeoutException ex)
-            {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
-            }
-            catch (FaultException ex)
-            {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
-            }
-            catch (CommunicationException ex)
-            {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
-            }
-            catch (Exception ex)
-            {
-                // TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
-            }
-        }
-
-        private void MostrarDatosProductoSeleccionado(ProductoVentaPedidos productoSeleccionado)
-        {
-
-            ElementoPedido elementoPedido = new ElementoPedido();
-            elementoPedido.ProductoVentaPedidos = productoSeleccionado;
-            elementoPedido.LblNombreProducto.Content = productoSeleccionado.Nombre;
-            elementoPedido.LblDescripcionProducto.Content = productoSeleccionado.Descripcion;
-            elementoPedido.LblPrecioProducto.Content = "$" + productoSeleccionado.Precio;
-            elementoPedido.ProductoVentaPedidos = productoSeleccionado;
-            elementoPedido.TbxCantidadProducto.Text = _productosEnPedido[productoSeleccionado.Codigo].ToString();
-            elementoPedido.TbxCantidadProductoTextChanged += TbxCantidadProductoTextChanged;
-            elementoPedido.TbxLostFocusTbxCantidad += TbxCantidadProductoLostFocus;
-            elementoPedido.BtnSumarClicked += BtnSumarProductoClicked;
-            elementoPedido.BtnRestarClicked += BtnRestarProductoClicked;
-
-            SkpContenedorProductosPedido.Children.Add(elementoPedido);
         }
 
         private void BtnRestarProductoClicked(object sender, EventArgs e)
@@ -335,28 +234,33 @@ namespace ItaliaPizza_Cliente.Vistas
                 }
                 catch (EndpointNotFoundException ex)
                 {
-                    // TODO: Manejar excepcion
-                    Console.WriteLine(ex.StackTrace);
+                    VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
                 }
                 catch (TimeoutException ex)
                 {
-                    // TODO: Manejar excepcion
-                    Console.WriteLine(ex.StackTrace);
+                    VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                }
+                catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
                 }
                 catch (FaultException ex)
                 {
-                    // TODO: Manejar excepcion
-                    Console.WriteLine(ex.StackTrace);
+                    VentanasEmergentes.MostrarVentanaErrorServidor();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
                 }
                 catch (CommunicationException ex)
                 {
-                    // TODO: Manejar excepcion
-                    Console.WriteLine(ex.StackTrace);
+                    VentanasEmergentes.MostrarVentanaErrorServidor();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
                 }
                 catch (Exception ex)
                 {
-                    // TODO: Manejar excepcion
-                    Console.WriteLine(ex.StackTrace);
+                    VentanasEmergentes.MostrarVentanaErrorInesperado();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
                 }
             }
             else
@@ -368,42 +272,7 @@ namespace ItaliaPizza_Cliente.Vistas
             }
         }
 
-
-
-        private void ActualizarEnInterfazCantidadRequeridaProductos(string codigoProducto)
-        {
-            ElementoPedido elementoPedido = SkpContenedorProductosPedido.Children
-                                                        .OfType<ElementoPedido>()
-                                                        .FirstOrDefault(ep => ep.ProductoVentaPedidos.Codigo == codigoProducto);
-            if (elementoPedido != null)
-            {
-                elementoPedido.TbxCantidadProducto.Text = _productosEnPedido[codigoProducto].ToString();
-            }
-        }
-
-        private void CalcularCantidades()
-        {
-            _total = ObtenerTotal();
-            _subtotal = (_total / 1.16);
-            _iva = _total - _subtotal;
-        }
-
-        private void MostrarCantidades()
-        {
-            LblTotal.Content = _total.ToString("F2");
-            LblSubtotal.Content = _subtotal.ToString("F2");
-            LblIva.Content = _iva.ToString("F2");
-        }
-
-        private double ObtenerTotal()
-        {   
-            double total = 0;
-            List<ProductoVentaPedidos> productoVentaPedidos = _productosVenta.Where(pv => _productosEnPedido.Keys.ToList().Any(k => k == pv.Codigo)).ToList();
-            total = productoVentaPedidos.Sum(pv => (pv.Precio * _productosEnPedido[pv.Codigo]));
-            return total;
-        }
-
-        public void ImgBuscarClienteClicked(object sender, EventArgs e)
+        private void ImgBuscarClienteClicked(object sender, EventArgs e)
         {
             string textoIngresado = this.BarraBusquedaClientes.TxtBusqueda.Text;
             if (!ValidarCamposVacios(textoIngresado))
@@ -411,9 +280,9 @@ namespace ItaliaPizza_Cliente.Vistas
                 try
                 {
                     _clientes.Clear();
-                    ServicioUsuariosClient servicioUsuariosClient = new ServicioUsuariosClient();
-                    List<ClienteBusqueda> clientesBusqueda = servicioUsuariosClient.BuscarCliente(this.BarraBusquedaClientes.TxtBusqueda.Text).ToList();
-                    if (!(clientesBusqueda.Count == 0))
+                    ServicioUsuariosClient servicioUsuariosCliente = new ServicioUsuariosClient();
+                    List<ClienteBusqueda> clientesBusqueda = servicioUsuariosCliente.BuscarCliente(this.BarraBusquedaClientes.TxtBusqueda.Text).ToList();
+                    if (clientesBusqueda.Any())
                     {
                         foreach (ClienteBusqueda clienteBusqueda in clientesBusqueda)
                         {
@@ -428,39 +297,40 @@ namespace ItaliaPizza_Cliente.Vistas
                 }
                 catch (EndpointNotFoundException ex)
                 {
-                    // TODO: Manejar excepcion
-                    Console.WriteLine(ex.StackTrace);
+                    VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
                 }
                 catch (TimeoutException ex)
                 {
-                    // TODO: Manejar excepcion
-                    Console.WriteLine(ex.StackTrace);
+                    VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                }
+                catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
                 }
                 catch (FaultException ex)
                 {
-                    // TODO: Manejar excepcion
-                    Console.WriteLine(ex.StackTrace);
+                    VentanasEmergentes.MostrarVentanaErrorServidor();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
                 }
                 catch (CommunicationException ex)
                 {
-                    // TODO: Manejar excepcion
-                    Console.WriteLine(ex.StackTrace);
+                    VentanasEmergentes.MostrarVentanaErrorServidor();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
                 }
                 catch (Exception ex)
                 {
-                    // TODO: Manejar excepcion
-                    Console.WriteLine(ex.StackTrace);
+                    VentanasEmergentes.MostrarVentanaErrorInesperado();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
                 }
-            } else
+            }
+            else
             {
                 LblMensajeAdvertenciaCliente.Content = MENSAJE_CAMPO_VACIO;
                 Utilidad.MostrarLabelDuranteSegundos(LblMensajeAdvertenciaCliente, 2);
             }
-        }
-
-        private bool ValidarCamposVacios (string text)
-        {
-            return string.IsNullOrWhiteSpace(text);
         }
 
         private void TxtBusquedaClienteChanged(object sender, EventArgs e)
@@ -504,12 +374,12 @@ namespace ItaliaPizza_Cliente.Vistas
                 if (resultadoBusquedaProductos.Count != 0)
                 {
                     MostrarProductosVenta(resultadoBusquedaProductos);
-                } 
+                }
                 else
                 {
                     LblMensajeAdvertenciaProducto.Content = MENSAJE_SIN_RESULTADOS_BUSQUEDA_PRODUCTO;
                 }
-            } 
+            }
             else
             {
                 LblMensajeAdvertenciaProducto.Content = MENSAJE_CAMPO_VACIO;
@@ -530,9 +400,224 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             BtnComerEstablecimiento.Background = _colorBrushAmarillo;
             BtnEntregaDomicilio.Background = _colorBrushGris;
-            BtnEntregaDomicilio.Foreground= _colorBrushGrisTexto;
-            BtnComerEstablecimiento.Foreground= _colorBrushWhite;
+            BtnEntregaDomicilio.Foreground = _colorBrushGrisTexto;
+            BtnComerEstablecimiento.Foreground = _colorBrushWhite;
             _tipoServicioSeleccionado = _tiposServicio.ElementAt((int)EnumTiposServicio.EnEstablecimiento);
+        }
+
+        private void LblTodasCategorias_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            CambiarColorFiltroCategoria((Label)sender);
+            MostrarProductosVenta(_productosVenta);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (_clienteSeleccionado != null && _productosEnPedido.Count > 0)
+            {
+                Pedido pedido = new Pedido
+                {
+                    CantidadProductos = _productosEnPedido.Count,
+                    Fecha = DateTime.Now,
+                    ProductosIncluidos = ListarProductosEnPedido(),
+                    IdCliente = _clienteSeleccionado.IdCliente,
+                    TipoServicio = _tipoServicioSeleccionado,
+                    Total = _total,
+                    IdEstadoPedido = (int)EnumEstadosPedido.EnProceso
+                };
+
+                RegistroPagoPedido registroPagoPedido = new RegistroPagoPedido(pedido);
+                NavigationService.Navigate(registroPagoPedido);
+            }
+            else
+            {
+                LblMensajeSeleccionClienteProductoObligatoria.Visibility = Visibility.Visible;
+                Utilidad.MostrarLabelDuranteSegundos(LblMensajeSeleccionClienteProductoObligatoria, 3);
+            }
+        }
+
+        private void BrdEliminarDatosPedido_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            _clienteSeleccionado = null;
+            LblNombreCliente.Content = "";
+            LblCorreoElectronicoCliente.Content = "";
+            _tipoServicioSeleccionado = _tiposServicio.ElementAt((int)EnumTiposServicio.EnEstablecimiento);
+            BtnComerEstablecimiento_Click(this, e);
+            _productosEnPedido.Clear();
+            SkpContenedorProductosPedido.Children.Clear();
+            _total = 0;
+            _subtotal = 0;
+            _iva = 0;
+            MostrarCantidades();
+        }
+
+        private void InicializarElementos()
+        {
+            this.BarraBusquedaClientes.DataContext = _clientes;
+            this.BarraBusquedaClientes.ImgBuscar_EventHandler += ImgBuscarClienteClicked;
+            this.BarraBusquedaClientes.TxtBusqueda_EventHandler += TxtBusquedaClienteChanged;
+            this.BarraBusquedaClientes.Lista_SelectionChanged_EventHandler += ListaSelectionChanged;
+            this.BarraBusquedaProductos.ImgBuscarClicked += ImgBuscarProductosClicked;
+            this.BarraBusquedaProductos.TxtBusquedaChanged_EventHandler += TxtBusquedaProductoChanged;
+            _clienteSeleccionado = null;
+
+        }
+
+        private void MostrarCategoriasProductoVenta(List<Categoria> categorias)
+        {
+            categorias?.ForEach(categoria =>
+            {
+                Label label = new Label();
+                label.Content = categoria.Nombre.ToString();
+                label.FontSize = 18;
+                label.VerticalAlignment = VerticalAlignment.Center;
+                label.HorizontalAlignment = HorizontalAlignment.Center;
+                label.Padding = new Thickness(10);
+                label.Foreground = _colorBrushGrisTexto;
+                label.Tag = categoria.Id;
+                label.Cursor = Cursors.Hand;
+                label.MouseLeftButtonDown += FiltrarProductosPorCategoria;
+                SkpCategoriasProductoVenta.Children.Add(label);
+            }) ;
+        }
+
+        private void MostrarProductosVenta(List<ProductoVentaPedidos> productosVenta)
+        {
+            SkpContenedorProductos.Children.Clear();
+
+            StackPanel stackPanel = null;
+            for (int i = 0; i < productosVenta.Count; i++)
+            {
+                if (i % 4 == 0)
+                {
+                    stackPanel = new StackPanel
+                    {
+                        Orientation = Orientation.Horizontal
+                    };
+                    SkpContenedorProductos.Children.Add(stackPanel);
+                }
+                ProductoVentaPedidos productoVenta = productosVenta[i];
+                ElementoProductoVenta elementoProductoVenta = new ElementoProductoVenta
+                {
+                    ImgProducto = { Source = ConvertidorBytes.ConvertirBytesABitmapImage(productoVenta.Foto) },
+                    LblNombreProducto = { Content = productoVenta.Nombre },
+                    LblCodigo = { Content = productoVenta.Codigo },
+                    LblDescripcionProducto = { Text = productoVenta.Descripcion },
+                    LblPrecioProducto = { Content = $"${productoVenta.Precio}" }
+                };
+                elementoProductoVenta.Click += ElementoProductoVenta_Click;
+                stackPanel.Children.Add(elementoProductoVenta);
+            }
+        }
+
+        private void SumarCantidadAProducto(string codigoProducto)
+        {
+            int cantidadActualProductos = _productosEnPedido[codigoProducto];
+            int cantidadNuevaRequeridaProductos = cantidadActualProductos + 1;
+            ServicioProductosClient servicioProductosCliente = new ServicioProductosClient();
+            try
+            {
+                bool productoDisponibleParaVenta = servicioProductosCliente.ValidarDisponibilidadDeProducto(codigoProducto, cantidadNuevaRequeridaProductos);
+                if (productoDisponibleParaVenta)
+                {
+                    _productosEnPedido[codigoProducto]++;
+                    ActualizarEnInterfazCantidadRequeridaProductos(codigoProducto);
+                    CalcularCantidades();
+                    MostrarCantidades();
+                }
+                else
+                {
+                    Utilidad.MostrarLabelDuranteSegundos(LblProductoNoDisponible, 2);
+                }
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (CommunicationException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+        }
+
+        private void MostrarDatosProductoSeleccionado(ProductoVentaPedidos productoSeleccionado)
+        {
+            if (productoSeleccionado != null)
+            {
+                ElementoPedido elementoPedido = new ElementoPedido();
+                elementoPedido.ProductoVentaPedidos = productoSeleccionado;
+                elementoPedido.LblNombreProducto.Content = productoSeleccionado.Nombre;
+                elementoPedido.LblDescripcionProducto.Content = productoSeleccionado.Descripcion;
+                elementoPedido.LblPrecioProducto.Content = "$" + productoSeleccionado.Precio;
+                elementoPedido.ProductoVentaPedidos = productoSeleccionado;
+                elementoPedido.TbxCantidadProducto.Text = _productosEnPedido[productoSeleccionado.Codigo].ToString();
+                elementoPedido.TbxCantidadProductoTextChanged += TbxCantidadProductoTextChanged;
+                elementoPedido.TbxLostFocusTbxCantidad += TbxCantidadProductoLostFocus;
+                elementoPedido.BtnSumarClicked += BtnSumarProductoClicked;
+                elementoPedido.BtnRestarClicked += BtnRestarProductoClicked;
+
+                SkpContenedorProductosPedido.Children.Add(elementoPedido);
+            }
+        }
+
+        private void ActualizarEnInterfazCantidadRequeridaProductos(string codigoProducto)
+        {
+            ElementoPedido elementoPedido = SkpContenedorProductosPedido.Children
+                                                        .OfType<ElementoPedido>()
+                                                        .FirstOrDefault(ep => ep.ProductoVentaPedidos.Codigo == codigoProducto);
+            if (elementoPedido != null)
+            {
+                elementoPedido.TbxCantidadProducto.Text = _productosEnPedido[codigoProducto].ToString();
+            }
+        }
+
+        private void CalcularCantidades()
+        {
+            _total = ObtenerTotal();
+            _subtotal = (_total / 1.16);
+            _iva = _total - _subtotal;
+        }
+
+        private void MostrarCantidades()
+        {
+            LblTotal.Content = _total.ToString("F2");
+            LblSubtotal.Content = _subtotal.ToString("F2");
+            LblIva.Content = _iva.ToString("F2");
+        }
+
+        private double ObtenerTotal()
+        {   
+            double total = 0;
+            List<ProductoVentaPedidos> productoVentaPedidos = _productosVenta.Where(pv => _productosEnPedido.Keys.ToList().Any(k => k == pv.Codigo)).ToList();
+            total = productoVentaPedidos.Sum(pv => (pv.Precio * _productosEnPedido[pv.Codigo]));
+            return total;
+        }
+
+        private bool ValidarCamposVacios (string text)
+        {
+            return string.IsNullOrWhiteSpace(text);
         }
 
         private void FiltrarProductosPorCategoria(object sender, MouseButtonEventArgs e) 
@@ -550,12 +635,6 @@ namespace ItaliaPizza_Cliente.Vistas
             }
         }
 
-        private void LblTodasCategorias_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            CambiarColorFiltroCategoria((Label)sender);
-            MostrarProductosVenta(_productosVenta);
-        }
-
         private void CambiarColorFiltroCategoria(Label labelSeleccionado)
         {
             foreach (Label label in SkpCategoriasProductoVenta.Children.OfType<Label>().ToList())
@@ -563,31 +642,6 @@ namespace ItaliaPizza_Cliente.Vistas
                 label.Foreground = _colorBrushGrisTexto;
             }
             labelSeleccionado.Foreground = _colorBrushAmarillo;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (_clienteSeleccionado != null && _productosEnPedido.Count > 0)
-            {
-                Pedido pedido = new Pedido
-                {
-                    CantidadProductos = _productosEnPedido.Count,
-                    Fecha = DateTime.Now,
-                    ProductosIncluidos = ListarProductosEnPedido(),
-                    IdCliente = _clienteSeleccionado.IdCliente,
-                    TipoServicio = _tipoServicioSeleccionado,
-                    Total = _total,
-                    IdEstadoPedido = (int) EnumEstadosPedido.EnProceso
-                };
-
-                RegistroPagoPedido registroPagoPedido = new RegistroPagoPedido(pedido);
-                NavigationService.Navigate(registroPagoPedido);
-            } 
-            else
-            {
-                LblMensajeSeleccionClienteProductoObligatoria.Visibility = Visibility.Visible;
-                Utilidad.MostrarLabelDuranteSegundos(LblMensajeSeleccionClienteProductoObligatoria, 3);
-            }
         }
 
         private Dictionary<ProductoVentaPedidos, int> ListarProductosEnPedido()
@@ -601,19 +655,5 @@ namespace ItaliaPizza_Cliente.Vistas
             return productosPedido;
         }
 
-        private void BrdEliminarDatosPedido_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            _clienteSeleccionado = null;
-            LblNombreCliente.Content = "";
-            LblCorreoElectronicoCliente.Content = "";
-            _tipoServicioSeleccionado = _tiposServicio.ElementAt((int)EnumTiposServicio.EnEstablecimiento);
-            BtnComerEstablecimiento_Click(this, e);
-            _productosEnPedido.Clear();
-            SkpContenedorProductosPedido.Children.Clear();
-            _total = 0;
-            _subtotal = 0;
-            _iva = 0;
-            MostrarCantidades();
-        }
     }
 }

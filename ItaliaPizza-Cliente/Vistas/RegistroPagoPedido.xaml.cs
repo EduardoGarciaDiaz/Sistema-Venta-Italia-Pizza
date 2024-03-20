@@ -15,6 +15,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ItaliaPizza_Cliente.Utilidades;
+using System.ServiceModel;
 
 namespace ItaliaPizza_Cliente.Vistas
 {
@@ -36,57 +38,10 @@ namespace ItaliaPizza_Cliente.Vistas
             MostrarDatosDeCliente(pedido.IdCliente);
         }
 
-        private void MostrarDatosDeCliente(int idCliente)
-        {
-            ServicioUsuariosClient servicioUsuariosClient = new ServicioUsuariosClient();
-            try
-            {
-                _cliente = new Cliente();
-                _cliente = servicioUsuariosClient.RecuperarClientePorId(idCliente);
-                if (_cliente != null)
-                {
-                    LblNombreCliente.Content = _cliente.NombreCliente;
-                    LblCorreoElectronicoCliente.Content = _cliente.CorreoElectronicoCliente;
-                    LblNumeroTelefonoCliente.Content = _cliente.NumeroTelefonoCliente;
-                    LblDireccionCliente.Text = _cliente.DireccionCliente;
-                }
-            }
-            catch (Exception)
-            {
-                
-            }
-        }
-
-        private void MostrarDatosDePedido(Pedido pedido)
-        {
-            LblTipoServicio.Content = pedido.TipoServicio.Nombre;
-            MostrarProductosEnPedido(pedido);
-            LblConteoProductos.Content = pedido.CantidadProductos + " productos.";
-            LblSubtotal.Content = (pedido.Total / 1.16).ToString("F2");
-            LblIva.Content = (pedido.Total - (pedido.Total / 1.16)).ToString("F2");
-            LblTotal.Content = pedido.Total.ToString("F2");
-        }
-
-        private void MostrarProductosEnPedido(Pedido pedido)
-        {
-            foreach (ProductoVentaPedidos productoVenta in pedido.ProductosIncluidos.Keys)
-            {
-                ElementoTicketPedido elementoTicket = new ElementoTicketPedido();
-                elementoTicket.LblCantidadProducto.Content = pedido.ProductosIncluidos[productoVenta];
-                elementoTicket.LblNombreProducto.Content = productoVenta.Nombre;
-                elementoTicket.LblTotalPorProducto.Content = "$" + pedido.ProductosIncluidos[productoVenta] * productoVenta.Precio;
-                SkpContenedorElementosTicket.Children.Add(elementoTicket);
-            }
-        }
 
         private void TxtCantidadPagaCliente_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !EsTextoPermitido(e.Text + TxtCantidadPagaCliente.Text);
-        }
-
-        private bool EsTextoPermitido(string texto)
-        {
-            return !_regex.IsMatch(texto) && texto.Length < 6 && texto != "." && texto.Count(c => c == '.') < 2;
         }
 
         private void ImgRegresar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -102,7 +57,7 @@ namespace ItaliaPizza_Cliente.Vistas
                 if (double.Parse(textBox.Text) < _pedido.Total)
                 {
                     LblMensajeErrorPago.Content = "Faltan $" + (_pedido.Total - double.Parse(textBox.Text));
-                } 
+                }
                 else
                 {
                     LblMensajeErrorPago.Content = "";
@@ -119,25 +74,65 @@ namespace ItaliaPizza_Cliente.Vistas
             if (string.IsNullOrWhiteSpace(TxtCantidadPagaCliente.Text))
             {
                 LblMensajeErrorPago.Content = "Por favor, ingresa la cantidad con la que el cliente paga";
-            } 
-            else
+                return;
+            }
+
+            if (!double.TryParse(TxtCantidadPagaCliente.Text, out double cantidadPagada) || cantidadPagada < _pedido.Total)
             {
-                if (!(double.Parse(TxtCantidadPagaCliente.Text) < _pedido.Total))
+                return;
+            }
+
+            ServicioPedidosClient servicioPedidosCliente = new ServicioPedidosClient();
+            try
+            {
+                int numeroPedido = servicioPedidosCliente.GuardarPedido(_pedido);
+                if (numeroPedido > 0)
                 {
-                    ServicioPedidosClient servicioPedidosClient = new ServicioPedidosClient();
-                    int numeroPedido = servicioPedidosClient.GuardarPedido(_pedido);
-                    if (numeroPedido > 0)
-                    {
-                        ConfirmacionRegistroPedido confirmacionRegistroPedido = new ConfirmacionRegistroPedido();
-                        confirmacionRegistroPedido.LblNumeroPedido.Content = numeroPedido;
-                        confirmacionRegistroPedido.LblNombreCliente.Content = _cliente.NombreCliente;
-                        confirmacionRegistroPedido.LblCambio.Content = (double.Parse(TxtCantidadPagaCliente.Text) - _pedido.Total).ToString("F2");
-                        confirmacionRegistroPedido.Click += BtnAceptarPagoClick;
-                        confirmacionRegistroPedido.ShowDialog();
-                    }
+                    MostrarConfirmacionPedido(numeroPedido);
                 }
             }
+            catch (EndpointNotFoundException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (CommunicationException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
         }
+
+        private void MostrarConfirmacionPedido(int numeroPedido)
+        {
+            ConfirmacionRegistroPedido confirmacionRegistroPedido = new ConfirmacionRegistroPedido();
+            confirmacionRegistroPedido.LblNumeroPedido.Content = numeroPedido;
+            confirmacionRegistroPedido.LblNombreCliente.Content = _cliente.NombreCliente;
+            confirmacionRegistroPedido.LblCambio.Content = (double.Parse(TxtCantidadPagaCliente.Text) - _pedido.Total).ToString("F2");
+            confirmacionRegistroPedido.Click += BtnAceptarPagoClick;
+            confirmacionRegistroPedido.ShowDialog();
+        }
+
 
         private void BtnAceptarPagoClick(object sender, EventArgs e)
         {
@@ -150,6 +145,83 @@ namespace ItaliaPizza_Cliente.Vistas
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
+        }
+
+        private void MostrarDatosDeCliente(int idCliente)
+        {
+            ServicioUsuariosClient servicioUsuariosCliente = new ServicioUsuariosClient();
+            try
+            {
+                _cliente = new Cliente();
+                _cliente = servicioUsuariosCliente.RecuperarClientePorId(idCliente);
+                if (_cliente != null)
+                {
+                    LblNombreCliente.Content = _cliente.NombreCliente;
+                    LblCorreoElectronicoCliente.Content = _cliente.CorreoElectronicoCliente;
+                    LblNumeroTelefonoCliente.Content = _cliente.NumeroTelefonoCliente;
+                    LblDireccionCliente.Text = _cliente.DireccionCliente;
+                }
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (CommunicationException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+        }
+
+        private void MostrarDatosDePedido(Pedido pedido)
+        {
+            if (pedido != null)
+            {
+                LblTipoServicio.Content = pedido.TipoServicio.Nombre;
+                MostrarProductosEnPedido(pedido);
+                LblConteoProductos.Content = pedido.CantidadProductos + " productos.";
+                LblSubtotal.Content = (pedido.Total / 1.16).ToString("F2");
+                LblIva.Content = (pedido.Total - (pedido.Total / 1.16)).ToString("F2");
+                LblTotal.Content = pedido.Total.ToString("F2");
+            }
+        }
+
+        private void MostrarProductosEnPedido(Pedido pedido)
+        {
+            foreach (ProductoVentaPedidos productoVenta in pedido.ProductosIncluidos.Keys)
+            {
+                ElementoTicketPedido elementoTicket = new ElementoTicketPedido();
+                elementoTicket.LblCantidadProducto.Content = pedido.ProductosIncluidos[productoVenta];
+                elementoTicket.LblNombreProducto.Content = productoVenta.Nombre;
+                elementoTicket.LblTotalPorProducto.Content = "$" + pedido.ProductosIncluidos[productoVenta] * productoVenta.Precio;
+                SkpContenedorElementosTicket.Children.Add(elementoTicket);
+            }
+        }
+
+        private bool EsTextoPermitido(string texto)
+        {
+            return !_regex.IsMatch(texto) && texto.Length < 6 && texto != "." && texto.Count(c => c == '.') < 2;
         }
     }
 }
