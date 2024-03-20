@@ -14,10 +14,6 @@ namespace ItaliaPizza_Servicios
 {
     public partial class ServicioItaliaPizza : ItaliaPizza_Contratos.IServicioProductos
     {
-        public void OperacionProductosEjemplo()
-        {
-            throw new NotImplementedException();
-        }
 
         public List<Categoria> RecuperarCategorias()
         {
@@ -158,14 +154,21 @@ namespace ItaliaPizza_Servicios
         public List<Categoria> RecuperarCategoriasProductoVenta()
         {
             List<Categoria> categoriasProductoVenta = new List<Categoria>();
-            categoriasProductoVenta.AddRange(
-                new CategoriaDAO().RecuperarCategoriasProductoVenta().Select(categoriaProductoVenta => 
-                    new Categoria
-                    {
-                        Id = categoriaProductoVenta.IdCategoriaProductoVenta,
-                        Nombre = categoriaProductoVenta.Nombre
-                    }));
+            try
+            {
+                categoriasProductoVenta.AddRange(
+               new CategoriaDAO().RecuperarCategoriasProductoVenta().Select(categoriaProductoVenta =>
+                   new Categoria
+                   {
+                       Id = categoriaProductoVenta.IdCategoriaProductoVenta,
+                       Nombre = categoriaProductoVenta.Nombre
+                   }));
 
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
             return categoriasProductoVenta;
         }
 
@@ -173,39 +176,52 @@ namespace ItaliaPizza_Servicios
         {
             List<ProductoVentaPedidos> productosVenta = new List<ProductoVentaPedidos> ();
             ProductoDAO productoDAO = new ProductoDAO();
-            productosVenta = MapeadorProductosAProductoVenta
-                .MapearProductosAProductosVenta(
-                    productoDAO.RecuperarProductosParaVenta(), 
-                    productoDAO.RecuperarProductos());
-            return productosVenta;
+            try
+            {
+                productosVenta = MapeadorProductosAProductoVenta
+                                    .MapearProductosAProductosVenta(
+                                        productoDAO.RecuperarProductosParaVenta(),
+                                        productoDAO.RecuperarProductos());
+                                                return productosVenta;
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
         }
 
         public bool ValidarDisponibilidadDeProducto(string codigoProducto, int cantidadProductos)
         {
             bool productoDisponible = true;
             ProductoDAO productoDAO = new ProductoDAO();
-            RecetaTemporalDAO recetaTemporalDAO = new RecetaTemporalDAO();
+            RecetaDAO recetaTemporalDAO = new RecetaDAO();
             InsumoDAO insumoDAO = new InsumoDAO();
-
-            if (productoDAO.ValidarSiProductoEnVentaEsInventariado(codigoProducto))
+            try
             {
-                productoDisponible = insumoDAO.ValidarDisponibilidadInsumo(codigoProducto, cantidadProductos);
-
-            } 
-            else
-            {
-                List<RecetasInsumos> insumosEnReceta = recetaTemporalDAO.RecuperarInsumosEnReceta(codigoProducto);
-
-                foreach (RecetasInsumos insumo in insumosEnReceta)
+                if (productoDAO.ValidarSiProductoEnVentaEsInventariado(codigoProducto))
                 {
-                    bool insumoDisponible =
-                        insumoDAO.ValidarDisponibilidadInsumo(insumo.CodigoProducto, ((int)insumo.CantidadInsumo * cantidadProductos));
-                    if (!insumoDisponible)
+                    productoDisponible = insumoDAO.ValidarDisponibilidadInsumo(codigoProducto, cantidadProductos);
+
+                }
+                else
+                {
+                    List<RecetasInsumos> insumosEnReceta = recetaTemporalDAO.RecuperarInsumosEnReceta(codigoProducto);
+
+                    foreach (RecetasInsumos insumo in insumosEnReceta)
                     {
-                        productoDisponible = false;
-                        break;
+                        bool insumoDisponible =
+                            insumoDAO.ValidarDisponibilidadInsumo(insumo.CodigoProducto, ((int)insumo.CantidadInsumo * cantidadProductos));
+                        if (!insumoDisponible)
+                        {
+                            productoDisponible = false;
+                            break;
+                        }
                     }
                 }
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
             }
             return productoDisponible;
         }
@@ -213,19 +229,27 @@ namespace ItaliaPizza_Servicios
         public bool DisminuirCantidadInsumoPorProducto(string codigoProducto, int cantidadRequerida)
         {
             bool insumosDisminuidos = false;
-            RecetaTemporalDAO recetaTemporalDAO = new RecetaTemporalDAO();
+            RecetaDAO recetaTemporalDAO = new RecetaDAO();
             InsumoDAO insumoDAO = new InsumoDAO();
-            List<RecetasInsumos> insumosEnReceta = recetaTemporalDAO.RecuperarInsumosEnReceta(codigoProducto);
 
-            foreach (RecetasInsumos insumo in insumosEnReceta)
+            try
             {
-                bool insumoDisminuido =
-                    insumoDAO.DisminuirCantidadInsumo(insumo.CodigoProducto, ((int)insumo.CantidadInsumo * cantidadRequerida));
-                if (!insumoDisminuido)
+                List<RecetasInsumos> insumosEnReceta = recetaTemporalDAO.RecuperarInsumosEnReceta(codigoProducto);
+
+                foreach (RecetasInsumos insumo in insumosEnReceta)
                 {
-                    insumosDisminuidos = false;
-                    break;
+                    bool insumoDisminuido =
+                        insumoDAO.DisminuirCantidadInsumo(insumo.CodigoProducto, ((int)insumo.CantidadInsumo * cantidadRequerida));
+                    if (!insumoDisminuido)
+                    {
+                        insumosDisminuidos = false;
+                        break;
+                    }
                 }
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
             }
             return insumosDisminuidos;
         }

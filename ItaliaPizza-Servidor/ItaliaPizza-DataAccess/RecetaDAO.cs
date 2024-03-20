@@ -167,5 +167,34 @@ namespace ItaliaPizza_DataAccess
             }
         }
 
+        public List<RecetasInsumos> RecuperarInsumosEnReceta(string codigoProducto)
+        {
+            List<RecetasInsumos> insumosDeReceta = new List<RecetasInsumos>();
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    insumosDeReceta = context.Recetas.FirstOrDefault(r => r.CodigoProducto == codigoProducto).RecetasInsumos.ToList();
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+
+            return insumosDeReceta;
+        }
+
     }
 }

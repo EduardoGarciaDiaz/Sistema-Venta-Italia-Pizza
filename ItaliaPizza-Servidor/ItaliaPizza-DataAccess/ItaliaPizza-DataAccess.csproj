@@ -53,13 +53,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoriaDAO.cs" />
     <Compile Include="CategoriasInsumo.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>
     <Compile Include="CategoriasProductoVenta.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>
-    <Compile Include="Class1.cs" />
     <Compile Include="CortesCaja.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>
@@ -132,7 +132,6 @@
     <Compile Include="RecetasInsumos.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>
-    <Compile Include="RecetaTemporalDAO.cs" />
     <Compile Include="TiposEmpleado.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>
@@ -143,6 +142,7 @@
     <Compile Include="UnidadesMedida.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="UnidadMedidaDAO.cs" />
     <Compile Include="UsuarioDAO.cs" />
     <Compile Include="Usuarios.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>

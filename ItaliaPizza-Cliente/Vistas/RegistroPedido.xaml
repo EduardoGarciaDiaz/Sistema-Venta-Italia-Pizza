@@ -80,7 +80,7 @@
                     Cursor="Hand"
                     MouseLeftButtonDown="BrdEliminarDatosPedido_MouseLeftButtonDown">
 
-                <Image Source="/Recursos/Iconos/icono_eliminar.png" 
+                <Image Source="/Recursos/Iconos/icono_eliminar_pedido.png" 
                        Margin="5,6,6,6"/>
 
             </Border>

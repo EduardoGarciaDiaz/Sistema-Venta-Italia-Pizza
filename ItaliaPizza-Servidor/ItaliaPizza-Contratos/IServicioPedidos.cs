@@ -13,9 +13,11 @@ namespace ItaliaPizza_Contratos
     public interface IServicioPedidos
     {
         [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
         List<TipoServicio> RecuperarTiposServicio();
 
         [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
         int GuardarPedido(Pedido pedido);
 
         [OperationContract]
@@ -27,6 +29,7 @@ namespace ItaliaPizza_Contratos
         List<PedidoConsultaDTO> RecuperarPedidosPreparados();
 
         [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
         List<PedidoConsultaDTO> RecuperarPedidos();
 
         [OperationContract]

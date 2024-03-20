@@ -15,6 +15,38 @@ namespace ItaliaPizza_DataAccess
     {
         public PedidoDAO() { }
 
+
+        public bool ValidarClienteTienePedidosPendientes(int idUsuario)
+        {
+            bool resultadoOperacion;
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+
+                    resultadoOperacion = !context.UsuariosPedidos.Any(pedido => pedido.IdCliente == idUsuario &&
+                                                              context.Pedidos.FirstOrDefault(ped => ped.NumeroPedido == pedido.NumeroPedido).IdEstadoPedido ==
+                                                              context.EstadosPedido.FirstOrDefault(estado => estado.Nombre.Equals("En proceso")).IdEstadoPedido);
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            return resultadoOperacion;
+        }
+
         public int GuardarPedido(Pedido pedido)
         {
             int pedidoNuevoId = 0;
@@ -56,21 +88,18 @@ namespace ItaliaPizza_DataAccess
             }
             catch (EntityException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
-                pedidoNuevoId = -1;
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (SqlException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
-                pedidoNuevoId = -1;
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (Exception ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
-                pedidoNuevoId = -1;
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
 
             return pedidoNuevoId;
@@ -102,19 +131,18 @@ namespace ItaliaPizza_DataAccess
             }
             catch (EntityException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
-
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (SqlException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (Exception ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);;
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
 
             return pedidos;
@@ -146,19 +174,18 @@ namespace ItaliaPizza_DataAccess
             }
             catch (EntityException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
-
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (SqlException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (Exception ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace); ;
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
 
             return pedidos;
