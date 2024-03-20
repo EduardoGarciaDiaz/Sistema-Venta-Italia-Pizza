@@ -51,5 +51,9 @@ namespace ItaliaPizza_Contratos
         [OperationContract]
         List<InsumoOrdenCompraDto> RecuperarInsumosActivos();
 
+        [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
+        bool DesapartarInsumosDeProducto(string codigoProducto, int cantidadParaDesapartar);
+
     }
 }

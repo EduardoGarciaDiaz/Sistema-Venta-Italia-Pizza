@@ -257,6 +257,21 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="DesapartarInsumosDeProducto">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="codigoProducto" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="cantidadParaDesapartar" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DesapartarInsumosDeProductoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DesapartarInsumosDeProductoResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="RecuperarRecetas">
     <xs:complexType>
       <xs:sequence />
