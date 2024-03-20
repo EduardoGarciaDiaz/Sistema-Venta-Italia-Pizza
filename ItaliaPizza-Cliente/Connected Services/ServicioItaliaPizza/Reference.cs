@@ -3077,6 +3077,14 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioRecetas/GuardarReceta", ReplyAction="http://tempuri.org/IServicioRecetas/GuardarRecetaResponse")]
         System.Threading.Tasks.Task<int> GuardarRecetaAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.RecetaProducto receta);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioRecetas/EliminarReceta", ReplyAction="http://tempuri.org/IServicioRecetas/EliminarRecetaResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioRecetas/EliminarRecetaExcepcionServidorItaliaPizzaFau" +
+            "lt", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        int EliminarReceta(int idReceta);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioRecetas/EliminarReceta", ReplyAction="http://tempuri.org/IServicioRecetas/EliminarRecetaResponse")]
+        System.Threading.Tasks.Task<int> EliminarRecetaAsync(int idReceta);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -3128,6 +3136,14 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         public System.Threading.Tasks.Task<int> GuardarRecetaAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.RecetaProducto receta) {
             return base.Channel.GuardarRecetaAsync(receta);
+        }
+        
+        public int EliminarReceta(int idReceta) {
+            return base.Channel.EliminarReceta(idReceta);
+        }
+        
+        public System.Threading.Tasks.Task<int> EliminarRecetaAsync(int idReceta) {
+            return base.Channel.EliminarRecetaAsync(idReceta);
         }
     }
     

@@ -202,5 +202,86 @@ namespace ItaliaPizza_DataAccess
             return insumosDeReceta;
         }
 
+        public int EliminarReceta(int idReceta)
+        {
+            int filasAfectadas = -1;
+
+            if (idReceta > 0)
+            {
+                try
+                {
+                    using (var context = new ItaliaPizzaEntities())
+                    {
+                        Recetas recetaAEliminar = context.Recetas.FirstOrDefault(r => r.IdReceta == idReceta);
+
+                        if (recetaAEliminar != null)
+                        {
+                            context.Recetas.Remove(recetaAEliminar);
+                            filasAfectadas = context.SaveChanges();
+                        }
+                    }
+                }
+                catch (EntityException ex)
+                {
+                    ManejadorExcepcion.ManejarExcepcionError(ex);
+                    throw new ExcepcionDataAccess(ex.Message);
+                }
+                catch (SqlException ex)
+                {
+                    ManejadorExcepcion.ManejarExcepcionError(ex);
+                    throw new ExcepcionDataAccess(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                    throw new ExcepcionDataAccess(ex.Message);
+                }
+            }
+
+            return filasAfectadas;
+        }
+
+        public int EliminarRecetasInsumos(int idReceta)
+        {
+            int filasAfectadas = -1;
+
+            if (idReceta > 0)
+            {
+                try
+                {
+                    using (var context = new ItaliaPizzaEntities())
+                    {
+                        var recetasInsumosAEliminar = context.RecetasInsumos.Where(ri => ri.IdReceta == idReceta).ToList();
+
+                        if (recetasInsumosAEliminar != null)
+                        {
+                            foreach (var receta in recetasInsumosAEliminar)
+                            {
+                                context.RecetasInsumos.Remove(receta);
+                            }
+
+                            filasAfectadas = context.SaveChanges();
+                        }
+                    }
+                }
+                catch (EntityException ex)
+                {
+                    ManejadorExcepcion.ManejarExcepcionError(ex);
+                    throw new ExcepcionDataAccess(ex.Message);
+                }
+                catch (SqlException ex)
+                {
+                    ManejadorExcepcion.ManejarExcepcionError(ex);
+                    throw new ExcepcionDataAccess(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                    throw new ExcepcionDataAccess(ex.Message);
+                }
+            }
+
+            return filasAfectadas;
+        }
     }
 }

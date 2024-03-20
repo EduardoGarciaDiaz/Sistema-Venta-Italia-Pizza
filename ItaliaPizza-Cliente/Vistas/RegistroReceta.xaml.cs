@@ -472,13 +472,14 @@ namespace ItaliaPizza_Cliente.Vistas
             LimpiarCampos();
 
             VentanaEmergente ventanaEmergente = new VentanaEmergente(tituloExito, mensajeExito, Window.GetWindow(this), VENTANA_INFORMACION);
+            ventanaEmergente.ShowDialog();
         }
 
         private void LimpiarCampos()
         {
             _numeroInsumosSeleccionados = 0;
             _elementoProductoSinRecetaSeleccionado = null;
-            _insumosSeleccionados = null;
+            _insumosSeleccionados = new List<InsumoReceta>();
             lbNombreReceta.Content = string.Empty;
             ActualizarContadorInsumos();
             MostrarInsumos();
@@ -526,7 +527,13 @@ namespace ItaliaPizza_Cliente.Vistas
                 float cantidadInsumo = Utilidad.ConvertirStringAFloat(cantidad, insumoSeleccionado.lbErrorInsumoSeleccionado);
 
                 string unidadMedida = (string)insumoSeleccionado.lbUnidadMedida.Content;
-                sonCantidadesValidas = UtilidadValidacion.ValidarCantidadInsumo(cantidadInsumo, unidadMedida, insumoSeleccionado.lbErrorInsumoSeleccionado);
+                sonCantidadesValidas = UtilidadValidacion.ValidarCantidadInsumo(
+                    cantidadInsumo, unidadMedida, insumoSeleccionado.lbErrorInsumoSeleccionado);
+
+                if (!sonCantidadesValidas)
+                {
+                    break;
+                }
             }
 
             return sonCantidadesValidas;
@@ -548,6 +555,8 @@ namespace ItaliaPizza_Cliente.Vistas
             string mensajeCancelar = "¿Estás seguro de que deseas cancelar el registro de la receta?";
 
             VentanaEmergente ventanaEmergente = new VentanaEmergente(tituloCancelar, mensajeCancelar, "Sí", "No", Window.GetWindow(this), VENTANA_CONFIRMACION);
+
+            ventanaEmergente.ShowDialog();
 
             if (ventanaEmergente.AceptarAccion)
             {

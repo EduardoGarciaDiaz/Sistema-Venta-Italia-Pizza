@@ -269,6 +269,15 @@
   <wsdl:message name="IServicioRecetas_GuardarReceta_ExcepcionServidorItaliaPizzaFault_FaultMessage">
     <wsdl:part xmlns:q20="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones" name="detail" element="q20:ExcepcionServidorItaliaPizza" />
   </wsdl:message>
+  <wsdl:message name="IServicioRecetas_EliminarReceta_InputMessage">
+    <wsdl:part name="parameters" element="tns:EliminarReceta" />
+  </wsdl:message>
+  <wsdl:message name="IServicioRecetas_EliminarReceta_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EliminarRecetaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioRecetas_EliminarReceta_ExcepcionServidorItaliaPizzaFault_FaultMessage">
+    <wsdl:part xmlns:q20="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones" name="detail" element="q20:ExcepcionServidorItaliaPizza" />
+  </wsdl:message>
   <wsdl:message name="IServicioUsuarios_BuscarCliente_InputMessage">
     <wsdl:part name="parameters" element="tns:BuscarCliente" />
   </wsdl:message>
@@ -508,6 +517,11 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioRecetas/GuardarReceta" message="tns:IServicioRecetas_GuardarReceta_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioRecetas/GuardarRecetaResponse" message="tns:IServicioRecetas_GuardarReceta_OutputMessage" />
       <wsdl:fault wsaw:Action="http://tempuri.org/IServicioRecetas/GuardarRecetaExcepcionServidorItaliaPizzaFault" name="ExcepcionServidorItaliaPizzaFault" message="tns:IServicioRecetas_GuardarReceta_ExcepcionServidorItaliaPizzaFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EliminarReceta">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioRecetas/EliminarReceta" message="tns:IServicioRecetas_EliminarReceta_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioRecetas/EliminarRecetaResponse" message="tns:IServicioRecetas_EliminarReceta_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IServicioRecetas/EliminarRecetaExcepcionServidorItaliaPizzaFault" name="ExcepcionServidorItaliaPizzaFault" message="tns:IServicioRecetas_EliminarReceta_ExcepcionServidorItaliaPizzaFault_FaultMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IServicioUsuarios">
@@ -864,6 +878,18 @@
     </wsdl:operation>
     <wsdl:operation name="GuardarReceta">
       <soap12:operation soapAction="http://tempuri.org/IServicioRecetas/GuardarReceta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ExcepcionServidorItaliaPizzaFault">
+        <soap12:fault use="literal" name="ExcepcionServidorItaliaPizzaFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarReceta">
+      <soap12:operation soapAction="http://tempuri.org/IServicioRecetas/EliminarReceta" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

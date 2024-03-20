@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ItaliaPizza_Cliente.ServicioItaliaPizza;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,14 +21,16 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
     /// </summary>
     public partial class ElementoReceta : UserControl
     {
+        public Receta RecetaAsignada { get; set; }
         public EventHandler gridReceta_Click;
         public EventHandler imgEditar_Click;
+        public EventHandler imgEliminar_Click;
+
 
         public ElementoReceta()
         {
             InitializeComponent();
         }
-
 
         public void GridReceta_Click(object sender, RoutedEventArgs e)
         {
@@ -37,6 +40,11 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
         public void ImgEditar_Click(object sender, RoutedEventArgs e)
         {
             imgEditar_Click?.Invoke(this, e);
+        }
+
+        public void ImgEliminar_Click(object sender, RoutedEventArgs e)
+        {
+            imgEliminar_Click?.Invoke(this, e);
         }
     }
 }
