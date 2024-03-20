@@ -88,12 +88,17 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PruebasDataAccess\PruebaCategoriaDAO.cs" />
+    <Compile Include="PruebasDataAccess\PruebaRecetaDAO.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ItaliaPizza-Contratos\ItaliaPizza-Contratos.csproj">
+      <Project>{AC163CAD-9D78-43BB-9D76-A7F3777BAA60}</Project>
+      <Name>ItaliaPizza-Contratos</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ItaliaPizza-DataAccess\ItaliaPizza-DataAccess.csproj">
       <Project>{9f81e538-2b9b-4de8-a2ef-db84c07fdcc6}</Project>
       <Name>ItaliaPizza-DataAccess</Name>

@@ -44,7 +44,7 @@ namespace ItaliaPizza_PruebasUnitarias.PruebasDataAccess
 
             Assert.NotNull(resultadoObtenido);
             Assert.NotEmpty(resultadoObtenido);
-            Assert.Equal(resultadoEsperado.Select(rp => rp.Nombre), resultadoObtenido.Select(ro => ro.Nombre));
+            Assert.Equal(resultadoEsperado.Select(re => re.Nombre), resultadoObtenido.Select(ro => ro.Nombre));
         }
 
         [Fact]
@@ -82,7 +82,7 @@ namespace ItaliaPizza_PruebasUnitarias.PruebasDataAccess
 
             Assert.NotNull(resultadoObtenido);
             Assert.NotEmpty(resultadoObtenido);
-            Assert.Equal(resultadoEsperado.Select(rp => rp.Nombre), resultadoObtenido.Select(ro => ro.Nombre));
+            Assert.Equal(resultadoEsperado.Select(re => re.Nombre), resultadoObtenido.Select(ro => ro.Nombre));
         }
 
 
