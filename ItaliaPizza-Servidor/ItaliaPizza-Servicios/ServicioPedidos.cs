@@ -135,13 +135,19 @@ namespace ItaliaPizza_Servicios
 
         public List<PedidoConsultaDTO> RecuperarPedidosPreparados()
         {
-            PedidoDAO pedidoDAO = new PedidoDAO();
-            List<PedidoConsultaDTO> pedidos = new List<PedidoConsultaDTO>();
-
-            EstadoPedido estado = pedidoDAO.RecuperarEstadosPedido().FirstOrDefault(e =>
-            e.Nombre.ToLower().Contains("preparado"));
-            pedidos = pedidoDAO.RecuperarPedidosPorEstado(estado.IdEstadoPedido);
-            return pedidos;
+            try
+            {
+                PedidoDAO pedidoDAO = new PedidoDAO();
+                List<PedidoConsultaDTO> pedidos = new List<PedidoConsultaDTO>();
+                EstadoPedido estado = pedidoDAO.RecuperarEstadosPedido().FirstOrDefault(e =>
+                e.Nombre.ToLower().Contains("preparado"));
+                pedidos = pedidoDAO.RecuperarPedidosPorEstado(estado.IdEstadoPedido);
+                return pedidos;
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
         }
     }
 }

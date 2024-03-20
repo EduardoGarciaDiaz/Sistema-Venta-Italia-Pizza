@@ -3,6 +3,7 @@ using ItaliaPizza_Cliente.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -25,6 +26,7 @@ namespace ItaliaPizza_Cliente.Vistas
     /// </summary>
     public partial class RegistroUsuario : Page
     {
+        List<TipoEmpleadoDto> tiposEmpleados = new List<TipoEmpleadoDto>();
         private const string CAMPO_VACIO = "* Campo obligatorio";
         private const string CORREO_INVALIDO = "* Correo no valido";
         private const string TELEFONO_INVALIDO = "* Telefono no valido";
@@ -42,14 +44,79 @@ namespace ItaliaPizza_Cliente.Vistas
         private void PrepareWindow()
         {
             ObtenerTiposEmpleados();
+            if ((int)EnumTiposEmpleado.Cajero == EmpleadoSingleton.getInstance().DatosEmpleado.IdTipoEmpleado)
+            {
+                rdbCliente.IsChecked = true;
+                rdbCliente.IsEnabled = false;
+                rdbEmpleado.IsEnabled = false;
+            }
+        }
+
+        private void BloquearCampos()
+        {            
+            var empleadoMesero = tiposEmpleados.Where(emp => emp.IdTipoEmpleado == (int)EnumTiposEmpleado.Mesero);
+            cbmTipoEmpleado.SelectedItem = empleadoMesero;
+            cbmTipoEmpleado.IsEditable = false;
+            txbNombre.Text = "Empleado Mesero";
+            txb1erApellido.Text = "_";
+            txbCorreo.Text = "_";
+            txbTelefono.Text = "0000000000";
+            txbCiudad.Text = "Local";
+            txbColonia.Text = "Local";
+            txbCalle.Text = "Local";
+            txbCodigoPostal.Text = "0000";
+            txbNumeroExterior.Text = "00";
+            txbNombre.Text = "Empleado Mesero";
+            txb1erApellido.Text = "_";
+            txbCorreo.Text = "_";
+            txbTelefono.Text = "0000000000";
+            txbCiudad.Text = "Local";
+            txbColonia.Text = "Local";
+            txbCalle.Text = "Local";
+            txbCodigoPostal.Text = "0000";
+            txbNumeroExterior.Text = "00";
+            txb2doApellido.IsEnabled = false;
         }
 
         private void ObtenerTiposEmpleados()
         {
-            ServicioUsuariosClient proxyServicioUsuariosClient = new ServicioUsuariosClient();
-            var tiposEmpleados = proxyServicioUsuariosClient.RecuperarTiposEmpleado().ToList();
-            cbmTipoEmpleado.ItemsSource = tiposEmpleados;
-            cbmTipoEmpleado.DisplayMemberPath = "Nombre";
+            try
+            {
+                ServicioUsuariosClient proxyServicioUsuariosClient = new ServicioUsuariosClient();
+                tiposEmpleados = proxyServicioUsuariosClient.RecuperarTiposEmpleado().ToList();
+                cbmTipoEmpleado.ItemsSource = tiposEmpleados;
+                cbmTipoEmpleado.DisplayMemberPath = "Nombre";
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (CommunicationException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
         }
 
         private bool ValidarCamposLlenosUsuario()
@@ -172,26 +239,65 @@ namespace ItaliaPizza_Cliente.Vistas
         private bool ValidarCamposUnicos()
         {
             bool sonUnicos = true;
-            ServicioUsuariosClient servicioUsuariosClient = new ServicioUsuariosClient();
-            if (!servicioUsuariosClient.ValidarNombreDeUsuarioUnico(txbNombreUsuario.Text.Trim()))
+            try
             {
-                sonUnicos = false;
-                lblNombreUsuarioError.Content = NOMBRE_USUARIO_REPETIDO;
-            }
-            else
-            {
-                lblNombreUsuarioError.Content = String.Empty;
-            }
-            if (!servicioUsuariosClient.ValidarCorreoUnico(txbCorreo.Text.Trim().ToLower()))
-            {
-                sonUnicos = false;
-                lblCorreoError.Content = CORREO_REPETIDO;
-            }
-            else
-            {
-                lblCorreoError.Content = String.Empty;
+                ServicioUsuariosClient servicioUsuariosClient = new ServicioUsuariosClient();
+                if (!servicioUsuariosClient.ValidarNombreDeUsuarioUnico(txbNombreUsuario.Text.Trim()))
+                {
+                    sonUnicos = false;
+                    lblNombreUsuarioError.Content = NOMBRE_USUARIO_REPETIDO;
+                }
+                else
+                {
+                    lblNombreUsuarioError.Content = String.Empty;
+                }
+                if (!servicioUsuariosClient.ValidarCorreoUnico(txbCorreo.Text.Trim().ToLower()))
+                {
+                    sonUnicos = false;
+                    lblCorreoError.Content = CORREO_REPETIDO;
+                }
+                else
+                {
+                    lblCorreoError.Content = String.Empty;
 
+                }
             }
+            catch (EndpointNotFoundException ex)
+            {
+                sonUnicos = false;
+                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                sonUnicos = false;
+                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+            {
+                sonUnicos = false;
+                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                sonUnicos = false;
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (CommunicationException ex)
+            {
+                sonUnicos = false;
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                sonUnicos = false;
+                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }            
             return sonUnicos;
         }
 
@@ -265,17 +371,50 @@ namespace ItaliaPizza_Cliente.Vistas
             {
                 DireccionDto direccion = CrearObjetoDireccion();
                 UsuarioDto usuarioNuevo = CrearObjetoUsuario(direccion);
-                if (esEmpleado)
+                try
                 {
-                    EmpleadoDto empleadoNuevo = CrearObjetoEmpleado(usuarioNuevo);
-                    bool  fueGuardado = GuardarEmpleado(empleadoNuevo);
-                    MostrarMensajeGuardadoConExito(fueGuardado);
+                    if (esEmpleado)
+                    {
+                        EmpleadoDto empleadoNuevo = CrearObjetoEmpleado(usuarioNuevo);
+                        bool fueGuardado = GuardarEmpleado(empleadoNuevo);
+                        MostrarMensajeGuardadoConExito(fueGuardado);
+                    }
+                    else
+                    {
+                        bool fueGuardado = GuardarCliente(usuarioNuevo);
+                        MostrarMensajeGuardadoConExito(fueGuardado);
+                    }
                 }
-                else
+                catch (EndpointNotFoundException ex)
                 {
-                    bool fueGuardado = GuardarCliente(usuarioNuevo);
-                    MostrarMensajeGuardadoConExito(fueGuardado);
-                }                
+                    VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                }
+                catch (TimeoutException ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                }
+                catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                }
+                catch (FaultException ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorServidor();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                }
+                catch (CommunicationException ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorServidor();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                }
+                catch (Exception ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorInesperado();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                }               
             }
         }
 

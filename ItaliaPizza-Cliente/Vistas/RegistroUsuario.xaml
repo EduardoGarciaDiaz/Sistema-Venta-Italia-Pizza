@@ -195,13 +195,13 @@
                     <Border Style="{StaticResource textBoxBorder}" Canvas.Left="22" Canvas.Top="81" Width="378" HorizontalAlignment="Left" VerticalAlignment="Center">
                         <TextBox x:Name="txbNombreUsuario" Style="{StaticResource textBox}" MaxLength ="20"/>
                     </Border>
-                    <Label Name="lblNombreUsuarioError" Style="{StaticResource errorLabel}" Canvas.Left="155" Canvas.Top="114" HorizontalAlignment="Center" VerticalAlignment="Top" Height="27" Width="234" />
+                    <Label Name="lblNombreUsuarioError" Style="{StaticResource errorLabel}" Canvas.Left="33" Canvas.Top="114" HorizontalAlignment="Center" VerticalAlignment="Top" Height="21" Width="356" />
 
                     <Label Content="* Contraseña" Style="{StaticResource fieldTags}"  Width="auto" Height="auto" Canvas.Left="6" Canvas.Top="121" HorizontalAlignment="Center" VerticalAlignment="Top" />
                     <Border Style="{StaticResource textBoxBorder}" Canvas.Left="22" Canvas.Top="159" Width="378" HorizontalAlignment="Center" VerticalAlignment="Top">
                         <PasswordBox x:Name="txbContrasena" Style="{StaticResource passwordBox}" Margin="2,0,2,0" MaxLength ="20"/>
                     </Border>
-                    <Label Name="lblContrasena" Style="{StaticResource errorLabel}" Canvas.Left="130" Canvas.Top="195" HorizontalAlignment="Center" VerticalAlignment="Top" Height="29" Width="261" />
+                    <Label Name="lblContrasena" Style="{StaticResource errorLabel}" Canvas.Left="28" Canvas.Top="195" HorizontalAlignment="Left" VerticalAlignment="Center" Height="29" Width="363" />
                     <Label Name="lblContrasenaVer" Padding="0" Style="{StaticResource fieldTags}" Foreground="Black" Canvas.Left="31" Canvas.Top="160" VerticalAlignment="Top" Height="29" Width="307" Visibility="Collapsed"/>
 
                     <Label Content="* Tipo de Empleado" Style="{StaticResource fieldTags}"  Width="auto" Height="auto" Canvas.Left="411" Canvas.Top="46" HorizontalAlignment="Center" VerticalAlignment="Top" />

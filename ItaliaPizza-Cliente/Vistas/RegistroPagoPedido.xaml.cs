@@ -223,5 +223,6 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             return !_regex.IsMatch(texto) && texto.Length < 6 && texto != "." && texto.Count(c => c == '.') < 2;
         }
+
     }
 }

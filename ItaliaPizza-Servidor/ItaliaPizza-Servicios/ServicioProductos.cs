@@ -115,7 +115,6 @@ namespace ItaliaPizza_Servicios
                     throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(ex);
                 }
             }
-
             return filasAfectadas;
         }
 
@@ -256,14 +255,21 @@ namespace ItaliaPizza_Servicios
 
         public List<InsumoOrdenCompraDto> RecuperarInsumosActivos()
         {
-            List<InsumoOrdenCompraDto> insumoOrdenCompras = new List<InsumoOrdenCompraDto>();
-            InsumoDAO insumoDAO = new InsumoDAO();
-            var insumosActivos = insumoDAO.RecuperarInsumosActivos();
-            foreach (var item in insumosActivos)
-            {
-                insumoOrdenCompras.Add(AuxiliarConversorDTOADAO.ConvertirInsumosAInsumoOrdenCompraDto(item));
+            try 
+                { 
+                List<InsumoOrdenCompraDto> insumoOrdenCompras = new List<InsumoOrdenCompraDto>();
+                InsumoDAO insumoDAO = new InsumoDAO();
+                var insumosActivos = insumoDAO.RecuperarInsumosActivos();
+                foreach (var item in insumosActivos)
+                {
+                    insumoOrdenCompras.Add(AuxiliarConversorDTOADAO.ConvertirInsumosAInsumoOrdenCompraDto(item));
+                }
+                return insumoOrdenCompras;            
             }
-            return insumoOrdenCompras;
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
         }
     }
 }

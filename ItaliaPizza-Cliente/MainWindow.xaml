@@ -41,6 +41,7 @@
                     Grid.Row="0"
                     Grid.ColumnSpan="3"/>
 
+            
             <Label Content="POS Italia Pizza"
                    Grid.Row="0"
                    Grid.Column="0"
@@ -55,6 +56,11 @@
                    Grid.Row="0"
                    Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,14,0"/>
 
+            <Label Name="lblNombre" 
+                   Grid.Column="3"  Grid.Row="0"
+                   Margin="2,0" Foreground="White" FontSize="24" FontWeight="Medium"
+                   VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+            
 
             <Image Stretch="Uniform"
                     Grid.Row="0"
@@ -64,7 +70,7 @@
                    Grid.Row="0"
                    Grid.Column="4"
                    Foreground="White" Margin="16,20,17,173" FontSize="11" Grid.RowSpan="2"/>
-
+            
             <Border Grid.Row="0"
                     Grid.Column="4" 
                     Background="Transparent"

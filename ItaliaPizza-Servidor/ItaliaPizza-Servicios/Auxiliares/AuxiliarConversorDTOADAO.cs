@@ -163,7 +163,7 @@ namespace ItaliaPizza_Servicios.Auxiliares
                 IdTipoEmpleado = (int) empleado.IdTipoEmpleado,
                 Contraseña = empleado.Contraseña,
                 NombreUsuario = empleado.NombreUsuario,
-                Usuario = ConvertirUsuariosAUsuarioDto(usuario,direccion),
+                Usuario = ConvertirUsuariosAUsuarioDto(usuario,direccion),                
                 TipoEmpleado = tipoEmpleado
             };
             return empleadoDto;

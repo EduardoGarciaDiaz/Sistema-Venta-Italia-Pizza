@@ -3,6 +3,7 @@ using ItaliaPizza_Cliente.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -40,7 +41,40 @@ namespace ItaliaPizza_Cliente.Vistas
             string contrasena = txbContrasena.Password.ToString().Trim();
             if(ValidarCamposVacios(nombreUsuario, contrasena))
             {
-                ValidarCredenciales(nombreUsuario,contrasena);
+                try
+                {
+                    ValidarCredenciales(nombreUsuario, contrasena);
+                }
+                catch (EndpointNotFoundException ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                }
+                catch (TimeoutException ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                }
+                catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                }
+                catch (FaultException ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorServidor();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                }
+                catch (CommunicationException ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorServidor();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                }
+                catch (Exception ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorInesperado();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                }
             }
         }
 
@@ -102,6 +136,8 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             MainWindow ventana = (MainWindow)Window.GetWindow(this);
             PaginaDeIncio paginaDeIncio = new PaginaDeIncio();
+            ventana.MostrarNombre(EmpleadoSingleton.getInstance().DatosUsuario.NombreCompleto);
+            ventana.FiltrarOpcionesPanelLateral(EmpleadoSingleton.getInstance().DatosEmpleado.IdTipoEmpleado);
             ventana.SkpMenuLateral.Visibility = Visibility.Visible;
             ventana.FrameNavigator.NavigationService.Navigate(paginaDeIncio);
         }

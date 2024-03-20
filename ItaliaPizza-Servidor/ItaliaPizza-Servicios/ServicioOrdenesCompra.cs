@@ -1,5 +1,6 @@
 ﻿using ItaliaPizza_Contratos.DTOs;
 using ItaliaPizza_DataAccess;
+using ItaliaPizza_DataAccess.Excepciones;
 using ItaliaPizza_Servicios.Auxiliares;
 using System;
 using System.Collections.Generic;
@@ -14,30 +15,44 @@ namespace ItaliaPizza_Servicios
     {
         public bool EnviarOrdenDeCompra(int idOrdenDeCompra)
         {
-            bool ordenEnviada = false;
-            return ordenEnviada;
+            try
+            {
+                bool ordenEnviada = false;
+                return ordenEnviada;
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
 
         }
 
         public int GuardarOrdenDeCompraNueva(OrdenDeCompraDto ordenDeCompraDto)
         {
-            int idOrdenCompraNueva = 0;
-            if (ordenDeCompraDto != null && ordenDeCompraDto.listaElementosOrdenCompra.Count > 0)
+            try
             {
-                var ordenNueva = AuxiliarConversorDTOADAO.ConvertirOrdenDeCompraDtoAOrdenesDeCompras(ordenDeCompraDto);
-                idOrdenCompraNueva = OrdenDeCompraDAO.GuardarOrdenDeCompra(ordenNueva);
-                List<OrdenesCompraInsumos> ordenesCompraInsumos = new List<OrdenesCompraInsumos>();
-                foreach (var item in ordenDeCompraDto.listaElementosOrdenCompra)
+                int idOrdenCompraNueva = 0;
+                if (ordenDeCompraDto != null && ordenDeCompraDto.listaElementosOrdenCompra.Count > 0)
                 {
-                    ordenesCompraInsumos.Add(AuxiliarConversorDTOADAO.ConvertirElementoOrdenCompraAOrdenesCompraInsumos(idOrdenCompraNueva, item));
+                    var ordenNueva = AuxiliarConversorDTOADAO.ConvertirOrdenDeCompraDtoAOrdenesDeCompras(ordenDeCompraDto);
+                    idOrdenCompraNueva = OrdenDeCompraDAO.GuardarOrdenDeCompra(ordenNueva);
+                    List<OrdenesCompraInsumos> ordenesCompraInsumos = new List<OrdenesCompraInsumos>();
+                    foreach (var item in ordenDeCompraDto.listaElementosOrdenCompra)
+                    {
+                        ordenesCompraInsumos.Add(AuxiliarConversorDTOADAO.ConvertirElementoOrdenCompraAOrdenesCompraInsumos(idOrdenCompraNueva, item));
+                    }
+                    int resultado = OrdenDeCompraDAO.GuardarElementoInsumoDeOrdenDeCompra(ordenesCompraInsumos);
+                    if (resultado == 0)
+                    {
+                        idOrdenCompraNueva = 0;
+                    }
                 }
-                int resultado = OrdenDeCompraDAO.GuardarElementoInsumoDeOrdenDeCompra(ordenesCompraInsumos);
-                if(resultado == 0)
-                {
-                    idOrdenCompraNueva = 0;
-                }
+                return idOrdenCompraNueva;
             }
-            return idOrdenCompraNueva;
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }           
         }
 
         

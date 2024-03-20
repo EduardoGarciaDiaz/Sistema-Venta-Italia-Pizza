@@ -4,6 +4,7 @@ using ItaliaPizza_Cliente.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -56,10 +57,43 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void RecuperarInformacion()
         {
-            ServicioProveedoresClient servicioProveedoresClient = new ServicioProveedoresClient();
-            ServicioProductosClient servicioProductosClient = new ServicioProductosClient();
-            proveedores = servicioProveedoresClient.RecuperarProveedores().ToList();
-            insumosDisponibles = servicioProductosClient.RecuperarInsumosActivos().ToList();
+            try
+            {
+                ServicioProveedoresClient servicioProveedoresClient = new ServicioProveedoresClient();
+                ServicioProductosClient servicioProductosClient = new ServicioProductosClient();
+                proveedores = servicioProveedoresClient.RecuperarProveedores().ToList();
+                insumosDisponibles = servicioProductosClient.RecuperarInsumosActivos().ToList();
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (CommunicationException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
         }
 
         private void CargarProveedores(List<ProveedorDto> proveedoresACargar)
@@ -207,42 +241,131 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void BtnEnviarOrdenCompra_Click(object sender, RoutedEventArgs e)
         {
-            int idOrdenCompra = GuardarOrdenDeCompra(listElementosEnOrdenCompra);
-            if(idOrdenCompra != 0)
+            if (ValidarProveedorSeleccionado())
             {
-                if(EnviarOrdenDeCompra(idOrdenCompra))
+                try
                 {
-                    VentanaEmergente ventanaEmergente = new VentanaEmergente("Exito!!", "La orden de compra se envio correctamente", Window.GetWindow(this), 2);
-                    ventanaEmergente.ShowDialog();
+                    int idOrdenCompra = GuardarOrdenDeCompra(listElementosEnOrdenCompra);
+                    if (idOrdenCompra != 0)
+                    {
+                    
+                            if (EnviarOrdenDeCompra(idOrdenCompra))
+                            {
+                                VentanaEmergente ventanaEmergente = new VentanaEmergente("Exito!!", "La orden de compra se envio correctamente", Window.GetWindow(this), 2);
+                                ventanaEmergente.ShowDialog();
+                            }
+                            else
+                            {
+                                VentanaEmergente ventanaEmergente = new VentanaEmergente("Upss!!", "La orden de compra se guardo correctamente pero hubo un problema al enviarla, intentelos mas tarde", Window.GetWindow(this), 1);
+                                ventanaEmergente.ShowDialog();
+                            }
+                            SalirAPantallaInicio();
+                    
+                    }
+                    else
+                    {
+                        VentanaEmergente ventanaEmergente = new VentanaEmergente("Error", "Ocurrio un error al guardar la orden de compra, intentelo mas tarde y verifique su conexión", Window.GetWindow(this), 1);
+                        ventanaEmergente.ShowDialog();
+                    }
                 }
-                else
+                catch (EndpointNotFoundException ex)
                 {
-                    VentanaEmergente ventanaEmergente = new VentanaEmergente("Upss!!", "La orden de compra se guardo correctamente pero hubo un problema al enviarla, intentelos mas tarde", Window.GetWindow(this), 1);
-                    ventanaEmergente.ShowDialog();
+                    VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
                 }
-                SalirAPantallaInicio();
+                catch (TimeoutException ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                }
+                catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                }
+                catch (FaultException ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorServidor();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                }
+                catch (CommunicationException ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorServidor();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                }
+                catch (Exception ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorInesperado();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                }
             }
             else
             {
-                VentanaEmergente ventanaEmergente = new VentanaEmergente("Error", "Ocurrio un error al guardar la orden de compra, intentelo mas tarde y verifique su conexión", Window.GetWindow(this), 1);
+                VentanaEmergente ventanaEmergente = new VentanaEmergente("Error", "Debes Seleccionar un proveedor para guardar la orden de compra", Window.GetWindow(this), 1);
                 ventanaEmergente.ShowDialog();
-            }
+            }            
         }
 
         private void BtnGuardarOrden_Click(object sender, RoutedEventArgs e)
         {
-            int idOrdenCompra = GuardarOrdenDeCompra(listElementosEnOrdenCompra);
-            if (idOrdenCompra != 0)
-            {
-                VentanaEmergente ventanaEmergente = new VentanaEmergente("Exito!!", "La orden de compra se guardo correctamente.", Window.GetWindow(this), 2);
-                ventanaEmergente.ShowDialog();
-                SalirAPantallaInicio();
+            if (ValidarProveedorSeleccionado()) 
+            { 
+                try
+                {
+                    int idOrdenCompra = GuardarOrdenDeCompra(listElementosEnOrdenCompra);
+                    if (idOrdenCompra != 0)
+                    {
+                        VentanaEmergente ventanaEmergente = new VentanaEmergente("Exito!!", "La orden de compra se guardo correctamente.", Window.GetWindow(this), 2);
+                        ventanaEmergente.ShowDialog();
+                        SalirAPantallaInicio();
+                    }
+                    else
+                    {
+                        VentanaEmergente ventanaEmergente = new VentanaEmergente("Error", "Ocurrio un error al guardar la orden de compra, intentelo mas tarde y verifique su conexión", Window.GetWindow(this), 1);
+                        ventanaEmergente.ShowDialog();
+                    }
+                }
+                catch (EndpointNotFoundException ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                }
+                catch (TimeoutException ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                }
+                catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                }
+                catch (FaultException ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorServidor();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                }
+                catch (CommunicationException ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorServidor();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                }
+                catch (Exception ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorInesperado();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                }
             }
             else
             {
-                VentanaEmergente ventanaEmergente = new VentanaEmergente("Error", "Ocurrio un error al guardar la orden de compra, intentelo mas tarde y verifique su conexión", Window.GetWindow(this), 1);
+                VentanaEmergente ventanaEmergente = new VentanaEmergente("Error", "Debes Seleccionar un proveedor para guardar la orden de compra", Window.GetWindow(this), 1);
                 ventanaEmergente.ShowDialog();
             }
+        }
+
+        private bool ValidarProveedorSeleccionado()
+        {
+            return lstProveedores.SelectedItem != null;
         }
 
         private int GuardarOrdenDeCompra(List<ElementoInsumoOrdenCompraSeleccionado> itemsDeOrdenCompra)

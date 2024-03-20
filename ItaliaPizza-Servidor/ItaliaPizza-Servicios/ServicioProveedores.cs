@@ -1,5 +1,6 @@
 ﻿using ItaliaPizza_Contratos.DTOs;
 using ItaliaPizza_DataAccess;
+using ItaliaPizza_DataAccess.Excepciones;
 using ItaliaPizza_Servicios.Auxiliares;
 using System;
 using System.Collections.Generic;
@@ -13,13 +14,21 @@ namespace ItaliaPizza_Servicios
     {
         public List<ProveedorDto> RecuperarProveedores()
         {
-            List<ProveedorDto> proveedorDtos = new List<ProveedorDto>();
-            var proveedoresBD = ProveedorDAO.RecuperarProveedoresBD();
-            foreach (var item in proveedoresBD)
+            try
             {
-                proveedorDtos.Add(AuxiliarConversorDTOADAO.ConvertirProveedoresAProveedoresDto(item, item.Direcciones));
+
+                List<ProveedorDto> proveedorDtos = new List<ProveedorDto>();
+                var proveedoresBD = ProveedorDAO.RecuperarProveedoresBD();
+                foreach (var item in proveedoresBD)
+                {
+                    proveedorDtos.Add(AuxiliarConversorDTOADAO.ConvertirProveedoresAProveedoresDto(item, item.Direcciones));
+                }
+                return proveedorDtos;
             }
-            return proveedorDtos;
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
         }
     }
 }

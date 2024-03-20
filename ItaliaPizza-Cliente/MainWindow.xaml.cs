@@ -1,9 +1,11 @@
 ﻿using ItaliaPizza_Cliente.Recursos.ControlesUsuario;
+using ItaliaPizza_Cliente.ServicioItaliaPizza;
 using ItaliaPizza_Cliente.Utilidades;
 using ItaliaPizza_Cliente.Vistas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,16 +23,75 @@ namespace ItaliaPizza_Cliente
     /// <summary>
     /// Lógica de interacción para MainWindow.xaml
     /// </summary>
+ 
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+            this.Closing += MainWindow_Cerrando;
+        }
+
+        public void FiltrarOpcionesPanelLateral(int idTipoEmpleado)
+        {
+            switch (idTipoEmpleado)
+            {
+                case (int) EnumTiposEmpleado.Cajero:
+                    OpcionesPanelCajero();
+                    break;
+                case (int)EnumTiposEmpleado.Mesero:
+                    OpcionesPanelMesero();
+                    break;
+                case (int)EnumTiposEmpleado.Chef:
+                    OpcionesPanelChef();
+                    break;
+                case (int)EnumTiposEmpleado.Inventarista:
+                    OpcionesPanelInventarista();
+                    break;
+                default:
+                    OpcionesPanelAdmin();
+                    break;
+            }
+        }
+        private void OpcionesPanelAdmin()
+        {
             AgregarBotonPedido();
-            AgregarBotonPedidos();
+            AgregarBotonPedidos();            
             AgregarBotonProductos();
             AgregarBotonConsultaUsuarios();
             AgregarBotonRecetas();
+            AgregarBotonConsultaOrdenesDeCompra();
+        }
+
+        private void OpcionesPanelCajero()
+        {
+            AgregarBotonPedido();
+            AgregarBotonPedidos();
+            AgregarBotonProductos();
+            AgregarBotonRegistrarUsuarios();
+            AgregarBotonRecetas();
+            AgregarBotonConsultaOrdenesDeCompra();
+        }
+
+        private void OpcionesPanelChef()
+        {
+            AgregarBotonPedidos();
+            AgregarBotonRecetas();
+        }
+        private void OpcionesPanelInventarista()
+        {
+            AgregarBotonProductos();
+            AgregarBotonRecetas();
+            AgregarBotonConsultaOrdenesDeCompra();
+        }
+        private void OpcionesPanelMesero()
+        {
+            AgregarBotonPedidos();
+        }
+
+        public void MostrarNombre(string nombreCompleto)
+        {
+            lblNombre.Content = nombreCompleto;
         }
 
         private void AgregarBotonPedido()
@@ -78,6 +139,21 @@ namespace ItaliaPizza_Cliente
             FrameNavigator.NavigationService.Navigate(usuarios);
         }
 
+        private void AgregarBotonRegistrarUsuarios()
+        {
+            BtnMenuLateral usuario = new BtnMenuLateral();
+            usuario.ImgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_agregar_usuario.png", UriKind.Relative));
+            usuario.LblNombreBoton.Content = "Usuarios";
+            usuario.Click += BtnRegistroUsuarioClick;
+            SkpMenuLateral.Children.Add(usuario);
+        }
+
+        private void BtnRegistroUsuarioClick(object sender, RoutedEventArgs e)
+        {
+            RegistroUsuario registroUsuarios = new RegistroUsuario();
+            FrameNavigator.NavigationService.Navigate(registroUsuarios);
+        }
+
         private void AgregarBotonRecetas()
         {
             BtnMenuLateral receta = new BtnMenuLateral();
@@ -116,7 +192,7 @@ namespace ItaliaPizza_Cliente
             ordenes.ImgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_Orden_Compra.png",
                 UriKind.Relative));
             ordenes.LblNombreBoton.Content = "Ordenes";
-            ordenes.Click += BtnPedidosClick;
+            ordenes.Click += BtnOrdenesCompraClick;
             SkpMenuLateral.Children.Add(ordenes);
         }
 
@@ -126,10 +202,60 @@ namespace ItaliaPizza_Cliente
             FrameNavigator.NavigationService.Navigate(consultaOrdenesDeCompra);
         }
 
+
+
+        private void MainWindow_Cerrando(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            CerrarSesion();
+        }
+
         private void Salir_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            EmpleadoSingleton.LimpiarSingleton();
-            this.Close();
+            CerrarSesion();
+            IrInicioSesion();
         }
-    }
+
+        private void IrInicioSesion()
+        {
+            InicioSesion inicioSesion = new InicioSesion();
+            FrameNavigator.NavigationService.Navigate(inicioSesion);
+        }
+
+        private void CerrarSesion()
+        {
+            try
+            {
+                ServicioInicioSesionClient servicioInicioSesionClient = new ServicioInicioSesionClient();
+                servicioInicioSesionClient.CerrarSesion(EmpleadoSingleton.getInstance().IdUsuario);
+            }
+            catch (EndpointNotFoundException)
+            {
+                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+            }
+            catch (TimeoutException)
+            {
+                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+            }
+            catch (FaultException<ExcepcionServidorItaliaPizza>)
+            {
+                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+            }
+            catch (FaultException)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+            }
+            catch (CommunicationException)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+            }
+            catch (Exception)
+            {
+                VentanasEmergentes.MostrarVentanaErrorInesperado();
+            }
+            EmpleadoSingleton.LimpiarSingleton();
+        }
+
+
+    } 
+
 }

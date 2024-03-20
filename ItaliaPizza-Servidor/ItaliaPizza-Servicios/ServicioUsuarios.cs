@@ -119,20 +119,27 @@ namespace ItaliaPizza_Servicios
 
         public bool ValidarCorreoUnico(string correo)
         {
-            bool esUnico = false;
-            UsuarioDAO usuarioDAO = new UsuarioDAO();
-            if (!string.IsNullOrEmpty(correo))
+            try
             {
-                try
+                bool esUnico = false;
+                UsuarioDAO usuarioDAO = new UsuarioDAO();
+                if (!string.IsNullOrEmpty(correo))
                 {
-                    esUnico = usuarioDAO.CorreoEsUnico(correo);
+                    try
+                    {
+                        esUnico = usuarioDAO.CorreoEsUnico(correo);
+                    }
+                    catch (ExcepcionDataAccess e)
+                    {
+                        throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+                    }
                 }
-                catch (ExcepcionDataAccess e)
-                {
-                    throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
-                }
+                return esUnico;
             }
-            return esUnico;
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
         }
 
         public bool ValidarNombreDeUsuarioUnico(string nombreDeUsuario)
@@ -255,7 +262,17 @@ namespace ItaliaPizza_Servicios
             try
             {
                 var empleado = EmpleadoDAO.RecuperarEmpleadoProNombreUsuarioBD(nombreUsuario);
-                empleadoDto = AuxiliarConversorDTOADAO.ConvertirEmpleadosAEmpleadoDto(empleado,empleado.TiposEmpleado.Nombre, empleado.Usuarios, empleado.Usuarios.Direcciones);
+                string tipo;
+                if (empleado.TiposEmpleado != null)
+                {
+                    tipo = empleado.TiposEmpleado.Nombre ?? string.Empty;
+                }
+                else
+                {
+                    empleado.IdTipoEmpleado = 0;
+                    tipo = "Administrador";
+                }
+                empleadoDto = AuxiliarConversorDTOADAO.ConvertirEmpleadosAEmpleadoDto(empleado, tipo, empleado.Usuarios, empleado.Usuarios.Direcciones);
                 ListaEmpleadoActivos.RegistrarUsuarioEnLista(empleadoDto.IdUsuario, empleado.NombreUsuario);
             }
             catch (ExcepcionDataAccess e)

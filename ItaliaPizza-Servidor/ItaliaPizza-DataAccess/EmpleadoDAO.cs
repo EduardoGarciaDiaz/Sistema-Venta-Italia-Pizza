@@ -108,7 +108,7 @@ namespace ItaliaPizza_DataAccess
             {
                 using (var context = new ItaliaPizzaEntities())
                 {
-                     empleados = context.Empleados.Include(u => u.Usuarios.Direcciones).Include(e=> e.Usuarios).Include(e => e.TiposEmpleado).ToList();
+                     empleados = context.Empleados.Include(u => u.Usuarios.Direcciones).Include(e=> e.Usuarios).Include(e => e.TiposEmpleado).Where(empl => empl.IdTipoEmpleado != null).ToList();
 
                 }
             }

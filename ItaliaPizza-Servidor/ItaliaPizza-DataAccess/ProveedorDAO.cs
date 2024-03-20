@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ItaliaPizza_DataAccess.Excepciones;
 
 namespace ItaliaPizza_DataAccess
 {
@@ -26,20 +27,19 @@ namespace ItaliaPizza_DataAccess
             }
             catch (EntityException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (SqlException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (Exception ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
-            return proveedores;
         }
 
     }

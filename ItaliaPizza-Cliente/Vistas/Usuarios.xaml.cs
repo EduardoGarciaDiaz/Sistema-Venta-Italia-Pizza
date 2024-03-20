@@ -4,6 +4,7 @@ using ItaliaPizza_Cliente.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -49,10 +50,43 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void RecuperarUusuarios()
         {
-            ServicioUsuariosClient servicioUsuariosClient = new ServicioUsuariosClient();
-            clientes =  servicioUsuariosClient.RecuperarClientes().ToList();
-            empleados = servicioUsuariosClient.RecuperarEmpleados().ToList();
-            tiposEmpleado = servicioUsuariosClient.RecuperarTiposEmpleado().ToList();
+            try
+            {
+                ServicioUsuariosClient servicioUsuariosClient = new ServicioUsuariosClient();
+                clientes = servicioUsuariosClient.RecuperarClientes().ToList();
+                empleados = servicioUsuariosClient.RecuperarEmpleados().ToList();
+                tiposEmpleado = servicioUsuariosClient.RecuperarTiposEmpleado().ToList();
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (CommunicationException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
         }
 
         private void MostrarUsuarios(List<UsuarioDto> listaClientes, List<EmpleadoDto> listaEmpleados)
@@ -90,8 +124,8 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void BtnModificarUsuario_Click(object sender, EventArgs e)
         {
-            ElementoUsuario elementoUsuario = sender as ElementoUsuario;
-            UsuarioDto usuario =  elementoUsuario.usuario;
+           // ElementoUsuario elementoUsuario = sender as ElementoUsuario;
+            //UsuarioDto usuario =  elementoUsuario.usuario;
             VentanaEmergente ventanaEmergente = new VentanaEmergente("AVISO!!", "La funcionalidad modificar sera proximamemnte impelemtada", Window.GetWindow(this), 2);
             ventanaEmergente.ShowDialog();
         }
@@ -99,30 +133,63 @@ namespace ItaliaPizza_Cliente.Vistas
         private void BtnDesactivarActivar_Click(Object sender, EventArgs e)
         {
             ElementoUsuario elementoUsuario = sender as ElementoUsuario;
-            if (elementoUsuario.empleado != null)
+            try
             {
-                var empleado = elementoUsuario.empleado;
-                if (empleado.Usuario.EsActivo)
+                if (elementoUsuario.empleado != null)
                 {
-                    DesactivarActivarUsuario(empleado.IdUsuario, true, true, elementoUsuario);
+                    var empleado = elementoUsuario.empleado;
+                    if (empleado.Usuario.EsActivo)
+                    {
+                        DesactivarActivarUsuario(empleado.IdUsuario, true, true, elementoUsuario);
+                    }
+                    else
+                    {
+                        DesactivarActivarUsuario(empleado.IdUsuario, true, false, elementoUsuario);
+                    }
                 }
-                else
+                else if (elementoUsuario.usuario != null)
                 {
-                    DesactivarActivarUsuario(empleado.IdUsuario, true, false, elementoUsuario);
+                    var cliente = elementoUsuario.usuario;
+                    if (cliente.EsActivo)
+                    {
+                        DesactivarActivarUsuario(cliente.IdUsuario, false, true, elementoUsuario);
+                    }
+                    else
+                    {
+                        DesactivarActivarUsuario(cliente.IdUsuario, false, false, elementoUsuario);
+                    }
                 }
             }
-            else if(elementoUsuario.usuario != null)
+            catch (EndpointNotFoundException ex)
             {
-                var cliente = elementoUsuario.usuario;
-                if (cliente.EsActivo)
-                {
-                    DesactivarActivarUsuario(cliente.IdUsuario, false, true, elementoUsuario);
-                }
-                else
-                {
-                    DesactivarActivarUsuario(cliente.IdUsuario, false, false, elementoUsuario);
-                }
+                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
+            catch (TimeoutException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (CommunicationException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }          
 
         }
 
