@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ItaliaPizza_Servicios.Auxiliares;
+using ItaliaPizza_DataAccess.Excepciones;
 
 namespace ItaliaPizza_Servicios
 {
@@ -18,17 +19,24 @@ namespace ItaliaPizza_Servicios
             {
                 int exito;
                 Direcciones direccionNueva = AuxiliarConversorDTOADAO.ConvertirDireccionDtoADirecciones(clienteNuevo.Direccion);
-                 exito= DireccionDAO.GuardarDireccionNuevaBD(direccionNueva);
-                if(exito > 0)
+                try
                 {
-                    UsuarioDAO usuarioDAO = new UsuarioDAO();
-                    clienteNuevo.IdDireccion = exito;
-                    Usuarios usuariosNuevo = AuxiliarConversorDTOADAO.ConvertirUsuarioDtoAUsuarios(clienteNuevo);
-                    exito = usuarioDAO.GuardarUsuarioNuevoBD(usuariosNuevo);
-                    if(exito > 0)
+                    exito = DireccionDAO.GuardarDireccionNuevaBD(direccionNueva);
+                    if (exito > 0)
                     {
-                        seGuardoCliente = true;
+                        UsuarioDAO usuarioDAO = new UsuarioDAO();
+                        clienteNuevo.IdDireccion = exito;
+                        Usuarios usuariosNuevo = AuxiliarConversorDTOADAO.ConvertirUsuarioDtoAUsuarios(clienteNuevo);
+                        exito = usuarioDAO.GuardarUsuarioNuevoBD(usuariosNuevo);
+                        if (exito > 0)
+                        {
+                            seGuardoCliente = true;
+                        }
                     }
+                }
+                catch (ExcepcionDataAccess e)
+                {
+                    throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
                 }
             }
             return seGuardoCliente;
@@ -41,54 +49,70 @@ namespace ItaliaPizza_Servicios
             {
                 int exito;
                 Direcciones direccionNueva = AuxiliarConversorDTOADAO.ConvertirDireccionDtoADirecciones(empleadoNuevo.Usuario.Direccion);
-                exito = DireccionDAO.GuardarDireccionNuevaBD(direccionNueva);
-                if (exito > 0)
+                try
                 {
-                    UsuarioDAO usuarioDAO = new UsuarioDAO();
-                    empleadoNuevo.Usuario.IdDireccion = exito;
-                    Usuarios usuariosNuevo = AuxiliarConversorDTOADAO.ConvertirUsuarioDtoAUsuarios(empleadoNuevo.Usuario);
-                    exito = usuarioDAO.GuardarUsuarioNuevoBD(usuariosNuevo);
+                    exito = DireccionDAO.GuardarDireccionNuevaBD(direccionNueva);
                     if (exito > 0)
                     {
-                        empleadoNuevo.IdUsuario = exito;
-                        Empleados empleado = AuxiliarConversorDTOADAO.ConvertirEmpleadoDtoAEmpleado(empleadoNuevo);
-                        exito = EmpleadoDAO.GuardarEmpleadoNuevoBD(empleado);
+                        UsuarioDAO usuarioDAO = new UsuarioDAO();
+                        empleadoNuevo.Usuario.IdDireccion = exito;
+                        Usuarios usuariosNuevo = AuxiliarConversorDTOADAO.ConvertirUsuarioDtoAUsuarios(empleadoNuevo.Usuario);
+                        exito = usuarioDAO.GuardarUsuarioNuevoBD(usuariosNuevo);
                         if (exito > 0)
                         {
-                            seGuardoEmpleado = true;
+                            empleadoNuevo.IdUsuario = exito;
+                            Empleados empleado = AuxiliarConversorDTOADAO.ConvertirEmpleadoDtoAEmpleado(empleadoNuevo);
+                            exito = EmpleadoDAO.GuardarEmpleadoNuevoBD(empleado);
+                            if (exito > 0)
+                            {
+                                seGuardoEmpleado = true;
+                            }
                         }
                     }
+                }
+                catch (ExcepcionDataAccess e)
+                {
+                    throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
                 }
             }
             return seGuardoEmpleado;
         }
 
-        public void OperacionUsuariosEjemplo()
-        {
-            throw new NotImplementedException();
-        }
-
         public List<ClienteBusqueda> BuscarCliente(string nombre)
         {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
-            return usuarioDAO.RecuperarClientesPorNombre(nombre).ConvertAll(usuario =>
-                new ClienteBusqueda
-                {
-                    IdCliente = usuario.IdUsuario,
-                    Nombre = usuario.NombreCompleto,
-                    Correo = usuario.CorreoElectronico
-                });
+            try
+            {
+                return usuarioDAO.RecuperarClientesPorNombre(nombre).ConvertAll(usuario =>
+                    new ClienteBusqueda
+                    {
+                        IdCliente = usuario.IdUsuario,
+                        Nombre = usuario.NombreCompleto,
+                        Correo = usuario.CorreoElectronico
+                    });
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
         }
 
                 
         public List<TipoEmpleadoDto> RecuperarTiposEmpleado()
         {
             List<TipoEmpleadoDto> tiposEmpleadosLista = new List<TipoEmpleadoDto>();
-            List<TiposEmpleado> tiposEmpleadoRecuperados = EmpleadoDAO.RecuperarTiposEmpleadoBD();
-            foreach (var item in tiposEmpleadoRecuperados)
+            try
             {
-                TipoEmpleadoDto tipoEmpleadoDto = AuxiliarConversorDTOADAO.ConvertirTiposEmpleadoATiposEmpleadoDto(item);
-                tiposEmpleadosLista.Add(tipoEmpleadoDto);
+                List<TiposEmpleado> tiposEmpleadoRecuperados = EmpleadoDAO.RecuperarTiposEmpleadoBD();
+                foreach (var item in tiposEmpleadoRecuperados)
+                {
+                    TipoEmpleadoDto tipoEmpleadoDto = AuxiliarConversorDTOADAO.ConvertirTiposEmpleadoATiposEmpleadoDto(item);
+                    tiposEmpleadosLista.Add(tipoEmpleadoDto);
+                }
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
             }
             return tiposEmpleadosLista;
         }
@@ -97,9 +121,16 @@ namespace ItaliaPizza_Servicios
         {
             bool esUnico = false;
             UsuarioDAO usuarioDAO = new UsuarioDAO();
-            if (!String.IsNullOrEmpty(correo))
+            if (!string.IsNullOrEmpty(correo))
             {
-                esUnico = usuarioDAO.CorreoEsUnico(correo);
+                try
+                {
+                    esUnico = usuarioDAO.CorreoEsUnico(correo);
+                }
+                catch (ExcepcionDataAccess e)
+                {
+                    throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+                }
             }
             return esUnico;
         }
@@ -107,9 +138,16 @@ namespace ItaliaPizza_Servicios
         public bool ValidarNombreDeUsuarioUnico(string nombreDeUsuario)
         {
             bool esUnico = false;
-            if (!String.IsNullOrEmpty(nombreDeUsuario))
+            if (!string.IsNullOrEmpty(nombreDeUsuario))
             {
-                esUnico = EmpleadoDAO.NombreUsuarioEsUnico(nombreDeUsuario);
+                try
+                {
+                    esUnico = EmpleadoDAO.NombreUsuarioEsUnico(nombreDeUsuario);
+                }
+                catch (ExcepcionDataAccess e)
+                {
+                    throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+                }
             }
             return esUnico;
         }
@@ -118,10 +156,17 @@ namespace ItaliaPizza_Servicios
         {
             List<UsuarioDto> usuariosDto = new List<UsuarioDto>();
             UsuarioDAO usuarioDAO = new UsuarioDAO();
-            var usuariosLista = usuarioDAO.RecuperarClientesBD();
-            foreach (var usuario in usuariosLista)
+            try
             {
-                usuariosDto.Add(AuxiliarConversorDTOADAO.ConvertirUsuariosAUsuarioDto(usuario,usuario.Direcciones));
+                var usuariosLista = usuarioDAO.RecuperarClientesBD();
+                foreach (var usuario in usuariosLista)
+                {
+                    usuariosDto.Add(AuxiliarConversorDTOADAO.ConvertirUsuariosAUsuarioDto(usuario, usuario.Direcciones));
+                }
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
             }
             return usuariosDto;
         }
@@ -131,10 +176,17 @@ namespace ItaliaPizza_Servicios
         public List<EmpleadoDto> RecuperarEmpleados()
         {
             List<EmpleadoDto> empleadosLista = new List<EmpleadoDto>();
-            var empelados = EmpleadoDAO.RecuperarEmpleadoBD();
-            foreach (var empleado in empelados)
+            try
             {
-                empleadosLista.Add(AuxiliarConversorDTOADAO.ConvertirEmpleadosAEmpleadoDto(empleado, empleado.TiposEmpleado.Nombre, empleado.Usuarios, empleado.Usuarios.Direcciones));
+                var empleados = EmpleadoDAO.RecuperarEmpleadoBD();
+                foreach (var empleado in empleados)
+                {
+                    empleadosLista.Add(AuxiliarConversorDTOADAO.ConvertirEmpleadosAEmpleadoDto(empleado, empleado.TiposEmpleado.Nombre, empleado.Usuarios, empleado.Usuarios.Direcciones));
+                }
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
             }
             return empleadosLista;
         }
@@ -143,42 +195,58 @@ namespace ItaliaPizza_Servicios
         {
             bool exitoAccion;
             UsuarioDAO usuarioDAO = new UsuarioDAO();
-            if (esDesactivar)
+            PedidoDAO pedidoDAO = new PedidoDAO();
+            try
             {
-                if (esEmpleado)
+                if (esDesactivar)
                 {
-                    if (ListaEmpleadoActivos.EsEmpleadoNoActivo(idUsuario))
+                    if (esEmpleado)
                     {
-                        exitoAccion = usuarioDAO.DesactivarUsuario(idUsuario);
+                        if (ListaEmpleadoActivos.EsEmpleadoNoActivo(idUsuario))
+                        {
+                            exitoAccion = usuarioDAO.DesactivarUsuario(idUsuario);
+                        }
+                        else
+                        {
+                            exitoAccion = false;
+                        }
                     }
                     else
                     {
-                        exitoAccion = false;
+                        if (pedidoDAO.ValidarClienteTienePedidosPendientes(idUsuario))
+                        {
+                            exitoAccion = usuarioDAO.DesactivarUsuario(idUsuario);
+                        }
+                        else
+                        {
+                            exitoAccion = false;
+                        }
                     }
                 }
                 else
                 {
-                    if (usuarioDAO.ValidarClienteTienePedidosPendientes(idUsuario))
-                    {
-                        exitoAccion = usuarioDAO.DesactivarUsuario(idUsuario);
-                    }
-                    else
-                    {
-                        exitoAccion = false;
-                    }
+                    exitoAccion = usuarioDAO.ActivarUsuario(idUsuario);
                 }
             }
-            else
+            catch (ExcepcionDataAccess e)
             {
-                exitoAccion = usuarioDAO.ActivarUsuario(idUsuario);
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
             }
+            
             return exitoAccion;
         }
         
         public Cliente RecuperarClientePorId (int idCliente)
         {
             UsuarioDAO usuarioDAO=new UsuarioDAO();
-            return usuarioDAO.RecuperarDatosClientePorId(idCliente);
+            try
+            {
+                return usuarioDAO.RecuperarDatosClientePorId(idCliente);
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
         }
 
     }

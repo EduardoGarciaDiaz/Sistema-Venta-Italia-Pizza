@@ -18,6 +18,7 @@ namespace ItaliaPizza_Servicios.Auxiliares
                 Mensaje = ex.Message,
                 StackTrace = ex.StackTrace
             };
+
             return new FaultException<ExcepcionServidorItaliaPizza>(respuesta, new FaultReason(respuesta.Mensaje));
         }
     }

@@ -9,20 +9,20 @@ using System.Threading.Tasks;
 
 namespace ItaliaPizza_DataAccess
 {
-    public class TipoServicioDAO
+    public class UnidadMedidaDAO
     {
-        public TipoServicioDAO() { }
-
-        public List<TiposServicio> RecuperarTiposServicio ()
+        public List<UnidadesMedida> RecuperarUnidadesMedida()
         {
-            List<TiposServicio> tiposServicio = new List<TiposServicio>();
+            List<UnidadesMedida> unidadesMedida = new List<UnidadesMedida>();
 
             try
             {
                 using (var context = new ItaliaPizzaEntities())
                 {
-                    tiposServicio = context.TiposServicio.ToList();
+                    unidadesMedida = context.UnidadesMedida.ToList();
                 }
+
+                return unidadesMedida;
             }
             catch (EntityException ex)
             {
@@ -39,8 +39,6 @@ namespace ItaliaPizza_DataAccess
                 ManejadorExcepcion.ManejarExcepcionFatal(ex);
                 throw new ExcepcionDataAccess(ex.Message);
             }
-
-            return tiposServicio;
         }
     }
 }

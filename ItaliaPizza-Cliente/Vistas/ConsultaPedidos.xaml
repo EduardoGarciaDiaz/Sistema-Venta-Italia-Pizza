@@ -7,7 +7,9 @@
       xmlns:local="clr-namespace:ItaliaPizza_Cliente.Vistas"
       mc:Ignorable="d" 
       d:DesignHeight="770" d:DesignWidth="1300"
-      Title="ConsultaPedidos" Background="#F6F6F6">
+      Title="ConsultaPedidos" 
+      Background="#F6F6F6"
+      Loaded="ConsultaPedidos_Loaded">
 
     <Viewbox>
         <Grid Height="770" Width="1300">
@@ -38,11 +40,49 @@
                 <ScrollViewer VerticalScrollBarVisibility="Disabled" Width="721">
                     <StackPanel x:Name="skpContenedorEstados" 
                         Orientation="Horizontal">
-                        <Label x:Name="lblTodosPedidos" Content="Todos" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="30, 10" Foreground="#FFF8D72A" MouseLeftButtonDown="LblTodosProductos_MouseLeftButtonDown"/>
-                        <Label Content="En proceso" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="30,10" Foreground="#FF656565" MouseLeftButtonDown="LbEnProceso_MouseLeftButtonDown"/>
-                        <Label Content="Preparados" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="30,10" Foreground="#FF656565" MouseLeftButtonDown="LbPreparado_MouseLeftButtonDown"/>
-                        <Label Content="Entregados" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="30, 10" Foreground="#FF656565" MouseLeftButtonDown="LbEntregado_MouseLeftButtonDown"/>
-                        <Label Content="Cancelados" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="30,10" Foreground="#FF656565" MouseLeftButtonDown="LbCancelado_MouseLeftButtonDown"/>
+                        <Label x:Name="lblTodosPedidos" 
+                               Content="Todos" 
+                               Cursor="Hand"
+                               FontSize="18" 
+                               HorizontalContentAlignment="Center" 
+                               VerticalContentAlignment="Center" 
+                               Padding="30, 10" 
+                               Foreground="#FFF8D72A" 
+                               MouseLeftButtonDown="LblTodosProductos_MouseLeftButtonDown"/>
+                        <Label x:Name="lbEnProceso" 
+                               Content="En proceso" 
+                               Cursor="Hand"
+                               FontSize="18" 
+                               HorizontalContentAlignment="Center" 
+                               VerticalContentAlignment="Center" 
+                               Padding="30,10" 
+                               Foreground="#FF656565" 
+                               MouseLeftButtonDown="Label_MouseLeftButtonDown"/>
+                        <Label x:Name="lbPreparados" 
+                               Content="Preparados"
+                               Cursor="Hand"
+                               FontSize="18" 
+                               HorizontalContentAlignment="Center" 
+                               VerticalContentAlignment="Center" 
+                               Padding="30,10" Foreground="#FF656565" 
+                               MouseLeftButtonDown="Label_MouseLeftButtonDown"/>
+                        <Label x:Name="lbEntregados" 
+                               Content="Entregados" 
+                               Cursor="Hand"
+                               FontSize="18" 
+                               HorizontalContentAlignment="Center" 
+                               VerticalContentAlignment="Center" 
+                               Padding="30, 10" Foreground="#FF656565"
+                               MouseLeftButtonDown="Label_MouseLeftButtonDown"/>
+                        <Label x:Name="lbCancelados" 
+                               Content="Cancelados" 
+                               Cursor="Hand"
+                               FontSize="18" 
+                               HorizontalContentAlignment="Center" 
+                               VerticalContentAlignment="Center" 
+                               Padding="30,10" 
+                               Foreground="#FF656565" 
+                               MouseLeftButtonDown="Label_MouseLeftButtonDown"/>
                     </StackPanel>
                 </ScrollViewer>
             </Border>
@@ -148,7 +188,8 @@
                     Content="" 
                     FontSize="24" 
                     FontFamily="Futura Md BT"
-                    Click="BtnActualizarEstadoPedido_Click">
+                    Click="BtnActualizarEstadoPedido_Click"
+                    Cursor="Hand">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="20"/>

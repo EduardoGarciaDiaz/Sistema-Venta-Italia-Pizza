@@ -15,6 +15,38 @@ namespace ItaliaPizza_DataAccess
     {
         public PedidoDAO() { }
 
+
+        public bool ValidarClienteTienePedidosPendientes(int idUsuario)
+        {
+            bool resultadoOperacion;
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+
+                    resultadoOperacion = !context.UsuariosPedidos.Any(pedido => pedido.IdCliente == idUsuario &&
+                                                              context.Pedidos.FirstOrDefault(ped => ped.NumeroPedido == pedido.NumeroPedido).IdEstadoPedido ==
+                                                              context.EstadosPedido.FirstOrDefault(estado => estado.Nombre.Equals("En proceso")).IdEstadoPedido);
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            return resultadoOperacion;
+        }
+
         public int GuardarPedido(Pedido pedido)
         {
             int pedidoNuevoId = 0;
@@ -56,21 +88,18 @@ namespace ItaliaPizza_DataAccess
             }
             catch (EntityException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
-                pedidoNuevoId = -1;
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (SqlException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
-                pedidoNuevoId = -1;
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (Exception ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
-                pedidoNuevoId = -1;
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
 
             return pedidoNuevoId;
@@ -102,19 +131,61 @@ namespace ItaliaPizza_DataAccess
             }
             catch (EntityException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
-
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (SqlException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (Exception ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);;
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+
+            return pedidos;
+        }
+
+        public List<PedidoConsultaDTO> RecuperarPedidosPorEstado(int estado)
+        {
+            List<PedidoConsultaDTO> pedidos = new List<PedidoConsultaDTO>();
+
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    pedidos = context.Pedidos.Where(pedido => pedido.IdEstadoPedido == estado).ToList().ConvertAll(p =>
+                    new PedidoConsultaDTO
+                    {
+                        NumeroPedido = p.NumeroPedido,
+                        Fecha = (DateTime)p.FechaPedido,
+                        estadoPedido = new EstadoPedido()
+                        {
+                            IdEstadoPedido = p.EstadosPedido.IdEstadoPedido,
+                            Nombre = p.EstadosPedido.Nombre
+                        },
+                        CantidadProductos = (int)p.CantidadProductos,
+                        Total = (double)p.TotalParaPagar,
+                        NombreCliente = p.UsuariosPedidos.FirstOrDefault().Usuarios.NombreCompleto
+                    });
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
 
             return pedidos;
@@ -206,6 +277,38 @@ namespace ItaliaPizza_DataAccess
                 throw new ExcepcionDataAccess(ex.Message);
             }
             return resultado;
+        }
+
+        public List<EstadoPedido> RecuperarEstadosPedido()
+        {
+            List<EstadoPedido> estados = new List<EstadoPedido>();
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    estados = context.EstadosPedido.ToList().ConvertAll(ep => new EstadoPedido
+                    {
+                        Nombre = ep.Nombre,
+                        IdEstadoPedido = ep.IdEstadoPedido
+                    });
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            return estados;
         }
     }
 }

@@ -13,9 +13,6 @@ namespace ItaliaPizza_Contratos
     public interface IServicioProductos
     {
         [OperationContract]
-        void OperacionProductosEjemplo();
-
-        [OperationContract]
         [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
         List<Categoria> RecuperarCategorias();
 
@@ -32,18 +29,23 @@ namespace ItaliaPizza_Contratos
         int GuardarProducto(Producto producto);
 
         [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
         List<ProductoSinReceta> RecuperarProductosSinReceta();
 
         [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
         List<InsumoRegistroReceta> RecuperarInsumos();
 
         [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
         List<Categoria> RecuperarCategoriasProductoVenta();
 
         [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
         List<ProductoVentaPedidos> RecuperarProductosVenta();
 
         [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
         bool ValidarDisponibilidadDeProducto(string codigoProducto, int cantidadProductos);
 
         [OperationContract]

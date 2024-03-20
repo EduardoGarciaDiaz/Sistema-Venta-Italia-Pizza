@@ -1,4 +1,5 @@
 ﻿using ItaliaPizza_Contratos.DTOs;
+using ItaliaPizza_Contratos.Excepciones;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,16 +12,17 @@ namespace ItaliaPizza_Contratos
     [ServiceContract]
     public interface IServicioRecetas
     {
-        [OperationContract]
-        void OperacionRecetasEjemplo();
 
         [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
         List<Receta> RecuperarRecetas();
 
         [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
         List<InsumoReceta> RecuperarInsumosReceta(int idReceta);
 
         [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
         int GuardarReceta(RecetaProducto receta);
     }
 }

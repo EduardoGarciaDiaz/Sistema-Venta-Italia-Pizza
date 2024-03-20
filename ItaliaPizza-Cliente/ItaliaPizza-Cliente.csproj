@@ -490,6 +490,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Recursos\Iconos\icono_menos.png" />
+    <Resource Include="Recursos\Iconos\icono_pedidos.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Recursos\Iconos\icono_eliminar_pedido.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

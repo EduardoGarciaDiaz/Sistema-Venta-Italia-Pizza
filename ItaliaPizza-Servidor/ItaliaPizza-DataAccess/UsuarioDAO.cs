@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using ItaliaPizza_DataAccess.Excepciones;
 
 namespace ItaliaPizza_DataAccess
 {
@@ -34,18 +35,18 @@ namespace ItaliaPizza_DataAccess
             }
             catch (EntityException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (SqlException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (Exception ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
 
             return clientes;
@@ -66,18 +67,18 @@ namespace ItaliaPizza_DataAccess
             }
             catch (EntityException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (SqlException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (Exception ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             return resultadoOperacion;
         }
@@ -93,9 +94,20 @@ namespace ItaliaPizza_DataAccess
                     resultadoOperacion = !context.Usuarios.Any(usuario => usuario.CorreoElectronico.Equals(correo));
                 }
             }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
             catch (Exception ex)
             {
-                resultadoOperacion = false;
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             return resultadoOperacion;
         }
@@ -127,18 +139,18 @@ namespace ItaliaPizza_DataAccess
             }
             catch (EntityException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (SqlException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (Exception ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             return cliente;
         }
@@ -157,18 +169,18 @@ namespace ItaliaPizza_DataAccess
              }
             catch (EntityException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (SqlException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (Exception ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             return clientes;
         }
@@ -191,9 +203,20 @@ namespace ItaliaPizza_DataAccess
                     }
                 }
             }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
             catch (Exception ex)
             {
-                resultadoOperacion = false;
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             return resultadoOperacion;
         }
@@ -216,36 +239,23 @@ namespace ItaliaPizza_DataAccess
                     }
                 }
             }
-            catch (Exception ex)
+            catch (EntityException ex)
             {
-                resultadoOperacion = false;
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
-            return resultadoOperacion;
-        }
-
-
-        //ES DEL DAO PEDIDOS
-        public bool ValidarClienteTienePedidosPendientes(int idUsuario)
-        {
-            bool resultadoOperacion;
-            try
+            catch (SqlException ex)
             {
-                using (var context = new ItaliaPizzaEntities())
-                {
-
-                    resultadoOperacion = !context.UsuariosPedidos.Any(pedido => pedido.IdCliente == idUsuario &&
-                                                              context.Pedidos.FirstOrDefault(ped => ped.NumeroPedido == pedido.NumeroPedido).IdEstadoPedido ==
-                                                              context.EstadosPedido.FirstOrDefault(estado => estado.Nombre.Equals("En proceso")).IdEstadoPedido);                   
-                }
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (Exception ex)
             {
-                resultadoOperacion = false;
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             return resultadoOperacion;
         }
-
-        //ES DEL DAO PEIDIDOS
        
 
     }

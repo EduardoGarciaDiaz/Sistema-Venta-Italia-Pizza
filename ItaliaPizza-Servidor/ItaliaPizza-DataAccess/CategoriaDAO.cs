@@ -4,26 +4,25 @@ using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ItaliaPizza_DataAccess
 {
-    public static class DireccionDAO
+    public class CategoriaDAO
     {
-        public static int GuardarDireccionNuevaBD(Direcciones direccionNueva)
+        public List<CategoriasInsumo> RecuperarCategoriasInsumo()
         {
-            int resultadoOperacion = 0;
+            List<CategoriasInsumo> categoriasInsumo = new List<CategoriasInsumo>();
+
             try
             {
                 using (var context = new ItaliaPizzaEntities())
                 {
-
-                    context.Direcciones.Add(direccionNueva);
-                    context.SaveChanges();
-                    resultadoOperacion = direccionNueva.IdDireccion;
+                    categoriasInsumo = context.CategoriasInsumo.ToList();
                 }
+
+                return categoriasInsumo;
             }
             catch (EntityException ex)
             {
@@ -40,18 +39,20 @@ namespace ItaliaPizza_DataAccess
                 ManejadorExcepcion.ManejarExcepcionFatal(ex);
                 throw new ExcepcionDataAccess(ex.Message);
             }
-            return resultadoOperacion;
         }
 
-        public static List<Direcciones> RecuperarDireccionesBD(List<int?> idDirecciones)
+        public List<CategoriasProductoVenta> RecuperarCategoriasProductoVenta()
         {
-            List<Direcciones> direcciones = new List<Direcciones>();
+            List<CategoriasProductoVenta> categoriasProductoVenta = new List<CategoriasProductoVenta>();
+
             try
             {
                 using (var context = new ItaliaPizzaEntities())
                 {
-                    direcciones = context.Direcciones.Where(direccion => idDirecciones.Contains(direccion.IdDireccion)).ToList();
+                    categoriasProductoVenta = context.CategoriasProductoVenta.ToList();
                 }
+
+                return categoriasProductoVenta;
             }
             catch (EntityException ex)
             {
@@ -68,9 +69,6 @@ namespace ItaliaPizza_DataAccess
                 ManejadorExcepcion.ManejarExcepcionFatal(ex);
                 throw new ExcepcionDataAccess(ex.Message);
             }
-            return direcciones;        
         }
-
     }
-
 }
