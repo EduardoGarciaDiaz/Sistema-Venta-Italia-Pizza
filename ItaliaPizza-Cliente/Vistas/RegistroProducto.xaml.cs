@@ -310,6 +310,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
             VentanaEmergente ventanaEmergente = new VentanaEmergente(tituloExito, mensajeExito, Window.GetWindow(this),
                 VENTANA_INFORMACION);
+            ventanaEmergente.ShowDialog();
         }
 
         private void LimpiarEtiquetasError()
@@ -649,6 +650,7 @@ namespace ItaliaPizza_Cliente.Vistas
                 string mensajeError = "Debes indicar si el producto está destinado a la venta o si es inventariado";
 
                 VentanaEmergente ventanaEmergente = new VentanaEmergente(tituloError, mensajeError, Window.GetWindow(this), VENTANA_INFORMACION);
+                ventanaEmergente.ShowDialog();
             }
 
             return haySeccionHabilitada;
@@ -660,6 +662,7 @@ namespace ItaliaPizza_Cliente.Vistas
             string mensajeCancelar = "¿Estás seguro de que deseas cancelar el registro del producto?";
 
             VentanaEmergente ventanaEmergente = new VentanaEmergente(tituloCancelar, mensajeCancelar,"Sí", "No", Window.GetWindow(this), VENTANA_CONFIRMACION);
+            ventanaEmergente.ShowDialog();
 
             if (ventanaEmergente.AceptarAccion)
             {
@@ -769,9 +772,10 @@ namespace ItaliaPizza_Cliente.Vistas
                 if (_rutaFoto == null)
                 {
                     string tituloErrorImagen = "Error al cargar la imagen";
-                    string mensajeErrorImagen = "Ocurrió un error al cargar la imagen";
+                    string mensajeErrorImagen = "No se pudo cargar la imagen. Inténtelo de nuevo o hágalo más tarde";
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(tituloErrorImagen, mensajeErrorImagen,
                         Window.GetWindow(this), VENTANA_ERROR);
+                    ventanaEmergente.ShowDialog();
 
                     esTamañoValido = false;
                 }
@@ -794,6 +798,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
                             VentanaEmergente ventanaEmergente = new VentanaEmergente(tituloErrorImagen, mensajeErrorImagen,
                                 Window.GetWindow(this), VENTANA_ERROR);
+                            ventanaEmergente.ShowDialog();
 
                             esTamañoValido = false;
                         }

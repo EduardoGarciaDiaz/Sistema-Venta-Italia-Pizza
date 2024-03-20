@@ -24,5 +24,9 @@ namespace ItaliaPizza_Contratos
         [OperationContract]
         [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
         int GuardarReceta(RecetaProducto receta);
+
+        [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
+        int EliminarReceta(int idReceta);
     }
 }

@@ -472,6 +472,7 @@ namespace ItaliaPizza_Cliente.Vistas
             LimpiarCampos();
 
             VentanaEmergente ventanaEmergente = new VentanaEmergente(tituloExito, mensajeExito, Window.GetWindow(this), VENTANA_INFORMACION);
+            ventanaEmergente.ShowDialog();
         }
 
         private void LimpiarCampos()
@@ -548,6 +549,8 @@ namespace ItaliaPizza_Cliente.Vistas
             string mensajeCancelar = "¿Estás seguro de que deseas cancelar el registro de la receta?";
 
             VentanaEmergente ventanaEmergente = new VentanaEmergente(tituloCancelar, mensajeCancelar, "Sí", "No", Window.GetWindow(this), VENTANA_CONFIRMACION);
+
+            ventanaEmergente.ShowDialog();
 
             if (ventanaEmergente.AceptarAccion)
             {

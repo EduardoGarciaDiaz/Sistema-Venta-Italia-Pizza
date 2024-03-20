@@ -297,6 +297,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="EliminarReceta">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idReceta" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EliminarRecetaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="EliminarRecetaResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="BuscarCliente">
     <xs:complexType>
       <xs:sequence>

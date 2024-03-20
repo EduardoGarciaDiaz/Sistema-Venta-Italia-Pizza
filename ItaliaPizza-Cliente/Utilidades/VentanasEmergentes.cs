@@ -22,6 +22,8 @@ namespace ItaliaPizza_Cliente.Utilidades
                 mensajeVentanaEmergente,
                 ventanaActual,
                 VENTANA_ERROR);
+
+            ventanaEmergente.ShowDialog();
         }
 
         public static void MostrarVentanaErrorTiempoEspera()
@@ -35,6 +37,8 @@ namespace ItaliaPizza_Cliente.Utilidades
                 mensajeVentanaEmergente,
                 ventanaActual,
                 VENTANA_ERROR);
+
+            ventanaEmergente.ShowDialog();
         }
 
         public static void MostrarVentanaErrorBaseDatos()
@@ -48,6 +52,8 @@ namespace ItaliaPizza_Cliente.Utilidades
                 mensajeVentanaEmergente,
                 ventanaActual,
                 VENTANA_ERROR);
+
+            ventanaEmergente.ShowDialog();
         }
 
         public static void MostrarVentanaErrorServidor()
@@ -61,6 +67,8 @@ namespace ItaliaPizza_Cliente.Utilidades
                 mensajeVentanaEmergente,
                 ventanaActual,
                 VENTANA_ERROR);
+
+            ventanaEmergente.ShowDialog();
         }
 
         public static void MostrarVentanaErrorInesperado()
@@ -74,6 +82,8 @@ namespace ItaliaPizza_Cliente.Utilidades
                 mensajeVentanaEmergente,
                 ventanaActual,
                 VENTANA_ERROR);
+
+            ventanaEmergente.ShowDialog();
         }
     }
 }
