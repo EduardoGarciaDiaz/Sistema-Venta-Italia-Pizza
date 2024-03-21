@@ -34,10 +34,10 @@ namespace ItaliaPizza_Cliente.Vistas
         public Usuarios()
         {
             InitializeComponent();
-            PrepararVentana();
+            this.Loaded += PrepararVentana;
         }
 
-        private void PrepararVentana()
+        private void PrepararVentana(object sender, RoutedEventArgs e)
         {
             ObtenerUusuarios();
             MostrarUsuarios(clientes, empleados);

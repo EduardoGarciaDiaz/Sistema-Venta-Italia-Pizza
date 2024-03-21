@@ -32,15 +32,16 @@ namespace ItaliaPizza_Cliente.Vistas
         public RegistroOrdenCompra()
         {
             InitializeComponent();
-            PrepararWindow();
+            this.Loaded += PrepararWindow;
         }
 
-        private void PrepararWindow()
+        private void PrepararWindow(object sender, RoutedEventArgs e)
         {
             ObtenerInformacion();
             CargarProveedores(proveedores);
             MostrarInsumosdDisponibles(insumosDisponibles);
             barraBusquedaInsumo.ImgBuscarClicked += ImgBuscar_Click;
+            barraBusquedaInsumo.Placeholder.Text = "Buscar insumo por nombre o código...";
         }
 
         private void ImgBuscar_Click(object sender, EventArgs e)

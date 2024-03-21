@@ -67,10 +67,7 @@ namespace ItaliaPizza_Cliente
         {
             AgregarBotonPedido();
             AgregarBotonPedidos();
-            AgregarBotonProductos();
             AgregarBotonRegistrarUsuarios();
-            AgregarBotonRecetas();
-            AgregarBotonConsultaOrdenesDeCompra();
         }
 
         private void OpcionesPanelChef()
@@ -78,10 +75,10 @@ namespace ItaliaPizza_Cliente
             AgregarBotonPedidos();
             AgregarBotonRecetas();
         }
+
         private void OpcionesPanelInventarista()
         {
             AgregarBotonProductos();
-            AgregarBotonRecetas();
             AgregarBotonConsultaOrdenesDeCompra();
         }
         private void OpcionesPanelMesero()

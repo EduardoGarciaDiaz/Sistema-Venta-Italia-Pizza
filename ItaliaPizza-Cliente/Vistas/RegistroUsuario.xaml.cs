@@ -38,10 +38,10 @@ namespace ItaliaPizza_Cliente.Vistas
         public RegistroUsuario()
         {
             InitializeComponent();
-            PrepareWindow();
+            this.Loaded += PrepararVentana;
         }
 
-        private void PrepareWindow()
+        private void PrepararVentana(object sender, RoutedEventArgs e)
         {
             ObtenerTiposEmpleados();
             if ((int)EnumTiposEmpleado.Cajero == EmpleadoSingleton.getInstance().DatosEmpleado.IdTipoEmpleado)
@@ -454,9 +454,17 @@ namespace ItaliaPizza_Cliente.Vistas
             if (ventanaEmergente.AceptarAccion)
             {
                 LimpiarCampos();
-                Usuarios paginaUsuarios = new Usuarios();
                 MainWindow ventanaPrincipal = (MainWindow)Window.GetWindow(this);
-                ventanaPrincipal.FrameNavigator.NavigationService.Navigate(paginaUsuarios);
+                if ((int)EnumTiposEmpleado.Cajero == EmpleadoSingleton.getInstance().DatosEmpleado.IdTipoEmpleado)
+                {
+                    PaginaDeIncio paginaDeIncio = new PaginaDeIncio();
+                    ventanaPrincipal.FrameNavigator.NavigationService.Navigate(paginaDeIncio);
+                }
+                else
+                {
+                    Usuarios paginaUsuarios = new Usuarios();
+                    ventanaPrincipal.FrameNavigator.NavigationService.Navigate(paginaUsuarios);
+                }
             }
         }
 

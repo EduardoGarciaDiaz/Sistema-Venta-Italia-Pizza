@@ -38,30 +38,12 @@ namespace ItaliaPizza_Cliente.Utilidades
                 ServicioInicioSesionClient servicioInicioSesionClient = new ServicioInicioSesionClient();
                 servicioInicioSesionClient.CerrarSesion(EmpleadoSingleton.getInstance().IdUsuario);
             }
-            catch (EndpointNotFoundException)
-            {
-                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
-            }
-            catch (TimeoutException)
-            {
-                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
-            }
-            catch (FaultException<ExcepcionServidorItaliaPizza>)
-            {
-                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
-            }
-            catch (FaultException)
-            {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
-            }
-            catch (CommunicationException)
-            {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
-            }
-            catch (Exception)
-            {
-                VentanasEmergentes.MostrarVentanaErrorInesperado();
-            }
+            catch (EndpointNotFoundException) { }
+            catch (TimeoutException) { }
+            catch (FaultException<ExcepcionServidorItaliaPizza>) { }
+            catch (FaultException) { }
+            catch (CommunicationException) { }
+            catch (Exception) { }
         }
     }
 }
