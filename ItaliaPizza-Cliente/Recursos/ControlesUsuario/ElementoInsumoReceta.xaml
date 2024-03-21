@@ -9,7 +9,7 @@
     <Grid>
         <Rectangle Height="40" Width="300" Fill="#F6F6F6" RadiusX="10" RadiusY="10"></Rectangle>
         <Label x:Name="lbNombreInsumo" Content="Pepperoni" FontSize="18" HorizontalAlignment="Left" Margin="5 0 0 0" VerticalAlignment="Center" Width="207" VerticalContentAlignment="Center" FontFamily="Inter" FontWeight="SemiBold"/>
-        <Label x:Name="lbCantidadInsumo" Content="10" FontSize="18"  VerticalAlignment="Center" VerticalContentAlignment="Center" FontFamily="Inter" FontWeight="SemiBold" Margin="195,0,39,0" Foreground="#FF6C6C6C" HorizontalContentAlignment="Right"/>
+        <Label x:Name="lbCantidadInsumo" Content="10" FontSize="18"  VerticalAlignment="Center" VerticalContentAlignment="Center" FontFamily="Inter" FontWeight="SemiBold" Margin="191,0,39,0" Foreground="#FF6C6C6C" HorizontalContentAlignment="Right"/>
         <Label x:Name="lbUnidadMedidaInsumo" Content="Kg" FontSize="18"  VerticalAlignment="Center" VerticalContentAlignment="Center" FontFamily="Inter" FontWeight="Bold" Margin="258,0,0,0" Foreground="#FF6C6C6C" HorizontalAlignment="Left" Width="42"/>
     </Grid>
 </UserControl>

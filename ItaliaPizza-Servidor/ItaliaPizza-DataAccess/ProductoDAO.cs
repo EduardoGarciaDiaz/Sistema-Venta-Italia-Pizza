@@ -139,40 +139,6 @@ namespace ItaliaPizza_DataAccess
             }
         }
 
-        public int GuardarInsumo(Insumos insumo)
-        {
-            int filasAfectadas = -1;
-
-            try
-            {
-                if (insumo != null)
-                {
-                    using (var context = new ItaliaPizzaEntities())
-                    {
-                        context.Insumos.Add(insumo);
-                        filasAfectadas = context.SaveChanges();
-                    }
-                }
-
-                return filasAfectadas;
-            }
-            catch (EntityException ex)
-            {
-                ManejadorExcepcion.ManejarExcepcionError(ex);
-                throw new ExcepcionDataAccess(ex.Message);
-            }
-            catch (SqlException ex)
-            {
-                ManejadorExcepcion.ManejarExcepcionError(ex);
-                throw new ExcepcionDataAccess(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                ManejadorExcepcion.ManejarExcepcionFatal(ex);
-                throw new ExcepcionDataAccess(ex.Message);
-            }
-        }
-
         public int GuardarProductoVenta(ProductosVenta productoVenta)
         {
             int filasAfectadas = -1;

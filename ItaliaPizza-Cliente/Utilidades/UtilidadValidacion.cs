@@ -11,7 +11,7 @@ namespace ItaliaPizza_Cliente.Utilidades
     public static class UtilidadValidacion
     {
         private const string NOMBRE_PRODUCTO_VALIDO = "^[a-zA-ZáéíóúÁÉÍÓÚüÜ&\\- ]{2,50}$";
-        private const string CODIGO_PRODUCTO_VALIDO = "^[a-zA-Z0-9-]{1,15}$";
+        private const string CODIGO_PRODUCTO_VALIDO = "^[a-zA-Z0-9-]{4,15}$";
         private const string DESCRIPCION_PRODUCTO_VALIDA = "^[\\w\\s\\d\\S]{1,200}$";
         private const string RESTRICCION_INSUMO_VALIDA = "^[\\w\\s\\d\\S]{0,500}$";
 

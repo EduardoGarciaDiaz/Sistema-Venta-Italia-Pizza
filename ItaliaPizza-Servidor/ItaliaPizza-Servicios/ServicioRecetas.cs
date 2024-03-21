@@ -82,5 +82,27 @@ namespace ItaliaPizza_Servicios
                 throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(ex);
             }
         }
+
+        public int EliminarReceta(int idReceta)
+        {
+            int filasAfectadas = -1;
+            RecetaDAO recetaDAO = new RecetaDAO();
+
+            try
+            {
+                filasAfectadas = recetaDAO.EliminarRecetasInsumos(idReceta);
+
+                if (filasAfectadas > 0)
+                {
+                    filasAfectadas += recetaDAO.EliminarReceta(idReceta);
+                }
+
+                return filasAfectadas;
+            }
+            catch (ExcepcionDataAccess ex)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(ex);
+            }
+        }
     }
 }

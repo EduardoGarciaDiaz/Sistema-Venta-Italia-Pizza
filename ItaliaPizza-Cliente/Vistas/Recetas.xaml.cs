@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection.Emit;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,17 +51,30 @@ namespace ItaliaPizza_Cliente.Vistas
         private void CargarRecetas()
         {
             RecuperarRecetas();
-            int sinRecetas = 0;
+            bool existenRecetas = ValidarExistenciaRecetas();
 
-            if (_recetas != null && _recetas.Count() > sinRecetas)
+            if (existenRecetas)
             {
                 lbSinRecetas.Visibility = Visibility.Collapsed;
                 MostrarRecetas();
-            }
+            } 
             else
             {
                 lbSinRecetas.Visibility = Visibility.Visible;
             }
+        }
+
+        private bool ValidarExistenciaRecetas()
+        {
+            int sinRecetas = 0;
+            bool existenRecetas = false;
+
+            if (_recetas != null && _recetas.Count() > sinRecetas)
+            {
+                existenRecetas = true;
+            }
+
+            return existenRecetas;
         }
 
         private void RecuperarRecetas()
@@ -127,7 +141,7 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             ElementoReceta elementoReceta = new ElementoReceta();
             elementoReceta.lbNombreReceta.Content = receta.Nombre;
-            elementoReceta.Tag = receta.Id;
+            elementoReceta.RecetaAsignada = receta;
 
             BitmapImage foto = ConvertidorBytes.ConvertirBytesABitmapImage(receta.FotoProducto);
 
@@ -138,6 +152,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
             elementoReceta.gridReceta_Click += ElementoReceta_Click;
             elementoReceta.imgEditar_Click += ImgEditarReceta_Click;
+            elementoReceta.imgEliminar_Click += ImgEliminar_Click;
 
             return elementoReceta;
         }
@@ -146,7 +161,7 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             ElementoReceta recetaSeleccionada = sender as ElementoReceta;
             gridInsumosReceta.Visibility = Visibility.Visible;
-            int idReceta = (int)recetaSeleccionada.Tag;
+            int idReceta = recetaSeleccionada.RecetaAsignada.Id;
             lbNombreReceta.Content = recetaSeleccionada.lbNombreReceta.Content;
 
             CargarInsumosReceta(idReceta);
@@ -221,10 +236,12 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private ElementoInsumoReceta CrearElementoInsumoReceta(InsumoReceta insumo)
         {
+            string formatoCantidad = "F2";
             ElementoInsumoReceta elementoInsumoReceta = new ElementoInsumoReceta();
 
+            double cantidad = insumo.Cantidad;
             elementoInsumoReceta.lbNombreInsumo.Content = insumo.Nombre;
-            elementoInsumoReceta.lbCantidadInsumo.Content = insumo.Cantidad;
+            elementoInsumoReceta.lbCantidadInsumo.Content = cantidad.ToString(formatoCantidad);
             elementoInsumoReceta.lbUnidadMedidaInsumo.Content = insumo.UnidadMedida.Nombre;
 
             return elementoInsumoReceta;
@@ -275,6 +292,11 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void ImgCerrarInsumos_Click(object sender, RoutedEventArgs e)
         {
+            CerrarGridInsumosReceta();
+        }
+
+        private void CerrarGridInsumosReceta()
+        {
             stackPanelInsumos.Children.Clear();
             gridInsumosReceta.Visibility = Visibility.Collapsed;
         }
@@ -284,9 +306,56 @@ namespace ItaliaPizza_Cliente.Vistas
             NavigationService.Navigate(new RegistroReceta());
         }
 
+        private void ImgEliminar_Click(object sender, EventArgs e)
+        {
+            ElementoReceta elementoReceta = sender as ElementoReceta;
+            MostrarVentanaEmergenteEliminación(elementoReceta);
+        }
+
+        private void MostrarVentanaEmergenteEliminación(ElementoReceta elementoRecetaAEliminar)
+        {
+            string nombreReceta = elementoRecetaAEliminar.lbNombreReceta.Content.ToString();
+
+            string titulo = "Eliminar receta";
+            string mensaje = $"¿Estás seguro de que deseas eliminar la receta para {nombreReceta}?";
+
+            VentanaEmergente ventanaEmergente = new VentanaEmergente(titulo, mensaje, Window.GetWindow(this), 3);
+            ventanaEmergente.ShowDialog();
+
+            if (ventanaEmergente.AceptarAccion)
+            {
+                EliminarReceta(elementoRecetaAEliminar.RecetaAsignada.Id);
+            }
+        }
+
+        private void EliminarReceta(int idReceta)
+        {
+            ServicioRecetasClient servicioRecetasCliente = new ServicioRecetasClient();
+            int filasAfectadas = servicioRecetasCliente.EliminarReceta(idReceta);
+
+            if (filasAfectadas > 0)
+            {
+                CargarRecetas();
+                CerrarGridInsumosReceta();
+            } 
+            else
+            {
+                string titulo = "No se pudo eliminar";
+                string mensaje = "Ocurrió un error al eliminar la receta y no se pudo eliminar, inténtalo de nuevo";
+
+                VentanaEmergente ventanaEmergente = new VentanaEmergente(titulo, mensaje, Window.GetWindow(this), 2);
+                ventanaEmergente.ShowDialog();
+            }
+        }
+
         private void ImgEditarReceta_Click(object sender, EventArgs e)
         {
             // TODO NavigationService.Navigate(new EdicionReceta());
+            string titulo = "Funcionalidad próxima";
+            string mensaje = "Esta funcionalidad se incluirá en un futuro";
+
+            VentanaEmergente ventanaEmergente = new VentanaEmergente(titulo, mensaje, Window.GetWindow(this), 2);
+            ventanaEmergente.ShowDialog();
         }
     }
 }

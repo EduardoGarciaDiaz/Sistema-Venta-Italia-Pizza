@@ -31,6 +31,7 @@ namespace ItaliaPizza_DataAccess
         public virtual CategoriasInsumo CategoriasInsumo { get; set; }
         public virtual Productos Productos { get; set; }
         public virtual UnidadesMedida UnidadesMedida { get; set; }
+        public virtual InsumosApartados InsumosApartados { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrdenesCompraInsumos> OrdenesCompraInsumos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

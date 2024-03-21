@@ -35,20 +35,20 @@
             <!--Producto-->
             <Rectangle HorizontalAlignment="Left" Height="266" Margin="61,105,0,0" VerticalAlignment="Top" Width="548" Fill="White" RadiusX="20" RadiusY="20"></Rectangle>
             <Label Content="*Código"  HorizontalAlignment="Left" Margin="79,116,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18"/>
-            <TextBox x:Name="tbxCodigo" HorizontalAlignment="Left" Margin="86,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="222" Height="27" VerticalContentAlignment="Center" FontSize="16" Padding="5 0 0 0"/>
+            <TextBox x:Name="tbxCodigo" HorizontalAlignment="Left" Margin="86,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="222" Height="27" VerticalContentAlignment="Center" FontSize="16" Padding="5 0 0 0" MaxLength="15"/>
             <Label Content="*Categoría"  HorizontalAlignment="Left" Margin="353,116,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18"/>
             <ComboBox x:Name="cbxCategoria" HorizontalAlignment="Left" Margin="363,150,0,0" VerticalAlignment="Top" Width="222" Height="27" VerticalContentAlignment="Center" FontSize="16"/>
             <Label Content="*Nombre"  HorizontalAlignment="Left" Margin="79,182,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18"/>
-            <TextBox x:Name="tbxNombre" HorizontalAlignment="Left" Margin="86,216,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="499" Height="27" VerticalContentAlignment="Center" FontSize="16" Padding="5 0 0 0"/>
+            <TextBox x:Name="tbxNombre" HorizontalAlignment="Left" Margin="86,216,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="499" Height="27" VerticalContentAlignment="Center" FontSize="16" Padding="5 0 0 0" MaxLength="49"/>
             <Label Content="*Descripción"  HorizontalAlignment="Left" Margin="79,248,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18"/>
-            <TextBox x:Name="tbxDescripcion" HorizontalAlignment="Left" Margin="86,284,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="498" Height="66" FontSize="16" Padding="5 0 0 0"/>
+            <TextBox x:Name="tbxDescripcion" HorizontalAlignment="Left" Margin="86,284,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="498" Height="66" FontSize="16" Padding="5 0 0 0" MaxLength="197"/>
             <Rectangle HorizontalAlignment="Left" Height="266" Margin="686,105,0,0" VerticalAlignment="Top" Width="548" Fill="White" RadiusX="20" RadiusY="20"/>
 
             <!--Producto en venta-->
             <CheckBox x:Name="chbxEsProductoVenta" Content="Es producto en venta" HorizontalAlignment="Left" Margin="714,122,0,0" VerticalAlignment="Top" Foreground="#FF7E7E7E" FontWeight="Bold" FontSize="18" VerticalContentAlignment="Center" Checked="ChbxEsProductoVenta_Checked" Unchecked="ChbxEsProductoVenta_Unchecked"/>
             <Label Content="Productos en venta"  HorizontalAlignment="Left" Margin="1126,105,0,0" VerticalAlignment="Top" Foreground="#FF7E7E7E" FontSize="10"/>
             <Label Content="*Precio"  HorizontalAlignment="Left" Margin="709,175,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18"/>
-            <TextBox x:Name="tbxPrecio" HorizontalAlignment="Left" Margin="716,216,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="222" Height="27" VerticalContentAlignment="Center" FontSize="16" Padding="25 0 0 0"/>
+            <TextBox x:Name="tbxPrecio" HorizontalAlignment="Left" Margin="716,216,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="222" Height="27" VerticalContentAlignment="Center" FontSize="16" Padding="25 0 0 0" MaxLength="17"/>
             <Label Content="Foto"  HorizontalAlignment="Left" Margin="1004,175,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18"/>
 
             <Image HorizontalAlignment="Left" Height="85" Margin="1030,244,0,0" VerticalAlignment="Top" Width="86" Source="/Recursos/Iconos/icono_camara.png"/>
@@ -67,11 +67,11 @@
             <CheckBox x:Name="chbxEsInventariado" Content="Es inventariado" HorizontalAlignment="Left" Margin="92,424,0,0" VerticalAlignment="Top" Foreground="#FF7E7E7E" FontWeight="Bold" FontSize="18" VerticalContentAlignment="Center" Checked="ChbxEsInventariado_Checked" Unchecked="ChbxEsInventariado_Unchecked"/>
             <Label Content="Insumos"  HorizontalAlignment="Left" Margin="549,412,0,0" VerticalAlignment="Top" Foreground="#FF7E7E7E" FontSize="10"/>
             <Label Content="*Cantidad"  HorizontalAlignment="Left" Margin="85,463,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18"/>
-            <TextBox x:Name="tbxCantidad" Margin="92,497,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="222" Height="27" HorizontalAlignment="Left" VerticalContentAlignment="Center" FontSize="16" Padding="5 0 0 0"/>
+            <TextBox x:Name="tbxCantidad" Margin="92,497,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="222" Height="27" HorizontalAlignment="Left" VerticalContentAlignment="Center" FontSize="16" Padding="5 0 0 0" MaxLength="20"/>
             <Label Content="*Unidad de medida"  HorizontalAlignment="Left" Margin="331,463,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18"/>
             <ComboBox x:Name="cbxUnidadMedida" HorizontalAlignment="Left" Margin="335,497,0,0" VerticalAlignment="Top" Width="234" Height="27" VerticalContentAlignment="Center" FontSize="16"/>
             <Label Content="*Costo unitario"  HorizontalAlignment="Left" Margin="85,537,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18"/>
-            <TextBox x:Name="tbxCostoUnitario" HorizontalAlignment="Left" Margin="92,578,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="222" Height="27" VerticalContentAlignment="Center" FontSize="16" Padding="25 0 0 0"/>
+            <TextBox x:Name="tbxCostoUnitario" HorizontalAlignment="Left" Margin="92,578,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="222" Height="27" VerticalContentAlignment="Center" FontSize="16" Padding="25 0 0 0" MaxLength="18"/>
             <Label Content="Restricciones"  HorizontalAlignment="Left" Margin="85,619,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18"/>
             <TextBox x:Name="tbxRestricciones" HorizontalAlignment="Left" Margin="93,653,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="498" Height="66" HorizontalContentAlignment="Stretch" FontSize="16" Padding="5 0 0 0"/>
             <Label Content="$"  HorizontalAlignment="Left" Margin="97,575,0,0" VerticalAlignment="Top" Foreground="Black" FontSize="16"/>

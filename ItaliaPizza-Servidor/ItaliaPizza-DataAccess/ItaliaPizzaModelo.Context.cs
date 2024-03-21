@@ -34,6 +34,7 @@ namespace ItaliaPizza_DataAccess
         public virtual DbSet<EstadosPedido> EstadosPedido { get; set; }
         public virtual DbSet<GastosVarios> GastosVarios { get; set; }
         public virtual DbSet<Insumos> Insumos { get; set; }
+        public virtual DbSet<InsumosApartados> InsumosApartados { get; set; }
         public virtual DbSet<OrdenesCompra> OrdenesCompra { get; set; }
         public virtual DbSet<OrdenesCompraInsumos> OrdenesCompraInsumos { get; set; }
         public virtual DbSet<Pedidos> Pedidos { get; set; }
@@ -43,6 +44,7 @@ namespace ItaliaPizza_DataAccess
         public virtual DbSet<Proveedores> Proveedores { get; set; }
         public virtual DbSet<Recetas> Recetas { get; set; }
         public virtual DbSet<RecetasInsumos> RecetasInsumos { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<TiposEmpleado> TiposEmpleado { get; set; }
         public virtual DbSet<TiposServicio> TiposServicio { get; set; }
         public virtual DbSet<UnidadesMedida> UnidadesMedida { get; set; }

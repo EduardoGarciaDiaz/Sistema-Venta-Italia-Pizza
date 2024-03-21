@@ -8,12 +8,20 @@
              d:DesignHeight="175" d:DesignWidth="145" Margin="5">
 
     <Viewbox Height="175" Width="145" >
-        <Grid Cursor="Hand" Height="175" Width="145" Tag="" MouseLeftButtonDown="GridReceta_Click">
-            <Rectangle Fill="#FFFFFF" RadiusX="10" RadiusY="10"/>
-            <Image x:Name="imgFotoProductoReceta" Height="107" Width="107" VerticalAlignment="Top"  Source="/Recursos/Iconos/imagen_producto_sin_foto.png" Margin="19,7,19,0"/>
-            <Label x:Name="lbNombreReceta" Content="Pizza clásica" Margin="0,114,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="29" FontSize="15" FontWeight="SemiBold" />
-            <Image x:Name="imgIconoModificarReceta" Width="24" Height="24" VerticalAlignment="Top" Source="/Recursos/Iconos/icono_modificar.png" Margin="60,144,61,0" Cursor="Arrow" MouseLeftButtonDown="ImgEditar_Click"/>
+        <Grid Height="175" Width="145">
+            <Grid Cursor="Hand" Height="175" Width="145" Tag="" MouseLeftButtonDown="GridReceta_Click">
+                <Rectangle Fill="#FFFFFF" RadiusX="10" RadiusY="10"/>
+                <Image x:Name="imgFotoProductoReceta" Height="107" Width="107" VerticalAlignment="Top"  Source="/Recursos/Iconos/imagen_producto_sin_foto.png" Margin="19,7,19,0"/>
+                <Label x:Name="lbNombreReceta" Content="Pizza clásica" Margin="0,114,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="29" FontSize="15" FontWeight="SemiBold" />
+            </Grid>
+            <Grid>
+                <Image x:Name="imgIconoModificarReceta" Width="24" Height="24" VerticalAlignment="Top" Source="/Recursos/Iconos/icono_modificar.png" Margin="86,144,35,0" Cursor="Arrow" MouseDown="ImgEditar_Click"/>
+            </Grid>
+            <Grid>
+                <Image Height="26" Source="/Recursos/Iconos/icono_eliminar.png" Margin="37,144,80,5" Cursor="Arrow" MouseDown="ImgEliminar_Click"/>
+            </Grid>
         </Grid>
+        
     </Viewbox>
 
 </UserControl>

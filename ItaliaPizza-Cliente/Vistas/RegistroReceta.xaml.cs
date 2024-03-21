@@ -153,10 +153,14 @@ namespace ItaliaPizza_Cliente.Vistas
         private void GridProductoSinReceta_Click(object sender, EventArgs e)
         {
             LimpiarSeleccionProductosSinReceta();
-
             ElementoProductoSinReceta productoSinReceta = sender as ElementoProductoSinReceta;
-            productoSinReceta.rectangleProducto.Fill = (SolidColorBrush)new BrushConverter().ConvertFromString(COLOR_HEXADECIMAL_PRODUCTO_SELECCIONADO);
 
+            MostrarProductoSeleccionado(productoSinReceta);
+        }
+
+        private void MostrarProductoSeleccionado(ElementoProductoSinReceta productoSinReceta)
+        {
+            productoSinReceta.rectangleProducto.Fill = (SolidColorBrush)new BrushConverter().ConvertFromString(COLOR_HEXADECIMAL_PRODUCTO_SELECCIONADO);
             _elementoProductoSinRecetaSeleccionado = productoSinReceta;
             productoSinReceta.EsSeleccionado = true;
             lbNombreReceta.Content = productoSinReceta.tbkNombre.Text;
@@ -472,13 +476,14 @@ namespace ItaliaPizza_Cliente.Vistas
             LimpiarCampos();
 
             VentanaEmergente ventanaEmergente = new VentanaEmergente(tituloExito, mensajeExito, Window.GetWindow(this), VENTANA_INFORMACION);
+            ventanaEmergente.ShowDialog();
         }
 
         private void LimpiarCampos()
         {
             _numeroInsumosSeleccionados = 0;
             _elementoProductoSinRecetaSeleccionado = null;
-            _insumosSeleccionados = null;
+            _insumosSeleccionados = new List<InsumoReceta>();
             lbNombreReceta.Content = string.Empty;
             ActualizarContadorInsumos();
             MostrarInsumos();
@@ -526,7 +531,13 @@ namespace ItaliaPizza_Cliente.Vistas
                 float cantidadInsumo = Utilidad.ConvertirStringAFloat(cantidad, insumoSeleccionado.lbErrorInsumoSeleccionado);
 
                 string unidadMedida = (string)insumoSeleccionado.lbUnidadMedida.Content;
-                sonCantidadesValidas = UtilidadValidacion.ValidarCantidadInsumo(cantidadInsumo, unidadMedida, insumoSeleccionado.lbErrorInsumoSeleccionado);
+                sonCantidadesValidas = UtilidadValidacion.ValidarCantidadInsumo(
+                    cantidadInsumo, unidadMedida, insumoSeleccionado.lbErrorInsumoSeleccionado);
+
+                if (!sonCantidadesValidas)
+                {
+                    break;
+                }
             }
 
             return sonCantidadesValidas;
@@ -548,6 +559,8 @@ namespace ItaliaPizza_Cliente.Vistas
             string mensajeCancelar = "¿Estás seguro de que deseas cancelar el registro de la receta?";
 
             VentanaEmergente ventanaEmergente = new VentanaEmergente(tituloCancelar, mensajeCancelar, "Sí", "No", Window.GetWindow(this), VENTANA_CONFIRMACION);
+
+            ventanaEmergente.ShowDialog();
 
             if (ventanaEmergente.AceptarAccion)
             {
