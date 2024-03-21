@@ -26,6 +26,8 @@ namespace ItaliaPizza_Cliente.Vistas
     /// </summary>
     public partial class Recetas : Page
     {
+        private const int VENTANA_INFORMACION = 2;
+        private const int VENTANA_CONFIRMACION = 3;
         private Receta[] _recetas;
 
         public Recetas()
@@ -319,7 +321,7 @@ namespace ItaliaPizza_Cliente.Vistas
             string titulo = "Eliminar receta";
             string mensaje = $"¿Estás seguro de que deseas eliminar la receta para {nombreReceta}?";
 
-            VentanaEmergente ventanaEmergente = new VentanaEmergente(titulo, mensaje, Window.GetWindow(this), 3);
+            VentanaEmergente ventanaEmergente = new VentanaEmergente(titulo, mensaje, "Sí", "No", Window.GetWindow(this), VENTANA_CONFIRMACION);
             ventanaEmergente.ShowDialog();
 
             if (ventanaEmergente.AceptarAccion)
@@ -335,6 +337,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
             if (filasAfectadas > 0)
             {
+                wrapPanelRecetas.Children.Clear();
                 CargarRecetas();
                 CerrarGridInsumosReceta();
             } 
@@ -343,7 +346,7 @@ namespace ItaliaPizza_Cliente.Vistas
                 string titulo = "No se pudo eliminar";
                 string mensaje = "Ocurrió un error al eliminar la receta y no se pudo eliminar, inténtalo de nuevo";
 
-                VentanaEmergente ventanaEmergente = new VentanaEmergente(titulo, mensaje, Window.GetWindow(this), 2);
+                VentanaEmergente ventanaEmergente = new VentanaEmergente(titulo, mensaje, Window.GetWindow(this), VENTANA_INFORMACION);
                 ventanaEmergente.ShowDialog();
             }
         }
@@ -354,7 +357,7 @@ namespace ItaliaPizza_Cliente.Vistas
             string titulo = "Funcionalidad próxima";
             string mensaje = "Esta funcionalidad se incluirá en un futuro";
 
-            VentanaEmergente ventanaEmergente = new VentanaEmergente(titulo, mensaje, Window.GetWindow(this), 2);
+            VentanaEmergente ventanaEmergente = new VentanaEmergente(titulo, mensaje, Window.GetWindow(this), VENTANA_INFORMACION);
             ventanaEmergente.ShowDialog();
         }
     }
