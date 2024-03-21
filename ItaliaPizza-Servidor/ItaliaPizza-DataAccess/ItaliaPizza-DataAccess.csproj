@@ -86,6 +86,9 @@
     <Compile Include="Insumos.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="InsumosApartados.cs">
+      <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="ItaliaPizzaModelo.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -132,6 +135,9 @@
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>
     <Compile Include="RecetasInsumos.cs">
+      <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagrams.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>
     <Compile Include="TiposEmpleado.cs">

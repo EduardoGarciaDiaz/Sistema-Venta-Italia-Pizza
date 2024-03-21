@@ -2924,6 +2924,14 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/RecuperarInsumosActivos", ReplyAction="http://tempuri.org/IServicioProductos/RecuperarInsumosActivosResponse")]
         System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.InsumoOrdenCompraDto[]> RecuperarInsumosActivosAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/DesapartarInsumosDeProducto", ReplyAction="http://tempuri.org/IServicioProductos/DesapartarInsumosDeProductoResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioProductos/DesapartarInsumosDeProductoExcepcionServido" +
+            "rItaliaPizzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        bool DesapartarInsumosDeProducto(string codigoProducto, int cantidadParaDesapartar);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/DesapartarInsumosDeProducto", ReplyAction="http://tempuri.org/IServicioProductos/DesapartarInsumosDeProductoResponse")]
+        System.Threading.Tasks.Task<bool> DesapartarInsumosDeProductoAsync(string codigoProducto, int cantidadParaDesapartar);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -3031,6 +3039,14 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         public System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.InsumoOrdenCompraDto[]> RecuperarInsumosActivosAsync() {
             return base.Channel.RecuperarInsumosActivosAsync();
+        }
+        
+        public bool DesapartarInsumosDeProducto(string codigoProducto, int cantidadParaDesapartar) {
+            return base.Channel.DesapartarInsumosDeProducto(codigoProducto, cantidadParaDesapartar);
+        }
+        
+        public System.Threading.Tasks.Task<bool> DesapartarInsumosDeProductoAsync(string codigoProducto, int cantidadParaDesapartar) {
+            return base.Channel.DesapartarInsumosDeProductoAsync(codigoProducto, cantidadParaDesapartar);
         }
     }
     

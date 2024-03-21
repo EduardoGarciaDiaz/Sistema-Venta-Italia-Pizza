@@ -1,8 +1,7 @@
 ﻿using ItaliaPizza_Contratos.DTOs;
 using System;
 using System.Collections.Generic;
-﻿using System;
-using System.Data.Entity.Core;
+﻿using System.Data.Entity.Core;
 using System.Data.SqlClient;
 using System.Diagnostics.Contracts;
 using System.Linq;
@@ -15,6 +14,7 @@ namespace ItaliaPizza_DataAccess
 {
     public class InsumoDAO
     {
+        Object _lock = new object();
         public InsumoDAO() { }
         public int GuardarInsumo(Insumos insumo)
         {
@@ -59,11 +59,25 @@ namespace ItaliaPizza_DataAccess
                 using (var context = new ItaliaPizzaEntities())
                 {
                     Insumos insumo = context.Insumos.FirstOrDefault(i => i.CodigoProducto == codigoInsumo);
+                    InsumosApartados insumoApartado = context.InsumosApartados.FirstOrDefault(i => i.CodigoProducto == insumo.CodigoProducto);
                     if (insumo != default)
                     {
-                        insumoDisponible = insumo.Cantidad >= cantidadRequerida;
+                        if (insumoApartado == default)
+                        {
+                            insumoApartado = new InsumosApartados
+                            {
+                                CodigoProducto = insumo.CodigoProducto,
+                                CantidadApartada = 0
+                            };
+                            insumo.InsumosApartados = insumoApartado;
+                            context.InsumosApartados.Add(insumoApartado);
+                        }
+
+                        insumoDisponible = (insumo.Cantidad - insumoApartado.CantidadApartada) >= cantidadRequerida;
                     }
+                    context.SaveChanges();
                 }
+
             }
             catch (EntityException ex)
             {
@@ -184,20 +198,96 @@ namespace ItaliaPizza_DataAccess
             }
             catch (EntityException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (SqlException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (Exception ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
-            return insumos;
+        }
+
+        public void ApartarCantidadInsumo(string codigoInsumo, int cantidadParaApartar)
+        {
+            lock(_lock)
+            {
+                try
+                {
+                    using (var context = new ItaliaPizzaEntities())
+                    {
+                        InsumosApartados insumoApartado = context.InsumosApartados.FirstOrDefault(i => i.CodigoProducto == codigoInsumo);
+                        if (insumoApartado != default)
+                        {
+                            insumoApartado.CantidadApartada = insumoApartado.CantidadApartada + cantidadParaApartar;
+                            context.SaveChanges();
+                        }
+                    };
+                }
+                catch (EntityException ex)
+                {
+                    ManejadorExcepcion.ManejarExcepcionError(ex);
+                    throw new ExcepcionDataAccess(ex.Message);
+                }
+                catch (SqlException ex)
+                {
+                    ManejadorExcepcion.ManejarExcepcionError(ex);
+                    throw new ExcepcionDataAccess(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                    throw new ExcepcionDataAccess(ex.Message);
+                }
+            }
+
+        }
+
+        public bool DesapartarCantidadInsumo(string codigoInsumo, int cantidadParaDesapartar)
+        {
+            lock(this)
+            {
+                bool resultado = false;
+                try
+                {
+                    using (var context = new ItaliaPizzaEntities())
+                    {
+                        InsumosApartados insumoApartado = context.InsumosApartados.FirstOrDefault(i => i.CodigoProducto == codigoInsumo);
+                        if (insumoApartado != default)
+                        {
+                            if (insumoApartado.CantidadApartada >= cantidadParaDesapartar)
+                            {
+                                insumoApartado.CantidadApartada -= cantidadParaDesapartar;
+                            }
+                            context.SaveChanges();
+                            resultado = true;
+                        }
+                    }
+                }
+                catch (EntityException ex)
+                {
+                    ManejadorExcepcion.ManejarExcepcionError(ex);
+                    throw new ExcepcionDataAccess(ex.Message);
+                }
+                catch (SqlException ex)
+                {
+                    ManejadorExcepcion.ManejarExcepcionError(ex);
+                    throw new ExcepcionDataAccess(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                    throw new ExcepcionDataAccess(ex.Message);
+                }
+
+
+                return resultado;
+            }
         }
 
     }

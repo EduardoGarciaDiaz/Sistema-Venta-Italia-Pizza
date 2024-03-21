@@ -166,20 +166,57 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void BtnRestarProductoClicked(object sender, EventArgs e)
         {
+            ServicioProductosClient servicioProductosCliente = new ServicioProductosClient();
             ElementoPedido elementoPedido = sender as ElementoPedido;
             string codigoProducto = elementoPedido.ProductoVentaPedidos.Codigo;
-            _productosEnPedido[codigoProducto]--;
-            if (_productosEnPedido[codigoProducto] == 0)
+            try
             {
-                SkpContenedorProductosPedido.Children.Remove(elementoPedido);
-                _productosEnPedido.Remove(elementoPedido.ProductoVentaPedidos.Codigo);
+                if (servicioProductosCliente.DesapartarInsumosDeProducto(codigoProducto, 1))
+                {
+                    _productosEnPedido[codigoProducto]--;
+                    if (_productosEnPedido[codigoProducto] == 0)
+                    {
+                        SkpContenedorProductosPedido.Children.Remove(elementoPedido);
+                        _productosEnPedido.Remove(elementoPedido.ProductoVentaPedidos.Codigo);
+                    }
+                    else
+                    {
+                        ActualizarEnInterfazCantidadRequeridaProductos(codigoProducto);
+                    }
+                    CalcularCantidades();
+                    MostrarCantidades();
+                }
             }
-            else
+            catch (EndpointNotFoundException ex)
             {
-                ActualizarEnInterfazCantidadRequeridaProductos(codigoProducto);
+                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
-            CalcularCantidades();
-            MostrarCantidades();
+            catch (TimeoutException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (CommunicationException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
 
         }
 
@@ -203,72 +240,78 @@ namespace ItaliaPizza_Cliente.Vistas
         private void TbxCantidadProductoTextChanged(object sender, EventArgs e)
         {
             ElementoPedido elementoPedido = sender as ElementoPedido;
-            string cantidadIngresada = elementoPedido.TbxCantidadProducto.Text;
-            if (!string.IsNullOrWhiteSpace(cantidadIngresada))
+            string codigoProducto = elementoPedido.ProductoVentaPedidos.Codigo;
+            int cantidadActual = 0;
+            if (_productosEnPedido.ContainsKey(elementoPedido.ProductoVentaPedidos.Codigo))
             {
-                ServicioProductosClient servicioProductosClient = new ServicioProductosClient();
-                try
+                cantidadActual = _productosEnPedido[elementoPedido.ProductoVentaPedidos.Codigo];
+            }
+            string cantidadIngresada = elementoPedido.TbxCantidadProducto.Text;
+                ServicioProductosClient servicioProductosCliente = new ServicioProductosClient();
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(cantidadIngresada))
                 {
-                    bool productoDisponible = servicioProductosClient.ValidarDisponibilidadDeProducto(elementoPedido.ProductoVentaPedidos.Codigo, int.Parse(elementoPedido.TbxCantidadProducto.Text));
-                    if (productoDisponible)
+                    if (servicioProductosCliente.DesapartarInsumosDeProducto(codigoProducto, cantidadActual))
                     {
-                        if (_productosEnPedido.ContainsKey(elementoPedido.ProductoVentaPedidos.Codigo))
+                        bool productoDisponible = servicioProductosCliente.ValidarDisponibilidadDeProducto(codigoProducto, int.Parse(elementoPedido.TbxCantidadProducto.Text));
+                        if (productoDisponible)
                         {
-                            _productosEnPedido[elementoPedido.ProductoVentaPedidos.Codigo] = int.Parse(cantidadIngresada);
+                            if (_productosEnPedido.ContainsKey(elementoPedido.ProductoVentaPedidos.Codigo))
+                            {
+                                _productosEnPedido[elementoPedido.ProductoVentaPedidos.Codigo] = int.Parse(cantidadIngresada);
+                            }
+                            else
+                            {
+                                _productosEnPedido.Add(elementoPedido.ProductoVentaPedidos.Codigo, int.Parse(cantidadIngresada));
+                            }
+                            elementoPedido.LblMensajeInsumosInsuficientes.Visibility = Visibility.Collapsed;
                         }
                         else
                         {
-                            _productosEnPedido.Add(elementoPedido.ProductoVentaPedidos.Codigo, int.Parse(cantidadIngresada));
+                            elementoPedido.LblMensajeInsumosInsuficientes.Visibility = Visibility.Visible;
+                            _productosEnPedido.Remove(elementoPedido.ProductoVentaPedidos.Codigo);
                         }
-                        elementoPedido.LblMensajeInsumosInsuficientes.Visibility = Visibility.Collapsed;
-                        CalcularCantidades();
-                        MostrarCantidades();
-                    }
-                    else
-                    {
-                        elementoPedido.LblMensajeInsumosInsuficientes.Visibility = Visibility.Visible;
-                        _productosEnPedido.Remove(elementoPedido.ProductoVentaPedidos.Codigo);
-                        CalcularCantidades();
-                        MostrarCantidades();
                     }
                 }
-                catch (EndpointNotFoundException ex)
+                else
                 {
-                    VentanasEmergentes.MostrarVentanaErrorConexionFallida();
-                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                    elementoPedido.LblMensajeInsumosInsuficientes.Visibility = Visibility.Collapsed;
+                    servicioProductosCliente.DesapartarInsumosDeProducto(elementoPedido.ProductoVentaPedidos.Codigo, _productosEnPedido[elementoPedido.ProductoVentaPedidos.Codigo]);
+                    _productosEnPedido.Remove(elementoPedido.ProductoVentaPedidos.Codigo);
                 }
-                catch (TimeoutException ex)
-                {
-                    VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
-                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
-                }
-                catch (FaultException<ExcepcionServidorItaliaPizza> ex)
-                {
-                    VentanasEmergentes.MostrarVentanaErrorBaseDatos();
-                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
-                }
-                catch (FaultException ex)
-                {
-                    VentanasEmergentes.MostrarVentanaErrorServidor();
-                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
-                }
-                catch (CommunicationException ex)
-                {
-                    VentanasEmergentes.MostrarVentanaErrorServidor();
-                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
-                }
-                catch (Exception ex)
-                {
-                    VentanasEmergentes.MostrarVentanaErrorInesperado();
-                    ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
-                }
-            }
-            else
-            {
-                elementoPedido.LblMensajeInsumosInsuficientes.Visibility = Visibility.Collapsed;
-                _productosEnPedido.Remove(elementoPedido.ProductoVentaPedidos.Codigo);
                 CalcularCantidades();
                 MostrarCantidades();
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (CommunicationException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
         }
 
@@ -443,12 +486,55 @@ namespace ItaliaPizza_Cliente.Vistas
             LblCorreoElectronicoCliente.Content = "";
             _tipoServicioSeleccionado = _tiposServicio.ElementAt((int)EnumTiposServicio.EnEstablecimiento);
             BtnComerEstablecimiento_Click(this, e);
+            DesapartarTodosLosProductosEnPedido();
             _productosEnPedido.Clear();
             SkpContenedorProductosPedido.Children.Clear();
             _total = 0;
             _subtotal = 0;
             _iva = 0;
             MostrarCantidades();
+        }
+
+        private void DesapartarTodosLosProductosEnPedido()
+        {
+            ServicioProductosClient servicioProductos = new ServicioProductosClient();
+            try
+            {
+                foreach (var producto in _productosEnPedido.Keys)
+                {
+                    servicioProductos.DesapartarInsumosDeProducto(producto, _productosEnPedido[producto]);
+                }
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (CommunicationException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
         }
 
         private void InicializarElementos()
@@ -512,8 +598,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void SumarCantidadAProducto(string codigoProducto)
         {
-            int cantidadActualProductos = _productosEnPedido[codigoProducto];
-            int cantidadNuevaRequeridaProductos = cantidadActualProductos + 1;
+            int cantidadNuevaRequeridaProductos = 1;
             ServicioProductosClient servicioProductosCliente = new ServicioProductosClient();
             try
             {
@@ -589,8 +674,20 @@ namespace ItaliaPizza_Cliente.Vistas
                                                         .FirstOrDefault(ep => ep.ProductoVentaPedidos.Codigo == codigoProducto);
             if (elementoPedido != null)
             {
+                DesuscribirMetodoTextChanged(elementoPedido);
                 elementoPedido.TbxCantidadProducto.Text = _productosEnPedido[codigoProducto].ToString();
+                SuscribirMetodoTextChanged(elementoPedido);
             }
+        }
+
+        private void SuscribirMetodoTextChanged(ElementoPedido elementoPedido)
+        {
+            elementoPedido.TbxCantidadProductoTextChanged += TbxCantidadProductoTextChanged;
+        }
+
+        private void DesuscribirMetodoTextChanged(ElementoPedido elementoPedido)
+        {
+            elementoPedido.TbxCantidadProductoTextChanged -= TbxCantidadProductoTextChanged;
         }
 
         private void CalcularCantidades()

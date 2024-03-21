@@ -31,6 +31,7 @@ namespace ItaliaPizza_Servicios
                         bool insumoDisminuido;
                         if (productoDAO.ValidarSiProductoEnVentaEsInventariado(productosVenta.Codigo))
                         {
+                            insumoDAO.DesapartarCantidadInsumo(productosVenta.Codigo, pedido.ProductosIncluidos[productosVenta]);
                             insumoDisminuido =
                                 insumoDAO.DisminuirCantidadInsumo(productosVenta.Codigo, pedido.ProductosIncluidos[productosVenta]);
                         }
