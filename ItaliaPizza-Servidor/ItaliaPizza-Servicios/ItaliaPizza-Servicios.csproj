@@ -37,6 +37,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Aspose.Cells, Version=24.3.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
+      <HintPath>..\packages\Aspose.Cells.24.3.0\lib\net40\Aspose.Cells.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -54,6 +57,8 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Auxiliares\ConversorAExcel.cs" />
+    <Compile Include="Auxiliares\DispachadorCorreos.cs" />
     <Compile Include="Auxiliares\ListaEmpleadoActivos.cs" />
     <Compile Include="Auxiliares\ExcepcionServidorItaliaPizzaManager.cs" />
     <Compile Include="Auxiliares\MapeadorProductosAProductoVenta.cs" />

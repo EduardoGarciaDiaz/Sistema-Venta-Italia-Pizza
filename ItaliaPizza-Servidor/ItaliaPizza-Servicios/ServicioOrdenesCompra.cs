@@ -18,6 +18,15 @@ namespace ItaliaPizza_Servicios
             try
             {
                 bool ordenEnviada = false;
+                OrdenesCompra ordenCompra = OrdenDeCompraDAO.RecuperarOrdenDeCompra(idOrdenDeCompra);
+                if (ordenCompra != null && ordenCompra.OrdenesCompraInsumos.Count > 0)
+                {
+                    ordenEnviada = ConversorAExcel.CrearExcelOrdenCompra(ordenCompra);
+                    if (ordenEnviada)
+                    {
+                        OrdenDeCompraDAO.CambiarEstadoOrdenCompraAEnviado(ordenCompra);
+                    }
+                }
                 return ordenEnviada;
             }
             catch (ExcepcionDataAccess e)

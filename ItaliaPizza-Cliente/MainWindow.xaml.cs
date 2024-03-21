@@ -225,6 +225,7 @@ namespace ItaliaPizza_Cliente
         {
             try
             {
+                SkpMenuLateral.Children.Clear();
                 ServicioInicioSesionClient servicioInicioSesionClient = new ServicioInicioSesionClient();
                 servicioInicioSesionClient.CerrarSesion(EmpleadoSingleton.getInstance().IdUsuario);
             }

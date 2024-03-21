@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity.Migrations;
+using ItaliaPizza_Contratos.DTOs;
 
 namespace ItaliaPizza_DataAccess
 {
@@ -79,12 +80,27 @@ namespace ItaliaPizza_DataAccess
 
         public static OrdenesCompra RecuperarOrdenDeCompra(int idOrdenCompra)
         {
-            OrdenesCompra ordenesCompra = new OrdenesCompra();
+            OrdenesCompra ordenCompra = new OrdenesCompra();
             try
             {
                 using (var context = new ItaliaPizzaEntities())
                 {
-                    context.OrdenesCompra.Include(ord => ord.Proveedores).Include(ord => ord.OrdenesCompraInsumos).FirstOrDefault(ord => ord.IdOrdenCompra == idOrdenCompra);
+                    ordenCompra = context.OrdenesCompra.Include(ord => ord.Proveedores).Include(ord => ord.EstadosOrdenCompra).Include(ord => ord.OrdenesCompraInsumos).FirstOrDefault(ord => ord.IdOrdenCompra == idOrdenCompra);
+
+                    if (ordenCompra != null)
+                    {
+                        var insumosRelacionados = ordenCompra.OrdenesCompraInsumos.Select(oci => oci.Insumos).ToList();                          
+                        for (int i = 0; i < insumosRelacionados.Count; i++)
+                        {
+                            ordenCompra.OrdenesCompraInsumos.ToArray()[i].Insumos = insumosRelacionados.FirstOrDefault(ins => ins.CodigoProducto.Equals(ordenCompra.OrdenesCompraInsumos.ToArray()[i].CodigoProducto));
+                        }
+                        var productos = insumosRelacionados.Select(insumo => insumo.Productos).Distinct().ToList();
+                        for (int i = 0; i < productos.Count; i++)
+                        {
+                            ordenCompra.OrdenesCompraInsumos.ToArray()[i].Insumos.Productos = productos.FirstOrDefault(ins => ins.CodigoProducto.Equals(ordenCompra.OrdenesCompraInsumos.ToArray()[i].CodigoProducto));
+                        }
+
+                    }
                 }
             }
             catch (EntityException ex)
@@ -102,7 +118,7 @@ namespace ItaliaPizza_DataAccess
                 //TODO: Manejar excepcion
                 Console.WriteLine(ex.StackTrace);
             }
-            return ordenesCompra;
+            return ordenCompra;
         }
 
         public static int CambiarEstadoOrdenCompraAEnviado(OrdenesCompra ordenesCompra)
@@ -112,7 +128,7 @@ namespace ItaliaPizza_DataAccess
             {
                 using (var context = new ItaliaPizzaEntities())
                 {
-                    var estado = context.EstadosOrdenCompra.FirstOrDefault(ord => ord.Nombre.Equals("Enviado"));
+                    var estado = context.EstadosOrdenCompra.FirstOrDefault(ord => ord.Nombre.Equals("Enviada"));
                     ordenesCompra.IdEstadoOrdenCompra = estado.IdEstadoOrdenCompra;
                     ordenesCompra.EstadosOrdenCompra = estado;
                     context.OrdenesCompra.AddOrUpdate(ordenesCompra);                    

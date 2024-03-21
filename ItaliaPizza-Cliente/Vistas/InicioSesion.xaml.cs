@@ -33,6 +33,7 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             MainWindow ventana = (MainWindow)Window.GetWindow(this);
             ventana.SkpMenuLateral.Visibility = Visibility.Hidden;
+            ventana.SkpMenuLateral.Children.Clear();
         }
 
         private void BtnIniciarSesion_Click(object sender, RoutedEventArgs e)
@@ -136,10 +137,20 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             MainWindow ventana = (MainWindow)Window.GetWindow(this);
             PaginaDeIncio paginaDeIncio = new PaginaDeIncio();
-            ventana.MostrarNombre(EmpleadoSingleton.getInstance().DatosUsuario.NombreCompleto);
-            ventana.FiltrarOpcionesPanelLateral(EmpleadoSingleton.getInstance().DatosEmpleado.IdTipoEmpleado);
-            ventana.SkpMenuLateral.Visibility = Visibility.Visible;
-            ventana.FrameNavigator.NavigationService.Navigate(paginaDeIncio);
+            EmpleadoSingleton empleado = EmpleadoSingleton.getInstance();
+            if(empleado!= null)
+            {
+                ventana.MostrarNombre(empleado.NombreUsuario);
+                ventana.FiltrarOpcionesPanelLateral(EmpleadoSingleton.getInstance().DatosEmpleado.IdTipoEmpleado);
+                ventana.SkpMenuLateral.Visibility = Visibility.Visible;
+                ventana.FrameNavigator.NavigationService.Navigate(paginaDeIncio);
+            }
+            else
+            {
+                VentanaEmergente ventanaEmergente = new VentanaEmergente("Upps!!", "Hubo un problema intentalo de nuevo", Window.GetWindow(this), 1);
+                ventanaEmergente.ShowDialog();
+            }
+
         }
 
 
