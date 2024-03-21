@@ -46,7 +46,7 @@ namespace ItaliaPizza_DataAccess
             return idOrdenNueva;
         }
 
-        public static int GuardarElementoInsumoDeOrdenDeCompra(List<OrdenesCompraInsumos> elementoInsumoOrdenesCompra)
+        public static int GuardarInsumoOrdenDeCompra(List<OrdenesCompraInsumos> elementoInsumoOrdenesCompra)
         {
             int idOrdenNueva = 0;
             try
@@ -75,33 +75,7 @@ namespace ItaliaPizza_DataAccess
             return idOrdenNueva;
         }
 
-        public static bool ValidarOrdenDeCompraExiste(int idOrdenCompra)
-        {
-            bool idOrdenNueva = false;
-            try
-            {
-                using (var context = new ItaliaPizzaEntities())
-                {
-                    context.OrdenesCompraInsumos.Any(orden => orden.IdOrdenCompra == idOrdenCompra);
-                }
-            }
-            catch (EntityException ex)
-            {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
-            }
-            catch (SqlException ex)
-            {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
-            }
-            catch (Exception ex)
-            {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
-            }
-            return idOrdenNueva;
-        }
+        
 
         public static OrdenesCompra RecuperarOrdenDeCompra(int idOrdenCompra)
         {

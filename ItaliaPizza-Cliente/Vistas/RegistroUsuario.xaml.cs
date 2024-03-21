@@ -51,32 +51,7 @@ namespace ItaliaPizza_Cliente.Vistas
                 rdbEmpleado.IsEnabled = false;
             }
         }
-
-        private void BloquearCampos()
-        {            
-            var empleadoMesero = tiposEmpleados.Where(emp => emp.IdTipoEmpleado == (int)EnumTiposEmpleado.Mesero);
-            cbmTipoEmpleado.SelectedItem = empleadoMesero;
-            cbmTipoEmpleado.IsEditable = false;
-            txbNombre.Text = "Empleado Mesero";
-            txb1erApellido.Text = "_";
-            txbCorreo.Text = "_";
-            txbTelefono.Text = "0000000000";
-            txbCiudad.Text = "Local";
-            txbColonia.Text = "Local";
-            txbCalle.Text = "Local";
-            txbCodigoPostal.Text = "0000";
-            txbNumeroExterior.Text = "00";
-            txbNombre.Text = "Empleado Mesero";
-            txb1erApellido.Text = "_";
-            txbCorreo.Text = "_";
-            txbTelefono.Text = "0000000000";
-            txbCiudad.Text = "Local";
-            txbColonia.Text = "Local";
-            txbCalle.Text = "Local";
-            txbCodigoPostal.Text = "0000";
-            txbNumeroExterior.Text = "00";
-            txb2doApellido.IsEnabled = false;
-        }
+       
 
         private void ObtenerTiposEmpleados()
         {
@@ -84,8 +59,7 @@ namespace ItaliaPizza_Cliente.Vistas
             {
                 ServicioUsuariosClient proxyServicioUsuariosClient = new ServicioUsuariosClient();
                 tiposEmpleados = proxyServicioUsuariosClient.RecuperarTiposEmpleado().ToList();
-                cbmTipoEmpleado.ItemsSource = tiposEmpleados;
-                cbmTipoEmpleado.DisplayMemberPath = "Nombre";
+                CargarTipoesEnLista(tiposEmpleados);
             }
             catch (EndpointNotFoundException ex)
             {
@@ -117,6 +91,12 @@ namespace ItaliaPizza_Cliente.Vistas
                 VentanasEmergentes.MostrarVentanaErrorInesperado();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
+        }
+
+        private void CargarTipoesEnLista(List<TipoEmpleadoDto> tiposEmpleadosRecuperados)
+        {
+            cbmTipoEmpleado.ItemsSource = tiposEmpleadosRecuperados;
+            cbmTipoEmpleado.DisplayMemberPath = "Nombre";
         }
 
         private bool ValidarCamposLlenosUsuario()
@@ -192,7 +172,7 @@ namespace ItaliaPizza_Cliente.Vistas
             return camposLlenos;
         }
 
-        private bool ValidarFormatos()
+        private bool ValidarFormatosDeCampos()
         {
             bool formatosValidos = true;
             if (!Regex.IsMatch(txbCorreo.Text.Trim().ToLower(), EMAIL_RULES_CHAR) || !Regex.IsMatch(txbCorreo.Text.Trim().ToLower(), EMAIL_ALLOW_CHAR))
@@ -361,7 +341,7 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             if (sePuedeGuardar)
             {
-                sePuedeGuardar = ValidarFormatos();
+                sePuedeGuardar = ValidarFormatosDeCampos();
                 if (esEmpleado && sePuedeGuardar)
                 {
                     sePuedeGuardar = ValidarCamposUnicos();
@@ -490,23 +470,35 @@ namespace ItaliaPizza_Cliente.Vistas
             MostrarMensajeConfirmacion();
         }
 
-        private void rdbEmpleado_Checked(object sender, RoutedEventArgs e)
+        private void RdbEmpleado_Checked(object sender, RoutedEventArgs e)
+        {
+            HabilitarSeccionEmpleado();
+        }
+
+        private void HabilitarSeccionEmpleado()
         {
             brdCoverDatosEmpleado.Visibility = Visibility.Collapsed;
             rdbEmpleado.Background = new SolidColorBrush(Colors.Black);
             rdbCliente.Background = new SolidColorBrush(Colors.WhiteSmoke);
         }
 
-        private void rdbCliente_Checked(object sender, RoutedEventArgs e)
+        private void RdbCliente_Checked(object sender, RoutedEventArgs e)
         {
             brdCoverDatosEmpleado.Visibility =Visibility.Visible;
             rdbEmpleado.Background = new SolidColorBrush(Colors.WhiteSmoke);
             rdbCliente.Background = new SolidColorBrush(Colors.Black);
+            cbmTipoEmpleado.SelectedItem = null;
+            DesBloquearCamposUsuarioDireccion();
             txbNombreUsuario.Text = string.Empty;
             txbContrasena.Password = string.Empty;
         }
 
         private void bttVerContrasena_Click(object sender, MouseButtonEventArgs e)
+        {
+            MostrarContrasena();
+        }
+
+        private void MostrarContrasena()
         {
             lblContrasenaVer.Content = txbContrasena.Password.ToString();
             txbContrasena.Visibility = Visibility.Hidden;
@@ -515,7 +507,12 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void bttVerContrasena_Leave(object sender, MouseEventArgs e)
         {
-            if(lblContrasenaVer != null && lblContrasenaVer.IsVisible)
+            OcultarContrasena();
+        }
+
+        private void OcultarContrasena()
+        {
+            if (lblContrasenaVer != null && lblContrasenaVer.IsVisible)
             {
                 txbContrasena.Password = lblContrasenaVer.Content.ToString();
                 txbContrasena.Visibility = Visibility.Visible;
@@ -523,6 +520,70 @@ namespace ItaliaPizza_Cliente.Vistas
             }
         }
 
+
+        private void BloquearCamposUsuarioDireccion()
+        {
+            txbCorreo.Text = "correoMeseros@gmail.com";
+            txbTelefono.Text = "2222222222";
+            txbCorreo.IsEnabled = false;
+            txbTelefono.IsEnabled = false;
+            List<TextBox> campos = new List<TextBox>()
+            {
+                txbNombre,
+                txb1erApellido,
+                txb2doApellido,                
+                txbCiudad,
+                txbColonia,
+                txbCalle,
+                txbCodigoPostal,
+                txbNumeroExterior,
+            };
+            foreach (var item in campos)
+            {
+                item.Text = "0";
+                item.IsEnabled = false;
+            }
+        }
+
+        private void DesBloquearCamposUsuarioDireccion()
+        {
+            if (!txbCorreo.IsEnabled)
+            {
+                txbCorreo.Text = String.Empty;
+                txbTelefono.Text = "0";
+                txbCorreo.IsEnabled = true;
+                txbTelefono.IsEnabled = true;
+                List<TextBox> campos = new List<TextBox>()
+                {
+                txbNombre,
+                txb1erApellido,
+                txb2doApellido,
+                txbCiudad,
+                txbColonia,
+                txbCalle,
+                txbCodigoPostal,
+                txbNumeroExterior,
+                };
+                foreach (var item in campos)
+                {
+                    item.Text = String.Empty;
+                    item.IsEnabled = true;
+                }
+            }
+        }
+
+        private void CmbTipoEmpleado_Selected(object sender, SelectionChangedEventArgs e)
+        {
+            TipoEmpleadoDto tipoSeleccionado = (TipoEmpleadoDto) cbmTipoEmpleado.SelectedItem;
+            if(tipoSeleccionado != null && tipoSeleccionado.IdTipoEmpleado == (int)EnumTiposEmpleado.Mesero)
+            {
+                BloquearCamposUsuarioDireccion();
+            }
+            else
+            {
+                DesBloquearCamposUsuarioDireccion();
+            }
+        }
     }
     
 }

@@ -43,7 +43,7 @@
             <Border x:Name="brdActivoBackGorund" Background="Black" Margin="0" CornerRadius="10" />
             <Ellipse  Name="btnEsActivo" Fill="Yellow" Height="16" Width="16" HorizontalAlignment="Right" Margin="2,0,2,0" MouseDown="BtnDesactivarActivar_Click" />
         </Grid>
-        <Label Content="Desactivar" Margin="422,286,27,3" Padding="0" HorizontalContentAlignment="Center"/>
+        <Label Name="lblModificarEstado" Content="Desactivar" Margin="417,286,22,3" Padding="0" HorizontalContentAlignment="Center"/>
 
 
 

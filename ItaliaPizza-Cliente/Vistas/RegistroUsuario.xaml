@@ -138,11 +138,11 @@
 
                     <Label Content="* Tipo Usuario" Style="{StaticResource fieldTags}"  Width="auto" Height="auto" Margin="3,363,0,0" VerticalAlignment="Top" />
                     <StackPanel Orientation="Horizontal" Canvas.Left="42" Canvas.Top="405" HorizontalAlignment="Left" VerticalAlignment="Center">
-                        <RadioButton x:Name="rdbEmpleado" FontSize="20" Style="{StaticResource CustomRadioButtonStyle}"  GroupName="OPcionTipoUsuario" Canvas.Left="44" Canvas.Top="411" Checked="rdbEmpleado_Checked" />
+                        <RadioButton x:Name="rdbEmpleado" FontSize="20" Style="{StaticResource CustomRadioButtonStyle}"  GroupName="OPcionTipoUsuario" Canvas.Left="44" Canvas.Top="411" Checked="RdbEmpleado_Checked" />
                         <Label Content="Empleado" Style="{StaticResource fieldTags}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Canvas.Left="231" Canvas.Top="405" HorizontalAlignment="Left" VerticalAlignment="Center">
-                        <RadioButton x:Name="rdbCliente" FontSize="20" Style="{StaticResource CustomRadioButtonStyle}"  GroupName="OPcionTipoUsuario" Canvas.Left="44" Canvas.Top="411" Checked="rdbCliente_Checked" />
+                        <RadioButton x:Name="rdbCliente" FontSize="20" Style="{StaticResource CustomRadioButtonStyle}"  GroupName="OPcionTipoUsuario" Canvas.Left="44" Canvas.Top="411" Checked="RdbCliente_Checked" />
                         <Label Content="Cliente" Style="{StaticResource fieldTags}"/>
                     </StackPanel>
                     <Label Name="lblTipoUsuarioError" Content="" Style="{StaticResource ResourceKey=errorLabel}" Width="221" Canvas.Left="165" Canvas.Top="374" HorizontalContentAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -206,7 +206,7 @@
 
                     <Label Content="* Tipo de Empleado" Style="{StaticResource fieldTags}"  Width="auto" Height="auto" Canvas.Left="411" Canvas.Top="46" HorizontalAlignment="Center" VerticalAlignment="Top" />
                     <Border Style="{StaticResource textBoxBorder}" Canvas.Left="431" Canvas.Top="81" Width="210" HorizontalAlignment="Left" VerticalAlignment="Center">
-                        <ComboBox x:Name="cbmTipoEmpleado" Style="{StaticResource comboBox}" />
+                        <ComboBox x:Name="cbmTipoEmpleado" Style="{StaticResource comboBox}" SelectionChanged="CmbTipoEmpleado_Selected" />
                     </Border>
                     <Label Name="lblTipoEmpleadoError" Style="{StaticResource errorLabel}" Canvas.Left="436" Canvas.Top="120" HorizontalAlignment="Center" VerticalAlignment="Top" Height="33" Width="197" />
                     <Image Source="/Recursos/Iconos/icono_ver_contrasena.png" Height="30" Width="48" Canvas.Left="406" Canvas.Top="160" MouseDown="bttVerContrasena_Click" MouseLeave="bttVerContrasena_Leave" />

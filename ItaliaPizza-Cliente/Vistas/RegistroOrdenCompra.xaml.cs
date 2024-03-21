@@ -37,7 +37,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void PrepararWindow()
         {
-            RecuperarInformacion();
+            ObtenerInformacion();
             CargarProveedores(proveedores);
             MostrarInsumosdDisponibles(insumosDisponibles);
             barraBusquedaInsumo.ImgBuscarClicked += ImgBuscar_Click;
@@ -49,20 +49,23 @@ namespace ItaliaPizza_Cliente.Vistas
             stpListaInsumos.Children.Clear();
             List<ElementoInsumoOrdenCompra> insumosFiltrados = listaElementoEnListaInsumos.Where(insumo => insumo.insumoDto.Codigo.Contains(criterioBusqueda) ||
                                                                                                  insumo.insumoDto.Nombre.Contains(criterioBusqueda)).ToList();
+            MostrarInsumosFiltrados(insumosFiltrados);
+        }
+
+        private void MostrarInsumosFiltrados(List<ElementoInsumoOrdenCompra> insumosFiltrados)
+        {
             foreach (var item in insumosFiltrados)
             {
                 stpListaInsumos.Children.Add(item);
             }
         }
 
-        private void RecuperarInformacion()
+        private void ObtenerInformacion()
         {
             try
             {
-                ServicioProveedoresClient servicioProveedoresClient = new ServicioProveedoresClient();
-                ServicioProductosClient servicioProductosClient = new ServicioProductosClient();
-                proveedores = servicioProveedoresClient.RecuperarProveedores().ToList();
-                insumosDisponibles = servicioProductosClient.RecuperarInsumosActivos().ToList();
+                ObtenerProveedoresAtivos();
+                ObtenerIsnsumoActivos();
             }
             catch (EndpointNotFoundException ex)
             {
@@ -96,19 +99,31 @@ namespace ItaliaPizza_Cliente.Vistas
             }
         }
 
+        private void ObtenerProveedoresAtivos()
+        {
+            ServicioProveedoresClient servicioProveedoresClient = new ServicioProveedoresClient();
+            proveedores = servicioProveedoresClient.RecuperarProveedores().ToList();
+        }
+
+        private void ObtenerIsnsumoActivos()
+        {
+            ServicioProductosClient servicioProductosClient = new ServicioProductosClient();
+            insumosDisponibles = servicioProductosClient.RecuperarInsumosActivos().ToList();
+        }
+
         private void CargarProveedores(List<ProveedorDto> proveedoresACargar)
         {
             lstProveedores.ItemsSource = proveedoresACargar;
             lstProveedores.DisplayMemberPath = "NombreCompleto";
         }
 
-        private void MostrarInformacionProveedor(ProveedorDto proveedor)
+        private void MostrarInformacionProveedor(ProveedorDto proveedorSeleccionado)
         {
-            lblNombreProveedor.Content = proveedor.NombreCompleto;
-            lblRFCProveedor.Content = proveedor.RFC;
-            lblTelefonoProveedor.Content = proveedor.NumeroTelefono;
-            lblCorreo.Content = proveedor.CorreoElectronico;
-            String direccion = proveedor.Direccion.Ciudad + ", Col. " + proveedor.Direccion.Colonia.ToString() + " " + proveedor.Direccion.CodigoPostal + ", Calle " + proveedor.Direccion.Calle + " #" + proveedor.Direccion.Numero.ToString();
+            lblNombreProveedor.Content = proveedorSeleccionado.NombreCompleto;
+            lblRFCProveedor.Content = proveedorSeleccionado.RFC;
+            lblTelefonoProveedor.Content = proveedorSeleccionado.NumeroTelefono;
+            lblCorreo.Content = proveedorSeleccionado.CorreoElectronico;
+            String direccion = proveedorSeleccionado.Direccion.Ciudad + ", Col. " + proveedorSeleccionado.Direccion.Colonia.ToString() + " " + proveedorSeleccionado.Direccion.CodigoPostal + ", Calle " + proveedorSeleccionado.Direccion.Calle + " #" + proveedorSeleccionado.Direccion.Numero.ToString();
             lblDireccion.Content = direccion;
         }
 
@@ -159,6 +174,11 @@ namespace ItaliaPizza_Cliente.Vistas
         private void BtnInsumoMenos(object sender, EventArgs e)
         {
             ElementoInsumoOrdenCompraSeleccionado elementoInsumoOrden = sender as ElementoInsumoOrdenCompraSeleccionado;
+            DisminuirCantidad(elementoInsumoOrden);
+        }
+
+        private void DisminuirCantidad(ElementoInsumoOrdenCompraSeleccionado elementoInsumoOrden)
+        {
             int cantidad = int.Parse(elementoInsumoOrden.txbCantidad.Text);
             cantidad--;
             elementoInsumoOrden.txbCantidad.Text = cantidad.ToString();
@@ -167,6 +187,11 @@ namespace ItaliaPizza_Cliente.Vistas
         private void BtnInsumoMas(object sender, EventArgs e)
         {
             ElementoInsumoOrdenCompraSeleccionado elementoInsumoOrden = sender as ElementoInsumoOrdenCompraSeleccionado;
+            AumentarCantidad(elementoInsumoOrden);
+        }
+
+        private void AumentarCantidad(ElementoInsumoOrdenCompraSeleccionado elementoInsumoOrden)
+        {
             int cantidad = int.Parse(elementoInsumoOrden.txbCantidad.Text);
             cantidad++;
             elementoInsumoOrden.txbCantidad.Text = cantidad.ToString();
@@ -211,7 +236,7 @@ namespace ItaliaPizza_Cliente.Vistas
                     float subtotoal = cantidad * costo;
                     elementoInsumoOrden.lblSubtotal.Content = subtotoal.ToString();
                     // int index = listElementosEnOrdenCompra.IndexOf(elementoInsumoOrden);
-                    //  listElementosEnOrdenCompra[index].txbCantidad.Text = cantidad.ToString();
+                    // listElementosEnOrdenCompra[index].txbCantidad.Text = cantidad.ToString();
                 }
                 else
                 {

@@ -41,7 +41,7 @@ namespace ItaliaPizza_Servicios
                     {
                         ordenesCompraInsumos.Add(AuxiliarConversorDTOADAO.ConvertirElementoOrdenCompraAOrdenesCompraInsumos(idOrdenCompraNueva, item));
                     }
-                    int resultado = OrdenDeCompraDAO.GuardarElementoInsumoDeOrdenDeCompra(ordenesCompraInsumos);
+                    int resultado = OrdenDeCompraDAO.GuardarInsumoOrdenDeCompra(ordenesCompraInsumos);
                     if (resultado == 0)
                     {
                         idOrdenCompraNueva = 0;

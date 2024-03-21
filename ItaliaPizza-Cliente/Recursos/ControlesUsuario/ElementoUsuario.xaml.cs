@@ -85,12 +85,13 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
             if (esActivo)
             {
                 brdActivoBackGorund.Background = new SolidColorBrush(Colors.Black);
-                btnEsActivo.HorizontalAlignment = HorizontalAlignment.Right;
+                btnEsActivo.HorizontalAlignment = HorizontalAlignment.Right;                
             }
             else
             {
                 brdActivoBackGorund.Background = new SolidColorBrush(Colors.Red);
                 btnEsActivo.HorizontalAlignment = HorizontalAlignment.Left;
+                lblModificarEstado.Content = "Activar";
             }
         }
 
