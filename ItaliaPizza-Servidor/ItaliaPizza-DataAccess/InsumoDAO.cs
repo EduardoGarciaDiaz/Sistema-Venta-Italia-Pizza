@@ -50,7 +50,7 @@ namespace ItaliaPizza_DataAccess
             }
         }
 
-        public bool ValidarDisponibilidadInsumo(string codigoInsumo, int cantidadRequerida)
+        public bool ValidarDisponibilidadInsumo(string codigoInsumo, double cantidadRequerida)
         {
             bool insumoDisponible = false;
 
@@ -97,7 +97,7 @@ namespace ItaliaPizza_DataAccess
             return insumoDisponible;
         }
 
-        public bool DisminuirCantidadInsumo(string codigoInsumo, int cantidadParaDisminuir)
+        public bool DisminuirCantidadInsumo(string codigoInsumo, double cantidadParaDisminuir)
         {
             bool insumoDisminuido = false;
             try
@@ -213,7 +213,7 @@ namespace ItaliaPizza_DataAccess
             }
         }
 
-        public void ApartarCantidadInsumo(string codigoInsumo, int cantidadParaApartar)
+        public void ApartarCantidadInsumo(string codigoInsumo, double cantidadParaApartar)
         {
             lock(_lock)
             {
@@ -248,9 +248,9 @@ namespace ItaliaPizza_DataAccess
 
         }
 
-        public bool DesapartarCantidadInsumo(string codigoInsumo, int cantidadParaDesapartar)
+        public bool DesapartarCantidadInsumo(string codigoInsumo, double cantidadParaDesapartar)
         {
-            lock(this)
+            lock(_lock)
             {
                 bool resultado = false;
                 try

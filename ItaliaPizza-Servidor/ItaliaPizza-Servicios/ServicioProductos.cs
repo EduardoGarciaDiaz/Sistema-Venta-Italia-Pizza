@@ -236,7 +236,7 @@ namespace ItaliaPizza_Servicios
 
             foreach (RecetasInsumos insumo in insumosEnReceta)
             {
-                if (!insumoDAO.ValidarDisponibilidadInsumo(insumo.CodigoProducto, ((int)insumo.CantidadInsumo * cantidadProductos)))
+                if (!insumoDAO.ValidarDisponibilidadInsumo(insumo.CodigoProducto, ((double)insumo.CantidadInsumo * cantidadProductos)))
                 {
                     return false;
                 }
@@ -244,7 +244,7 @@ namespace ItaliaPizza_Servicios
 
             foreach (RecetasInsumos insumo in insumosEnReceta)
             {
-                insumoDAO.ApartarCantidadInsumo(insumo.CodigoProducto, ((int)insumo.CantidadInsumo * cantidadProductos));
+                insumoDAO.ApartarCantidadInsumo(insumo.CodigoProducto, ((double)insumo.CantidadInsumo * cantidadProductos));
             }
             return true;
         }
@@ -261,9 +261,8 @@ namespace ItaliaPizza_Servicios
 
                 foreach (RecetasInsumos insumo in insumosEnReceta)
                 {
-                    insumoDAO.DesapartarCantidadInsumo(insumo.CodigoProducto, ((int)insumo.CantidadInsumo * cantidadRequerida));
                     bool insumoDisminuido =
-                        insumoDAO.DisminuirCantidadInsumo(insumo.CodigoProducto, ((int)insumo.CantidadInsumo * cantidadRequerida));
+                        insumoDAO.DisminuirCantidadInsumo(insumo.CodigoProducto, ((double)insumo.CantidadInsumo * cantidadRequerida));
                     if (!insumoDisminuido)
                     {
                         insumosDisminuidos = false;
@@ -326,7 +325,7 @@ namespace ItaliaPizza_Servicios
 
             foreach (RecetasInsumos insumo in insumosEnReceta)
             {
-                insumoDAO.DesapartarCantidadInsumo(insumo.CodigoProducto, (int)insumo.CantidadInsumo * cantidadProductos);
+                insumoDAO.DesapartarCantidadInsumo(insumo.CodigoProducto, (double)insumo.CantidadInsumo * cantidadProductos);
             }
             return true;
         }

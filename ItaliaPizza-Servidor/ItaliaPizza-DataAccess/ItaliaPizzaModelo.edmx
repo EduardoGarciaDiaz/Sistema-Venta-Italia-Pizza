@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ItaliaPizzaModelo.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ItaliaPizzaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CategoriasInsumo">
           <Key>
             <PropertyRef Name="IdCategoriaInsumo" />
@@ -91,7 +91,7 @@
             <PropertyRef Name="CodigoProducto" />
           </Key>
           <Property Name="CodigoProducto" Type="nvarchar" MaxLength="15" Nullable="false" />
-          <Property Name="CantidadApartada" Type="int" />
+          <Property Name="CantidadApartada" Type="float" />
         </EntityType>
         <EntityType Name="OrdenesCompra">
           <Key>
@@ -540,7 +540,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ItaliaPizzaModeloStoreContainer">
+        <EntityContainer Name="ItaliaPizzaModelStoreContainer">
           <EntitySet Name="CategoriasInsumo" EntityType="Self.CategoriasInsumo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CategoriasProductoVenta" EntityType="Self.CategoriasProductoVenta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CortesCaja" EntityType="Self.CortesCaja" Schema="dbo" store:Type="Tables" />
@@ -675,7 +675,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="ItaliaPizzaModelo" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="ItaliaPizzaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="CategoriasInsumo">
           <Key>
             <PropertyRef Name="IdCategoriaInsumo" />
@@ -781,7 +781,7 @@
             <PropertyRef Name="CodigoProducto" />
           </Key>
           <Property Name="CodigoProducto" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CantidadApartada" Type="Int32" />
+          <Property Name="CantidadApartada" Type="Double" />
           <NavigationProperty Name="Insumos" Relationship="Self.FK__InsumosAp__Codig__160F4887" FromRole="InsumosApartados" ToRole="Insumos" />
         </EntityType>
         <EntityType Name="OrdenesCompra">
@@ -1399,9 +1399,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ItaliaPizzaModeloStoreContainer" CdmEntityContainer="ItaliaPizzaEntities">
+        <EntityContainerMapping StorageEntityContainer="ItaliaPizzaModelStoreContainer" CdmEntityContainer="ItaliaPizzaEntities">
           <EntitySetMapping Name="CategoriasInsumo">
-            <EntityTypeMapping TypeName="ItaliaPizzaModelo.CategoriasInsumo">
+            <EntityTypeMapping TypeName="ItaliaPizzaModel.CategoriasInsumo">
               <MappingFragment StoreEntitySet="CategoriasInsumo">
                 <ScalarProperty Name="IdCategoriaInsumo" ColumnName="IdCategoriaInsumo" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -1409,7 +1409,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CategoriasProductoVenta">
-            <EntityTypeMapping TypeName="ItaliaPizzaModelo.CategoriasProductoVenta">
+            <EntityTypeMapping TypeName="ItaliaPizzaModel.CategoriasProductoVenta">
               <MappingFragment StoreEntitySet="CategoriasProductoVenta">
                 <ScalarProperty Name="IdCategoriaProductoVenta" ColumnName="IdCategoriaProductoVenta" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -1417,7 +1417,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CortesCaja">
-            <EntityTypeMapping TypeName="ItaliaPizzaModelo.CortesCaja">
+            <EntityTypeMapping TypeName="ItaliaPizzaModel.CortesCaja">
               <MappingFragment StoreEntitySet="CortesCaja">
                 <ScalarProperty Name="IdCorteCaja" ColumnName="IdCorteCaja" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
@@ -1430,7 +1430,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Direcciones">
-            <EntityTypeMapping TypeName="ItaliaPizzaModelo.Direcciones">
+            <EntityTypeMapping TypeName="ItaliaPizzaModel.Direcciones">
               <MappingFragment StoreEntitySet="Direcciones">
                 <ScalarProperty Name="IdDireccion" ColumnName="IdDireccion" />
                 <ScalarProperty Name="CodigoPostal" ColumnName="CodigoPostal" />
@@ -1442,7 +1442,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Empleados">
-            <EntityTypeMapping TypeName="ItaliaPizzaModelo.Empleados">
+            <EntityTypeMapping TypeName="ItaliaPizzaModel.Empleados">
               <MappingFragment StoreEntitySet="Empleados">
                 <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
                 <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
@@ -1452,7 +1452,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EstadosOrdenCompra">
-            <EntityTypeMapping TypeName="ItaliaPizzaModelo.EstadosOrdenCompra">
+            <EntityTypeMapping TypeName="ItaliaPizzaModel.EstadosOrdenCompra">
               <MappingFragment StoreEntitySet="EstadosOrdenCompra">
                 <ScalarProperty Name="IdEstadoOrdenCompra" ColumnName="IdEstadoOrdenCompra" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -1460,7 +1460,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EstadosPedido">
-            <EntityTypeMapping TypeName="ItaliaPizzaModelo.EstadosPedido">
+            <EntityTypeMapping TypeName="ItaliaPizzaModel.EstadosPedido">
               <MappingFragment StoreEntitySet="EstadosPedido">
                 <ScalarProperty Name="IdEstadoPedido" ColumnName="IdEstadoPedido" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -1468,7 +1468,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="GastosVarios">
-            <EntityTypeMapping TypeName="ItaliaPizzaModelo.GastosVarios">
+            <EntityTypeMapping TypeName="ItaliaPizzaModel.GastosVarios">
               <MappingFragment StoreEntitySet="GastosVarios">
                 <ScalarProperty Name="IdGastoVario" ColumnName="IdGastoVario" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
@@ -1479,7 +1479,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Insumos">
-            <EntityTypeMapping TypeName="ItaliaPizzaModelo.Insumos">
+            <EntityTypeMapping TypeName="ItaliaPizzaModel.Insumos">
               <MappingFragment StoreEntitySet="Insumos">
                 <ScalarProperty Name="CodigoProducto" ColumnName="CodigoProducto" />
                 <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
@@ -1491,7 +1491,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="InsumosApartados">
-            <EntityTypeMapping TypeName="ItaliaPizzaModelo.InsumosApartados">
+            <EntityTypeMapping TypeName="ItaliaPizzaModel.InsumosApartados">
               <MappingFragment StoreEntitySet="InsumosApartados">
                 <ScalarProperty Name="CodigoProducto" ColumnName="CodigoProducto" />
                 <ScalarProperty Name="CantidadApartada" ColumnName="CantidadApartada" />
@@ -1499,7 +1499,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrdenesCompra">
-            <EntityTypeMapping TypeName="ItaliaPizzaModelo.OrdenesCompra">
+            <EntityTypeMapping TypeName="ItaliaPizzaModel.OrdenesCompra">
               <MappingFragment StoreEntitySet="OrdenesCompra">
                 <ScalarProperty Name="IdOrdenCompra" ColumnName="IdOrdenCompra" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
@@ -1509,7 +1509,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrdenesCompraInsumos">
-            <EntityTypeMapping TypeName="ItaliaPizzaModelo.OrdenesCompraInsumos">
+            <EntityTypeMapping TypeName="ItaliaPizzaModel.OrdenesCompraInsumos">
               <MappingFragment StoreEntitySet="OrdenesCompraInsumos">
                 <ScalarProperty Name="IdOrdenCompraInsumo" ColumnName="IdOrdenCompraInsumo" />
                 <ScalarProperty Name="CantidadInsumosAdquiridos" ColumnName="CantidadInsumosAdquiridos" />
@@ -1519,7 +1519,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Pedidos">
-            <EntityTypeMapping TypeName="ItaliaPizzaModelo.Pedidos">
+            <EntityTypeMapping TypeName="ItaliaPizzaModel.Pedidos">
               <MappingFragment StoreEntitySet="Pedidos">
                 <ScalarProperty Name="NumeroPedido" ColumnName="NumeroPedido" />
                 <ScalarProperty Name="FechaPedido" ColumnName="FechaPedido" />
@@ -1531,7 +1531,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PedidosProductosVenta">
-            <EntityTypeMapping TypeName="ItaliaPizzaModelo.PedidosProductosVenta">
+            <EntityTypeMapping TypeName="ItaliaPizzaModel.PedidosProductosVenta">
               <MappingFragment StoreEntitySet="PedidosProductosVenta">
                 <ScalarProperty Name="IdPedidoProductoVenta" ColumnName="IdPedidoProductoVenta" />
                 <ScalarProperty Name="NumeroPedido" ColumnName="NumeroPedido" />
@@ -1541,7 +1541,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Productos">
-            <EntityTypeMapping TypeName="ItaliaPizzaModelo.Productos">
+            <EntityTypeMapping TypeName="ItaliaPizzaModel.Productos">
               <MappingFragment StoreEntitySet="Productos">
                 <ScalarProperty Name="CodigoProducto" ColumnName="CodigoProducto" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -1552,7 +1552,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProductosVenta">
-            <EntityTypeMapping TypeName="ItaliaPizzaModelo.ProductosVenta">
+            <EntityTypeMapping TypeName="ItaliaPizzaModel.ProductosVenta">
               <MappingFragment StoreEntitySet="ProductosVenta">
                 <ScalarProperty Name="CodigoProducto" ColumnName="CodigoProducto" />
                 <ScalarProperty Name="Precio" ColumnName="Precio" />
@@ -1562,7 +1562,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Proveedores">
-            <EntityTypeMapping TypeName="ItaliaPizzaModelo.Proveedores">
+            <EntityTypeMapping TypeName="ItaliaPizzaModel.Proveedores">
               <MappingFragment StoreEntitySet="Proveedores">
                 <ScalarProperty Name="IdProveedor" ColumnName="IdProveedor" />
                 <ScalarProperty Name="NombreCompleto" ColumnName="NombreCompleto" />
@@ -1574,7 +1574,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Recetas">
-            <EntityTypeMapping TypeName="ItaliaPizzaModelo.Recetas">
+            <EntityTypeMapping TypeName="ItaliaPizzaModel.Recetas">
               <MappingFragment StoreEntitySet="Recetas">
                 <ScalarProperty Name="IdReceta" ColumnName="IdReceta" />
                 <ScalarProperty Name="CodigoProducto" ColumnName="CodigoProducto" />
@@ -1582,7 +1582,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RecetasInsumos">
-            <EntityTypeMapping TypeName="ItaliaPizzaModelo.RecetasInsumos">
+            <EntityTypeMapping TypeName="ItaliaPizzaModel.RecetasInsumos">
               <MappingFragment StoreEntitySet="RecetasInsumos">
                 <ScalarProperty Name="IdRecetaInsumo" ColumnName="IdRecetaInsumo" />
                 <ScalarProperty Name="CantidadInsumo" ColumnName="CantidadInsumo" />
@@ -1592,7 +1592,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="ItaliaPizzaModelo.sysdiagrams">
+            <EntityTypeMapping TypeName="ItaliaPizzaModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -1603,7 +1603,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TiposEmpleado">
-            <EntityTypeMapping TypeName="ItaliaPizzaModelo.TiposEmpleado">
+            <EntityTypeMapping TypeName="ItaliaPizzaModel.TiposEmpleado">
               <MappingFragment StoreEntitySet="TiposEmpleado">
                 <ScalarProperty Name="IdTipoEmpleado" ColumnName="IdTipoEmpleado" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -1611,7 +1611,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TiposServicio">
-            <EntityTypeMapping TypeName="ItaliaPizzaModelo.TiposServicio">
+            <EntityTypeMapping TypeName="ItaliaPizzaModel.TiposServicio">
               <MappingFragment StoreEntitySet="TiposServicio">
                 <ScalarProperty Name="IdTipoServicio" ColumnName="IdTipoServicio" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -1619,7 +1619,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UnidadesMedida">
-            <EntityTypeMapping TypeName="ItaliaPizzaModelo.UnidadesMedida">
+            <EntityTypeMapping TypeName="ItaliaPizzaModel.UnidadesMedida">
               <MappingFragment StoreEntitySet="UnidadesMedida">
                 <ScalarProperty Name="IdUnidadMedida" ColumnName="IdUnidadMedida" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -1627,7 +1627,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Usuarios">
-            <EntityTypeMapping TypeName="ItaliaPizzaModelo.Usuarios">
+            <EntityTypeMapping TypeName="ItaliaPizzaModel.Usuarios">
               <MappingFragment StoreEntitySet="Usuarios">
                 <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
                 <ScalarProperty Name="NombreCompleto" ColumnName="NombreCompleto" />
@@ -1639,7 +1639,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UsuariosPedidos">
-            <EntityTypeMapping TypeName="ItaliaPizzaModelo.UsuariosPedidos">
+            <EntityTypeMapping TypeName="ItaliaPizzaModel.UsuariosPedidos">
               <MappingFragment StoreEntitySet="UsuariosPedidos">
                 <ScalarProperty Name="IdUsuarioOrden" ColumnName="IdUsuarioOrden" />
                 <ScalarProperty Name="NumeroPedido" ColumnName="NumeroPedido" />

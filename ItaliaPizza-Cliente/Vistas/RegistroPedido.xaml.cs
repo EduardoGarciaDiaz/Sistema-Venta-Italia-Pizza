@@ -469,7 +469,7 @@ namespace ItaliaPizza_Cliente.Vistas
                     IdEstadoPedido = (int)EnumEstadosPedido.EnProceso
                 };
 
-                RegistroPagoPedido registroPagoPedido = new RegistroPagoPedido(pedido);
+                RegistroPagoPedido registroPagoPedido = new RegistroPagoPedido(pedido, this);
                 NavigationService.Navigate(registroPagoPedido);
             }
             else
@@ -495,7 +495,7 @@ namespace ItaliaPizza_Cliente.Vistas
             MostrarCantidades();
         }
 
-        private void DesapartarTodosLosProductosEnPedido()
+        public void DesapartarTodosLosProductosEnPedido()
         {
             ServicioProductosClient servicioProductos = new ServicioProductosClient();
             try
