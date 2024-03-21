@@ -243,7 +243,7 @@ namespace ItaliaPizza_Servicios
 
             foreach (RecetasInsumos insumo in insumosEnReceta)
             {
-                insumoDAO.ApartarCantidadInsumo(codigoProducto, ((int)insumo.CantidadInsumo * cantidadProductos));
+                insumoDAO.ApartarCantidadInsumo(insumo.CodigoProducto, ((int)insumo.CantidadInsumo * cantidadProductos));
             }
             return true;
         }
@@ -318,7 +318,7 @@ namespace ItaliaPizza_Servicios
 
             foreach (RecetasInsumos insumo in insumosEnReceta)
             {
-                insumoDAO.DesapartarCantidadInsumo(codigoProducto, (int)insumo.CantidadInsumo * cantidadProductos);
+                insumoDAO.DesapartarCantidadInsumo(insumo.CodigoProducto, (int)insumo.CantidadInsumo * cantidadProductos);
             }
             return true;
         }
