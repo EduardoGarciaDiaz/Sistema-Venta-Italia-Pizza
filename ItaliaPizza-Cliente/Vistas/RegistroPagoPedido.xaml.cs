@@ -29,10 +29,12 @@ namespace ItaliaPizza_Cliente.Vistas
         private static readonly Regex _regex = new Regex("[^0-9.]+");
         private readonly Pedido _pedido;
         private Cliente _cliente;
+        private RegistroPedido _registroPedido;
 
-        public RegistroPagoPedido(Pedido pedido)
+        public RegistroPagoPedido(Pedido pedido, RegistroPedido registroPedido)
         {
             this._pedido = pedido;
+            this._registroPedido = registroPedido;
             InitializeComponent();
             MostrarDatosDePedido(pedido);
             MostrarDatosDeCliente(pedido.IdCliente);
@@ -46,6 +48,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void ImgRegresar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            _registroPedido.DesapartarTodosLosProductosEnPedido();
             NavigationService.Navigate(new RegistroPedido());
         }
 
@@ -144,7 +147,8 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+            _registroPedido.DesapartarTodosLosProductosEnPedido();
+            NavigationService.Navigate(new RegistroPedido());
         }
 
         private void MostrarDatosDeCliente(int idCliente)

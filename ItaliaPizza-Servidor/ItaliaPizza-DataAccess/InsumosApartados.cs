@@ -15,7 +15,7 @@ namespace ItaliaPizza_DataAccess
     public partial class InsumosApartados
     {
         public string CodigoProducto { get; set; }
-        public Nullable<int> CantidadApartada { get; set; }
+        public Nullable<double> CantidadApartada { get; set; }
     
         public virtual Insumos Insumos { get; set; }
     }
