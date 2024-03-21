@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection.Emit;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
@@ -235,10 +236,12 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private ElementoInsumoReceta CrearElementoInsumoReceta(InsumoReceta insumo)
         {
+            string formatoCantidad = "F2";
             ElementoInsumoReceta elementoInsumoReceta = new ElementoInsumoReceta();
 
+            double cantidad = insumo.Cantidad;
             elementoInsumoReceta.lbNombreInsumo.Content = insumo.Nombre;
-            elementoInsumoReceta.lbCantidadInsumo.Content = insumo.Cantidad;
+            elementoInsumoReceta.lbCantidadInsumo.Content = cantidad.ToString(formatoCantidad);
             elementoInsumoReceta.lbUnidadMedidaInsumo.Content = insumo.UnidadMedida.Nombre;
 
             return elementoInsumoReceta;

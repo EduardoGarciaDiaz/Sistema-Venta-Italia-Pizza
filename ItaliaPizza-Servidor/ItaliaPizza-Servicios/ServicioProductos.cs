@@ -84,6 +84,8 @@ namespace ItaliaPizza_Servicios
         {
             int filasAfectadas = -1;
             ProductoDAO productoDAO = new ProductoDAO();
+            InsumoDAO insumoDAO = new InsumoDAO();
+
 
             if (producto != null)
             {
@@ -100,7 +102,7 @@ namespace ItaliaPizza_Servicios
                         if (insumo != null)
                         {
                             Insumos insumoNuevo = AuxiliarConversorDTOADAO.ConvertirInsumoAInsumos(insumo);
-                            productoDAO.GuardarInsumo(insumoNuevo);
+                            insumoDAO.GuardarInsumo(insumoNuevo);
                         }
 
                         if (productoVenta != null)

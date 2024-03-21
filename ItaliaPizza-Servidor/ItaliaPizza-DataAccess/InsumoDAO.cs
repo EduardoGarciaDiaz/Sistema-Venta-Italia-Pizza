@@ -16,6 +16,39 @@ namespace ItaliaPizza_DataAccess
     public class InsumoDAO
     {
         public InsumoDAO() { }
+        public int GuardarInsumo(Insumos insumo)
+        {
+            int filasAfectadas = -1;
+
+            try
+            {
+                if (insumo != null)
+                {
+                    using (var context = new ItaliaPizzaEntities())
+                    {
+                        context.Insumos.Add(insumo);
+                        filasAfectadas = context.SaveChanges();
+                    }
+                }
+
+                return filasAfectadas;
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+        }
 
         public bool ValidarDisponibilidadInsumo(string codigoInsumo, int cantidadRequerida)
         {

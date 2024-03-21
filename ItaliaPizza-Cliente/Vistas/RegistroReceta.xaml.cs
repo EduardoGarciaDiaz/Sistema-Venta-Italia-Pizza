@@ -153,10 +153,14 @@ namespace ItaliaPizza_Cliente.Vistas
         private void GridProductoSinReceta_Click(object sender, EventArgs e)
         {
             LimpiarSeleccionProductosSinReceta();
-
             ElementoProductoSinReceta productoSinReceta = sender as ElementoProductoSinReceta;
-            productoSinReceta.rectangleProducto.Fill = (SolidColorBrush)new BrushConverter().ConvertFromString(COLOR_HEXADECIMAL_PRODUCTO_SELECCIONADO);
 
+            MostrarProductoSeleccionado(productoSinReceta);
+        }
+
+        private void MostrarProductoSeleccionado(ElementoProductoSinReceta productoSinReceta)
+        {
+            productoSinReceta.rectangleProducto.Fill = (SolidColorBrush)new BrushConverter().ConvertFromString(COLOR_HEXADECIMAL_PRODUCTO_SELECCIONADO);
             _elementoProductoSinRecetaSeleccionado = productoSinReceta;
             productoSinReceta.EsSeleccionado = true;
             lbNombreReceta.Content = productoSinReceta.tbkNombre.Text;
