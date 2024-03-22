@@ -171,20 +171,23 @@ namespace ItaliaPizza_Cliente.Vistas
             string codigoProducto = elementoPedido.ProductoVentaPedidos.Codigo;
             try
             {
-                if (servicioProductosCliente.DesapartarInsumosDeProducto(codigoProducto, 1))
+                if (_productosEnPedido.ContainsKey(codigoProducto))
                 {
-                    _productosEnPedido[codigoProducto]--;
-                    if (_productosEnPedido[codigoProducto] == 0)
+                    if (servicioProductosCliente.DesapartarInsumosDeProducto(codigoProducto, 1))
                     {
-                        SkpContenedorProductosPedido.Children.Remove(elementoPedido);
-                        _productosEnPedido.Remove(elementoPedido.ProductoVentaPedidos.Codigo);
+                        _productosEnPedido[codigoProducto]--;
+                        if (_productosEnPedido[codigoProducto] == 0)
+                        {
+                            SkpContenedorProductosPedido.Children.Remove(elementoPedido);
+                            _productosEnPedido.Remove(elementoPedido.ProductoVentaPedidos.Codigo);
+                        }
+                        else
+                        {
+                            ActualizarEnInterfazCantidadRequeridaProductos(codigoProducto);
+                        }
+                        CalcularCantidades();
+                        MostrarCantidades();
                     }
-                    else
-                    {
-                        ActualizarEnInterfazCantidadRequeridaProductos(codigoProducto);
-                    }
-                    CalcularCantidades();
-                    MostrarCantidades();
                 }
             }
             catch (EndpointNotFoundException ex)
