@@ -67,7 +67,6 @@ namespace ItaliaPizza_Cliente
         {
             AgregarBotonPedido();
             AgregarBotonPedidos();
-            AgregarBotonRegistrarUsuarios();
         }
 
         private void OpcionesPanelChef()
