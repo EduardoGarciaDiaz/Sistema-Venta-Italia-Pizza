@@ -116,6 +116,7 @@
     <Compile Include="Recursos\ControlesUsuario\ElementoInsumoOrdenCompraSeleccionado.xaml.cs">
       <DependentUpon>ElementoInsumoOrdenCompraSeleccionado.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utilidades\CampoTextoConLabel.cs" />
     <Compile Include="Utilidades\ConvertidorBytes.cs" />
     <Compile Include="Utilidades\EmpleadoSingleton.cs" />
     <Compile Include="Utilidades\EnumEstadosPedido.cs" />
@@ -160,6 +161,9 @@
     <Compile Include="Utilidades\UtilidadValidacion.cs" />
     <Compile Include="Vistas\RegistroProducto.xaml.cs">
       <DependentUpon>RegistroProducto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\RegistroProveedor.xaml.cs">
+      <DependentUpon>RegistroProveedor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\RegistroReceta.xaml.cs">
       <DependentUpon>RegistroReceta.xaml</DependentUpon>
@@ -299,6 +303,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vistas\RegistroProducto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\RegistroProveedor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

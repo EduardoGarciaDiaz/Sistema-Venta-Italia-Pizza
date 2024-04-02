@@ -219,65 +219,26 @@ namespace ItaliaPizza_Cliente.Vistas
         private bool ValidarCamposUnicos()
         {
             bool sonUnicos = true;
-            try
+            ServicioUsuariosClient servicioUsuariosClient = new ServicioUsuariosClient();
+            if (!servicioUsuariosClient.ValidarNombreDeUsuarioUnico(txbNombreUsuario.Text.Trim()))
             {
-                ServicioUsuariosClient servicioUsuariosClient = new ServicioUsuariosClient();
-                if (!servicioUsuariosClient.ValidarNombreDeUsuarioUnico(txbNombreUsuario.Text.Trim()))
-                {
-                    sonUnicos = false;
-                    lblNombreUsuarioError.Content = NOMBRE_USUARIO_REPETIDO;
-                }
-                else
-                {
-                    lblNombreUsuarioError.Content = String.Empty;
-                }
-                if (!servicioUsuariosClient.ValidarCorreoUnico(txbCorreo.Text.Trim().ToLower()))
-                {
-                    sonUnicos = false;
-                    lblCorreoError.Content = CORREO_REPETIDO;
-                }
-                else
-                {
-                    lblCorreoError.Content = String.Empty;
+                sonUnicos = false;
+                lblNombreUsuarioError.Content = NOMBRE_USUARIO_REPETIDO;
+            }
+            else
+            {
+                lblNombreUsuarioError.Content = String.Empty;
+            }
+            if (!servicioUsuariosClient.ValidarCorreoUnico(txbCorreo.Text.Trim().ToLower()))
+            {
+                sonUnicos = false;
+                lblCorreoError.Content = CORREO_REPETIDO;
+            }
+            else
+            {
+                lblCorreoError.Content = String.Empty;
 
-                }
-            }
-            catch (EndpointNotFoundException ex)
-            {
-                sonUnicos = false;
-                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
-            }
-            catch (TimeoutException ex)
-            {
-                sonUnicos = false;
-                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
-            }
-            catch (FaultException<ExcepcionServidorItaliaPizza> ex)
-            {
-                sonUnicos = false;
-                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
-            }
-            catch (FaultException ex)
-            {
-                sonUnicos = false;
-                VentanasEmergentes.MostrarVentanaErrorServidor();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
-            }
-            catch (CommunicationException ex)
-            {
-                sonUnicos = false;
-                VentanasEmergentes.MostrarVentanaErrorServidor();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
-            }
-            catch (Exception ex)
-            {
-                sonUnicos = false;
-                VentanasEmergentes.MostrarVentanaErrorInesperado();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
-            }            
+            }      
             return sonUnicos;
         }
 

@@ -197,6 +197,20 @@ namespace ItaliaPizza_Servicios.Auxiliares
             return proveedorDto;
         }
 
+        public static Proveedores ConvertirProveedorDtoAProveedores(ProveedorDto proveedorDto)
+        {
+            Proveedores proveedor = new Proveedores()
+            {
+                IdProveedor = proveedorDto.IdProveedor,
+                NombreCompleto = proveedorDto.NombreCompleto,
+                RFC = proveedorDto.RFC,
+                CorreoElectronico = proveedorDto.CorreoElectronico,
+                NumeroTelefono = proveedorDto.NumeroTelefono,
+                IdDireccion = (int)proveedorDto.IdDireccion,                
+            };
+            return proveedor;
+        }
+
         public static OrdenesCompraInsumos ConvertirElementoOrdenCompraAOrdenesCompraInsumos(int idOrdenCompra , ElementoOrdenCompraDto elementoOrdenCompra)
         {
             OrdenesCompraInsumos ordenesCompraInsumo = new OrdenesCompraInsumos() 

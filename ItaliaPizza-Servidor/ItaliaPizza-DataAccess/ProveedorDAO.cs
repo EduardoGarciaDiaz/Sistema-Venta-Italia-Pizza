@@ -42,5 +42,97 @@ namespace ItaliaPizza_DataAccess
             }
         }
 
+        public static bool GuardarProveedorNuevoBD(Proveedores proveedorNuevo)
+        {
+            bool exitoOperacion = false;
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    context.Proveedores.Add(proveedorNuevo);
+                    int filasAfectadas = context.SaveChanges();
+                    if(filasAfectadas > 0)
+                    {
+                        exitoOperacion = true;
+                    }                    
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            return exitoOperacion;
+        }
+
+        public static  bool ValidarCorreoUnicoProveedorBD(string correo)
+        {
+            bool resultadoOperacion;
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+
+                    resultadoOperacion = !context.Proveedores.Any(proveedor => proveedor.CorreoElectronico.Equals(correo));
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            return resultadoOperacion;
+        }
+
+        public static bool ValidarRfcUnicoProveedorBD(string rfc)
+        {
+            bool resultadoOperacion;
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+
+                    resultadoOperacion = !context.Proveedores.Any(proveedor => proveedor.RFC.Equals(rfc));
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            return resultadoOperacion;
+        }
+
+
     }
 }

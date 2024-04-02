@@ -14,5 +14,14 @@ namespace ItaliaPizza_Contratos
     {
         [OperationContract]
         List<ProveedorDto> RecuperarProveedores();
+
+        [OperationContract]
+        bool GuardarProveedorNuevo(ProveedorDto proveedorNuevo);
+
+        [OperationContract]
+        bool ValidarRfcUnicoProveedor(string rfc);
+
+        [OperationContract]
+        bool ValidarCorreoUnicoProveedor(string correo);
     }
 }

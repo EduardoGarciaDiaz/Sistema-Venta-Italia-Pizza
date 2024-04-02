@@ -79,6 +79,7 @@ namespace ItaliaPizza_Cliente
         {
             AgregarBotonProductos();
             AgregarBotonConsultaOrdenesDeCompra();
+            AgregarBotonRegistroProveedor();
         }
         private void OpcionesPanelMesero()
         {
@@ -196,6 +197,22 @@ namespace ItaliaPizza_Cliente
         {
             ConsultaOrdenesDeCompra consultaOrdenesDeCompra = new ConsultaOrdenesDeCompra();
             FrameNavigator.NavigationService.Navigate(consultaOrdenesDeCompra);
+        }
+
+        private void AgregarBotonRegistroProveedor()
+        {
+            BtnMenuLateral proveedor = new BtnMenuLateral();
+            proveedor.ImgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_Orden_Compra.png",
+                UriKind.Relative));
+            proveedor.LblNombreBoton.Content = "Registro Proveedor";
+            proveedor.Click += BtnRegistroProveedorClick;
+            SkpMenuLateral.Children.Add(proveedor);
+        }
+
+        private void BtnRegistroProveedorClick(object sender, RoutedEventArgs e)
+        {
+            RegistroProveedor paginaRegistroProveedor = new RegistroProveedor(true);
+            FrameNavigator.NavigationService.Navigate(paginaRegistroProveedor);
         }
 
 
