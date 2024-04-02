@@ -34,9 +34,9 @@ namespace ItaliaPizza_Cliente.Utilidades
         {
             try
             {
-                EmpleadoSingleton.LimpiarSingleton();
                 ServicioInicioSesionClient servicioInicioSesionClient = new ServicioInicioSesionClient();
                 servicioInicioSesionClient.CerrarSesion(EmpleadoSingleton.getInstance().IdUsuario);
+                EmpleadoSingleton.LimpiarSingleton();
             }
             catch (EndpointNotFoundException) { }
             catch (TimeoutException) { }
