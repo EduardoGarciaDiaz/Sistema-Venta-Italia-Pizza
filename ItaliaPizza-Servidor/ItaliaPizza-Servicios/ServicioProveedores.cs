@@ -12,6 +12,24 @@ namespace ItaliaPizza_Servicios
 {
     public partial class ServicioItaliaPizza : ItaliaPizza_Contratos.IServicioProveedores
     {
+        public bool ActualizarInformacionProveedor(ProveedorDto proveedor)
+        {
+            bool resultadoOperacion = false;
+            try
+            {
+                Direcciones direccion = AuxiliarConversorDTOADAO.ConvertirDireccionDtoADirecciones(proveedor.Direccion);
+                Proveedores proveedores = AuxiliarConversorDTOADAO.ConvertirProveedorDtoAProveedores(proveedor);
+                proveedores.Direcciones = direccion;
+                resultadoOperacion = ProveedorDAO.ActualizarProveedorBD(proveedores);
+               
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
+            return resultadoOperacion;
+        }
+
         public bool GuardarProveedorNuevo(ProveedorDto proveedorNuevo)
         {
             bool resultadoOperacion = false;
@@ -76,6 +94,30 @@ namespace ItaliaPizza_Servicios
             }
         }
 
+        public bool ValidarCorreoUnicoProveedorEditado(string correo, int idProveedor)
+        {
+            try
+            {
+                bool esUnico = false;
+                if (!string.IsNullOrEmpty(correo))
+                {
+                    try
+                    {
+                        esUnico = ProveedorDAO.ValidarCorreoUnicoProveedorBD(correo, idProveedor);
+                    }
+                    catch (ExcepcionDataAccess e)
+                    {
+                        throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+                    }
+                }
+                return esUnico;
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
+        }
+
         public bool ValidarRfcUnicoProveedor(string rfc)
         {
             try
@@ -86,6 +128,30 @@ namespace ItaliaPizza_Servicios
                     try
                     {
                         esUnico = ProveedorDAO.ValidarRfcUnicoProveedorBD(rfc);
+                    }
+                    catch (ExcepcionDataAccess e)
+                    {
+                        throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+                    }
+                }
+                return esUnico;
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
+        }
+
+        public bool ValidarRfcUnicoProveedorEditado(string rfc, int idProveedor)
+        {
+            try
+            {
+                bool esUnico = false;
+                if (!string.IsNullOrEmpty(rfc))
+                {
+                    try
+                    {
+                        esUnico = ProveedorDAO.ValidarRfcUnicoProveedorBD(rfc, idProveedor);
                     }
                     catch (ExcepcionDataAccess e)
                     {

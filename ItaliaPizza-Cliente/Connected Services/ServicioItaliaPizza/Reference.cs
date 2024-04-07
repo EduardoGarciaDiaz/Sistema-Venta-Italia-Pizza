@@ -3372,6 +3372,12 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProveedores/GuardarProveedorNuevo", ReplyAction="http://tempuri.org/IServicioProveedores/GuardarProveedorNuevoResponse")]
         System.Threading.Tasks.Task<bool> GuardarProveedorNuevoAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.ProveedorDto proveedorNuevo);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProveedores/ActualizarInformacionProveedor", ReplyAction="http://tempuri.org/IServicioProveedores/ActualizarInformacionProveedorResponse")]
+        bool ActualizarInformacionProveedor(ItaliaPizza_Cliente.ServicioItaliaPizza.ProveedorDto proveedor);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProveedores/ActualizarInformacionProveedor", ReplyAction="http://tempuri.org/IServicioProveedores/ActualizarInformacionProveedorResponse")]
+        System.Threading.Tasks.Task<bool> ActualizarInformacionProveedorAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.ProveedorDto proveedor);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProveedores/ValidarRfcUnicoProveedor", ReplyAction="http://tempuri.org/IServicioProveedores/ValidarRfcUnicoProveedorResponse")]
         bool ValidarRfcUnicoProveedor(string rfc);
         
@@ -3383,6 +3389,20 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProveedores/ValidarCorreoUnicoProveedor", ReplyAction="http://tempuri.org/IServicioProveedores/ValidarCorreoUnicoProveedorResponse")]
         System.Threading.Tasks.Task<bool> ValidarCorreoUnicoProveedorAsync(string correo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProveedores/ValidarRfcUnicoProveedorEditado", ReplyAction="http://tempuri.org/IServicioProveedores/ValidarRfcUnicoProveedorEditadoResponse")]
+        bool ValidarRfcUnicoProveedorEditado(string rfc, int idProveedor);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProveedores/ValidarRfcUnicoProveedorEditado", ReplyAction="http://tempuri.org/IServicioProveedores/ValidarRfcUnicoProveedorEditadoResponse")]
+        System.Threading.Tasks.Task<bool> ValidarRfcUnicoProveedorEditadoAsync(string rfc, int idProveedor);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProveedores/ValidarCorreoUnicoProveedorEditado", ReplyAction="http://tempuri.org/IServicioProveedores/ValidarCorreoUnicoProveedorEditadoRespons" +
+            "e")]
+        bool ValidarCorreoUnicoProveedorEditado(string correo, int idProveedor);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProveedores/ValidarCorreoUnicoProveedorEditado", ReplyAction="http://tempuri.org/IServicioProveedores/ValidarCorreoUnicoProveedorEditadoRespons" +
+            "e")]
+        System.Threading.Tasks.Task<bool> ValidarCorreoUnicoProveedorEditadoAsync(string correo, int idProveedor);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -3428,6 +3448,14 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
             return base.Channel.GuardarProveedorNuevoAsync(proveedorNuevo);
         }
         
+        public bool ActualizarInformacionProveedor(ItaliaPizza_Cliente.ServicioItaliaPizza.ProveedorDto proveedor) {
+            return base.Channel.ActualizarInformacionProveedor(proveedor);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ActualizarInformacionProveedorAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.ProveedorDto proveedor) {
+            return base.Channel.ActualizarInformacionProveedorAsync(proveedor);
+        }
+        
         public bool ValidarRfcUnicoProveedor(string rfc) {
             return base.Channel.ValidarRfcUnicoProveedor(rfc);
         }
@@ -3442,6 +3470,22 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         public System.Threading.Tasks.Task<bool> ValidarCorreoUnicoProveedorAsync(string correo) {
             return base.Channel.ValidarCorreoUnicoProveedorAsync(correo);
+        }
+        
+        public bool ValidarRfcUnicoProveedorEditado(string rfc, int idProveedor) {
+            return base.Channel.ValidarRfcUnicoProveedorEditado(rfc, idProveedor);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ValidarRfcUnicoProveedorEditadoAsync(string rfc, int idProveedor) {
+            return base.Channel.ValidarRfcUnicoProveedorEditadoAsync(rfc, idProveedor);
+        }
+        
+        public bool ValidarCorreoUnicoProveedorEditado(string correo, int idProveedor) {
+            return base.Channel.ValidarCorreoUnicoProveedorEditado(correo, idProveedor);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ValidarCorreoUnicoProveedorEditadoAsync(string correo, int idProveedor) {
+            return base.Channel.ValidarCorreoUnicoProveedorEditadoAsync(correo, idProveedor);
         }
     }
     

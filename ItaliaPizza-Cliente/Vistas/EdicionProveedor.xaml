@@ -1,4 +1,4 @@
-﻿<Page x:Class="ItaliaPizza_Cliente.Vistas.RegistroProveedor"
+﻿<Page x:Class="ItaliaPizza_Cliente.Vistas.EdicionProveedor"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:ItaliaPizza_Cliente.Vistas"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1300" Background="#F6F6F6"
-      Title="RegistroProveedor">
+      Title="EdicionProveedor">
 
     <Page.Resources>
         <Style x:Key="fieldTags" TargetType="{x:Type Label}">
@@ -174,17 +174,17 @@
 
             <Canvas Margin="596,696,1,2" Height="auto" Width="auto">
                 <StackPanel Orientation="Horizontal"  Width="auto" Height="auto" >
-                    <Border Style="{StaticResource textBoxBorder}" Canvas.Left="22" Canvas.Top="159" Width="296" VerticalAlignment="Top" Background="#F8D72A" Margin="15" MouseDown="BtnGuardarProveedor_Click" Height="67">
-                        <Button x:Name="bttGuardarUsuario" Content="Guardar" Style="{StaticResource CustomButton}" Click="BtnGuardarProveedor_Click"/>
+                    <Border Style="{StaticResource textBoxBorder}" Canvas.Left="22" Canvas.Top="159" Width="296" VerticalAlignment="Top" Background="#F8D72A" Margin="15" Height="67">
+                        <Button x:Name="bttGuardarUsuario" Content="Guardar cambios" Style="{StaticResource CustomButton}" Click="BtnGuardarCambios_Click"/>
                     </Border>
-                    <Border Style="{StaticResource textBoxBorder}" Canvas.Left="22" Canvas.Top="159" Width="335" VerticalAlignment="Top" Background="Transparent" BorderBrush="Red" Margin="15" MouseDown="BtnCancelarRegistro_Click" Height="68">
-                        <Button x:Name="bttCancelarRegistro" Content="Cerrar" Foreground="Red" Style="{StaticResource CustomButton}" Click="BtnCancelarRegistro_Click"/>
+                    <Border Style="{StaticResource textBoxBorder}" Canvas.Left="22" Canvas.Top="159" Width="335" VerticalAlignment="Top" Background="Transparent" BorderBrush="Red" Margin="15"  Height="68">
+                        <Button x:Name="bttCancelarRegistro" Content="Cerrar" Foreground="Red" Style="{StaticResource CustomButton}" Click="BtnCancelarEdicion_Click"/>
                     </Border>
                 </StackPanel>
             </Canvas>
 
 
-            <Image Source="/Recursos/Iconos/icono_regresar.png" Height="30" Width="48" Canvas.Left="406" Canvas.Top="160" MouseDown="BtnCancelarRegistro_Click" Margin="20,22,1232,748" />
+            <Image Source="/Recursos/Iconos/icono_regresar.png" Height="30" Width="48" Canvas.Left="406" Canvas.Top="160" MouseDown="BtnCancelarEdicion_Click" Margin="20,22,1232,748" />
             <Label Content="Proveedores" Style="{StaticResource subTitleLabel}" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Top="4" Margin="63,13,0,0"/>
 
         </Grid>

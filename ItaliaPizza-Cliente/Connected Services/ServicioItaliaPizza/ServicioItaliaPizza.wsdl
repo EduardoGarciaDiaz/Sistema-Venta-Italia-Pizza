@@ -389,6 +389,12 @@
   <wsdl:message name="IServicioProveedores_GuardarProveedorNuevo_OutputMessage">
     <wsdl:part name="parameters" element="tns:GuardarProveedorNuevoResponse" />
   </wsdl:message>
+  <wsdl:message name="IServicioProveedores_ActualizarInformacionProveedor_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarInformacionProveedor" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProveedores_ActualizarInformacionProveedor_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarInformacionProveedorResponse" />
+  </wsdl:message>
   <wsdl:message name="IServicioProveedores_ValidarRfcUnicoProveedor_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidarRfcUnicoProveedor" />
   </wsdl:message>
@@ -400,6 +406,18 @@
   </wsdl:message>
   <wsdl:message name="IServicioProveedores_ValidarCorreoUnicoProveedor_OutputMessage">
     <wsdl:part name="parameters" element="tns:ValidarCorreoUnicoProveedorResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProveedores_ValidarRfcUnicoProveedorEditado_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarRfcUnicoProveedorEditado" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProveedores_ValidarRfcUnicoProveedorEditado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarRfcUnicoProveedorEditadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProveedores_ValidarCorreoUnicoProveedorEditado_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarCorreoUnicoProveedorEditado" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProveedores_ValidarCorreoUnicoProveedorEditado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarCorreoUnicoProveedorEditadoResponse" />
   </wsdl:message>
   <wsdl:message name="IServicioInicioSesion_ValidarCredenciales_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidarCredenciales" />
@@ -608,6 +626,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioProveedores/GuardarProveedorNuevo" message="tns:IServicioProveedores_GuardarProveedorNuevo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioProveedores/GuardarProveedorNuevoResponse" message="tns:IServicioProveedores_GuardarProveedorNuevo_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ActualizarInformacionProveedor">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProveedores/ActualizarInformacionProveedor" message="tns:IServicioProveedores_ActualizarInformacionProveedor_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProveedores/ActualizarInformacionProveedorResponse" message="tns:IServicioProveedores_ActualizarInformacionProveedor_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ValidarRfcUnicoProveedor">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioProveedores/ValidarRfcUnicoProveedor" message="tns:IServicioProveedores_ValidarRfcUnicoProveedor_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioProveedores/ValidarRfcUnicoProveedorResponse" message="tns:IServicioProveedores_ValidarRfcUnicoProveedor_OutputMessage" />
@@ -615,6 +637,14 @@
     <wsdl:operation name="ValidarCorreoUnicoProveedor">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioProveedores/ValidarCorreoUnicoProveedor" message="tns:IServicioProveedores_ValidarCorreoUnicoProveedor_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioProveedores/ValidarCorreoUnicoProveedorResponse" message="tns:IServicioProveedores_ValidarCorreoUnicoProveedor_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidarRfcUnicoProveedorEditado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProveedores/ValidarRfcUnicoProveedorEditado" message="tns:IServicioProveedores_ValidarRfcUnicoProveedorEditado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProveedores/ValidarRfcUnicoProveedorEditadoResponse" message="tns:IServicioProveedores_ValidarRfcUnicoProveedorEditado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidarCorreoUnicoProveedorEditado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProveedores/ValidarCorreoUnicoProveedorEditado" message="tns:IServicioProveedores_ValidarCorreoUnicoProveedorEditado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProveedores/ValidarCorreoUnicoProveedorEditadoResponse" message="tns:IServicioProveedores_ValidarCorreoUnicoProveedorEditado_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IServicioInicioSesion">
@@ -1088,6 +1118,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ActualizarInformacionProveedor">
+      <soap12:operation soapAction="http://tempuri.org/IServicioProveedores/ActualizarInformacionProveedor" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ValidarRfcUnicoProveedor">
       <soap12:operation soapAction="http://tempuri.org/IServicioProveedores/ValidarRfcUnicoProveedor" style="document" />
       <wsdl:input>
@@ -1099,6 +1138,24 @@
     </wsdl:operation>
     <wsdl:operation name="ValidarCorreoUnicoProveedor">
       <soap12:operation soapAction="http://tempuri.org/IServicioProveedores/ValidarCorreoUnicoProveedor" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarRfcUnicoProveedorEditado">
+      <soap12:operation soapAction="http://tempuri.org/IServicioProveedores/ValidarRfcUnicoProveedorEditado" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarCorreoUnicoProveedorEditado">
+      <soap12:operation soapAction="http://tempuri.org/IServicioProveedores/ValidarCorreoUnicoProveedorEditado" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

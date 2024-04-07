@@ -20,9 +20,9 @@ using System.Windows.Shapes;
 namespace ItaliaPizza_Cliente.Vistas
 {
     /// <summary>
-    /// Interaction logic for RegistroProveedor.xaml
+    /// Interaction logic for EdicionProveedor.xaml
     /// </summary>
-    public partial class RegistroProveedor : Page
+    public partial class EdicionProveedor : Page
     {
         private const string CAMPO_VACIO = "* Campo obligatorio";
         private const string CORREO_INVALIDO = "* Correo no valido";
@@ -34,18 +34,31 @@ namespace ItaliaPizza_Cliente.Vistas
         private readonly string EMAIL_ALLOW_CHAR = "^[a-zA-Z0-9@,._=]{1,90}$";
         private readonly string RFC_FORMATT = @"^[A-Z&Ñ]{3,4}\d{6}[A-Z\d]{3}$";
         private List<CampoTextoConLabel> camposDeDatos;
-        private bool ventanaAnteriorEsConsultar;
+        private ProveedorDto proveedorSeleccionado;
 
 
-        public RegistroProveedor(bool ventanaAnteriorEsInicio)
+        public EdicionProveedor(ProveedorDto proveedorSeleccionado)
         {
             InitializeComponent();
-            this.ventanaAnteriorEsConsultar = ventanaAnteriorEsInicio;
-            this.Loaded += PrepararVentana;
+            this.Loaded += PreparaVentana;
+            CargarInformacionEnCampos(proveedorSeleccionado);
+            this.proveedorSeleccionado = proveedorSeleccionado;
         }
 
+        private void CargarInformacionEnCampos(ProveedorDto proveedorSeleccionado)
+        {
+            txbNombre.Text = proveedorSeleccionado.NombreCompleto.ToString();
+            txbRfc.Text = proveedorSeleccionado.RFC.ToString();
+            txbTelefono.Text = proveedorSeleccionado.NumeroTelefono;
+            txbCorreo.Text = proveedorSeleccionado.CorreoElectronico.ToString();
+            txbCiudad.Text = proveedorSeleccionado.Direccion.Ciudad.ToString();
+            txbColonia.Text = proveedorSeleccionado.Direccion.Colonia.ToString();
+            txbCalle.Text = proveedorSeleccionado.Direccion.Calle.ToString();
+            txbCodigoPostal.Text = proveedorSeleccionado.Direccion.CodigoPostal.ToString();
+            txbNumeroExterior.Text = proveedorSeleccionado.Direccion.Numero.ToString();
+        }
 
-        private void PrepararVentana(object sender, RoutedEventArgs e)
+        private void PreparaVentana(object sender, RoutedEventArgs e)
         {
             camposDeDatos = new List<CampoTextoConLabel>()
             {
@@ -63,7 +76,7 @@ namespace ItaliaPizza_Cliente.Vistas
             }
         }
 
-        private void BtnGuardarProveedor_Click(object sender, RoutedEventArgs e)
+        private void BtnGuardarCambios_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -101,6 +114,7 @@ namespace ItaliaPizza_Cliente.Vistas
             }
         }
 
+
         private void GuardarProveedor()
         {
             bool sePuedeGuardar;
@@ -112,7 +126,7 @@ namespace ItaliaPizza_Cliente.Vistas
                 {
                     string rfc = txbRfc.Text.Trim();
                     string correo = txbCorreo.Text.Trim();
-                    sePuedeGuardar = ValidarCamposUnicos(rfc, correo);
+                    sePuedeGuardar = ValidarCamposUnicos(rfc, correo, proveedorSeleccionado.IdProveedor);
                 }
             }
             if (sePuedeGuardar)
@@ -124,13 +138,12 @@ namespace ItaliaPizza_Cliente.Vistas
                 {
                     VentanaEmergente ventanaEmergente = new VentanaEmergente("Registro Exitoso", "Se ha guardado correctamente el proveedor nuevo.", Window.GetWindow(this), 2);
                     ventanaEmergente.ShowDialog();
-                    LimpiarCampos();
                 }
                 else
                 {
                     VentanaEmergente ventanaEmergente = new VentanaEmergente("Upss!!", "Ocurrio un error al guardar el proveedor, intentelo mas tarde.", Window.GetWindow(this), 1);
                     ventanaEmergente.ShowDialog();
-                }                               
+                }
             }
         }
 
@@ -192,11 +205,11 @@ namespace ItaliaPizza_Cliente.Vistas
             return formatosValidos;
         }
 
-        private bool ValidarCamposUnicos(string rfc, string correo)
+        private bool ValidarCamposUnicos(string rfc, string correo, int idProveedor)
         {
             bool sonUnicos = true;
             ServicioProveedoresClient servicioProveedoresClient = new ServicioProveedoresClient();
-            if (!servicioProveedoresClient.ValidarRfcUnicoProveedor(rfc))
+            if (!servicioProveedoresClient.ValidarCorreoUnicoProveedorEditado(rfc, idProveedor))
             {
                 sonUnicos = false;
                 lblRfcError.Content = RFC_REPETIDO;
@@ -205,7 +218,7 @@ namespace ItaliaPizza_Cliente.Vistas
             {
                 lblRfcError.Content = String.Empty;
             }
-            if (!servicioProveedoresClient.ValidarCorreoUnicoProveedor(correo))
+            if (!servicioProveedoresClient.ValidarCorreoUnicoProveedorEditado(correo, idProveedor))
             {
                 sonUnicos = false;
                 lblCorreoError.Content = CORREO_REPETIDO;
@@ -220,7 +233,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private ProveedorDto CrearObjetoProveedor()
         {
-            DireccionDto direccionProveedor =  new DireccionDto()
+            DireccionDto direccionProveedor = new DireccionDto()
             {
                 IdDireccion = 0,
                 Ciudad = txbCiudad.Text.Trim(),
@@ -240,49 +253,27 @@ namespace ItaliaPizza_Cliente.Vistas
             };
         }
 
-        private void LimpiarCampos()
-        {
-            txbNombre.Text = String.Empty;
-            txbRfc.Text = String.Empty;
-            txbTelefono.Text = String.Empty;
-            txbCorreo.Text = String.Empty;
-            txbCiudad.Text = String.Empty;
-            txbColonia.Text = String.Empty;
-            txbCalle.Text = String.Empty;
-            txbCodigoPostal.Text = String.Empty;
-            txbNumeroExterior.Text = String.Empty;
-        }
-
-
-        private void BtnCancelarRegistro_Click(object sender, RoutedEventArgs e)
+        private void BtnCancelarEdicion_Click(object sender, RoutedEventArgs e)
         {
             MostrarMensajeConfirmacion();
         }
 
         private void MostrarMensajeConfirmacion()
         {
-            VentanaEmergente ventanaEmergente = new VentanaEmergente("Cuidado!!!", "¿Seguro que desea cancelar el registro?, se perderán los datos del proveedor?", "Si, Cancelar Registro", "No, Cancelar Accion", Window.GetWindow(this), 3);
+            VentanaEmergente ventanaEmergente = new VentanaEmergente("Cuidado!!!", "¿Seguro que desea cancelar la edición?, se perderán los datos del proveedor que no se hayan guardado?", "Si, Cancelar", "No, Continuar editando", Window.GetWindow(this), 3);
             ventanaEmergente.ShowDialog();
             if (ventanaEmergente.AceptarAccion)
             {
-                LimpiarCampos();
-                IrAventanaAnterior();
+                CerrarVentana();
             }
         }
 
-        private void IrAventanaAnterior()
+        private void CerrarVentana()
         {
-            MainWindow ventanaPrincipal = (MainWindow)Window.GetWindow(this);
-            if (ventanaAnteriorEsConsultar)
-            {
-                PaginaDeIncio paginaDeIncio = new PaginaDeIncio();
-                ventanaPrincipal.FrameNavigator.NavigationService.Navigate(paginaDeIncio);
-            }
-            else
-            {
-                RegistroOrdenCompra paginaRegistroOrdenCompra = new RegistroOrdenCompra();
-                ventanaPrincipal.FrameNavigator.NavigationService.Navigate(paginaRegistroOrdenCompra);
-            }
+            MainWindow ventanaPrincipal = (MainWindow)Window.GetWindow(this);            
+            ConsultaProveedores paginaConsultaProveedores = new ConsultaProveedores();
+            ventanaPrincipal.FrameNavigator.NavigationService.Navigate(paginaConsultaProveedores);
+            ventanaPrincipal.FrameNavigator.NavigationService.RemoveBackEntry();
         }
 
     }
