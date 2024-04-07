@@ -112,7 +112,7 @@
                     <Border Style="{StaticResource textBoxBorder}" Canvas.Left="22" Canvas.Top="162" Width="605" HorizontalAlignment="Left" VerticalAlignment="Center">
                         <TextBox x:Name="txbRfc" Style="{StaticResource textBox}" MaxLength ="13"/>
                     </Border>
-                    <Label Name="lblRfcError" Content="" Style="{StaticResource ResourceKey=errorLabel}" Width="245" Canvas.Left="30" Canvas.Top="194" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Label Name="lblRfcError" Content="" Style="{StaticResource ResourceKey=errorLabel}" Width="418" Canvas.Left="204" Canvas.Top="196" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
 
 

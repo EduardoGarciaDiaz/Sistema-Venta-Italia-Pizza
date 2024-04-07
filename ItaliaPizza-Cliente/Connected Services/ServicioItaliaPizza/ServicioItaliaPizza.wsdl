@@ -383,6 +383,12 @@
   <wsdl:message name="IServicioProveedores_RecuperarProveedores_OutputMessage">
     <wsdl:part name="parameters" element="tns:RecuperarProveedoresResponse" />
   </wsdl:message>
+  <wsdl:message name="IServicioProveedores_RecuperarProveedoresActivos_InputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperarProveedoresActivos" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProveedores_RecuperarProveedoresActivos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperarProveedoresActivosResponse" />
+  </wsdl:message>
   <wsdl:message name="IServicioProveedores_GuardarProveedorNuevo_InputMessage">
     <wsdl:part name="parameters" element="tns:GuardarProveedorNuevo" />
   </wsdl:message>
@@ -418,6 +424,12 @@
   </wsdl:message>
   <wsdl:message name="IServicioProveedores_ValidarCorreoUnicoProveedorEditado_OutputMessage">
     <wsdl:part name="parameters" element="tns:ValidarCorreoUnicoProveedorEditadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProveedores_CmabiarEstadoProveedor_InputMessage">
+    <wsdl:part name="parameters" element="tns:CmabiarEstadoProveedor" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProveedores_CmabiarEstadoProveedor_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CmabiarEstadoProveedorResponse" />
   </wsdl:message>
   <wsdl:message name="IServicioInicioSesion_ValidarCredenciales_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidarCredenciales" />
@@ -622,6 +634,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioProveedores/RecuperarProveedores" message="tns:IServicioProveedores_RecuperarProveedores_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioProveedores/RecuperarProveedoresResponse" message="tns:IServicioProveedores_RecuperarProveedores_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="RecuperarProveedoresActivos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProveedores/RecuperarProveedoresActivos" message="tns:IServicioProveedores_RecuperarProveedoresActivos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProveedores/RecuperarProveedoresActivosResponse" message="tns:IServicioProveedores_RecuperarProveedoresActivos_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GuardarProveedorNuevo">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioProveedores/GuardarProveedorNuevo" message="tns:IServicioProveedores_GuardarProveedorNuevo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioProveedores/GuardarProveedorNuevoResponse" message="tns:IServicioProveedores_GuardarProveedorNuevo_OutputMessage" />
@@ -645,6 +661,10 @@
     <wsdl:operation name="ValidarCorreoUnicoProveedorEditado">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioProveedores/ValidarCorreoUnicoProveedorEditado" message="tns:IServicioProveedores_ValidarCorreoUnicoProveedorEditado_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioProveedores/ValidarCorreoUnicoProveedorEditadoResponse" message="tns:IServicioProveedores_ValidarCorreoUnicoProveedorEditado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CmabiarEstadoProveedor">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProveedores/CmabiarEstadoProveedor" message="tns:IServicioProveedores_CmabiarEstadoProveedor_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProveedores/CmabiarEstadoProveedorResponse" message="tns:IServicioProveedores_CmabiarEstadoProveedor_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IServicioInicioSesion">
@@ -1109,6 +1129,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="RecuperarProveedoresActivos">
+      <soap12:operation soapAction="http://tempuri.org/IServicioProveedores/RecuperarProveedoresActivos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GuardarProveedorNuevo">
       <soap12:operation soapAction="http://tempuri.org/IServicioProveedores/GuardarProveedorNuevo" style="document" />
       <wsdl:input>
@@ -1156,6 +1185,15 @@
     </wsdl:operation>
     <wsdl:operation name="ValidarCorreoUnicoProveedorEditado">
       <soap12:operation soapAction="http://tempuri.org/IServicioProveedores/ValidarCorreoUnicoProveedorEditado" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CmabiarEstadoProveedor">
+      <soap12:operation soapAction="http://tempuri.org/IServicioProveedores/CmabiarEstadoProveedor" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

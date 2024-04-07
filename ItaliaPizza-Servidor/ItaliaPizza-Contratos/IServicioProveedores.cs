@@ -12,8 +12,12 @@ namespace ItaliaPizza_Contratos
     [ServiceContract]
     public interface IServicioProveedores
     {
+
         [OperationContract]
         List<ProveedorDto> RecuperarProveedores();
+
+        [OperationContract]
+        List<ProveedorDto> RecuperarProveedoresActivos();
 
         [OperationContract]
         bool GuardarProveedorNuevo(ProveedorDto proveedorNuevo);
@@ -32,5 +36,9 @@ namespace ItaliaPizza_Contratos
 
         [OperationContract]
         bool ValidarCorreoUnicoProveedorEditado(string correo, int idProveedor);
+
+
+        [OperationContract]
+        bool CmabiarEstadoProveedor(bool estaActivo, int idProveedor);
     }
 }

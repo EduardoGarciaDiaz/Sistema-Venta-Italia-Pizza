@@ -16,6 +16,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="CorreoElectronico" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Direccion" nillable="true" type="tns:DireccionDto" />
+      <xs:element minOccurs="0" name="EsActivo" type="xs:boolean" />
       <xs:element minOccurs="0" name="IdDireccion" type="xs:int" />
       <xs:element minOccurs="0" name="IdProveedor" type="xs:int" />
       <xs:element minOccurs="0" name="NombreCompleto" nillable="true" type="xs:string" />

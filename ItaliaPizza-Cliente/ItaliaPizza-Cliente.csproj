@@ -104,6 +104,9 @@
     <Compile Include="Recursos\ControlesUsuario\ElementoProductoVenta.xaml.cs">
       <DependentUpon>ElementoProductoVenta.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Recursos\ControlesUsuario\ElementoProveedor.xaml.cs">
+      <DependentUpon>ElementoProveedor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Recursos\ControlesUsuario\ElementoReceta.xaml.cs">
       <DependentUpon>ElementoReceta.xaml</DependentUpon>
     </Compile>
@@ -245,6 +248,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Recursos\ControlesUsuario\ElementoProductoVenta.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Recursos\ControlesUsuario\ElementoProveedor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -529,6 +536,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Recursos\Iconos\icono_orden_compra.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Recursos\Iconos\icono_proveedor.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

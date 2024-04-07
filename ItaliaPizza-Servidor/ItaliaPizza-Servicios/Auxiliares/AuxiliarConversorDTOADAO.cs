@@ -192,7 +192,8 @@ namespace ItaliaPizza_Servicios.Auxiliares
                 CorreoElectronico = proveedores.CorreoElectronico,
                 NumeroTelefono = proveedores.NumeroTelefono, 
                 IdDireccion = (int)proveedores.IdDireccion,
-                Direccion = ConvertirDireccionesADireccionDto(direcciones)
+                Direccion = ConvertirDireccionesADireccionDto(direcciones),
+                EsActivo = (bool)proveedores.EsActivo
             };
             return proveedorDto;
         }
@@ -206,7 +207,8 @@ namespace ItaliaPizza_Servicios.Auxiliares
                 RFC = proveedorDto.RFC,
                 CorreoElectronico = proveedorDto.CorreoElectronico,
                 NumeroTelefono = proveedorDto.NumeroTelefono,
-                IdDireccion = (int)proveedorDto.IdDireccion,                
+                IdDireccion = (int)proveedorDto.IdDireccion,  
+                EsActivo = proveedorDto.EsActivo
             };
             return proveedor;
         }

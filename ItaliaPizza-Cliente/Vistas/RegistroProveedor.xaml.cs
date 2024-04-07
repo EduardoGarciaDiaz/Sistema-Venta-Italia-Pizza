@@ -37,10 +37,10 @@ namespace ItaliaPizza_Cliente.Vistas
         private bool ventanaAnteriorEsConsultar;
 
 
-        public RegistroProveedor(bool ventanaAnteriorEsInicio)
+        public RegistroProveedor(bool ventanaAnteriorEsConsultar)
         {
             InitializeComponent();
-            this.ventanaAnteriorEsConsultar = ventanaAnteriorEsInicio;
+            this.ventanaAnteriorEsConsultar = ventanaAnteriorEsConsultar;
             this.Loaded += PrepararVentana;
         }
 
@@ -236,6 +236,7 @@ namespace ItaliaPizza_Cliente.Vistas
                 RFC = txbRfc.Text.Trim(),
                 NumeroTelefono = txbTelefono.Text.Trim(),
                 CorreoElectronico = txbCorreo.Text.Trim(),
+                EsActivo = true,
                 Direccion = direccionProveedor
             };
         }
@@ -275,8 +276,8 @@ namespace ItaliaPizza_Cliente.Vistas
             MainWindow ventanaPrincipal = (MainWindow)Window.GetWindow(this);
             if (ventanaAnteriorEsConsultar)
             {
-                PaginaDeIncio paginaDeIncio = new PaginaDeIncio();
-                ventanaPrincipal.FrameNavigator.NavigationService.Navigate(paginaDeIncio);
+                ConsultaProveedores paginaConsultarProveedores =  new ConsultaProveedores();
+                ventanaPrincipal.FrameNavigator.NavigationService.Navigate(paginaConsultarProveedores);
             }
             else
             {

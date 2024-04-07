@@ -54,13 +54,8 @@ namespace ItaliaPizza_Cliente
             }
         }
         private void OpcionesPanelAdmin()
-        {
-            AgregarBotonPedido();
-            AgregarBotonPedidos();            
-            AgregarBotonProductos();
+        {         
             AgregarBotonConsultaUsuarios();
-            AgregarBotonRecetas();
-            AgregarBotonConsultaOrdenesDeCompra();
         }
 
         private void OpcionesPanelCajero()
@@ -79,7 +74,7 @@ namespace ItaliaPizza_Cliente
         {
             AgregarBotonProductos();
             AgregarBotonConsultaOrdenesDeCompra();
-            AgregarBotonRegistroProveedor();
+            AgregarBotonProveedores();
         }
         private void OpcionesPanelMesero()
         {
@@ -199,20 +194,19 @@ namespace ItaliaPizza_Cliente
             FrameNavigator.NavigationService.Navigate(consultaOrdenesDeCompra);
         }
 
-        private void AgregarBotonRegistroProveedor()
+        private void AgregarBotonProveedores()
         {
             BtnMenuLateral proveedor = new BtnMenuLateral();
-            proveedor.ImgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_Orden_Compra.png",
-                UriKind.Relative));
-            proveedor.LblNombreBoton.Content = "Registro Proveedor";
-            proveedor.Click += BtnRegistroProveedorClick;
+            proveedor.ImgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_proveedor.png",UriKind.Relative));
+            proveedor.LblNombreBoton.Content = "Proveedores";
+            proveedor.Click += BtnProveedores_Click;
             SkpMenuLateral.Children.Add(proveedor);
         }
 
-        private void BtnRegistroProveedorClick(object sender, RoutedEventArgs e)
+        private void BtnProveedores_Click(object sender, RoutedEventArgs e)
         {
-            RegistroProveedor paginaRegistroProveedor = new RegistroProveedor(true);
-            FrameNavigator.NavigationService.Navigate(paginaRegistroProveedor);
+            ConsultaProveedores paginaConsultaProveedores = new ConsultaProveedores();
+            FrameNavigator.NavigationService.Navigate(paginaConsultaProveedores);
         }
 
 
@@ -241,6 +235,7 @@ namespace ItaliaPizza_Cliente
                 SkpMenuLateral.Children.Clear();
                 ServicioInicioSesionClient servicioInicioSesionClient = new ServicioInicioSesionClient();
                 servicioInicioSesionClient.CerrarSesion(EmpleadoSingleton.getInstance().IdUsuario);
+                lblNombre.Content = String.Empty;
             }
             catch (EndpointNotFoundException)
             {

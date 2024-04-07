@@ -43,6 +43,35 @@ namespace ItaliaPizza_DataAccess
             }
         }
 
+        public static List<Proveedores> RecuperarProveedoresActivosBD()
+        {
+            List<Proveedores> proveedores = new List<Proveedores>();
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    proveedores = context.Proveedores.Include(ins => ins.Direcciones).Where(prove => (bool)prove.EsActivo).ToList();
+
+                    return proveedores.ToList();
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+        }
+
         public static bool GuardarProveedorNuevoBD(Proveedores proveedorNuevo)
         {
             bool exitoOperacion = false;
@@ -83,12 +112,22 @@ namespace ItaliaPizza_DataAccess
             {
                 using (var context = new ItaliaPizzaEntities())
                 {
-                    context.Proveedores.AddOrUpdate(proveedor);
-                    int filasAfectadas = context.SaveChanges();
-                    if (filasAfectadas > 0)
+                    var proveedorIgual = context.Proveedores.Include("Direcciones").Include("OrdenesCompra").FirstOrDefault(prove => prove.IdProveedor == proveedor.IdProveedor);                    
+                    if(proveedorIgual != null)
                     {
-                        exitoOperacion = true;
-                    }
+                        proveedor.OrdenesCompra =  proveedorIgual.OrdenesCompra;
+                        if (proveedorIgual.Equals(proveedor))
+                        {
+                            exitoOperacion = true;
+                        }
+                        else
+                        {
+                            context.Proveedores.AddOrUpdate(proveedor);
+                            context.Direcciones.AddOrUpdate(proveedor.Direcciones);
+                            context.SaveChanges();
+                            exitoOperacion = true;
+                        }
+                    }                
                 }
             }
             catch (EntityException ex)
@@ -225,6 +264,76 @@ namespace ItaliaPizza_DataAccess
             return resultadoOperacion;
         }
 
+
+        public static bool ActivarProveedor(int idProveedor)
+        {
+            bool resultadoOperacion = false;
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+
+                    var proveedor = context.Proveedores.FirstOrDefault(prove => prove.IdProveedor == idProveedor);
+                    proveedor.EsActivo = true;
+                    int resultado = context.SaveChanges();
+                    if (resultado != 0)
+                    {
+                        resultadoOperacion = true;
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            return resultadoOperacion;
+        }
+
+        public static bool DesactivarProveedor(int idProveedor)
+        {
+            bool resultadoOperacion = false;
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+
+                    var proveedor = context.Proveedores.FirstOrDefault(prove => prove.IdProveedor == idProveedor);
+                    proveedor.EsActivo = false;
+                    int resultado = context.SaveChanges();
+                    if (resultado != 0)
+                    {
+                        resultadoOperacion = true;
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            return resultadoOperacion;
+        }
 
     }
 }

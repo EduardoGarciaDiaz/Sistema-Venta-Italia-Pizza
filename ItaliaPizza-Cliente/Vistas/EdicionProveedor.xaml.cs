@@ -133,10 +133,10 @@ namespace ItaliaPizza_Cliente.Vistas
             {
                 ProveedorDto proveedorNuevo = CrearObjetoProveedor();
                 ServicioProveedoresClient servicioProveedoresClient = new ServicioProveedoresClient();
-                bool fueGuardado = servicioProveedoresClient.GuardarProveedorNuevo(proveedorNuevo);
+                bool fueGuardado = servicioProveedoresClient.ActualizarInformacionProveedor(proveedorNuevo);
                 if (fueGuardado)
                 {
-                    VentanaEmergente ventanaEmergente = new VentanaEmergente("Registro Exitoso", "Se ha guardado correctamente el proveedor nuevo.", Window.GetWindow(this), 2);
+                    VentanaEmergente ventanaEmergente = new VentanaEmergente("Cambios Guardados", "Los datos del proveedor fueron actualizados correctamente.", Window.GetWindow(this), 2);
                     ventanaEmergente.ShowDialog();
                 }
                 else
@@ -209,7 +209,7 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             bool sonUnicos = true;
             ServicioProveedoresClient servicioProveedoresClient = new ServicioProveedoresClient();
-            if (!servicioProveedoresClient.ValidarCorreoUnicoProveedorEditado(rfc, idProveedor))
+            if (!servicioProveedoresClient.ValidarRfcUnicoProveedorEditado(rfc, idProveedor))
             {
                 sonUnicos = false;
                 lblRfcError.Content = RFC_REPETIDO;
@@ -235,7 +235,7 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             DireccionDto direccionProveedor = new DireccionDto()
             {
-                IdDireccion = 0,
+                IdDireccion = proveedorSeleccionado.IdDireccion,
                 Ciudad = txbCiudad.Text.Trim(),
                 Colonia = txbColonia.Text.Trim(),
                 Calle = txbCalle.Text.Trim(),
@@ -244,11 +244,13 @@ namespace ItaliaPizza_Cliente.Vistas
             };
             return new ProveedorDto()
             {
-                IdProveedor = 0,
+                IdProveedor = proveedorSeleccionado.IdProveedor,
                 NombreCompleto = txbNombre.Text.Trim(),
                 RFC = txbRfc.Text.Trim(),
                 NumeroTelefono = txbTelefono.Text.Trim(),
                 CorreoElectronico = txbCorreo.Text.Trim(),
+                EsActivo = proveedorSeleccionado.EsActivo,
+                IdDireccion = proveedorSeleccionado.IdDireccion,
                 Direccion = direccionProveedor
             };
         }

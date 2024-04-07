@@ -488,10 +488,22 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="RecuperarProveedoresActivos">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RecuperarProveedoresActivosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="RecuperarProveedoresActivosResult" nillable="true" type="q28:ArrayOfProveedorDto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GuardarProveedorNuevo">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="proveedorNuevo" nillable="true" type="q28:ProveedorDto" />
+        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="proveedorNuevo" nillable="true" type="q29:ProveedorDto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -505,7 +517,7 @@
   <xs:element name="ActualizarInformacionProveedor">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="proveedor" nillable="true" type="q29:ProveedorDto" />
+        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="proveedor" nillable="true" type="q30:ProveedorDto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -571,6 +583,21 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="ValidarCorreoUnicoProveedorEditadoResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CmabiarEstadoProveedor">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="estaActivo" type="xs:boolean" />
+        <xs:element minOccurs="0" name="idProveedor" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CmabiarEstadoProveedorResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CmabiarEstadoProveedorResult" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

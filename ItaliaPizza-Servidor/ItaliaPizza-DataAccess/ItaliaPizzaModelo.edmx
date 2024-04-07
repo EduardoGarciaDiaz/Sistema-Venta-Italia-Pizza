@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ItaliaPizzaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ItaliaPizzaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CategoriasInsumo">
           <Key>
             <PropertyRef Name="IdCategoriaInsumo" />
@@ -160,6 +160,7 @@
           <Property Name="CorreoElectronico" Type="nvarchar" MaxLength="255" />
           <Property Name="NumeroTelefono" Type="nvarchar" MaxLength="10" />
           <Property Name="IdDireccion" Type="int" />
+          <Property Name="EsActivo" Type="bit" />
         </EntityType>
         <EntityType Name="Recetas">
           <Key>
@@ -228,7 +229,7 @@
           <Property Name="NombreUsuario" Type="nvarchar" MaxLength="20" />
           <Property Name="IdCliente" Type="int" />
         </EntityType>
-        <Association Name="FK__CortesCaj__Nombr__440B1D61">
+        <Association Name="FK__CortesCaj__Nombr__31EC6D26">
           <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
           <End Role="CortesCaja" Type="Self.CortesCaja" Multiplicity="*" />
           <ReferentialConstraint>
@@ -240,7 +241,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Empleados__IdTip__3D5E1FD2">
+        <Association Name="FK__Empleados__IdTip__2B3F6F97">
           <End Role="TiposEmpleado" Type="Self.TiposEmpleado" Multiplicity="0..1" />
           <End Role="Empleados" Type="Self.Empleados" Multiplicity="*" />
           <ReferentialConstraint>
@@ -252,7 +253,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Empleados__IdUsu__3E52440B">
+        <Association Name="FK__Empleados__IdUsu__2C3393D0">
           <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
           <End Role="Empleados" Type="Self.Empleados" Multiplicity="*" />
           <ReferentialConstraint>
@@ -264,7 +265,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__GastosVar__Nombr__412EB0B6">
+        <Association Name="FK__GastosVar__Nombr__2F10007B">
           <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
           <End Role="GastosVarios" Type="Self.GastosVarios" Multiplicity="*" />
           <ReferentialConstraint>
@@ -276,7 +277,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Insumos__CodigoP__4E88ABD4">
+        <Association Name="FK__Insumos__CodigoP__3C69FB99">
           <End Role="Productos" Type="Self.Productos" Multiplicity="1" />
           <End Role="Insumos" Type="Self.Insumos" Multiplicity="0..1" />
           <ReferentialConstraint>
@@ -288,7 +289,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Insumos__IdCateg__5070F446">
+        <Association Name="FK__Insumos__IdCateg__3E52440B">
           <End Role="CategoriasInsumo" Type="Self.CategoriasInsumo" Multiplicity="0..1" />
           <End Role="Insumos" Type="Self.Insumos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -300,7 +301,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Insumos__IdUnida__4F7CD00D">
+        <Association Name="FK__Insumos__IdUnida__3D5E1FD2">
           <End Role="UnidadesMedida" Type="Self.UnidadesMedida" Multiplicity="0..1" />
           <End Role="Insumos" Type="Self.Insumos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -312,7 +313,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__InsumosAp__Codig__160F4887">
+        <Association Name="FK__InsumosAp__Codig__73BA3083">
           <End Role="Insumos" Type="Self.Insumos" Multiplicity="1" />
           <End Role="InsumosApartados" Type="Self.InsumosApartados" Multiplicity="0..1" />
           <ReferentialConstraint>
@@ -324,7 +325,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrdenesCo__Codig__6754599E">
+        <Association Name="FK__OrdenesCo__Codig__5535A963">
           <End Role="Insumos" Type="Self.Insumos" Multiplicity="0..1" />
           <End Role="OrdenesCompraInsumos" Type="Self.OrdenesCompraInsumos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -336,7 +337,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrdenesCo__IdEst__628FA481">
+        <Association Name="FK__OrdenesCo__IdEst__5070F446">
           <End Role="EstadosOrdenCompra" Type="Self.EstadosOrdenCompra" Multiplicity="0..1" />
           <End Role="OrdenesCompra" Type="Self.OrdenesCompra" Multiplicity="*" />
           <ReferentialConstraint>
@@ -348,7 +349,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrdenesCo__IdOrd__66603565">
+        <Association Name="FK__OrdenesCo__IdOrd__5441852A">
           <End Role="OrdenesCompra" Type="Self.OrdenesCompra" Multiplicity="0..1" />
           <End Role="OrdenesCompraInsumos" Type="Self.OrdenesCompraInsumos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -360,7 +361,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrdenesCo__IdPro__6383C8BA">
+        <Association Name="FK__OrdenesCo__IdPro__5165187F">
           <End Role="Proveedores" Type="Self.Proveedores" Multiplicity="0..1" />
           <End Role="OrdenesCompra" Type="Self.OrdenesCompra" Multiplicity="*" />
           <ReferentialConstraint>
@@ -372,7 +373,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Pedidos__IdEstad__6E01572D">
+        <Association Name="FK__Pedidos__IdEstad__5BE2A6F2">
           <End Role="EstadosPedido" Type="Self.EstadosPedido" Multiplicity="0..1" />
           <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -384,7 +385,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Pedidos__IdTipoS__6EF57B66">
+        <Association Name="FK__Pedidos__IdTipoS__5CD6CB2B">
           <End Role="TiposServicio" Type="Self.TiposServicio" Multiplicity="0..1" />
           <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -396,7 +397,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PedidosPr__Codig__03F0984C">
+        <Association Name="FK__PedidosPr__Codig__6FE99F9F">
           <End Role="ProductosVenta" Type="Self.ProductosVenta" Multiplicity="0..1" />
           <End Role="PedidosProductosVenta" Type="Self.PedidosProductosVenta" Multiplicity="*" />
           <ReferentialConstraint>
@@ -408,7 +409,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PedidosPr__Numer__02FC7413">
+        <Association Name="FK__PedidosPr__Numer__6EF57B66">
           <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="0..1" />
           <End Role="PedidosProductosVenta" Type="Self.PedidosProductosVenta" Multiplicity="*" />
           <ReferentialConstraint>
@@ -420,7 +421,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Productos__Codig__534D60F1">
+        <Association Name="FK__Productos__Codig__412EB0B6">
           <End Role="Productos" Type="Self.Productos" Multiplicity="1" />
           <End Role="ProductosVenta" Type="Self.ProductosVenta" Multiplicity="0..1" />
           <ReferentialConstraint>
@@ -432,7 +433,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Productos__IdCat__5441852A">
+        <Association Name="FK__Productos__IdCat__4222D4EF">
           <End Role="CategoriasProductoVenta" Type="Self.CategoriasProductoVenta" Multiplicity="0..1" />
           <End Role="ProductosVenta" Type="Self.ProductosVenta" Multiplicity="*" />
           <ReferentialConstraint>
@@ -444,7 +445,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Proveedor__IdDir__5FB337D6">
+        <Association Name="FK__Proveedor__IdDir__4D94879B">
           <End Role="Direcciones" Type="Self.Direcciones" Multiplicity="0..1" />
           <End Role="Proveedores" Type="Self.Proveedores" Multiplicity="*" />
           <ReferentialConstraint>
@@ -456,7 +457,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Recetas__CodigoP__571DF1D5">
+        <Association Name="FK__Recetas__CodigoP__44FF419A">
           <End Role="ProductosVenta" Type="Self.ProductosVenta" Multiplicity="0..1" />
           <End Role="Recetas" Type="Self.Recetas" Multiplicity="*" />
           <ReferentialConstraint>
@@ -468,7 +469,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RecetasIn__Codig__5AEE82B9">
+        <Association Name="FK__RecetasIn__Codig__48CFD27E">
           <End Role="Insumos" Type="Self.Insumos" Multiplicity="0..1" />
           <End Role="RecetasInsumos" Type="Self.RecetasInsumos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -480,7 +481,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RecetasIn__IdRec__59FA5E80">
+        <Association Name="FK__RecetasIn__IdRec__47DBAE45">
           <End Role="Recetas" Type="Self.Recetas" Multiplicity="0..1" />
           <End Role="RecetasInsumos" Type="Self.RecetasInsumos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -492,7 +493,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Usuarios__IdDire__38996AB5">
+        <Association Name="FK__Usuarios__IdDire__267ABA7A">
           <End Role="Direcciones" Type="Self.Direcciones" Multiplicity="0..1" />
           <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
           <ReferentialConstraint>
@@ -504,7 +505,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UsuariosO__Nombr__72C60C4A">
+        <Association Name="FK__UsuariosO__Nombr__60A75C0F">
           <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
           <End Role="UsuariosPedidos" Type="Self.UsuariosPedidos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -516,7 +517,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UsuariosO__Numer__71D1E811">
+        <Association Name="FK__UsuariosO__Numer__5FB337D6">
           <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="0..1" />
           <End Role="UsuariosPedidos" Type="Self.UsuariosPedidos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -528,7 +529,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UsuariosP__IdCli__04E4BC85">
+        <Association Name="FK__UsuariosP__IdCli__70DDC3D8">
           <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
           <End Role="UsuariosPedidos" Type="Self.UsuariosPedidos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -566,113 +567,112 @@
           <EntitySet Name="UnidadesMedida" EntityType="Self.UnidadesMedida" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsuariosPedidos" EntityType="Self.UsuariosPedidos" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__CortesCaj__Nombr__440B1D61" Association="Self.FK__CortesCaj__Nombr__440B1D61">
+          <AssociationSet Name="FK__CortesCaj__Nombr__31EC6D26" Association="Self.FK__CortesCaj__Nombr__31EC6D26">
             <End Role="Empleados" EntitySet="Empleados" />
             <End Role="CortesCaja" EntitySet="CortesCaja" />
           </AssociationSet>
-          <AssociationSet Name="FK__Empleados__IdTip__3D5E1FD2" Association="Self.FK__Empleados__IdTip__3D5E1FD2">
+          <AssociationSet Name="FK__Empleados__IdTip__2B3F6F97" Association="Self.FK__Empleados__IdTip__2B3F6F97">
             <End Role="TiposEmpleado" EntitySet="TiposEmpleado" />
             <End Role="Empleados" EntitySet="Empleados" />
           </AssociationSet>
-          <AssociationSet Name="FK__Empleados__IdUsu__3E52440B" Association="Self.FK__Empleados__IdUsu__3E52440B">
+          <AssociationSet Name="FK__Empleados__IdUsu__2C3393D0" Association="Self.FK__Empleados__IdUsu__2C3393D0">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="Empleados" EntitySet="Empleados" />
           </AssociationSet>
-          <AssociationSet Name="FK__GastosVar__Nombr__412EB0B6" Association="Self.FK__GastosVar__Nombr__412EB0B6">
+          <AssociationSet Name="FK__GastosVar__Nombr__2F10007B" Association="Self.FK__GastosVar__Nombr__2F10007B">
             <End Role="Empleados" EntitySet="Empleados" />
             <End Role="GastosVarios" EntitySet="GastosVarios" />
           </AssociationSet>
-          <AssociationSet Name="FK__Insumos__CodigoP__4E88ABD4" Association="Self.FK__Insumos__CodigoP__4E88ABD4">
+          <AssociationSet Name="FK__Insumos__CodigoP__3C69FB99" Association="Self.FK__Insumos__CodigoP__3C69FB99">
             <End Role="Productos" EntitySet="Productos" />
             <End Role="Insumos" EntitySet="Insumos" />
           </AssociationSet>
-          <AssociationSet Name="FK__Insumos__IdCateg__5070F446" Association="Self.FK__Insumos__IdCateg__5070F446">
+          <AssociationSet Name="FK__Insumos__IdCateg__3E52440B" Association="Self.FK__Insumos__IdCateg__3E52440B">
             <End Role="CategoriasInsumo" EntitySet="CategoriasInsumo" />
             <End Role="Insumos" EntitySet="Insumos" />
           </AssociationSet>
-          <AssociationSet Name="FK__Insumos__IdUnida__4F7CD00D" Association="Self.FK__Insumos__IdUnida__4F7CD00D">
+          <AssociationSet Name="FK__Insumos__IdUnida__3D5E1FD2" Association="Self.FK__Insumos__IdUnida__3D5E1FD2">
             <End Role="UnidadesMedida" EntitySet="UnidadesMedida" />
             <End Role="Insumos" EntitySet="Insumos" />
           </AssociationSet>
-          <AssociationSet Name="FK__InsumosAp__Codig__160F4887" Association="Self.FK__InsumosAp__Codig__160F4887">
+          <AssociationSet Name="FK__InsumosAp__Codig__73BA3083" Association="Self.FK__InsumosAp__Codig__73BA3083">
             <End Role="Insumos" EntitySet="Insumos" />
             <End Role="InsumosApartados" EntitySet="InsumosApartados" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrdenesCo__Codig__6754599E" Association="Self.FK__OrdenesCo__Codig__6754599E">
+          <AssociationSet Name="FK__OrdenesCo__Codig__5535A963" Association="Self.FK__OrdenesCo__Codig__5535A963">
             <End Role="Insumos" EntitySet="Insumos" />
             <End Role="OrdenesCompraInsumos" EntitySet="OrdenesCompraInsumos" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrdenesCo__IdEst__628FA481" Association="Self.FK__OrdenesCo__IdEst__628FA481">
+          <AssociationSet Name="FK__OrdenesCo__IdEst__5070F446" Association="Self.FK__OrdenesCo__IdEst__5070F446">
             <End Role="EstadosOrdenCompra" EntitySet="EstadosOrdenCompra" />
             <End Role="OrdenesCompra" EntitySet="OrdenesCompra" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrdenesCo__IdOrd__66603565" Association="Self.FK__OrdenesCo__IdOrd__66603565">
+          <AssociationSet Name="FK__OrdenesCo__IdOrd__5441852A" Association="Self.FK__OrdenesCo__IdOrd__5441852A">
             <End Role="OrdenesCompra" EntitySet="OrdenesCompra" />
             <End Role="OrdenesCompraInsumos" EntitySet="OrdenesCompraInsumos" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrdenesCo__IdPro__6383C8BA" Association="Self.FK__OrdenesCo__IdPro__6383C8BA">
+          <AssociationSet Name="FK__OrdenesCo__IdPro__5165187F" Association="Self.FK__OrdenesCo__IdPro__5165187F">
             <End Role="Proveedores" EntitySet="Proveedores" />
             <End Role="OrdenesCompra" EntitySet="OrdenesCompra" />
           </AssociationSet>
-          <AssociationSet Name="FK__Pedidos__IdEstad__6E01572D" Association="Self.FK__Pedidos__IdEstad__6E01572D">
+          <AssociationSet Name="FK__Pedidos__IdEstad__5BE2A6F2" Association="Self.FK__Pedidos__IdEstad__5BE2A6F2">
             <End Role="EstadosPedido" EntitySet="EstadosPedido" />
             <End Role="Pedidos" EntitySet="Pedidos" />
           </AssociationSet>
-          <AssociationSet Name="FK__Pedidos__IdTipoS__6EF57B66" Association="Self.FK__Pedidos__IdTipoS__6EF57B66">
+          <AssociationSet Name="FK__Pedidos__IdTipoS__5CD6CB2B" Association="Self.FK__Pedidos__IdTipoS__5CD6CB2B">
             <End Role="TiposServicio" EntitySet="TiposServicio" />
             <End Role="Pedidos" EntitySet="Pedidos" />
           </AssociationSet>
-          <AssociationSet Name="FK__PedidosPr__Codig__03F0984C" Association="Self.FK__PedidosPr__Codig__03F0984C">
+          <AssociationSet Name="FK__PedidosPr__Codig__6FE99F9F" Association="Self.FK__PedidosPr__Codig__6FE99F9F">
             <End Role="ProductosVenta" EntitySet="ProductosVenta" />
             <End Role="PedidosProductosVenta" EntitySet="PedidosProductosVenta" />
           </AssociationSet>
-          <AssociationSet Name="FK__PedidosPr__Numer__02FC7413" Association="Self.FK__PedidosPr__Numer__02FC7413">
+          <AssociationSet Name="FK__PedidosPr__Numer__6EF57B66" Association="Self.FK__PedidosPr__Numer__6EF57B66">
             <End Role="Pedidos" EntitySet="Pedidos" />
             <End Role="PedidosProductosVenta" EntitySet="PedidosProductosVenta" />
           </AssociationSet>
-          <AssociationSet Name="FK__Productos__Codig__534D60F1" Association="Self.FK__Productos__Codig__534D60F1">
+          <AssociationSet Name="FK__Productos__Codig__412EB0B6" Association="Self.FK__Productos__Codig__412EB0B6">
             <End Role="Productos" EntitySet="Productos" />
             <End Role="ProductosVenta" EntitySet="ProductosVenta" />
           </AssociationSet>
-          <AssociationSet Name="FK__Productos__IdCat__5441852A" Association="Self.FK__Productos__IdCat__5441852A">
+          <AssociationSet Name="FK__Productos__IdCat__4222D4EF" Association="Self.FK__Productos__IdCat__4222D4EF">
             <End Role="CategoriasProductoVenta" EntitySet="CategoriasProductoVenta" />
             <End Role="ProductosVenta" EntitySet="ProductosVenta" />
           </AssociationSet>
-          <AssociationSet Name="FK__Proveedor__IdDir__5FB337D6" Association="Self.FK__Proveedor__IdDir__5FB337D6">
+          <AssociationSet Name="FK__Proveedor__IdDir__4D94879B" Association="Self.FK__Proveedor__IdDir__4D94879B">
             <End Role="Direcciones" EntitySet="Direcciones" />
             <End Role="Proveedores" EntitySet="Proveedores" />
           </AssociationSet>
-          <AssociationSet Name="FK__Recetas__CodigoP__571DF1D5" Association="Self.FK__Recetas__CodigoP__571DF1D5">
+          <AssociationSet Name="FK__Recetas__CodigoP__44FF419A" Association="Self.FK__Recetas__CodigoP__44FF419A">
             <End Role="ProductosVenta" EntitySet="ProductosVenta" />
             <End Role="Recetas" EntitySet="Recetas" />
           </AssociationSet>
-          <AssociationSet Name="FK__RecetasIn__Codig__5AEE82B9" Association="Self.FK__RecetasIn__Codig__5AEE82B9">
+          <AssociationSet Name="FK__RecetasIn__Codig__48CFD27E" Association="Self.FK__RecetasIn__Codig__48CFD27E">
             <End Role="Insumos" EntitySet="Insumos" />
             <End Role="RecetasInsumos" EntitySet="RecetasInsumos" />
           </AssociationSet>
-          <AssociationSet Name="FK__RecetasIn__IdRec__59FA5E80" Association="Self.FK__RecetasIn__IdRec__59FA5E80">
+          <AssociationSet Name="FK__RecetasIn__IdRec__47DBAE45" Association="Self.FK__RecetasIn__IdRec__47DBAE45">
             <End Role="Recetas" EntitySet="Recetas" />
             <End Role="RecetasInsumos" EntitySet="RecetasInsumos" />
           </AssociationSet>
-          <AssociationSet Name="FK__Usuarios__IdDire__38996AB5" Association="Self.FK__Usuarios__IdDire__38996AB5">
+          <AssociationSet Name="FK__Usuarios__IdDire__267ABA7A" Association="Self.FK__Usuarios__IdDire__267ABA7A">
             <End Role="Direcciones" EntitySet="Direcciones" />
             <End Role="Usuarios" EntitySet="Usuarios" />
           </AssociationSet>
-          <AssociationSet Name="FK__UsuariosO__Nombr__72C60C4A" Association="Self.FK__UsuariosO__Nombr__72C60C4A">
+          <AssociationSet Name="FK__UsuariosO__Nombr__60A75C0F" Association="Self.FK__UsuariosO__Nombr__60A75C0F">
             <End Role="Empleados" EntitySet="Empleados" />
             <End Role="UsuariosPedidos" EntitySet="UsuariosPedidos" />
           </AssociationSet>
-          <AssociationSet Name="FK__UsuariosO__Numer__71D1E811" Association="Self.FK__UsuariosO__Numer__71D1E811">
+          <AssociationSet Name="FK__UsuariosO__Numer__5FB337D6" Association="Self.FK__UsuariosO__Numer__5FB337D6">
             <End Role="Pedidos" EntitySet="Pedidos" />
             <End Role="UsuariosPedidos" EntitySet="UsuariosPedidos" />
           </AssociationSet>
-          <AssociationSet Name="FK__UsuariosP__IdCli__04E4BC85" Association="Self.FK__UsuariosP__IdCli__04E4BC85">
+          <AssociationSet Name="FK__UsuariosP__IdCli__70DDC3D8" Association="Self.FK__UsuariosP__IdCli__70DDC3D8">
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="UsuariosPedidos" EntitySet="UsuariosPedidos" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ItaliaPizzaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -870,6 +870,7 @@
           <Property Name="IdDireccion" Type="Int32" />
           <NavigationProperty Name="Direcciones" Relationship="Self.FK__Proveedor__IdDir__5FB337D6" FromRole="Proveedores" ToRole="Direcciones" />
           <NavigationProperty Name="OrdenesCompra" Relationship="Self.FK__OrdenesCo__IdPro__6383C8BA" FromRole="Proveedores" ToRole="OrdenesCompra" />
+          <Property Name="EsActivo" Type="Boolean" />
         </EntityType>
         <EntityType Name="Recetas">
           <Key>
@@ -1564,6 +1565,7 @@
           <EntitySetMapping Name="Proveedores">
             <EntityTypeMapping TypeName="ItaliaPizzaModel.Proveedores">
               <MappingFragment StoreEntitySet="Proveedores">
+                <ScalarProperty Name="EsActivo" ColumnName="EsActivo" />
                 <ScalarProperty Name="IdProveedor" ColumnName="IdProveedor" />
                 <ScalarProperty Name="NombreCompleto" ColumnName="NombreCompleto" />
                 <ScalarProperty Name="RFC" ColumnName="RFC" />

@@ -14,7 +14,7 @@ namespace ItaliaPizza_Servicios
     {
         public bool ActualizarInformacionProveedor(ProveedorDto proveedor)
         {
-            bool resultadoOperacion = false;
+            bool resultadoOperacion;
             try
             {
                 Direcciones direccion = AuxiliarConversorDTOADAO.ConvertirDireccionDtoADirecciones(proveedor.Direccion);
@@ -28,6 +28,27 @@ namespace ItaliaPizza_Servicios
                 throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
             }
             return resultadoOperacion;
+        }
+
+        public bool CmabiarEstadoProveedor(bool estaActivo, int idProveedor)
+        {
+            bool exitoAccion;
+            try
+            {
+                if (estaActivo)
+                {
+                   exitoAccion = ProveedorDAO.DesactivarProveedor(idProveedor); 
+                }
+                else
+                {
+                    exitoAccion = ProveedorDAO.ActivarProveedor(idProveedor);
+                }
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
+            return exitoAccion;
         }
 
         public bool GuardarProveedorNuevo(ProveedorDto proveedorNuevo)
@@ -55,9 +76,27 @@ namespace ItaliaPizza_Servicios
         {
             try
             {
-
                 List<ProveedorDto> proveedorDtos = new List<ProveedorDto>();
                 var proveedoresBD = ProveedorDAO.RecuperarProveedoresBD();
+                foreach (var item in proveedoresBD)
+                {
+                    proveedorDtos.Add(AuxiliarConversorDTOADAO.ConvertirProveedoresAProveedoresDto(item, item.Direcciones));
+                }
+                return proveedorDtos;
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
+        }
+
+        public List<ProveedorDto> RecuperarProveedoresActivos()
+        {
+            try
+            {
+
+                List<ProveedorDto> proveedorDtos = new List<ProveedorDto>();
+                var proveedoresBD = ProveedorDAO.RecuperarProveedoresActivosBD();
                 foreach (var item in proveedoresBD)
                 {
                     proveedorDtos.Add(AuxiliarConversorDTOADAO.ConvertirProveedoresAProveedoresDto(item, item.Direcciones));

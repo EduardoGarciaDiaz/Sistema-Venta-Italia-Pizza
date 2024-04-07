@@ -471,7 +471,7 @@ namespace ItaliaPizza_Cliente.Vistas
             string criterioBusqueda = barraBusquedaUsuario.TxtBusqueda.Text.Trim().ToLower();
             List<ElementoUsuario> usuariosFiltrados = usuariosActuales.Where(usuario => usuario.lblNombre.Text.ToLower().Contains(criterioBusqueda) ||
                                                                                       usuario.lblDireccion.Text.ToLower().Contains(criterioBusqueda) ||
-                                                                                      usuario.lblTelefono.Text.ToLower().Contains(criterioBusqueda)).ToList(); ;
+                                                                                      usuario.lblTelefono.Text.ToLower().Contains(criterioBusqueda)).ToList(); 
             switch (tipoUsuarioActual)
             {
                 case 0:

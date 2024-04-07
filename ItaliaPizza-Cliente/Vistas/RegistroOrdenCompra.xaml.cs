@@ -103,7 +103,7 @@ namespace ItaliaPizza_Cliente.Vistas
         private void ObtenerProveedoresAtivos()
         {
             ServicioProveedoresClient servicioProveedoresClient = new ServicioProveedoresClient();
-            proveedores = servicioProveedoresClient.RecuperarProveedores().ToList();
+            proveedores = servicioProveedoresClient.RecuperarProveedoresActivos().ToList();
         }
 
         private void ObtenerIsnsumoActivos()

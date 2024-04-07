@@ -154,6 +154,9 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         private ItaliaPizza_Cliente.ServicioItaliaPizza.DireccionDto DireccionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsActivoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IdDireccionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -200,6 +203,19 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
                 if ((object.ReferenceEquals(this.DireccionField, value) != true)) {
                     this.DireccionField = value;
                     this.RaisePropertyChanged("Direccion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsActivo {
+            get {
+                return this.EsActivoField;
+            }
+            set {
+                if ((this.EsActivoField.Equals(value) != true)) {
+                    this.EsActivoField = value;
+                    this.RaisePropertyChanged("EsActivo");
                 }
             }
         }
@@ -3366,6 +3382,12 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProveedores/RecuperarProveedores", ReplyAction="http://tempuri.org/IServicioProveedores/RecuperarProveedoresResponse")]
         System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.ProveedorDto[]> RecuperarProveedoresAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProveedores/RecuperarProveedoresActivos", ReplyAction="http://tempuri.org/IServicioProveedores/RecuperarProveedoresActivosResponse")]
+        ItaliaPizza_Cliente.ServicioItaliaPizza.ProveedorDto[] RecuperarProveedoresActivos();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProveedores/RecuperarProveedoresActivos", ReplyAction="http://tempuri.org/IServicioProveedores/RecuperarProveedoresActivosResponse")]
+        System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.ProveedorDto[]> RecuperarProveedoresActivosAsync();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProveedores/GuardarProveedorNuevo", ReplyAction="http://tempuri.org/IServicioProveedores/GuardarProveedorNuevoResponse")]
         bool GuardarProveedorNuevo(ItaliaPizza_Cliente.ServicioItaliaPizza.ProveedorDto proveedorNuevo);
         
@@ -3403,6 +3425,12 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProveedores/ValidarCorreoUnicoProveedorEditado", ReplyAction="http://tempuri.org/IServicioProveedores/ValidarCorreoUnicoProveedorEditadoRespons" +
             "e")]
         System.Threading.Tasks.Task<bool> ValidarCorreoUnicoProveedorEditadoAsync(string correo, int idProveedor);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProveedores/CmabiarEstadoProveedor", ReplyAction="http://tempuri.org/IServicioProveedores/CmabiarEstadoProveedorResponse")]
+        bool CmabiarEstadoProveedor(bool estaActivo, int idProveedor);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProveedores/CmabiarEstadoProveedor", ReplyAction="http://tempuri.org/IServicioProveedores/CmabiarEstadoProveedorResponse")]
+        System.Threading.Tasks.Task<bool> CmabiarEstadoProveedorAsync(bool estaActivo, int idProveedor);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -3438,6 +3466,14 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         public System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.ProveedorDto[]> RecuperarProveedoresAsync() {
             return base.Channel.RecuperarProveedoresAsync();
+        }
+        
+        public ItaliaPizza_Cliente.ServicioItaliaPizza.ProveedorDto[] RecuperarProveedoresActivos() {
+            return base.Channel.RecuperarProveedoresActivos();
+        }
+        
+        public System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.ProveedorDto[]> RecuperarProveedoresActivosAsync() {
+            return base.Channel.RecuperarProveedoresActivosAsync();
         }
         
         public bool GuardarProveedorNuevo(ItaliaPizza_Cliente.ServicioItaliaPizza.ProveedorDto proveedorNuevo) {
@@ -3486,6 +3522,14 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         public System.Threading.Tasks.Task<bool> ValidarCorreoUnicoProveedorEditadoAsync(string correo, int idProveedor) {
             return base.Channel.ValidarCorreoUnicoProveedorEditadoAsync(correo, idProveedor);
+        }
+        
+        public bool CmabiarEstadoProveedor(bool estaActivo, int idProveedor) {
+            return base.Channel.CmabiarEstadoProveedor(estaActivo, idProveedor);
+        }
+        
+        public System.Threading.Tasks.Task<bool> CmabiarEstadoProveedorAsync(bool estaActivo, int idProveedor) {
+            return base.Channel.CmabiarEstadoProveedorAsync(estaActivo, idProveedor);
         }
     }
     
