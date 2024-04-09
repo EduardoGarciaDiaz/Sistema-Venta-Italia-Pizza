@@ -168,6 +168,19 @@ namespace ItaliaPizza_Servicios.Auxiliares
             };
             return empleadoDto;
         }
+        public static EmpleadoDto ConvertirMeserosAEmpleadoDto(Meseros mesero)
+        {
+            EmpleadoDto empleadoDto = new EmpleadoDto()
+            {
+                IdUsuario = (int)mesero.IdUsuario,
+                IdTipoEmpleado = (int)mesero.Empleados.IdTipoEmpleado,
+                Contraseña = mesero.Empleados.Contraseña,
+                NombreUsuario = mesero.Empleados.NombreUsuario,
+                Usuario = ConvertirUsuariosAUsuarioDto(mesero.Usuarios, mesero.Usuarios.Direcciones),
+                TipoEmpleado = mesero.Empleados.TiposEmpleado.Nombre
+            };
+            return empleadoDto;
+        }
 
         public static InsumoOrdenCompraDto ConvertirInsumosAInsumoOrdenCompraDto(Insumos insumo)
         {

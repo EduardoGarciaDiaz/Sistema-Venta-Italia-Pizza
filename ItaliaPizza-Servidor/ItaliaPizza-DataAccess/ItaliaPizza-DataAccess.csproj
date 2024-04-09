@@ -104,6 +104,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ItaliaPizzaModelo.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Meseros.cs">
+      <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="OrdenDeCompraDAO.cs" />
     <Compile Include="OrdenesCompra.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>

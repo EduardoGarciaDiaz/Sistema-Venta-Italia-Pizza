@@ -24,13 +24,10 @@ namespace ItaliaPizza_Servicios
                 int resultado = 0;
                 if (!String.IsNullOrEmpty(nombreUsuario) || !String.IsNullOrEmpty(contraseña))
                 {
-                    if (EmpleadoDAO.ValidarCredencialesBD(nombreUsuario, contraseña))
+                    resultado = EmpleadoDAO.ValidarCredencialesBD(nombreUsuario, contraseña);
+                    if (resultado == 1)
                     {
-                        if (ListaEmpleadoActivos.EsEmpleadoNoActivo(nombreUsuario))
-                        {
-                            resultado = 1;
-                        }
-                        else
+                        if (!ListaEmpleadoActivos.EsEmpleadoNoActivo(nombreUsuario))
                         {
                             resultado = -1;
                         }

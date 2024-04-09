@@ -20,6 +20,7 @@ namespace ItaliaPizza_DataAccess
             this.CortesCaja = new HashSet<CortesCaja>();
             this.GastosVarios = new HashSet<GastosVarios>();
             this.UsuariosPedidos = new HashSet<UsuariosPedidos>();
+            this.Meseros = new HashSet<Meseros>();
         }
     
         public string NombreUsuario { get; set; }
@@ -35,5 +36,7 @@ namespace ItaliaPizza_DataAccess
         public virtual ICollection<GastosVarios> GastosVarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UsuariosPedidos> UsuariosPedidos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Meseros> Meseros { get; set; }
     }
 }

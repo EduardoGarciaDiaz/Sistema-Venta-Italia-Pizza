@@ -56,6 +56,9 @@
         <AssociationConnector Association="ItaliaPizzaModel.FK__Recetas__CodigoP__571DF1D5" ManuallyRouted="false" />
         <AssociationConnector Association="ItaliaPizzaModel.FK__RecetasIn__IdRec__59FA5E80" ManuallyRouted="false" />
         <AssociationConnector Association="ItaliaPizzaModel.FK__UsuariosP__IdCli__04E4BC85" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ItaliaPizzaModel.Meseros" Width="1.5" PointX="11.25" PointY="26.25" />
+        <AssociationConnector Association="ItaliaPizzaModel.FK__Meseros__NombreU__03F0984C" />
+        <AssociationConnector Association="ItaliaPizzaModel.FK__Meseros__IdUsuar__02FC7413" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

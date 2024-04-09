@@ -93,6 +93,14 @@
           <Property Name="CodigoProducto" Type="nvarchar" MaxLength="15" Nullable="false" />
           <Property Name="CantidadApartada" Type="float" />
         </EntityType>
+        <EntityType Name="Meseros">
+          <Key>
+            <PropertyRef Name="IdMesero" />
+          </Key>
+          <Property Name="IdMesero" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" />
+          <Property Name="NombreUsuario" Type="nvarchar" MaxLength="20" />
+        </EntityType>
         <EntityType Name="OrdenesCompra">
           <Key>
             <PropertyRef Name="IdOrdenCompra" />
@@ -325,6 +333,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Meseros__IdUsuar__02FC7413">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="Meseros" Type="Self.Meseros" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Meseros">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Meseros__NombreU__03F0984C">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="0..1" />
+          <End Role="Meseros" Type="Self.Meseros" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="NombreUsuario" />
+            </Principal>
+            <Dependent Role="Meseros">
+              <PropertyRef Name="NombreUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__OrdenesCo__Codig__5535A963">
           <End Role="Insumos" Type="Self.Insumos" Multiplicity="0..1" />
           <End Role="OrdenesCompraInsumos" Type="Self.OrdenesCompraInsumos" Multiplicity="*" />
@@ -552,6 +584,7 @@
           <EntitySet Name="GastosVarios" EntityType="Self.GastosVarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Insumos" EntityType="Self.Insumos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InsumosApartados" EntityType="Self.InsumosApartados" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Meseros" EntityType="Self.Meseros" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrdenesCompra" EntityType="Self.OrdenesCompra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrdenesCompraInsumos" EntityType="Self.OrdenesCompraInsumos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pedidos" EntityType="Self.Pedidos" Schema="dbo" store:Type="Tables" />
@@ -598,6 +631,14 @@
           <AssociationSet Name="FK__InsumosAp__Codig__73BA3083" Association="Self.FK__InsumosAp__Codig__73BA3083">
             <End Role="Insumos" EntitySet="Insumos" />
             <End Role="InsumosApartados" EntitySet="InsumosApartados" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Meseros__IdUsuar__02FC7413" Association="Self.FK__Meseros__IdUsuar__02FC7413">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Meseros" EntitySet="Meseros" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Meseros__NombreU__03F0984C" Association="Self.FK__Meseros__NombreU__03F0984C">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Meseros" EntitySet="Meseros" />
           </AssociationSet>
           <AssociationSet Name="FK__OrdenesCo__Codig__5535A963" Association="Self.FK__OrdenesCo__Codig__5535A963">
             <End Role="Insumos" EntitySet="Insumos" />
@@ -731,6 +772,7 @@
           <NavigationProperty Name="Usuarios" Relationship="Self.FK__Empleados__IdUsu__3E52440B" FromRole="Empleados" ToRole="Usuarios" />
           <NavigationProperty Name="GastosVarios" Relationship="Self.FK__GastosVar__Nombr__412EB0B6" FromRole="Empleados" ToRole="GastosVarios" />
           <NavigationProperty Name="UsuariosPedidos" Relationship="Self.FK__UsuariosO__Nombr__72C60C4A" FromRole="Empleados" ToRole="UsuariosPedidos" />
+          <NavigationProperty Name="Meseros" Relationship="ItaliaPizzaModel.FK__Meseros__NombreU__03F0984C" FromRole="Empleados" ToRole="Meseros" />
         </EntityType>
         <EntityType Name="EstadosOrdenCompra">
           <Key>
@@ -939,6 +981,7 @@
           <NavigationProperty Name="Direcciones" Relationship="Self.FK__Usuarios__IdDire__38996AB5" FromRole="Usuarios" ToRole="Direcciones" />
           <NavigationProperty Name="Empleados" Relationship="Self.FK__Empleados__IdUsu__3E52440B" FromRole="Usuarios" ToRole="Empleados" />
           <NavigationProperty Name="UsuariosPedidos" Relationship="Self.FK__UsuariosP__IdCli__04E4BC85" FromRole="Usuarios" ToRole="UsuariosPedidos" />
+          <NavigationProperty Name="Meseros" Relationship="ItaliaPizzaModel.FK__Meseros__IdUsuar__02FC7413" FromRole="Usuarios" ToRole="Meseros" />
         </EntityType>
         <EntityType Name="UsuariosPedidos">
           <Key>
@@ -1394,7 +1437,50 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="UsuariosPedidos" EntitySet="UsuariosPedidos" />
           </AssociationSet>
+          <EntitySet Name="Meseros" EntityType="ItaliaPizzaModel.Meseros" />
+          <AssociationSet Name="FK__Meseros__NombreU__03F0984C" Association="ItaliaPizzaModel.FK__Meseros__NombreU__03F0984C">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Meseros" EntitySet="Meseros" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Meseros__IdUsuar__02FC7413" Association="ItaliaPizzaModel.FK__Meseros__IdUsuar__02FC7413">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Meseros" EntitySet="Meseros" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Meseros">
+          <Key>
+            <PropertyRef Name="IdMesero" />
+          </Key>
+          <Property Name="IdMesero" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUsuario" Type="Int32" />
+          <Property Name="NombreUsuario" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Empleados" Relationship="ItaliaPizzaModel.FK__Meseros__NombreU__03F0984C" FromRole="Meseros" ToRole="Empleados" />
+          <NavigationProperty Name="Usuarios" Relationship="ItaliaPizzaModel.FK__Meseros__IdUsuar__02FC7413" FromRole="Meseros" ToRole="Usuarios" />
+        </EntityType>
+        <Association Name="FK__Meseros__NombreU__03F0984C">
+          <End Type="ItaliaPizzaModel.Empleados" Role="Empleados" Multiplicity="0..1" />
+          <End Type="ItaliaPizzaModel.Meseros" Role="Meseros" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="NombreUsuario" />
+            </Principal>
+            <Dependent Role="Meseros">
+              <PropertyRef Name="NombreUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Meseros__IdUsuar__02FC7413">
+          <End Type="ItaliaPizzaModel.Usuarios" Role="Usuarios" Multiplicity="0..1" />
+          <End Type="ItaliaPizzaModel.Meseros" Role="Meseros" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Meseros">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1647,6 +1733,15 @@
                 <ScalarProperty Name="NumeroPedido" ColumnName="NumeroPedido" />
                 <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
                 <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Meseros">
+            <EntityTypeMapping TypeName="ItaliaPizzaModel.Meseros">
+              <MappingFragment StoreEntitySet="Meseros">
+                <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="IdMesero" ColumnName="IdMesero" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

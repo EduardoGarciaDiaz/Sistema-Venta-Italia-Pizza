@@ -186,9 +186,14 @@ namespace ItaliaPizza_Servicios
             try
             {
                 var empleados = EmpleadoDAO.RecuperarEmpleadosBD();
+                var meseros = EmpleadoDAO.RecuperarMeserosBD();
                 foreach (var empleado in empleados)
                 {
                     empleadosLista.Add(AuxiliarConversorDTOADAO.ConvertirEmpleadosAEmpleadoDto(empleado, empleado.TiposEmpleado.Nombre, empleado.Usuarios, empleado.Usuarios.Direcciones));
+                }
+                foreach (var mesero in meseros)
+                {
+                    empleadosLista.Add(AuxiliarConversorDTOADAO.ConvertirMeserosAEmpleadoDto(mesero));
                 }
             }
             catch (ExcepcionDataAccess e)
@@ -261,18 +266,15 @@ namespace ItaliaPizza_Servicios
             EmpleadoDto empleadoDto;
             try
             {
-                var empleado = EmpleadoDAO.RecuperarEmpleadoProNombreUsuarioBD(nombreUsuario);
-                string tipo;
-                if (empleado.TiposEmpleado != null)
+                var empleado = EmpleadoDAO.RecuperarEmpleadoProNombreUsuarioBD(nombreUsuario);               
+                if (!nombreUsuario.Equals("mesero"))
                 {
-                    tipo = empleado.TiposEmpleado.Nombre ?? string.Empty;
+                    empleadoDto = RecuperarEmpleadoComun(nombreUsuario);
                 }
                 else
                 {
-                    empleado.IdTipoEmpleado = 0;
-                    tipo = "Administrador";
+                    empleadoDto = RecuperarEmpeladoMesero();
                 }
-                empleadoDto = AuxiliarConversorDTOADAO.ConvertirEmpleadosAEmpleadoDto(empleado, tipo, empleado.Usuarios, empleado.Usuarios.Direcciones);
                 ListaEmpleadoActivos.RegistrarUsuarioEnLista(empleadoDto.IdUsuario, empleado.NombreUsuario);
             }
             catch (ExcepcionDataAccess e)
@@ -281,5 +283,42 @@ namespace ItaliaPizza_Servicios
             }
             return empleadoDto;
         }
+
+        private EmpleadoDto RecuperarEmpleadoComun(string nombreUsuario)
+        {
+            EmpleadoDto empleadoDto;            
+            var empleado = EmpleadoDAO.RecuperarEmpleadoProNombreUsuarioBD(nombreUsuario);
+            string tipo;
+            if (empleado.TiposEmpleado != null)
+            {
+                tipo = empleado.TiposEmpleado.Nombre ?? string.Empty;
+            }
+            else
+            {
+                empleado.IdTipoEmpleado = 0;
+                tipo = "Administrador";
+            }
+            empleadoDto = AuxiliarConversorDTOADAO.ConvertirEmpleadosAEmpleadoDto(empleado, tipo, empleado.Usuarios, empleado.Usuarios.Direcciones);          
+            return empleadoDto;
+        }
+
+        private EmpleadoDto RecuperarEmpeladoMesero()
+        {
+            EmpleadoDto empleadoDto;            
+            var empleado = EmpleadoDAO.RecuperarMeseroPorNombreUsuarioBD();
+            string tipo;
+            if (empleado.Empleados.TiposEmpleado != null)
+            {
+                tipo = empleado.Empleados.TiposEmpleado.Nombre ?? string.Empty;
+            }
+            else
+            {
+                empleado.Empleados.IdTipoEmpleado = 0;
+                tipo = "Administrador";
+            }
+            empleadoDto = AuxiliarConversorDTOADAO.ConvertirMeserosAEmpleadoDto(empleado);              
+            return empleadoDto;
+        }
+
     }
 }

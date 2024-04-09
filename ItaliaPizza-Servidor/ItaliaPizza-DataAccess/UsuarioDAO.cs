@@ -163,8 +163,8 @@ namespace ItaliaPizza_DataAccess
             {
                 using (var context = new ItaliaPizzaEntities())
                 {
-                    clientes = context.Usuarios.Where(usuario => context.Empleados.FirstOrDefault(empleado =>
-                    empleado.IdUsuario == usuario.IdUsuario) == null).Include(usuario => usuario.Direcciones).ToList();
+                    clientes = context.Usuarios.Where(usuario => context.Empleados.FirstOrDefault(empleado => empleado.IdUsuario == usuario.IdUsuario) == null 
+                                                      && context.Meseros.All(mesero => mesero.IdUsuario != usuario.IdUsuario)).Include(usuario => usuario.Direcciones).ToList();
                 }
              }
             catch (EntityException ex)

@@ -112,6 +112,10 @@ namespace ItaliaPizza_Cliente.Vistas
                 VentanaEmergente ventanaEmergente = new VentanaEmergente("Upps!!", "Parece ser que has inciado sesion previamente, cierra tu sesion activa para volver a ingresar", Window.GetWindow(this), 1);
                 ventanaEmergente.ShowDialog();
             }
+            else if(usuarioExiste == 2){
+                VentanaEmergente ventanaEmergente = new VentanaEmergente("Upps!!", "Parece ser que tu cuenta esta desactivada, verificalo con tu administrador", Window.GetWindow(this), 1);
+                ventanaEmergente.ShowDialog();
+            }
             else
             {
                 ObtenerDatosEmpleado(nombreUsuario);

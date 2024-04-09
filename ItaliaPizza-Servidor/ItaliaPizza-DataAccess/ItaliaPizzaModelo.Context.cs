@@ -50,5 +50,6 @@ namespace ItaliaPizza_DataAccess
         public virtual DbSet<UnidadesMedida> UnidadesMedida { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
         public virtual DbSet<UsuariosPedidos> UsuariosPedidos { get; set; }
+        public virtual DbSet<Meseros> Meseros { get; set; }
     }
 }
