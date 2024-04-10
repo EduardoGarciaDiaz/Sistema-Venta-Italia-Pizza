@@ -337,4 +337,14 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfProveedorDto" nillable="true" type="tns:ArrayOfProveedorDto" />
+  <xs:complexType name="GastoVario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Fecha" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Monto" type="xs:double" />
+      <xs:element minOccurs="0" name="nombreUsuario" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GastoVario" nillable="true" type="tns:GastoVario" />
 </xs:schema>

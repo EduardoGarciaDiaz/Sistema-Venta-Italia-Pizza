@@ -64,6 +64,7 @@
     <Compile Include="Auxiliares\MapeadorProductosAProductoVenta.cs" />
     <Compile Include="Auxiliares\AuxiliarPreparacionDatos.cs" />
     <Compile Include="Auxiliares\AuxiliarConversorDTOADAO.cs" />
+    <Compile Include="ServicioGastosVarios.cs" />
     <Compile Include="ServicioInicioSesion.cs" />
     <Compile Include="ServicioOrdenesCompra.cs" />
     <Compile Include="ServicioProductos.cs" />

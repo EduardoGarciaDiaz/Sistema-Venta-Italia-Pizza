@@ -250,6 +250,20 @@ namespace ItaliaPizza_Servicios.Auxiliares
             return ordenesCompra;
         }
 
+        public static GastosVarios ConvertirGastoVarioAGastosVarios(GastoVario gastoVario)
+        {
+              GastosVarios gastosVarios = new GastosVarios()
+              {
+                IdGastoVario = gastoVario.Id,
+                Descripcion = gastoVario.Descripcion,
+                Fecha = gastoVario.Fecha,
+                Total = gastoVario.Monto,
+                NombreUsuario = gastoVario.nombreUsuario
+            };
+
+            return gastosVarios;
+        }
+
 
     }
 

@@ -56,6 +56,14 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IServicioGastosVarios_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd0" namespace="http://tempuri.org/" />
@@ -443,6 +451,15 @@
   <wsdl:message name="IServicioInicioSesion_CerrarSesion_InputMessage">
     <wsdl:part name="parameters" element="tns:CerrarSesion" />
   </wsdl:message>
+  <wsdl:message name="IServicioGastosVarios_GuardarGastoVario_InputMessage">
+    <wsdl:part name="parameters" element="tns:GuardarGastoVario" />
+  </wsdl:message>
+  <wsdl:message name="IServicioGastosVarios_GuardarGastoVario_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GuardarGastoVarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioGastosVarios_GuardarGastoVario_ExcepcionServidorItaliaPizzaFault_FaultMessage">
+    <wsdl:part xmlns:q34="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones" name="detail" element="q34:ExcepcionServidorItaliaPizza" />
+  </wsdl:message>
   <wsdl:portType name="IServicioOrdenesCompra">
     <wsdl:operation name="OperacionOrdenesEjemplo">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioOrdenesCompra/OperacionOrdenesEjemplo" message="tns:IServicioOrdenesCompra_OperacionOrdenesEjemplo_InputMessage" />
@@ -675,6 +692,13 @@
     </wsdl:operation>
     <wsdl:operation name="CerrarSesion">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioInicioSesion/CerrarSesion" message="tns:IServicioInicioSesion_CerrarSesion_InputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IServicioGastosVarios">
+    <wsdl:operation name="GuardarGastoVario">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioGastosVarios/GuardarGastoVario" message="tns:IServicioGastosVarios_GuardarGastoVario_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioGastosVarios/GuardarGastoVarioResponse" message="tns:IServicioGastosVarios_GuardarGastoVario_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IServicioGastosVarios/GuardarGastoVarioExcepcionServidorItaliaPizzaFault" name="ExcepcionServidorItaliaPizzaFault" message="tns:IServicioGastosVarios_GuardarGastoVario_ExcepcionServidorItaliaPizzaFault_FaultMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IServicioOrdenesCompra" type="tns:IServicioOrdenesCompra">
@@ -1224,6 +1248,22 @@
       </wsdl:input>
     </wsdl:operation>
   </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IServicioGastosVarios" type="tns:IServicioGastosVarios">
+    <wsp:PolicyReference URI="#NetTcpBinding_IServicioGastosVarios_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="GuardarGastoVario">
+      <soap12:operation soapAction="http://tempuri.org/IServicioGastosVarios/GuardarGastoVario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ExcepcionServidorItaliaPizzaFault">
+        <soap12:fault use="literal" name="ExcepcionServidorItaliaPizzaFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
   <wsdl:service name="ServicioItaliaPizza">
     <wsdl:port name="NetTcpBinding_IServicioOrdenesCompra" binding="tns:NetTcpBinding_IServicioOrdenesCompra">
       <soap12:address location="net.tcp://localhost:8081/ServicioItaliaPizza/ItaliaPizza_Contratos" />
@@ -1262,6 +1302,12 @@
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="NetTcpBinding_IServicioInicioSesion" binding="tns:NetTcpBinding_IServicioInicioSesion">
+      <soap12:address location="net.tcp://localhost:8081/ServicioItaliaPizza/ItaliaPizza_Contratos" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/ServicioItaliaPizza/ItaliaPizza_Contratos</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IServicioGastosVarios" binding="tns:NetTcpBinding_IServicioGastosVarios">
       <soap12:address location="net.tcp://localhost:8081/ServicioItaliaPizza/ItaliaPizza_Contratos" />
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/ServicioItaliaPizza/ItaliaPizza_Contratos</wsa10:Address>

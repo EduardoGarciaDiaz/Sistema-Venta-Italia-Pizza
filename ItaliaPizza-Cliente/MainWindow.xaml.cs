@@ -264,6 +264,16 @@ namespace ItaliaPizza_Cliente
             EmpleadoSingleton.LimpiarSingleton();
         }
 
+        private void GastosVarios_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            string nombre = lblNombre.Content.ToString();
+
+            if (!string.IsNullOrEmpty(nombre))
+            {
+                GastosVarios gastosGenerales = new GastosVarios(FrameNavigator);
+                gastosGenerales.ShowDialog();
+            }
+        }
 
     } 
 
