@@ -55,5 +55,28 @@ namespace ItaliaPizza_Contratos
         [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
         bool DesapartarInsumosDeProducto(string codigoProducto, int cantidadParaDesapartar);
 
+        [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
+        List<Producto> RecuperarProductosTipoInsumo();
+
+        [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
+        List<Producto> RecuperarProductosTipoVenta();
+
+        [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
+        List<Categoria> RecuperarCategoriasInsumo();
+
+        [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
+        bool ValidarDesactivacion(string codigoProducto);
+
+        [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
+        int DesactivarProducto(string codigoProducto);
+
+        [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
+        int ActivarProducto(string codigoProducto);
     }
 }

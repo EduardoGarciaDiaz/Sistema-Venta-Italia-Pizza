@@ -74,11 +74,20 @@
     <Compile Include="Recursos\ControlesUsuario\BarraDeBusquedaRecetas.xaml.cs">
       <DependentUpon>BarraDeBusquedaRecetas.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Recursos\ControlesUsuario\BtnFiltro.xaml.cs">
+      <DependentUpon>BtnFiltro.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Recursos\ControlesUsuario\BtnMenuLateral.xaml.cs">
       <DependentUpon>BtnMenuLateral.xaml</DependentUpon>
     </Compile>
     <Compile Include="Recursos\ControlesUsuario\ElementoConsultaPedido.xaml.cs">
       <DependentUpon>ElementoConsultaPedido.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Recursos\ControlesUsuario\ElementoConsultaInsumo.xaml.cs">
+      <DependentUpon>ElementoConsultaInsumo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Recursos\ControlesUsuario\ElementoConsultaProductoVenta.xaml.cs">
+      <DependentUpon>ElementoConsultaProductoVenta.xaml</DependentUpon>
     </Compile>
     <Compile Include="Recursos\ControlesUsuario\ElementoInsumoOrdenCompra.xaml.cs">
       <DependentUpon>ElementoInsumoOrdenCompra.xaml</DependentUpon>
@@ -214,11 +223,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Recursos\ControlesUsuario\BtnFiltro.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Recursos\ControlesUsuario\BtnMenuLateral.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Recursos\ControlesUsuario\ElementoConsultaPedido.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Recursos\ControlesUsuario\ElementoConsultaInsumo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Recursos\ControlesUsuario\ElementoConsultaProductoVenta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -388,6 +409,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.PedidoConsultaDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.Producto.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.ProductoVentaPedidos.datasource">

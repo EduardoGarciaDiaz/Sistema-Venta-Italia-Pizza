@@ -22,7 +22,13 @@ namespace ItaliaPizza_DataAccess
             {
                 using (var context = new ItaliaPizzaEntities())
                 {
-                    productos = context.Productos.ToList();
+                    productos = context.Productos
+                        .Include("ProductosVenta")
+                        .Include("ProductosVenta.CategoriasProductoVenta")
+                        .Include("Insumos")
+                        .Include("Insumos.UnidadesMedida")
+                        .Include("Insumos.CategoriasInsumo")
+                        .ToList();
                 }
             }
             catch (EntityException ex)
@@ -244,6 +250,76 @@ namespace ItaliaPizza_DataAccess
             }
 
             return productoEsInventariado;
+        }
+
+        public int DesactivarProducto(string codigoProducto)
+        {
+            int filasAfectadas = -1;
+
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    Productos producto = context.Productos.FirstOrDefault(p => p.CodigoProducto == codigoProducto);
+                    if (producto != default)
+                    {
+                        producto.EsActivo = false;
+                        filasAfectadas = context.SaveChanges();
+                    }
+                }
+
+                return filasAfectadas;
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+        }
+
+        public int ActivarProducto(string codigoProducto)
+        {
+            int filasAfectadas = -1;
+
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    Productos producto = context.Productos.FirstOrDefault(p => p.CodigoProducto == codigoProducto);
+                    if (producto != default)
+                    {
+                        producto.EsActivo = true;
+                        filasAfectadas = context.SaveChanges();
+                    }
+                }
+
+                return filasAfectadas;
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
         }
 
     }

@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="ItaliaPizza_Cliente.Recursos.ControlesUsuario.ElementoConsultaInsumo"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ItaliaPizza_Cliente.Recursos.ControlesUsuario"
+             mc:Ignorable="d" 
+             d:DesignHeight="55" d:DesignWidth="730" Margin="0 7 0 0">
+        
+    <Viewbox>
+        <Grid Height="55" Width="750" >
+            <Grid Height="55" Width="750" MouseLeftButtonDown="GridInsumo_Click" Cursor="Hand">
+                <Rectangle Fill="White" RadiusX="25" RadiusY="25"/>
+                <Label Content="Código:"  FontSize="18"  FontWeight="Medium" Margin="10,0,666,16"/>
+                <Label Name="lblCodigo"  Content="11111111:"  FontSize="18" Margin="74,0,469,16" />
+                <Label Content="Nombre:"  FontSize="18" FontWeight="Medium" Margin="10,25,657,0" />
+                <Label Name="lblNombre" Content="11111111:"  FontSize="18" Margin="84,25,442,-5" />
+
+                <Label Content="Categoría:"  FontSize="18" FontWeight="Medium" Margin="274,-1,383,16"/>
+                <Label Name="lblCategoria" Content="11111111:"  FontSize="18" Margin="360,0,179,21" />
+                <Label Content="Cantidad:"  FontSize="18" FontWeight="Medium" Margin="274,25,383,0"/>
+                <Label Name="lblCantidad" Content="10kg"  FontSize="18" Margin="351,25,318,-5" />
+                <Label Content="Costo:"  FontSize="18"  FontWeight="Medium" Margin="427,25,263,-5"/>
+                <Label Name="lblCosto" Content="$40"  FontSize="18" Margin="487,25,182,0" />
+            </Grid>
+
+            <Grid>
+                <Image Source="/Recursos/Iconos/icono_modificar.png" Height="30" Width="30" Margin="618,6,102,19" MouseLeftButtonDown="ImgModificarInsumo_Click"/>
+                <Label Content="Modificar"  Padding="0" HorizontalContentAlignment="Center" Margin="604,36,88,3"/>
+            </Grid>
+
+            <Grid>
+                <Grid Margin="677,13,26,21"  MouseLeftButtonDown="BtnDesactivarActivar_Click" >
+                    <Border x:Name="brdActivoBackground" Background="Black" BorderBrush="Black" BorderThickness="1.9" Margin="0" CornerRadius="10"/>
+                    <Ellipse  Name="btnEsActivo" Fill="Yellow" Height="16" Width="16" HorizontalAlignment="Right" Margin="2,0,2,0" />
+                </Grid>
+                <Label Name="lblModificarEstado" Content="Desactivar"  Padding="0" HorizontalContentAlignment="Center" Margin="673,36,23,3"/>
+
+            </Grid>
+        </Grid>
+    </Viewbox>
+</UserControl>

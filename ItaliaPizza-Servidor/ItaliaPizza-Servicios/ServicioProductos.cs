@@ -1,4 +1,5 @@
-﻿using ItaliaPizza_Contratos.DTOs;
+﻿using ItaliaPizza_Contratos;
+using ItaliaPizza_Contratos.DTOs;
 using ItaliaPizza_Contratos.Excepciones;
 using ItaliaPizza_DataAccess;
 using ItaliaPizza_DataAccess.Excepciones;
@@ -171,6 +172,7 @@ namespace ItaliaPizza_Servicios
             {
                 throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
             }
+
             return categoriasProductoVenta;
         }
 
@@ -321,6 +323,7 @@ namespace ItaliaPizza_Servicios
 
         private bool DesapartarInsumosDeProductoVenta(string codigoProducto, int cantidadProductos, RecetaDAO recetaDAO, InsumoDAO insumoDAO)
         {
+            //TODO: Try-catch
             List<RecetasInsumos> insumosEnReceta = recetaDAO.RecuperarInsumosEnReceta(codigoProducto);
 
             foreach (RecetasInsumos insumo in insumosEnReceta)
@@ -328,6 +331,136 @@ namespace ItaliaPizza_Servicios
                 insumoDAO.DesapartarCantidadInsumo(insumo.CodigoProducto, (double)insumo.CantidadInsumo * cantidadProductos);
             }
             return true;
+        }
+
+        public List<Producto> RecuperarProductosTipoInsumo()
+        {
+            ProductoDAO productoDAO = new ProductoDAO();
+
+            try
+            {
+                List<Productos> productos = productoDAO.RecuperarProductos();
+
+                List<Productos> productosTemporales = new List<Productos>();
+                productosTemporales.AddRange(productos.Where(producto => producto.Insumos != null && producto.ProductosVenta == null));
+
+                List<Producto> productosConvertidos = new List<Producto>();
+                foreach (Productos producto in productosTemporales)
+                {
+                    productosConvertidos.Add(AuxiliarPreparacionDatos.ConvertirProductosAProducto(producto, EnumTiposProducto.Insumo));
+                }
+
+                return productosConvertidos;
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
+        }
+
+        public List<Producto> RecuperarProductosTipoVenta()
+        {
+            ProductoDAO productoDAO = new ProductoDAO();
+            try
+            {
+                List<Productos> productos = productoDAO.RecuperarProductos();
+
+                List<Productos> productosTemporales = new List<Productos>();
+                productosTemporales.AddRange(productos.Where(producto => producto.ProductosVenta != null));
+
+                List<Producto> productosConvertidos = new List<Producto>();
+                foreach (Productos producto in productosTemporales)
+                {
+                    productosConvertidos.Add(AuxiliarPreparacionDatos.ConvertirProductosAProducto(producto, EnumTiposProducto.Venta));
+                }
+
+                return productosConvertidos;
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
+        }
+
+        public List<Categoria> RecuperarCategoriasInsumo()
+        {
+            List<Categoria> categoriasInsumo = new List<Categoria>();
+
+            try
+            {
+                categoriasInsumo.AddRange(
+               new CategoriaDAO().RecuperarCategoriasInsumo().Select(categoriaInsumo =>
+                   new Categoria
+                   {
+                       Id = categoriaInsumo.IdCategoriaInsumo,
+                       Nombre = categoriaInsumo.Nombre
+                   }));
+
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
+
+            return categoriasInsumo;
+        }
+
+        public bool ValidarDesactivacion(string codigoProducto)
+        {
+            bool esDesactivacionValida = false;
+            int numeroPedido = 0;
+            PedidoDAO pedidoDAO = new PedidoDAO();
+
+            try
+            {
+                numeroPedido = pedidoDAO.ValidarDesactivacionProducto(codigoProducto);
+
+                if (numeroPedido == 0)
+                {
+                    esDesactivacionValida = true;
+                }
+
+                return esDesactivacionValida;
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
+
+        }
+
+        public int DesactivarProducto(string codigoProducto)
+        {
+            int filasAfectadas = -1;
+            ProductoDAO productoDAO = new ProductoDAO();
+
+            try
+            {
+                filasAfectadas = productoDAO.DesactivarProducto(codigoProducto);
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
+
+            return filasAfectadas;
+        }
+
+        public int ActivarProducto(string codigoProducto)
+        {
+            int filasAfectadas = -1;
+            ProductoDAO productoDAO = new ProductoDAO();
+
+            try
+            {
+                filasAfectadas = productoDAO.ActivarProducto(codigoProducto);
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
+
+            return filasAfectadas;
         }
     }
 }

@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Auxiliares\ConversorAExcel.cs" />
     <Compile Include="Auxiliares\DispachadorCorreos.cs" />
+    <Compile Include="Auxiliares\EnumTiposProducto.cs" />
     <Compile Include="Auxiliares\ListaEmpleadoActivos.cs" />
     <Compile Include="Auxiliares\ExcepcionServidorItaliaPizzaManager.cs" />
     <Compile Include="Auxiliares\MapeadorProductosAProductoVenta.cs" />
