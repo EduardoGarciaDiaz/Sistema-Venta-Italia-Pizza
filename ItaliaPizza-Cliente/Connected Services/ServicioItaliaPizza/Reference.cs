@@ -3057,6 +3057,54 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/DesapartarInsumosDeProducto", ReplyAction="http://tempuri.org/IServicioProductos/DesapartarInsumosDeProductoResponse")]
         System.Threading.Tasks.Task<bool> DesapartarInsumosDeProductoAsync(string codigoProducto, int cantidadParaDesapartar);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/RecuperarProductosTipoInsumo", ReplyAction="http://tempuri.org/IServicioProductos/RecuperarProductosTipoInsumoResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioProductos/RecuperarProductosTipoInsumoExcepcionServid" +
+            "orItaliaPizzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        ItaliaPizza_Cliente.ServicioItaliaPizza.Producto[] RecuperarProductosTipoInsumo();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/RecuperarProductosTipoInsumo", ReplyAction="http://tempuri.org/IServicioProductos/RecuperarProductosTipoInsumoResponse")]
+        System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.Producto[]> RecuperarProductosTipoInsumoAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/RecuperarProductosTipoVenta", ReplyAction="http://tempuri.org/IServicioProductos/RecuperarProductosTipoVentaResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioProductos/RecuperarProductosTipoVentaExcepcionServido" +
+            "rItaliaPizzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        ItaliaPizza_Cliente.ServicioItaliaPizza.Producto[] RecuperarProductosTipoVenta();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/RecuperarProductosTipoVenta", ReplyAction="http://tempuri.org/IServicioProductos/RecuperarProductosTipoVentaResponse")]
+        System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.Producto[]> RecuperarProductosTipoVentaAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/RecuperarCategoriasInsumo", ReplyAction="http://tempuri.org/IServicioProductos/RecuperarCategoriasInsumoResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioProductos/RecuperarCategoriasInsumoExcepcionServidorI" +
+            "taliaPizzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        ItaliaPizza_Cliente.ServicioItaliaPizza.Categoria[] RecuperarCategoriasInsumo();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/RecuperarCategoriasInsumo", ReplyAction="http://tempuri.org/IServicioProductos/RecuperarCategoriasInsumoResponse")]
+        System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.Categoria[]> RecuperarCategoriasInsumoAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/ValidarDesactivacion", ReplyAction="http://tempuri.org/IServicioProductos/ValidarDesactivacionResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioProductos/ValidarDesactivacionExcepcionServidorItalia" +
+            "PizzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        bool ValidarDesactivacion(string codigoProducto);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/ValidarDesactivacion", ReplyAction="http://tempuri.org/IServicioProductos/ValidarDesactivacionResponse")]
+        System.Threading.Tasks.Task<bool> ValidarDesactivacionAsync(string codigoProducto);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/DesactivarProducto", ReplyAction="http://tempuri.org/IServicioProductos/DesactivarProductoResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioProductos/DesactivarProductoExcepcionServidorItaliaPi" +
+            "zzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        int DesactivarProducto(string codigoProducto);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/DesactivarProducto", ReplyAction="http://tempuri.org/IServicioProductos/DesactivarProductoResponse")]
+        System.Threading.Tasks.Task<int> DesactivarProductoAsync(string codigoProducto);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/ActivarProducto", ReplyAction="http://tempuri.org/IServicioProductos/ActivarProductoResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioProductos/ActivarProductoExcepcionServidorItaliaPizza" +
+            "Fault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        int ActivarProducto(string codigoProducto);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/ActivarProducto", ReplyAction="http://tempuri.org/IServicioProductos/ActivarProductoResponse")]
+        System.Threading.Tasks.Task<int> ActivarProductoAsync(string codigoProducto);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -3172,6 +3220,54 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         public System.Threading.Tasks.Task<bool> DesapartarInsumosDeProductoAsync(string codigoProducto, int cantidadParaDesapartar) {
             return base.Channel.DesapartarInsumosDeProductoAsync(codigoProducto, cantidadParaDesapartar);
+        }
+        
+        public ItaliaPizza_Cliente.ServicioItaliaPizza.Producto[] RecuperarProductosTipoInsumo() {
+            return base.Channel.RecuperarProductosTipoInsumo();
+        }
+        
+        public System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.Producto[]> RecuperarProductosTipoInsumoAsync() {
+            return base.Channel.RecuperarProductosTipoInsumoAsync();
+        }
+        
+        public ItaliaPizza_Cliente.ServicioItaliaPizza.Producto[] RecuperarProductosTipoVenta() {
+            return base.Channel.RecuperarProductosTipoVenta();
+        }
+        
+        public System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.Producto[]> RecuperarProductosTipoVentaAsync() {
+            return base.Channel.RecuperarProductosTipoVentaAsync();
+        }
+        
+        public ItaliaPizza_Cliente.ServicioItaliaPizza.Categoria[] RecuperarCategoriasInsumo() {
+            return base.Channel.RecuperarCategoriasInsumo();
+        }
+        
+        public System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.Categoria[]> RecuperarCategoriasInsumoAsync() {
+            return base.Channel.RecuperarCategoriasInsumoAsync();
+        }
+        
+        public bool ValidarDesactivacion(string codigoProducto) {
+            return base.Channel.ValidarDesactivacion(codigoProducto);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ValidarDesactivacionAsync(string codigoProducto) {
+            return base.Channel.ValidarDesactivacionAsync(codigoProducto);
+        }
+        
+        public int DesactivarProducto(string codigoProducto) {
+            return base.Channel.DesactivarProducto(codigoProducto);
+        }
+        
+        public System.Threading.Tasks.Task<int> DesactivarProductoAsync(string codigoProducto) {
+            return base.Channel.DesactivarProductoAsync(codigoProducto);
+        }
+        
+        public int ActivarProducto(string codigoProducto) {
+            return base.Channel.ActivarProducto(codigoProducto);
+        }
+        
+        public System.Threading.Tasks.Task<int> ActivarProductoAsync(string codigoProducto) {
+            return base.Channel.ActivarProductoAsync(codigoProducto);
         }
     }
     

@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ItaliaPizza_Cliente.Vistas"
+      xmlns:uc="clr-namespace:ItaliaPizza_Cliente.Recursos.ControlesUsuario"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1300" Background="#F6F6F6"
       Title="Productos">
@@ -12,7 +13,7 @@
         <Style TargetType="{x:Type Button}" >
             <Style.Resources>
                 <Style TargetType="{x:Type Border}">
-                    <Setter Property="CornerRadius" Value="30" />
+                    <Setter Property="CornerRadius" Value="25" />
                 </Style>
             </Style.Resources>
         </Style>
@@ -20,7 +21,104 @@
 
     <Viewbox Stretch="Fill">
         <Grid Height="800" Width="1300" Background="#F6F6F6">
-            <Button Content="Registrar producto" HorizontalAlignment="Left" Margin="912,722,0,0" VerticalAlignment="Top" Height="55" Width="338" Foreground="Black" BorderBrush="#FFF8D72A" Background="#FFF8D72A" FontSize="24" FontWeight="Bold" Cursor="Hand" Click="BtnRegistrarProducto_Click"/>
+            <uc:BarraDeBusqueda x:Name="barraDeBusqueda" Margin="-9,15,712,738"/>
+            <Border Margin="12,78,29,88" BorderBrush="Black" BorderThickness="1" CornerRadius="25">
+            </Border>
+            <!--Insumos-->
+            <Label Content="Insumos"  HorizontalAlignment="Left" Margin="32,80,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FFD6B400" FontSize="30"/>
+            <Label Content="Categorias" HorizontalAlignment="Left" Margin="32,120,0,0" VerticalAlignment="Top" />
+            <!--filtro categorias-->
+            <Border BorderBrush="Black" 
+                Margin="29,146,546,606" 
+                Background="White" 
+                CornerRadius="10,10,10,10">
+                <ScrollViewer VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto" Margin="-1,-1,1,0">
+                    <StackPanel x:Name="stackPanelCategoriasInsumo" Orientation="Horizontal">
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+            <!--insumos-->
+            <ScrollViewer Margin="20,208,546,91" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                <StackPanel x:Name="stackPanelInsumos">
+                </StackPanel>
+            </ScrollViewer>
+
+            <Separator HorizontalAlignment="Left" Margin="473,392,0,0" VerticalAlignment="Top" Height="43" Width="569" RenderTransformOrigin="0.5,0.5" Background="Black">
+                <Separator.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="90"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Separator.RenderTransform>
+            </Separator>
+
+            <!--en venta-->
+            <Label Content="En venta"  HorizontalAlignment="Left" Margin="802,80,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FFD6B400" FontSize="30"/>
+            <Label Content="Categorias" HorizontalAlignment="Left" Margin="801,120,0,0" VerticalAlignment="Top" />
+            <Border BorderBrush="Black" 
+                Margin="801,146,63,606" 
+                Background="White" 
+                CornerRadius="10,10,10,10">
+                <ScrollViewer VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto" Margin="-1,-1,1,1">
+                    <StackPanel x:Name="stackPanelCategoriasProductoVenta" Orientation="Horizontal">
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+
+            <!--productos en venta-->
+            <ScrollViewer Margin="759,208,29,91">
+                <WrapPanel Name="wrapPanelProductosVenta">
+                </WrapPanel>
+
+            </ScrollViewer>
+
+            <Label x:Name="lblSinInsumos" Visibility="Collapsed" Margin="196,410,0,0" FontSize="22" Foreground="#FF6C6C6C" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">Ningún producto ha sido registrado</Label>
+            <Label x:Name="lblSinProductosVenta" Visibility="Collapsed" Margin="824,410,0,0" FontSize="22" Foreground="#FF6C6C6C" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">Ningún producto ha sido registrado</Label>
+
+            <!--botones-->
+            <Button Content="Validar inventario" HorizontalAlignment="Left" Margin="534,734,0,0" VerticalAlignment="Top" Height="55" Width="338" Foreground="Black" BorderBrush="#FFF8D72A" Background="#FFF8D72A" FontSize="24" FontWeight="Bold" Cursor="Hand" Click="BtnValidarInventario_Click"/>
+            <Button Content="Registrar producto" HorizontalAlignment="Left" Margin="920,734,0,0" VerticalAlignment="Top" Height="55" Width="338" Foreground="Black" BorderBrush="#FFF8D72A" Background="#FFF8D72A" FontSize="24" FontWeight="Bold" Cursor="Hand" Click="BtnRegistrarProducto_Click"/>
+
+            <!--detalles-->
+            <Grid Margin="241,213,241,201" Name="gridDetallesProducto" Visibility="Collapsed">
+                <Rectangle RadiusX="25" RadiusY="25" Fill="white" Stroke="Black"/>
+                <Image Source="/Recursos/Iconos/icono_cerrar.png" Margin="757,1,6,330" MouseLeftButtonDown="ImgCerrarDetalles_Click"/>
+
+                <Label  Content="Código:" FontWeight="Medium" FontSize="18" Margin="20,17,708,334"/>
+                <Label Name="lblCodigo" Content="" FontWeight="Medium" FontSize="18" Margin="92,10,330,327" VerticalContentAlignment="Center"/>
+
+                <Label Content="Nombre:" FontWeight="Medium" FontSize="18" Margin="20,72,708,277"/>
+                <Label Name="lblNombre" Content="" FontSize="18" Margin="118,66,192,271" VerticalContentAlignment="Center"/>
+
+                <Label Content="Categoria:" FontWeight="Medium" FontSize="18" Margin="20,104,698,248"/>
+                <Label Name="lblCategoria" Content="" FontSize="18" Margin="118,97,192,240" VerticalContentAlignment="Center"/>
+
+                <Label Content="Descripción:" FontWeight="Medium" FontSize="18" Margin="20,136,685,212"/>
+                <ScrollViewer Margin="125,141,23,171" VerticalScrollBarVisibility="Auto">
+                    <TextBlock x:Name="tbkDescripcion" Text="" FontSize="18" TextWrapping="Wrap" Width="660" />
+                </ScrollViewer>
+
+                <Label Content="Cantidad:" FontWeight="Medium" FontSize="18" Margin="20,214,685,134"/>
+                <Label Name="lblCantidad" Content="" FontSize="18" Margin="104,207,206,130" VerticalContentAlignment="Center"/>
+
+                <Label Content="Costo:" FontWeight="Medium" FontSize="18" Margin="20,244,685,104"/>
+                <Label Name="lblCosto" Content="" FontSize="18" Margin="80,236,230,100" VerticalContentAlignment="Center"/>
+
+                <Label Content="Restricciones:" FontWeight="Medium" FontSize="18" Margin="20,274,679,74"/>
+                <ScrollViewer Margin="139,279,33,33" VerticalScrollBarVisibility="Auto">
+                    <TextBlock x:Name="tbkRestricciones" Text="" FontSize="18" TextWrapping="Wrap" Width="660" />
+                </ScrollViewer>
+
+                <Label Content="Precio:" FontWeight="Medium" FontSize="18" Margin="454,19,296,329"/>
+                <Label Name="lblPrecio" Content="" FontSize="18" Margin="512,11,214,325" VerticalContentAlignment="Center"/>
+
+
+                <Image x:Name="imgFoto" Margin="614,12,86,246" />
+
+            </Grid>
+
         </Grid>
     </Viewbox>
 </Page>
