@@ -321,6 +321,5 @@ namespace ItaliaPizza_DataAccess
                 throw new ExcepcionDataAccess(ex.Message);
             }
         }
-
     }
 }
