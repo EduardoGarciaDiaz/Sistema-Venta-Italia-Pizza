@@ -1,18 +1,12 @@
-﻿using ItaliaPizza_Cliente.ServicioItaliaPizza;
+﻿using Aspose.Pdf;
+using ItaliaPizza_Cliente.ServicioItaliaPizza;
 using ItaliaPizza_Cliente.Utilidades;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace ItaliaPizza_Cliente.Vistas
 {
@@ -23,18 +17,25 @@ namespace ItaliaPizza_Cliente.Vistas
     {
         List<Categoria> categoriasInsumos = new List<Categoria>();
         List<Categoria> categoriasProductosVenta = new List<Categoria>();
-        public ReporteProductos()
+        private readonly Window _mainWindow;
+        private Frame _frameNavigator;
+
+
+        public ReporteProductos(Frame frameNavigator)
         {
             InitializeComponent();
             this.Loaded += PrepararVentana;
+            _mainWindow = Application.Current.MainWindow;
+            ConfigurarVentana(frameNavigator);
 
         }
 
         private void PrepararVentana(object sender, RoutedEventArgs e)
         {
             ServicioProductosClient prodcutosCliente = new ServicioProductosClient();
-            categoriasInsumos = prodcutosCliente.RecuperarCategorias().ToList();
+            categoriasInsumos = prodcutosCliente.RecuperarCategoriasInsumo().ToList();
             categoriasProductosVenta = prodcutosCliente.RecuperarCategoriasProductoVenta().ToList();
+            CargarCheckBoxes(categoriasInsumos, categoriasProductosVenta);
         }
 
         private void CargarCheckBoxes(List<Categoria> categoriasInsumo, List<Categoria> categoriasVenta)
@@ -44,15 +45,13 @@ namespace ItaliaPizza_Cliente.Vistas
                 CheckBox categoria = new CheckBox();
                 categoria.Content = item.Nombre;
                 categoria.Margin = new Thickness(0,5,0,5);
-                categoria.HorizontalAlignment = HorizontalAlignment.Center;
                 stpInsumos.Children.Add(categoria);
             }
-            foreach (var item in categoriasProductosVenta)
+            foreach (var item in categoriasVenta)
             {
                 CheckBox categoria = new CheckBox();
                 categoria.Content = item.Nombre;
                 categoria.Margin = new Thickness(0, 5, 0, 5);
-                categoria.HorizontalAlignment = HorizontalAlignment.Center;
                 stpProductosVenta.Children.Add(categoria);
             }
         }
@@ -112,12 +111,28 @@ namespace ItaliaPizza_Cliente.Vistas
             if(categoriasSeleccioandas.Count != 0)
             {
                 bool incluirAgotados = chbAgotados.IsChecked.Value;
+                ServicioProductosClient servicioProductosClient = new ServicioProductosClient();
+                byte[] bytesReporte = servicioProductosClient.GenerarReporteProductos(categoriasSeleccioandas.ToArray(), incluirAgotados);
+                GuardarReporte(bytesReporte);
+                VentanaEmergente ventanaEmergente = new VentanaEmergente("Reporte generado", "Reporte generado exitosamente", Window.GetWindow(this), 1);
+                ventanaEmergente.ShowDialog();
             }
             else
             {
                 VentanaEmergente ventanaEmergente = new VentanaEmergente("Error", "No se puede generar un reporte vacio, por favor selecciona al menos una categoría", Window.GetWindow(this), 1);
+                ventanaEmergente.ShowDialog();
             }
 
+        }
+
+        private void GuardarReporte(byte[] bytesReporte)
+        {
+            using (MemoryStream memoryStream = new MemoryStream(bytesReporte))
+            {
+                Document document = new Document(memoryStream);
+                DateTime fechaActual = DateTime.Now;
+                document.Save("ReporteProdcutos_"+fechaActual.ToString()+".pdf");
+            }
         }
 
         private List<Categoria> ObtenerCategoriasSelccionadas()
@@ -150,7 +165,29 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void BtnCancelar_Click(object sender, RoutedEventArgs e)
         {
+            this.Close();
+        }
 
+        private void ConfigurarVentana(Frame frameNavigator)
+        {
+            _frameNavigator = frameNavigator;
+            this.Owner = _mainWindow;
+            SetSizeWindow();
+            SetCenterWindow();
+        }
+
+        private void SetSizeWindow()
+        {
+            this.Width = _mainWindow.Width;
+            this.Height = _mainWindow.Height;
+        }
+
+        private void SetCenterWindow()
+        {
+            double centerX = _mainWindow.Left + (_mainWindow.Width - this.Width) / 2;
+            double centerY = _mainWindow.Top + (_mainWindow.Height - this.Height) / 2;
+            this.Left = centerX;
+            this.Top = centerY;
         }
     }
 }

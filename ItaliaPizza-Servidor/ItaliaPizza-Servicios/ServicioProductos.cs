@@ -462,5 +462,24 @@ namespace ItaliaPizza_Servicios
 
             return filasAfectadas;
         }
+
+        public byte[] GenerarReporteProductos(List<Categoria> categoriasSeleccionadas, bool incluirAgotados)
+        {            
+            List<Insumos> insumos;
+            List<ProductosVenta> productos;
+            InsumoDAO insumoDAO =new InsumoDAO();
+            ProductoDAO productoDAO=new ProductoDAO();
+            if (incluirAgotados)
+            {
+                insumos = insumoDAO.RecuperarTodosInsumosPorCategoria(categoriasSeleccionadas.ToList());
+                productos = productoDAO.RecuperarTodosProductosVentaPorCategoria(categoriasSeleccionadas.ToList());
+            }
+            else
+            {
+                insumos = insumoDAO.RecuperarInsumosActivosPorCategoria(categoriasSeleccionadas.ToList());
+                productos = productoDAO.RecuperarProductosVentaPorCategoriaActivos(categoriasSeleccionadas.ToList());
+            }
+            return GeneradorPDF.GenerarReproteProductosPDF(insumos, productos);
+        }
     }
 }

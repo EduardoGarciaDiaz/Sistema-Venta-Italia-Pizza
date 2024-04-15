@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ItaliaPizza_DataAccess.Excepciones;
+using System.Data.Entity;
 
 namespace ItaliaPizza_DataAccess
 {
@@ -321,5 +322,76 @@ namespace ItaliaPizza_DataAccess
                 throw new ExcepcionDataAccess(ex.Message);
             }
         }
-    }
+
+        public List<ProductosVenta> RecuperarProductosVentaPorCategoriaActivos(List<Categoria> categorias)
+        {
+            List<ProductosVenta> productosVenta = new List<ProductosVenta>();
+
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    productosVenta = context.ProductosVenta.Where(productoV => (bool)productoV.Productos.EsActivo && categorias.Any(cat => cat.Nombre.Equals(productoV.CategoriasProductoVenta.Nombre)))
+                            .Include(pro => pro.Productos)
+                            .Include(pro => pro.CategoriasProductoVenta)
+                            .Include(pro => pro.Productos.Insumos)
+                            .Include(pro => pro.Productos.Insumos.UnidadesMedida)
+                            .ToList();
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            return productosVenta;
+        }
+
+        public List<ProductosVenta> RecuperarTodosProductosVentaPorCategoria(List<Categoria> categorias)
+        {
+            List<ProductosVenta> productosVenta = new List<ProductosVenta>();
+
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    productosVenta = context.ProductosVenta.Where(productoV => categorias.Any(cat => cat.Nombre.Equals(productoV.CategoriasProductoVenta.Nombre)))
+                            .Include(pro => pro.Productos)
+                            .Include(pro => pro.CategoriasProductoVenta)
+                            .Include(pro => pro.Productos.Insumos)
+                            .Include(pro => pro.Productos.Insumos.UnidadesMedida)
+                            .ToList();
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            return productosVenta;
+        }
+
+
+    } 
+
 }

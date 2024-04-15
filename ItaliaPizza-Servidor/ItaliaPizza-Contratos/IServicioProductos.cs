@@ -78,5 +78,9 @@ namespace ItaliaPizza_Contratos
         [OperationContract]
         [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
         int ActivarProducto(string codigoProducto);
+
+        [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
+        byte[] GenerarReporteProductos(List<Categoria> categoriasSeleccionadas, bool incluirAgotados);
     }
 }
