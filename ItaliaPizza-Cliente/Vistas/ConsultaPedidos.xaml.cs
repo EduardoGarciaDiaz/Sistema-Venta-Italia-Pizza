@@ -153,7 +153,7 @@ namespace ItaliaPizza_Cliente.Vistas
             else
             {
                 LblMensajeAdvertenciaPedido.Content = MENSAJE_CAMPO_VACIO;
-                Utilidad.MostrarLabelDuranteSegundos(LblMensajeAdvertenciaPedido, 2);
+                Utilidad.MostrarMensaje(LblMensajeAdvertenciaPedido, 2);
             }
         }
 
@@ -179,7 +179,7 @@ namespace ItaliaPizza_Cliente.Vistas
             else
             {
                 lblMensajeSinResultados.Content = MENSAJE_SIN_RESULTADOS_SELECCION_FECHA;
-                Utilidad.MostrarLabelDuranteSegundos(lblMensajeSinResultados, 2);
+                Utilidad.MostrarMensaje(lblMensajeSinResultados, 2);
             }
         }
 
