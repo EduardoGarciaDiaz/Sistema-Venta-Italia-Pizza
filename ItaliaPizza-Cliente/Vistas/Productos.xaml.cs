@@ -564,15 +564,15 @@ namespace ItaliaPizza_Cliente.Vistas
             lblCodigo.Content = productoSeleccionado.Codigo;
             lblNombre.Content = productoSeleccionado.Nombre;
             tbkDescripcion.Text = productoSeleccionado.Descripcion;
-           
-            if (productoVenta != null)
-            {
-                MostrarDetallesProductoVenta(productoVenta);
-            }
 
             if (insumo != null)
             {
                 MostrarDetallesInsumo(insumo);
+            }
+
+            if (productoVenta != null)
+            {
+                MostrarDetallesProductoVenta(productoVenta);
             }
         }
 
@@ -691,7 +691,20 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void BtnValidarInventario_Click(object sender, RoutedEventArgs e)
         {
-            // TODO
+            List<Categoria> categorias = new List<Categoria>();
+            categorias.AddRange(_categoriasInsumo);
+            var bebidas = _categoriasProductoVenta.FirstOrDefault(c => c.Nombre == "Bebidas");
+            if (bebidas != null)
+            {
+                categorias.Add(bebidas);
+            }
+            var postres = _categoriasProductoVenta.FirstOrDefault(c => c.Nombre == "Postres");
+            if (postres != null)
+            {
+                categorias.Add(postres);
+            }
+
+            NavigationService.Navigate(new ValidacionInventario(categorias));
         }
     }
 }

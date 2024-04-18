@@ -49,6 +49,7 @@ namespace ItaliaPizza_Contratos
         bool ValidarDisponibilidadDeProducto(string codigoProducto, int cantidadProductos);
 
         [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
         List<InsumoOrdenCompraDto> RecuperarInsumosActivos();
 
         [OperationContract]
@@ -78,5 +79,9 @@ namespace ItaliaPizza_Contratos
         [OperationContract]
         [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
         int ActivarProducto(string codigoProducto);
+
+        [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
+        List<Producto> RecuperarProductosInventariados();
     }
 }

@@ -128,6 +128,9 @@
     <Compile Include="Recursos\ControlesUsuario\ElementoInsumoOrdenCompraSeleccionado.xaml.cs">
       <DependentUpon>ElementoInsumoOrdenCompraSeleccionado.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Recursos\ControlesUsuario\ElementoValidacionProducto.xaml.cs">
+      <DependentUpon>ElementoValidacionProducto.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utilidades\CampoTextoConLabel.cs" />
     <Compile Include="Utilidades\ConvertidorBytes.cs" />
     <Compile Include="Utilidades\EmpleadoSingleton.cs" />
@@ -194,6 +197,9 @@
     </Compile>
     <Compile Include="Vistas\Usuarios.xaml.cs">
       <DependentUpon>Usuarios.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\ValidacionInventario.xaml.cs">
+      <DependentUpon>ValidacionInventario.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -295,6 +301,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Recursos\ControlesUsuario\ElementoValidacionProducto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Utilidades\VentanaEmergente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -368,6 +378,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Vistas\Usuarios.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\ValidacionInventario.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -97,5 +97,26 @@ namespace ItaliaPizza_Servicios.Auxiliares
 
             return producto;
         }
+
+        public static Producto ConvertirProductosAProductoInventariado(Productos productos)
+        {
+            Producto producto = new Producto()
+            {
+                Codigo = productos.CodigoProducto,
+                Nombre = productos.Nombre,
+                Descripcion = productos.Descripcion,
+                EsInventariado = (bool)productos.EsInventariado,
+                EsActivo = (bool)productos.EsActivo,
+            };
+
+            producto.Insumo = AsignarInsumo(productos.Insumos);
+
+            if (productos.ProductosVenta != null)
+            {
+                producto.ProductoVenta = AsignarProductoVenta(productos.ProductosVenta);
+            }
+
+            return producto;
+        }
     }
 }
