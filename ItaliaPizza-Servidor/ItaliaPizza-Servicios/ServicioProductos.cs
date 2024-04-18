@@ -462,5 +462,30 @@ namespace ItaliaPizza_Servicios
 
             return filasAfectadas;
         }
+
+        public List<Producto> RecuperarProductosInventariados()
+        {
+            ProductoDAO productoDAO = new ProductoDAO();
+
+            try
+            {
+                List<Productos> productos = productoDAO.RecuperarProductos();
+
+                List<Productos> productosTemporales = new List<Productos>();
+                productosTemporales.AddRange(productos.Where(producto => producto.Insumos != null && producto.EsInventariado == true));
+
+                List<Producto> productosConvertidos = new List<Producto>();
+                foreach (Productos producto in productosTemporales)
+                {
+                    productosConvertidos.Add(AuxiliarPreparacionDatos.ConvertirProductosAProductoInventariado(producto));
+                }
+
+                return productosConvertidos;
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
+        }
     }
 }

@@ -3045,6 +3045,8 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         System.Threading.Tasks.Task<bool> ValidarDisponibilidadDeProductoAsync(string codigoProducto, int cantidadProductos);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/RecuperarInsumosActivos", ReplyAction="http://tempuri.org/IServicioProductos/RecuperarInsumosActivosResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioProductos/RecuperarInsumosActivosExcepcionServidorIta" +
+            "liaPizzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
         ItaliaPizza_Cliente.ServicioItaliaPizza.InsumoOrdenCompraDto[] RecuperarInsumosActivos();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/RecuperarInsumosActivos", ReplyAction="http://tempuri.org/IServicioProductos/RecuperarInsumosActivosResponse")]
@@ -3105,6 +3107,14 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/ActivarProducto", ReplyAction="http://tempuri.org/IServicioProductos/ActivarProductoResponse")]
         System.Threading.Tasks.Task<int> ActivarProductoAsync(string codigoProducto);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/RecuperarProductosInventariados", ReplyAction="http://tempuri.org/IServicioProductos/RecuperarProductosInventariadosResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioProductos/RecuperarProductosInventariadosExcepcionSer" +
+            "vidorItaliaPizzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        ItaliaPizza_Cliente.ServicioItaliaPizza.Producto[] RecuperarProductosInventariados();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/RecuperarProductosInventariados", ReplyAction="http://tempuri.org/IServicioProductos/RecuperarProductosInventariadosResponse")]
+        System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.Producto[]> RecuperarProductosInventariadosAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -3268,6 +3278,14 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         public System.Threading.Tasks.Task<int> ActivarProductoAsync(string codigoProducto) {
             return base.Channel.ActivarProductoAsync(codigoProducto);
+        }
+        
+        public ItaliaPizza_Cliente.ServicioItaliaPizza.Producto[] RecuperarProductosInventariados() {
+            return base.Channel.RecuperarProductosInventariados();
+        }
+        
+        public System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.Producto[]> RecuperarProductosInventariadosAsync() {
+            return base.Channel.RecuperarProductosInventariadosAsync();
         }
     }
     
