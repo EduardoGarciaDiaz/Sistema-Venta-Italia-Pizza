@@ -16,6 +16,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="CorreoElectronico" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Direccion" nillable="true" type="tns:DireccionDto" />
+      <xs:element minOccurs="0" name="EsActivo" type="xs:boolean" />
       <xs:element minOccurs="0" name="IdDireccion" type="xs:int" />
       <xs:element minOccurs="0" name="IdProveedor" type="xs:int" />
       <xs:element minOccurs="0" name="NombreCompleto" nillable="true" type="xs:string" />
@@ -220,6 +221,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfInsumoOrdenCompraDto" nillable="true" type="tns:ArrayOfInsumoOrdenCompraDto" />
+  <xs:complexType name="ArrayOfProducto">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Producto" nillable="true" type="tns:Producto" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfProducto" nillable="true" type="tns:ArrayOfProducto" />
   <xs:complexType name="ArrayOfReceta">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Receta" nillable="true" type="tns:Receta" />
@@ -336,4 +343,14 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfProveedorDto" nillable="true" type="tns:ArrayOfProveedorDto" />
+  <xs:complexType name="GastoVario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Fecha" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Monto" type="xs:double" />
+      <xs:element minOccurs="0" name="nombreUsuario" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GastoVario" nillable="true" type="tns:GastoVario" />
 </xs:schema>

@@ -46,7 +46,7 @@
                HorizontalAlignment="Center" 
                VerticalAlignment="Top" 
                Height="24" 
-               Foreground="#FFD6B400" Width="60"/>
+               Foreground="#FFD6B400" Width="auto"/>
         <Border x:Name="BdrBoton"
         CornerRadius="8">
 

@@ -103,7 +103,7 @@ namespace ItaliaPizza_Cliente.Vistas
         private void ObtenerProveedoresAtivos()
         {
             ServicioProveedoresClient servicioProveedoresClient = new ServicioProveedoresClient();
-            proveedores = servicioProveedoresClient.RecuperarProveedores().ToList();
+            proveedores = servicioProveedoresClient.RecuperarProveedoresActivos().ToList();
         }
 
         private void ObtenerIsnsumoActivos()
@@ -485,8 +485,9 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void BtnRegistrarProveedor_Click(object sender, RoutedEventArgs e)
         {
-            VentanaEmergente ventanaEmergente = new VentanaEmergente("AVISO!!!", "Esta funcionalidad se implementara proximamente", Window.GetWindow(this), 2);
-            ventanaEmergente.ShowDialog();
+            RegistroProveedor paginaRegistroProveedor = new RegistroProveedor(false);
+            MainWindow ventanaPrincipal = (MainWindow)Window.GetWindow(this);
+            ventanaPrincipal.FrameNavigator.NavigationService.Navigate(paginaRegistroProveedor);
         }
 
         private void BtnLimpiarOrden_Click(object sender, MouseButtonEventArgs e)

@@ -61,6 +61,7 @@
     <Compile Include="DTOs\DireccionDto.cs" />
     <Compile Include="DTOs\EmpleadoDto.cs" />
     <Compile Include="DTOs\EstadoPedido.cs" />
+    <Compile Include="DTOs\GastoVario.cs" />
     <Compile Include="DTOs\Insumo.cs" />
     <Compile Include="DTOs\InsumoOrdenCompraDto.cs" />
     <Compile Include="DTOs\InsumoReceta.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="DTOs\UnidadMedida.cs" />
     <Compile Include="DTOs\UsuarioDto.cs" />
     <Compile Include="Excepciones\ExcepcionServidorItaliaPizza.cs" />
+    <Compile Include="IServicioGastosVarios.cs" />
     <Compile Include="IServicioInicioSesion.cs" />
     <Compile Include="IServicioOrdenesCompra.cs" />
     <Compile Include="IServicioPedidos.cs" />

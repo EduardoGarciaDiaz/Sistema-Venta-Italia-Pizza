@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ItaliaPizza_DataAccess.Excepciones;
+using System.Data.Entity.Migrations;
 
 namespace ItaliaPizza_DataAccess
 {
@@ -47,8 +48,20 @@ namespace ItaliaPizza_DataAccess
             {
                 using (var context = new ItaliaPizzaEntities())
                 {
-
-                    context.Empleados.Add(empeladoNuevo);
+                    if (empeladoNuevo.IdTipoEmpleado == context.TiposEmpleado.FirstOrDefault(tipo => tipo.Nombre.Equals("Mesero")).IdTipoEmpleado)
+                    {
+                        int idUsuario = (int)empeladoNuevo.IdUsuario;
+                        if (!context.Empleados.Any(emp => emp.IdTipoEmpleado == context.TiposEmpleado.FirstOrDefault(tipo => tipo.Nombre.Equals("Mesero")).IdTipoEmpleado))
+                        {
+                            empeladoNuevo.IdUsuario = null;
+                            context.Empleados.AddOrUpdate(empeladoNuevo);
+                        }
+                        context.Meseros.Add(new Meseros() {IdMesero = 0, IdUsuario = idUsuario, NombreUsuario = empeladoNuevo.NombreUsuario});
+                    }
+                    else
+                    {
+                        context.Empleados.Add(empeladoNuevo);
+                    }
                     resultadoOperacion = context.SaveChanges();
                 }
             }
@@ -108,8 +121,7 @@ namespace ItaliaPizza_DataAccess
             {
                 using (var context = new ItaliaPizzaEntities())
                 {
-                     empleados = context.Empleados.Include(u => u.Usuarios.Direcciones).Include(e=> e.Usuarios).Include(e => e.TiposEmpleado).Where(empl => empl.IdTipoEmpleado != null).ToList();
-
+                     empleados = context.Empleados.Include(u => u.Usuarios.Direcciones).Include(e=> e.Usuarios).Include(e => e.TiposEmpleado).Where(empl => empl.IdTipoEmpleado != null && empl.IdUsuario != null).ToList();
                 }
             }
             catch (EntityException ex)
@@ -130,6 +142,34 @@ namespace ItaliaPizza_DataAccess
             return empleados;
         }
 
+        public static List<Meseros> RecuperarMeserosBD()
+        {
+            List<Meseros> meseros = new List<Meseros>();
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    meseros = context.Meseros.Include(u => u.Usuarios.Direcciones).Include(e => e.Usuarios).Include(e => e.Empleados).Include(e => e.Empleados.TiposEmpleado).ToList();
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            return meseros;
+        }
+
         public static Empleados RecuperarEmpleadoProNombreUsuarioBD(string nombreUsuario)
         {
 
@@ -138,6 +178,11 @@ namespace ItaliaPizza_DataAccess
             {
                 using (var context = new ItaliaPizzaEntities())
                 {
+                    if (nombreUsuario.Equals("mesero"))
+                    {
+                       var  mesero = context.Meseros.Include(u => u.Usuarios.Direcciones).Include(e => e.Usuarios).Include(e => e.Empleados).Include(e => e.Empleados.TiposEmpleado).First();
+                        
+                    }
                     empleados = context.Empleados.Include(e => e.Usuarios).Include(u => u.Usuarios.Direcciones).Include(e => e.TiposEmpleado).FirstOrDefault(empl => empl.NombreUsuario.Equals(nombreUsuario));
                 }
             }
@@ -159,14 +204,59 @@ namespace ItaliaPizza_DataAccess
             return empleados;
         }
 
-        public static bool ValidarCredencialesBD(string nombreUsuario, string contraseña)
+        public static Meseros RecuperarMeseroPorNombreUsuarioBD()
         {
-            bool resultadoOperacion = false;
+            Meseros meseros = new Meseros();
             try
             {
                 using (var context = new ItaliaPizzaEntities())
                 {
-                    resultadoOperacion = context.Empleados.Any(emp => emp.NombreUsuario.Equals(nombreUsuario) && emp.Contraseña.Equals(contraseña));                   
+                    meseros = context.Meseros.Include(u => u.Usuarios.Direcciones).Include(e => e.Usuarios).Include(e => e.Empleados).Include(e => e.Empleados.TiposEmpleado).FirstOrDefault();
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            return meseros;
+        }
+
+        public static int ValidarCredencialesBD(string nombreUsuario, string contraseña)
+        {
+            int resultadoOperacion = 0;
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    bool existe = context.Empleados.Any(emp => emp.NombreUsuario.Equals(nombreUsuario) && emp.Contraseña.Equals(contraseña));  
+                    if (existe)
+                    {
+                        if (!nombreUsuario.Equals("mesero")) {
+                            if ((bool)context.Empleados.FirstOrDefault(emp => emp.NombreUsuario.Equals(nombreUsuario)).Usuarios.EsActivo)
+                            {
+                                resultadoOperacion = 1;
+                            }
+                            else
+                            {
+                                resultadoOperacion = 2;
+                            }
+                        }
+                        else
+                        {
+                            resultadoOperacion = 1;
+                        }
+                    }
                 }
             }
             catch (EntityException ex)
@@ -186,5 +276,6 @@ namespace ItaliaPizza_DataAccess
             }
             return resultadoOperacion;
         }
+
     }
 }

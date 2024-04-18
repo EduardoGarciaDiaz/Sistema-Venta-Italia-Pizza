@@ -54,13 +54,8 @@ namespace ItaliaPizza_Cliente
             }
         }
         private void OpcionesPanelAdmin()
-        {
-            AgregarBotonPedido();
-            AgregarBotonPedidos();            
-            AgregarBotonProductos();
+        {         
             AgregarBotonConsultaUsuarios();
-            AgregarBotonRecetas();
-            AgregarBotonConsultaOrdenesDeCompra();
         }
 
         private void OpcionesPanelCajero()
@@ -79,6 +74,7 @@ namespace ItaliaPizza_Cliente
         {
             AgregarBotonProductos();
             AgregarBotonConsultaOrdenesDeCompra();
+            AgregarBotonProveedores();
         }
         private void OpcionesPanelMesero()
         {
@@ -198,6 +194,21 @@ namespace ItaliaPizza_Cliente
             FrameNavigator.NavigationService.Navigate(consultaOrdenesDeCompra);
         }
 
+        private void AgregarBotonProveedores()
+        {
+            BtnMenuLateral proveedor = new BtnMenuLateral();
+            proveedor.ImgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_proveedor.png",UriKind.Relative));
+            proveedor.LblNombreBoton.Content = "Proveedores";
+            proveedor.Click += BtnProveedores_Click;
+            SkpMenuLateral.Children.Add(proveedor);
+        }
+
+        private void BtnProveedores_Click(object sender, RoutedEventArgs e)
+        {
+            ConsultaProveedores paginaConsultaProveedores = new ConsultaProveedores();
+            FrameNavigator.NavigationService.Navigate(paginaConsultaProveedores);
+        }
+
 
 
         private void MainWindow_Cerrando(object sender, System.ComponentModel.CancelEventArgs e)
@@ -224,6 +235,7 @@ namespace ItaliaPizza_Cliente
                 SkpMenuLateral.Children.Clear();
                 ServicioInicioSesionClient servicioInicioSesionClient = new ServicioInicioSesionClient();
                 servicioInicioSesionClient.CerrarSesion(EmpleadoSingleton.getInstance().IdUsuario);
+                lblNombre.Content = String.Empty;
             }
             catch (EndpointNotFoundException)
             {
@@ -252,6 +264,16 @@ namespace ItaliaPizza_Cliente
             EmpleadoSingleton.LimpiarSingleton();
         }
 
+        private void GastosVarios_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            string nombre = lblNombre.Content.ToString();
+
+            if (!string.IsNullOrEmpty(nombre))
+            {
+                GastosVarios gastosGenerales = new GastosVarios(FrameNavigator);
+                gastosGenerales.ShowDialog();
+            }
+        }
 
     } 
 

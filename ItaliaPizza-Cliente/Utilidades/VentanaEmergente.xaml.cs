@@ -56,7 +56,7 @@ namespace ItaliaPizza_Cliente.Utilidades
             else if (tipoVentana == VENTANA_INFORMACION)
             {
                 stp1boton.Visibility = Visibility.Visible;
-                imgImagen.Source = new BitmapImage(new Uri("/Recursos/iconos/icono_informacion.png", UriKind.Relative));
+                imgImagen.Source = new BitmapImage(new Uri("/Recursos/iconos/icono_exito.png", UriKind.Relative));
             }
             else if (tipoVentana == VENTANA_CONFIRMACION)
             {

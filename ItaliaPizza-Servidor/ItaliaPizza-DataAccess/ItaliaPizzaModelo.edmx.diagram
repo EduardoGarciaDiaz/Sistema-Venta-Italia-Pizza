@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="98ef05021c43450aaaf05d1194323f39" Name="Diagram1">
+      <Diagram DiagramId="98ef05021c43450aaaf05d1194323f39" Name="Diagram1" ZoomLevel="74">
         <EntityTypeShape EntityType="ItaliaPizzaModel.CategoriasInsumo" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="ItaliaPizzaModel.CategoriasProductoVenta" Width="1.5" PointX="3.75" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ItaliaPizzaModel.CortesCaja" Width="1.5" PointX="8.25" PointY="24.375" IsExpanded="true" />
@@ -56,6 +56,9 @@
         <AssociationConnector Association="ItaliaPizzaModel.FK__Recetas__CodigoP__571DF1D5" ManuallyRouted="false" />
         <AssociationConnector Association="ItaliaPizzaModel.FK__RecetasIn__IdRec__59FA5E80" ManuallyRouted="false" />
         <AssociationConnector Association="ItaliaPizzaModel.FK__UsuariosP__IdCli__04E4BC85" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ItaliaPizzaModel.Meseros" Width="1.5" PointX="11.25" PointY="26.25" />
+        <AssociationConnector Association="ItaliaPizzaModel.FK__Meseros__NombreU__03F0984C" />
+        <AssociationConnector Association="ItaliaPizzaModel.FK__Meseros__IdUsuar__02FC7413" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

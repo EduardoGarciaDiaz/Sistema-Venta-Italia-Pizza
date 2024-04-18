@@ -168,6 +168,19 @@ namespace ItaliaPizza_Servicios.Auxiliares
             };
             return empleadoDto;
         }
+        public static EmpleadoDto ConvertirMeserosAEmpleadoDto(Meseros mesero)
+        {
+            EmpleadoDto empleadoDto = new EmpleadoDto()
+            {
+                IdUsuario = (int)mesero.IdUsuario,
+                IdTipoEmpleado = (int)mesero.Empleados.IdTipoEmpleado,
+                Contraseña = mesero.Empleados.Contraseña,
+                NombreUsuario = mesero.Empleados.NombreUsuario,
+                Usuario = ConvertirUsuariosAUsuarioDto(mesero.Usuarios, mesero.Usuarios.Direcciones),
+                TipoEmpleado = mesero.Empleados.TiposEmpleado.Nombre
+            };
+            return empleadoDto;
+        }
 
         public static InsumoOrdenCompraDto ConvertirInsumosAInsumoOrdenCompraDto(Insumos insumo)
         {
@@ -192,9 +205,25 @@ namespace ItaliaPizza_Servicios.Auxiliares
                 CorreoElectronico = proveedores.CorreoElectronico,
                 NumeroTelefono = proveedores.NumeroTelefono, 
                 IdDireccion = (int)proveedores.IdDireccion,
-                Direccion = ConvertirDireccionesADireccionDto(direcciones)
+                Direccion = ConvertirDireccionesADireccionDto(direcciones),
+                EsActivo = (bool)proveedores.EsActivo
             };
             return proveedorDto;
+        }
+
+        public static Proveedores ConvertirProveedorDtoAProveedores(ProveedorDto proveedorDto)
+        {
+            Proveedores proveedor = new Proveedores()
+            {
+                IdProveedor = proveedorDto.IdProveedor,
+                NombreCompleto = proveedorDto.NombreCompleto,
+                RFC = proveedorDto.RFC,
+                CorreoElectronico = proveedorDto.CorreoElectronico,
+                NumeroTelefono = proveedorDto.NumeroTelefono,
+                IdDireccion = (int)proveedorDto.IdDireccion,  
+                EsActivo = proveedorDto.EsActivo
+            };
+            return proveedor;
         }
 
         public static OrdenesCompraInsumos ConvertirElementoOrdenCompraAOrdenesCompraInsumos(int idOrdenCompra , ElementoOrdenCompraDto elementoOrdenCompra)
@@ -219,6 +248,20 @@ namespace ItaliaPizza_Servicios.Auxiliares
                 IdProveedor = ordenDeCompraDto.IdProveedor,            
             };
             return ordenesCompra;
+        }
+
+        public static GastosVarios ConvertirGastoVarioAGastosVarios(GastoVario gastoVario)
+        {
+              GastosVarios gastosVarios = new GastosVarios()
+              {
+                IdGastoVario = gastoVario.Id,
+                Descripcion = gastoVario.Descripcion,
+                Fecha = gastoVario.Fecha,
+                Total = gastoVario.Monto,
+                NombreUsuario = gastoVario.nombreUsuario
+            };
+
+            return gastosVarios;
         }
 
 

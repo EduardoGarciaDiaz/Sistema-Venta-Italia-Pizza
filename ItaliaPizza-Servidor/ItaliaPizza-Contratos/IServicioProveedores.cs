@@ -12,7 +12,33 @@ namespace ItaliaPizza_Contratos
     [ServiceContract]
     public interface IServicioProveedores
     {
+
         [OperationContract]
         List<ProveedorDto> RecuperarProveedores();
+
+        [OperationContract]
+        List<ProveedorDto> RecuperarProveedoresActivos();
+
+        [OperationContract]
+        bool GuardarProveedorNuevo(ProveedorDto proveedorNuevo);
+
+        [OperationContract]
+        bool ActualizarInformacionProveedor(ProveedorDto proveedor);
+
+        [OperationContract]
+        bool ValidarRfcUnicoProveedor(string rfc);
+
+        [OperationContract]
+        bool ValidarCorreoUnicoProveedor(string correo);
+
+        [OperationContract]
+        bool ValidarRfcUnicoProveedorEditado(string rfc, int idProveedor);
+
+        [OperationContract]
+        bool ValidarCorreoUnicoProveedorEditado(string correo, int idProveedor);
+
+
+        [OperationContract]
+        bool CmabiarEstadoProveedor(bool estaActivo, int idProveedor);
     }
 }

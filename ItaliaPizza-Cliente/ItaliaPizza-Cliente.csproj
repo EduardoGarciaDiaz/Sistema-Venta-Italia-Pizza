@@ -74,11 +74,20 @@
     <Compile Include="Recursos\ControlesUsuario\BarraDeBusquedaRecetas.xaml.cs">
       <DependentUpon>BarraDeBusquedaRecetas.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Recursos\ControlesUsuario\BtnFiltro.xaml.cs">
+      <DependentUpon>BtnFiltro.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Recursos\ControlesUsuario\BtnMenuLateral.xaml.cs">
       <DependentUpon>BtnMenuLateral.xaml</DependentUpon>
     </Compile>
     <Compile Include="Recursos\ControlesUsuario\ElementoConsultaPedido.xaml.cs">
       <DependentUpon>ElementoConsultaPedido.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Recursos\ControlesUsuario\ElementoConsultaInsumo.xaml.cs">
+      <DependentUpon>ElementoConsultaInsumo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Recursos\ControlesUsuario\ElementoConsultaProductoVenta.xaml.cs">
+      <DependentUpon>ElementoConsultaProductoVenta.xaml</DependentUpon>
     </Compile>
     <Compile Include="Recursos\ControlesUsuario\ElementoInsumoOrdenCompra.xaml.cs">
       <DependentUpon>ElementoInsumoOrdenCompra.xaml</DependentUpon>
@@ -104,6 +113,9 @@
     <Compile Include="Recursos\ControlesUsuario\ElementoProductoVenta.xaml.cs">
       <DependentUpon>ElementoProductoVenta.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Recursos\ControlesUsuario\ElementoProveedor.xaml.cs">
+      <DependentUpon>ElementoProveedor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Recursos\ControlesUsuario\ElementoReceta.xaml.cs">
       <DependentUpon>ElementoReceta.xaml</DependentUpon>
     </Compile>
@@ -116,6 +128,7 @@
     <Compile Include="Recursos\ControlesUsuario\ElementoInsumoOrdenCompraSeleccionado.xaml.cs">
       <DependentUpon>ElementoInsumoOrdenCompraSeleccionado.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utilidades\CampoTextoConLabel.cs" />
     <Compile Include="Utilidades\ConvertidorBytes.cs" />
     <Compile Include="Utilidades\EmpleadoSingleton.cs" />
     <Compile Include="Utilidades\EnumEstadosPedido.cs" />
@@ -135,6 +148,15 @@
     </Compile>
     <Compile Include="Vistas\ConsultaOrdenesDeCompra.xaml.cs">
       <DependentUpon>ConsultaOrdenesDeCompra.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\ConsultaProveedores.xaml.cs">
+      <DependentUpon>ConsultaProveedores.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\EdicionProveedor.xaml.cs">
+      <DependentUpon>EdicionProveedor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\GastosVarios.xaml.cs">
+      <DependentUpon>GastosVarios.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\InicioSesion.xaml.cs">
       <DependentUpon>InicioSesion.xaml</DependentUpon>
@@ -160,6 +182,9 @@
     <Compile Include="Utilidades\UtilidadValidacion.cs" />
     <Compile Include="Vistas\RegistroProducto.xaml.cs">
       <DependentUpon>RegistroProducto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\RegistroProveedor.xaml.cs">
+      <DependentUpon>RegistroProveedor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\RegistroReceta.xaml.cs">
       <DependentUpon>RegistroReceta.xaml</DependentUpon>
@@ -198,11 +223,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Recursos\ControlesUsuario\BtnFiltro.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Recursos\ControlesUsuario\BtnMenuLateral.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Recursos\ControlesUsuario\ElementoConsultaPedido.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Recursos\ControlesUsuario\ElementoConsultaInsumo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Recursos\ControlesUsuario\ElementoConsultaProductoVenta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -238,6 +275,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Recursos\ControlesUsuario\ElementoProveedor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Recursos\ControlesUsuario\ElementoReceta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -270,6 +311,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Vistas\ConsultaProveedores.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\EdicionProveedor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\GastosVarios.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Vistas\InicioSesion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -299,6 +352,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vistas\RegistroProducto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\RegistroProveedor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -352,6 +409,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.PedidoConsultaDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.Producto.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.ProductoVentaPedidos.datasource">
@@ -507,6 +567,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Recursos\Iconos\icono_orden_compra.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Recursos\Iconos\icono_proveedor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Recursos\Iconos\icono_gastos_varios.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

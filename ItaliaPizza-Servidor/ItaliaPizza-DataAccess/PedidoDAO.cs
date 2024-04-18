@@ -2,6 +2,7 @@
 using ItaliaPizza_DataAccess.Excepciones;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.Data.SqlClient;
 using System.Linq;
@@ -14,7 +15,6 @@ namespace ItaliaPizza_DataAccess
     public class PedidoDAO
     {
         public PedidoDAO() { }
-
 
         public bool ValidarClienteTienePedidosPendientes(int idUsuario)
         {
@@ -309,6 +309,45 @@ namespace ItaliaPizza_DataAccess
                 throw new ExcepcionDataAccess(ex.Message);
             }
             return estados;
+        }
+
+        public int ValidarDesactivacionProducto(string codigoProducto)
+        {
+            int CodigoEstadoEnProceso = 1;
+            int numeroPedido = 0;
+
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    var resultado = (from ppv in context.PedidosProductosVenta
+                                    join p in context.Pedidos on ppv.NumeroPedido equals p.NumeroPedido
+                                    where ppv.CodigoProducto == codigoProducto && p.IdEstadoPedido == CodigoEstadoEnProceso
+                                    select ppv.NumeroPedido).FirstOrDefault();
+
+                    if (resultado != null)
+                    {
+                        numeroPedido = (int)resultado;
+                    }
+
+                    return numeroPedido;
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
         }
     }
 }

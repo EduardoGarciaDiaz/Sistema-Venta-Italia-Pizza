@@ -216,10 +216,10 @@
 
             <Canvas Margin="817,643,94,23" Height="auto" Width="auto">
                 <StackPanel Orientation="Vertical"  Width="auto" Height="auto">
-                    <Border Style="{StaticResource textBoxBorder}" Canvas.Left="22" Canvas.Top="159" Width="378" HorizontalAlignment="Center" VerticalAlignment="Top" Background="#F8D72A" Margin="5" MouseDown="BtnGuardarUsuario_Click">
+                    <Border Style="{StaticResource textBoxBorder}" Canvas.Left="22" Canvas.Top="159" Width="378" HorizontalAlignment="Center" VerticalAlignment="Top" Background="#F8D72A" Margin="5" >
                         <Button x:Name="bttGuardarUsuario" Content="Guardar" Style="{StaticResource CustomButton}" Click="BtnGuardarUsuario_Click"/>
                     </Border>
-                    <Border Style="{StaticResource textBoxBorder}" Canvas.Left="22" Canvas.Top="159" Width="378" HorizontalAlignment="Center" VerticalAlignment="Top" Background="Transparent" BorderBrush="Red" Margin="5" MouseDown="BtnCancelarRegistro_Click">
+                    <Border Style="{StaticResource textBoxBorder}" Canvas.Left="22" Canvas.Top="159" Width="378" HorizontalAlignment="Center" VerticalAlignment="Top" Background="Transparent" BorderBrush="Red" Margin="5">
                         <Button x:Name="bttCancelarRegistro" Content="Cerrar" Foreground="Red" Style="{StaticResource CustomButton}" Click="BtnCancelarRegistro_Click"/>
                     </Border>
                 </StackPanel>

@@ -1,0 +1,90 @@
+﻿<Page x:Class="ItaliaPizza_Cliente.Vistas.ConsultaProveedores"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ItaliaPizza_Cliente.Vistas"
+      mc:Ignorable="d" 
+      xmlns:uc="clr-namespace:ItaliaPizza_Cliente.Recursos.ControlesUsuario" Background="#F6F6F6"
+      Title="ConsultaProveedores"  d:DesignHeight="800" d:DesignWidth="1300"
+      >
+
+    <Page.Resources>
+        <Style x:Key="fieldTags" TargetType="{x:Type Label}">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Margin" Value="0,0,0,5" />
+            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+        <Style x:Key="textBoxBorder" TargetType="{x:Type Border}">
+            <Setter Property="CornerRadius" Value="11"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="2"/>
+        </Style>
+        <Style x:Key="ButtonBorder" TargetType="{x:Type Border}">
+            <Setter Property="CornerRadius" Value="11"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+        <Style x:Key="textBox" TargetType="{x:Type TextBox}">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Margin" Value="2,0,2,0"/>
+            <Setter Property="TextAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="MaxHeight" Value="26"/>
+        </Style>
+        <Style x:Key="textBlock" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Padding" Value="3"/>
+            <Setter Property="Margin" Value="2,0,2,0"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="subTitleLabel" TargetType="{x:Type Label}">
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="FontFamily" Value="Tahoma"/>
+            <Setter Property="Foreground" Value="#F8D72A"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+        <Style x:Key="CustomButton" TargetType="Button">
+            <Setter Property="FontSize" Value="23"/>
+            <Setter Property="FontWeight" Value="Black"/>
+            <Setter Property="FontFamily" Value="Arial"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Margin" Value="0"/>
+        </Style>
+    </Page.Resources>
+
+    <Viewbox >
+
+        <Grid x:Name="grdDatosProveedores" Height="800" Width="1296">
+
+            <Label Content="Proveedores" Style="{StaticResource subTitleLabel}" Margin="27,6,1026,756"/>
+
+            <uc:BarraDeBusqueda x:Name="barraBusquedaProveedor" Margin="61,56,683,697"/>
+
+            <ScrollViewer Margin="25,122,32,113" VerticalScrollBarVisibility="Auto">
+                <WrapPanel x:Name="wrpProveedoresInfromacion" ItemWidth="620"  Width="1240"/>
+            </ScrollViewer>
+
+
+
+            <Border Style="{StaticResource ButtonBorder}" Margin="945,710,60,23"  Background="#F8D72A" Padding="0">
+                <Button Content="Registra Proveedor" Padding="20,0,20,0" Style="{StaticResource CustomButton}" Click="BtnRegistrarProveedor_Click" />
+            </Border>
+
+        </Grid>
+
+    </Viewbox>
+
+</Page>
