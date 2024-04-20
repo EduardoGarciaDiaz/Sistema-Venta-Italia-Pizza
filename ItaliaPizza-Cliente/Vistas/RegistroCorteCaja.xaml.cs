@@ -47,6 +47,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void PrepararDatos(object sender, RoutedEventArgs e)
         {
+            lblFechaActual.Content = _fechaSeleccionada.ToString("dd 'de' MMMM 'de' yyyy", new System.Globalization.CultureInfo("es-ES"));
             _ingresosPedidos = RecuperarIngresosDePedidosPorFecha(_fechaSeleccionada);
             MostrarIngresos(_ingresosPedidos);
             _salidasOrdenesCompra = RecuperarSalidasDeOrdenesCompraPorFecha(_fechaSeleccionada);
