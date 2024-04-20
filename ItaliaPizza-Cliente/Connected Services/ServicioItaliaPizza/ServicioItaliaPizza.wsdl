@@ -267,6 +267,9 @@
   <wsdl:message name="IServicioProductos_RecuperarInsumosActivos_OutputMessage">
     <wsdl:part name="parameters" element="tns:RecuperarInsumosActivosResponse" />
   </wsdl:message>
+  <wsdl:message name="IServicioProductos_RecuperarInsumosActivos_ExcepcionServidorItaliaPizzaFault_FaultMessage">
+    <wsdl:part xmlns:q17="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones" name="detail" element="q17:ExcepcionServidorItaliaPizza" />
+  </wsdl:message>
   <wsdl:message name="IServicioProductos_DesapartarInsumosDeProducto_InputMessage">
     <wsdl:part name="parameters" element="tns:DesapartarInsumosDeProducto" />
   </wsdl:message>
@@ -274,7 +277,7 @@
     <wsdl:part name="parameters" element="tns:DesapartarInsumosDeProductoResponse" />
   </wsdl:message>
   <wsdl:message name="IServicioProductos_DesapartarInsumosDeProducto_ExcepcionServidorItaliaPizzaFault_FaultMessage">
-    <wsdl:part xmlns:q19="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones" name="detail" element="q19:ExcepcionServidorItaliaPizza" />
+    <wsdl:part xmlns:q18="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones" name="detail" element="q18:ExcepcionServidorItaliaPizza" />
   </wsdl:message>
   <wsdl:message name="IServicioProductos_RecuperarProductosTipoInsumo_InputMessage">
     <wsdl:part name="parameters" element="tns:RecuperarProductosTipoInsumo" />
@@ -283,7 +286,7 @@
     <wsdl:part name="parameters" element="tns:RecuperarProductosTipoInsumoResponse" />
   </wsdl:message>
   <wsdl:message name="IServicioProductos_RecuperarProductosTipoInsumo_ExcepcionServidorItaliaPizzaFault_FaultMessage">
-    <wsdl:part xmlns:q20="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones" name="detail" element="q20:ExcepcionServidorItaliaPizza" />
+    <wsdl:part xmlns:q19="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones" name="detail" element="q19:ExcepcionServidorItaliaPizza" />
   </wsdl:message>
   <wsdl:message name="IServicioProductos_RecuperarProductosTipoVenta_InputMessage">
     <wsdl:part name="parameters" element="tns:RecuperarProductosTipoVenta" />
@@ -292,7 +295,7 @@
     <wsdl:part name="parameters" element="tns:RecuperarProductosTipoVentaResponse" />
   </wsdl:message>
   <wsdl:message name="IServicioProductos_RecuperarProductosTipoVenta_ExcepcionServidorItaliaPizzaFault_FaultMessage">
-    <wsdl:part xmlns:q21="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones" name="detail" element="q21:ExcepcionServidorItaliaPizza" />
+    <wsdl:part xmlns:q20="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones" name="detail" element="q20:ExcepcionServidorItaliaPizza" />
   </wsdl:message>
   <wsdl:message name="IServicioProductos_RecuperarCategoriasInsumo_InputMessage">
     <wsdl:part name="parameters" element="tns:RecuperarCategoriasInsumo" />
@@ -301,7 +304,7 @@
     <wsdl:part name="parameters" element="tns:RecuperarCategoriasInsumoResponse" />
   </wsdl:message>
   <wsdl:message name="IServicioProductos_RecuperarCategoriasInsumo_ExcepcionServidorItaliaPizzaFault_FaultMessage">
-    <wsdl:part xmlns:q22="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones" name="detail" element="q22:ExcepcionServidorItaliaPizza" />
+    <wsdl:part xmlns:q21="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones" name="detail" element="q21:ExcepcionServidorItaliaPizza" />
   </wsdl:message>
   <wsdl:message name="IServicioProductos_ValidarDesactivacion_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidarDesactivacion" />
@@ -310,7 +313,7 @@
     <wsdl:part name="parameters" element="tns:ValidarDesactivacionResponse" />
   </wsdl:message>
   <wsdl:message name="IServicioProductos_ValidarDesactivacion_ExcepcionServidorItaliaPizzaFault_FaultMessage">
-    <wsdl:part xmlns:q23="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones" name="detail" element="q23:ExcepcionServidorItaliaPizza" />
+    <wsdl:part xmlns:q22="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones" name="detail" element="q22:ExcepcionServidorItaliaPizza" />
   </wsdl:message>
   <wsdl:message name="IServicioProductos_DesactivarProducto_InputMessage">
     <wsdl:part name="parameters" element="tns:DesactivarProducto" />
@@ -319,7 +322,7 @@
     <wsdl:part name="parameters" element="tns:DesactivarProductoResponse" />
   </wsdl:message>
   <wsdl:message name="IServicioProductos_DesactivarProducto_ExcepcionServidorItaliaPizzaFault_FaultMessage">
-    <wsdl:part xmlns:q24="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones" name="detail" element="q24:ExcepcionServidorItaliaPizza" />
+    <wsdl:part xmlns:q23="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones" name="detail" element="q23:ExcepcionServidorItaliaPizza" />
   </wsdl:message>
   <wsdl:message name="IServicioProductos_ActivarProducto_InputMessage">
     <wsdl:part name="parameters" element="tns:ActivarProducto" />
@@ -328,6 +331,15 @@
     <wsdl:part name="parameters" element="tns:ActivarProductoResponse" />
   </wsdl:message>
   <wsdl:message name="IServicioProductos_ActivarProducto_ExcepcionServidorItaliaPizzaFault_FaultMessage">
+    <wsdl:part xmlns:q24="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones" name="detail" element="q24:ExcepcionServidorItaliaPizza" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProductos_RecuperarProductosInventariados_InputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperarProductosInventariados" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProductos_RecuperarProductosInventariados_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperarProductosInventariadosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProductos_RecuperarProductosInventariados_ExcepcionServidorItaliaPizzaFault_FaultMessage">
     <wsdl:part xmlns:q25="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones" name="detail" element="q25:ExcepcionServidorItaliaPizza" />
   </wsdl:message>
   <wsdl:message name="IServicioRecetas_RecuperarRecetas_InputMessage">
@@ -695,6 +707,7 @@
     <wsdl:operation name="RecuperarInsumosActivos">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioProductos/RecuperarInsumosActivos" message="tns:IServicioProductos_RecuperarInsumosActivos_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioProductos/RecuperarInsumosActivosResponse" message="tns:IServicioProductos_RecuperarInsumosActivos_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IServicioProductos/RecuperarInsumosActivosExcepcionServidorItaliaPizzaFault" name="ExcepcionServidorItaliaPizzaFault" message="tns:IServicioProductos_RecuperarInsumosActivos_ExcepcionServidorItaliaPizzaFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="DesapartarInsumosDeProducto">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioProductos/DesapartarInsumosDeProducto" message="tns:IServicioProductos_DesapartarInsumosDeProducto_InputMessage" />
@@ -730,6 +743,11 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioProductos/ActivarProducto" message="tns:IServicioProductos_ActivarProducto_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioProductos/ActivarProductoResponse" message="tns:IServicioProductos_ActivarProducto_OutputMessage" />
       <wsdl:fault wsaw:Action="http://tempuri.org/IServicioProductos/ActivarProductoExcepcionServidorItaliaPizzaFault" name="ExcepcionServidorItaliaPizzaFault" message="tns:IServicioProductos_ActivarProducto_ExcepcionServidorItaliaPizzaFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarProductosInventariados">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProductos/RecuperarProductosInventariados" message="tns:IServicioProductos_RecuperarProductosInventariados_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProductos/RecuperarProductosInventariadosResponse" message="tns:IServicioProductos_RecuperarProductosInventariados_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IServicioProductos/RecuperarProductosInventariadosExcepcionServidorItaliaPizzaFault" name="ExcepcionServidorItaliaPizzaFault" message="tns:IServicioProductos_RecuperarProductosInventariados_ExcepcionServidorItaliaPizzaFault_FaultMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IServicioRecetas">
@@ -1155,6 +1173,9 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="ExcepcionServidorItaliaPizzaFault">
+        <soap12:fault use="literal" name="ExcepcionServidorItaliaPizzaFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="DesapartarInsumosDeProducto">
       <soap12:operation soapAction="http://tempuri.org/IServicioProductos/DesapartarInsumosDeProducto" style="document" />
@@ -1230,6 +1251,18 @@
     </wsdl:operation>
     <wsdl:operation name="ActivarProducto">
       <soap12:operation soapAction="http://tempuri.org/IServicioProductos/ActivarProducto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ExcepcionServidorItaliaPizzaFault">
+        <soap12:fault use="literal" name="ExcepcionServidorItaliaPizzaFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarProductosInventariados">
+      <soap12:operation soapAction="http://tempuri.org/IServicioProductos/RecuperarProductosInventariados" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
