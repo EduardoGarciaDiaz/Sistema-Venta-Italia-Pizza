@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity.Migrations;
 using ItaliaPizza_Contratos.DTOs;
+using ItaliaPizza_DataAccess.Excepciones;
 
 namespace ItaliaPizza_DataAccess
 {
@@ -151,6 +152,38 @@ namespace ItaliaPizza_DataAccess
                 Console.WriteLine(ex.StackTrace);
             }
             return idOrdenNueva;
+        }
+
+        public static double RecuperarSalidasDeOrdenesCompraPorFecha(DateTime fecha)
+        {
+            double salidasOrdenesCompra = 0;
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    List<OrdenesCompra> ordenesComprasFechaSeleccionada = context.OrdenesCompra.Where(p => DbFunctions.TruncateTime(p.Fecha) == fecha.Date).ToList();
+                    foreach (OrdenesCompra ordenesCompraInsumos in ordenesComprasFechaSeleccionada)
+                    {
+                       salidasOrdenesCompra = salidasOrdenesCompra + (ordenesCompraInsumos.OrdenesCompraInsumos.Sum(p => p.Insumos.Costo ?? 0));
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            return salidasOrdenesCompra;
         }
 
     }

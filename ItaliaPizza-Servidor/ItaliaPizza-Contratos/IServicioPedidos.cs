@@ -39,5 +39,9 @@ namespace ItaliaPizza_Contratos
         [OperationContract]
         [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
         int ActualizarEstadoPedido(int numeroPedido, int idEstadoPedido);
+
+        [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
+        double RecuperarIngresosDePedidosPorFecha(DateTime fecha);
     }
 }

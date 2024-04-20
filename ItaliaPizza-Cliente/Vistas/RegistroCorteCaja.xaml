@@ -1,0 +1,105 @@
+﻿<Window x:Class="ItaliaPizza_Cliente.Vistas.RegistroCorteCaja"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ItaliaPizza_Cliente.Vistas"
+      mc:Ignorable="d" 
+                WindowState="Normal" ResizeMode="NoResize" WindowStyle="None" 
+        WindowStartupLocation="CenterOwner" Background="#59000000"
+        AllowsTransparency="True"
+      d:DesignHeight="800" d:DesignWidth="1250" 
+      Title="GastosVarios">
+    <!--d:DesignHeight="550" d:DesignWidth="450"-->
+
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBox}" >
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="15" />
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style TargetType="{x:Type Button}" >
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="20" />
+                </Style>
+            </Style.Resources>
+        </Style>
+
+
+
+    </Window.Resources>
+
+    <Border CornerRadius="25" Background="White" Height="550" Width="450">
+        <Viewbox Stretch="Fill">
+            <Grid Height="550" Width="450">
+                <Border CornerRadius="10,10,0,0" Background="Black" Margin="0,0,0,519" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="317*"/>
+                            <ColumnDefinition Width="283*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Image Source="/Recursos/Iconos/icono_calculadora.png" Grid.Column="0" Margin="8,4,3,5"></Image>
+                        <Label Content="Corte de caja" Foreground="White" FontStretch="Medium" FontWeight="Medium" FontSize="14" Grid.Column="1"/>
+                        <Label Name="lblFechaActual" Content="08 de Abril de 2024" Foreground="White" FontStretch="Medium" FontWeight="Medium" FontSize="14" Grid.Column="1" HorizontalContentAlignment="Right" Grid.ColumnSpan="2" Margin="205,0,14,0"/>
+                    </Grid>
+                </Border>
+
+                <DatePicker IsTodayHighlighted="True" Margin="22,41,207,472" x:Name="dpkFechaCorte"
+                    Background="White"
+                    Padding="15,10,11,2" 
+                    BorderThickness="1" 
+                    FirstDayOfWeek="Monday" SelectedDateChanged="FechaDatePicker_SelectedDateChanged">
+                    <DatePicker.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="15"/>
+                        </Style>
+                        <Style TargetType="DatePickerTextBox">
+                            <Setter Property="IsReadOnly" Value="True"/>
+                        </Style>
+                    </DatePicker.Resources>
+                </DatePicker>
+
+                <Separator HorizontalAlignment="Center" Margin="0,79,0,0" VerticalAlignment="Top" Height="12" Width="408" Background="#FFC9C9C9"/>
+
+                <Label Content="¿Cuál fue el fondo inicial en Caja?" Foreground="Black" FontStretch="Medium" FontWeight="Bold" FontSize="14" Margin="20,100,198,420"/>
+                <TextBox x:Name="TbxFondoInicial" Text="" Padding="12, 0, 0, 0" HorizontalAlignment="Left" Margin="273,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156" Height="26" VerticalContentAlignment="Center" FontSize="16" MaxLength="10" BorderBrush="Black" TextChanged="TbxFondoInicial_TextChanged" PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown"/>
+                <Label x:Name="lblCampoObligatorioFondoInicial"
+                       Content="Campo obligatorio*" Margin="271,122,68,399" FontSize="10" Foreground="#FFDF1414" Visibility="Hidden"/>
+
+                <Separator HorizontalAlignment="Center" Margin="0,136,0,0" VerticalAlignment="Top" Height="12" Width="408" Background="#FFC9C9C9"/>
+
+                <Button Margin="19,494,247,17" Content="Finalizar" FontSize="18" FontWeight="Bold" Foreground="White" BorderBrush="Black" Background="Black" Click="BtnFinalizar_Click"/>
+                <Button Margin="237,493,29,15" Content="Cancelar" FontSize="18" FontWeight="Bold" Foreground="White" BorderBrush="{x:Null}" Background="#FFD53C3C" Click="BtnCancelar_Click"/>
+
+                <Label Content="Ingresos registrados por ventas" Foreground="Black" FontStretch="Medium" FontWeight="Bold" FontSize="14" Margin="20,146,198,374"/>
+                <Label x:Name="lblIngresosPedidos" Content="$12500.00" Foreground="Black" FontStretch="Medium" FontSize="14" Margin="276,146,22,374" HorizontalContentAlignment="Right"/>
+                <Label Content="Salidas registradas" Foreground="Black" FontStretch="Medium" FontWeight="Bold" FontSize="14" Margin="20,176,198,344"/>
+                <Label x:Name="lblSalidas"  Content="$12500.00" Foreground="Black" FontStretch="Medium" FontSize="14" Margin="276,176,22,344" HorizontalContentAlignment="Right"/>
+                <Separator HorizontalAlignment="Center" Margin="0,206,0,0" VerticalAlignment="Top" Height="12" Width="408" Background="#FFC9C9C9"/>
+                <Label Content="Efectivo esperado en Caja" Foreground="Black" FontStretch="Medium" FontWeight="Bold" FontSize="14" Margin="20,218,198,302"/>
+                <Label x:Name="lblEfectivoEsperado" Content="$12500.00" Foreground="Black" FontStretch="Medium" FontSize="14" Margin="276,218,22,302" HorizontalContentAlignment="Right"/>
+                <Separator HorizontalAlignment="Center" Margin="0,247,0,0" VerticalAlignment="Top" Height="12" Width="408" Background="#FFC9C9C9"/>
+                <Label Content="¿Cuánto hay en Caja?" Foreground="Black" FontStretch="Medium" FontWeight="Bold" FontSize="14" Margin="20,261,198,259"/>
+
+                <TextBox x:Name="TbxDineroCaja" Text="" Padding="12, 0, 0, 0" HorizontalAlignment="Left" Margin="273,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="156" Height="26" VerticalContentAlignment="Center" FontSize="16" MaxLength="10" BorderBrush="Black" TextChanged="TbxDineroCaja_TextChanged" PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown"/>
+                <Separator HorizontalAlignment="Center" Margin="0,307,0,0" VerticalAlignment="Top" Height="12" Width="408" Background="#FFC9C9C9"/>
+                <Label x:Name="lblCampoObligatorioDineroEnCaja"
+        Content="Campo obligatorio*" Margin="271,287,68,234" FontSize="10" Foreground="#FFDF1414" Visibility="Hidden"/>
+
+
+                <Label Content="Diferencia" Foreground="Black" FontStretch="Medium" FontWeight="Bold" FontSize="14" Margin="20,316,198,204"/>
+                <Label x:Name="lblDiferencia" Content="$12500.00" Foreground="Black" FontStretch="Medium" FontSize="14" Margin="276,316,22,204" HorizontalContentAlignment="Right"/>
+
+            </Grid>
+        </Viewbox>
+    </Border>
+
+</Window>

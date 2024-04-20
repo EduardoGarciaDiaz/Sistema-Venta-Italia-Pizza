@@ -93,6 +93,23 @@
                     
             MouseLeftButtonDown="GastosVarios_MouseLeftButtonDown" Margin="0,0,0,175" Grid.RowSpan="2"/>
 
+
+            <Image x:Name="imgCorteCaja"
+                Stretch="Uniform"
+                Grid.Row="0"
+                Grid.Column="5"
+                Source="/Recursos/Iconos/icono_calculadora.png" Margin="20,3,21,12" Visibility="Hidden"/>
+            <Label x:Name="lblTituloCorte"
+                Content="Corte"
+                Grid.Row="0"
+                Grid.Column="5"
+                Foreground="White" Margin="6,20,5,173" FontSize="11" Grid.RowSpan="2" HorizontalAlignment="Center" Visibility="Hidden"/>
+            <Border x:Name="brdCorteCaja" Grid.Row="0"
+                Grid.Column="5" 
+                Background="Transparent"
+                Cursor="Hand" 
+                MouseLeftButtonDown="CorteCaja_MouseLeftButtonDown" Margin="0,0,0,175" Grid.RowSpan="2" Visibility="Hidden"/>
+
             <StackPanel x:Name="SkpMenuLateral"
                 Orientation="Vertical"
                         Grid.Row="1"

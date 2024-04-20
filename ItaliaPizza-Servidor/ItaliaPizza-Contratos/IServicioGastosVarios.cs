@@ -16,6 +16,10 @@ namespace ItaliaPizza_Contratos
         [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
         int GuardarGastoVario(GastoVario gastoVario);
 
+        [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
+        double RecuperarSalidasGastosVarios(DateTime fecha);
+
 
     }
 }

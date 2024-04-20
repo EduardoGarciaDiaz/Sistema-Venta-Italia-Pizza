@@ -43,12 +43,6 @@ namespace ItaliaPizza_Cliente.Vistas
         public ConsultaPedidos()
         {
             InitializeComponent();
-            //TEMPORAL
-            EmpleadoSingleton.getInstance().TipoEmpleado = new TipoEmpleadoDto
-            {
-                Nombre = "X",
-                IdTipoEmpleado = 1
-            };
             this.Loaded += ConsultaPedidos_Loaded;
         }
 

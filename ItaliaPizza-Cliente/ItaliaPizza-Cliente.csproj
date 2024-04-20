@@ -170,6 +170,9 @@
     <Compile Include="Vistas\Recetas.xaml.cs">
       <DependentUpon>Recetas.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Vistas\RegistroCorteCaja.xaml.cs">
+      <DependentUpon>RegistroCorteCaja.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\RegistroOrdenCompra.xaml.cs">
       <DependentUpon>RegistroOrdenCompra.xaml</DependentUpon>
     </Compile>
@@ -339,6 +342,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Vistas\RegistroCorteCaja.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Vistas\RegistroOrdenCompra.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -397,6 +404,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.ClienteBusqueda.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.CorteCaja.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.EmpleadoDto.datasource">
@@ -573,6 +583,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Recursos\Iconos\icono_gastos_varios.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Recursos\Iconos\icono_calculadora.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

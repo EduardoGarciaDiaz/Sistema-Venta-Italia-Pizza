@@ -353,4 +353,17 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="GastoVario" nillable="true" type="tns:GastoVario" />
+  <xs:complexType name="CorteCaja">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="diferencia" type="xs:double" />
+      <xs:element minOccurs="0" name="dineroEnCaja" type="xs:double" />
+      <xs:element minOccurs="0" name="fecha" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="fondo" type="xs:double" />
+      <xs:element minOccurs="0" name="ingresosRegistrados" type="xs:double" />
+      <xs:element minOccurs="0" name="nombreUsuario" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="salidasRegistradas" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CorteCaja" nillable="true" type="tns:CorteCaja" />
 </xs:schema>

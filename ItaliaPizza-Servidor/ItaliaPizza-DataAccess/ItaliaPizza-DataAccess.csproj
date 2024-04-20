@@ -60,6 +60,7 @@
     <Compile Include="CategoriasProductoVenta.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="CorteCajaDAO.cs" />
     <Compile Include="CortesCaja.cs">
       <DependentUpon>ItaliaPizzaModelo.tt</DependentUpon>
     </Compile>

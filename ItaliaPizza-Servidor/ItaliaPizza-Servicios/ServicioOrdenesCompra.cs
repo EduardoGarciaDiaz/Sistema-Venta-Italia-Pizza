@@ -72,6 +72,16 @@ namespace ItaliaPizza_Servicios
             throw new NotImplementedException();
         }
 
-
+        public double RecuperarSalidasDeOrdenesCompraPorFecha(DateTime fecha)
+        {
+            try
+            {
+                return OrdenDeCompraDAO.RecuperarSalidasDeOrdenesCompraPorFecha(fecha);
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
+        }
     }
 }

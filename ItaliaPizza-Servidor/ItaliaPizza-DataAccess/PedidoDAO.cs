@@ -349,5 +349,35 @@ namespace ItaliaPizza_DataAccess
                 throw new ExcepcionDataAccess(ex.Message);
             }
         }
+
+
+        public double RecuperarIngresosDePedidosPorFecha(DateTime fecha)
+        {
+            double totalPedidos = 0;
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    List<Pedidos> pedidosFechaIndicada = context.Pedidos.Where(p => DbFunctions.TruncateTime(p.FechaPedido) == fecha.Date).ToList();
+                    totalPedidos = pedidosFechaIndicada.Sum(p => p.TotalParaPagar ?? 0);
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            return totalPedidos;
+        }
     }
 }
