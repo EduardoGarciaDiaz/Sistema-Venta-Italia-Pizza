@@ -78,20 +78,24 @@
                     MouseLeftButtonDown="Salir_MouseLeftButtonDown" Margin="0,0,0,175" Grid.RowSpan="2"/>
 
             <!--gasto general-->
-            <Image Stretch="Uniform"
-            Grid.Row="0"
-            Grid.Column="4"
-            Source="/Recursos/Iconos/icono_gastos_varios.png" Margin="20,3,21,12"/>
-            <Label Content="Gastos"
-           Grid.Row="0"
-           Grid.Column="4"
-           Foreground="White" Margin="6,20,5,173" FontSize="11" Grid.RowSpan="2" HorizontalAlignment="Center"/>
+            <Grid x:Name="gridGastos" Grid.Row="0" Grid.Column="4" Cursor="Hand" Visibility="Collapsed" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="29*"/>
+                    <RowDefinition Height="12*"/>
+                </Grid.RowDefinitions>
+
+                <Image Stretch="Uniform"
+                Grid.Row="0"
+                Source="/Recursos/Iconos/icono_gastos_varios.png" />
+
+                <Label Content="Gastos"
+                   Foreground="White" FontSize="11" HorizontalAlignment="Center" Width="43" Margin="0,21,0,-7" Grid.RowSpan="2"/>
+            </Grid>
+
             <Border Grid.Row="0"
-            Grid.Column="4" 
-            Background="Transparent"
-            Cursor="Hand"
-                    
-            MouseLeftButtonDown="GastosVarios_MouseLeftButtonDown" Margin="0,0,0,175" Grid.RowSpan="2"/>
+                Grid.Column="4" 
+                Background="Transparent"
+                MouseLeftButtonDown="GastosVarios_MouseLeftButtonDown" Margin="0,0,0,175" Grid.RowSpan="2"/>
 
 
             <Image x:Name="imgCorteCaja"

@@ -426,7 +426,23 @@ namespace ItaliaPizza_Servicios
             {
                 throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
             }
+        }
 
+        public bool ValidarDesactivacionInsumo(string codigoProducto)
+        {
+            bool esDesactivacionValida = false;
+            InsumoDAO insumoDAO = new InsumoDAO();
+
+            try
+            {
+                esDesactivacionValida = insumoDAO.ValidarDesactivacionInsumo(codigoProducto);
+
+                return esDesactivacionValida;
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
         }
 
         public int DesactivarProducto(string codigoProducto)

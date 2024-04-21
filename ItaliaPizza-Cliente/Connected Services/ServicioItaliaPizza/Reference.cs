@@ -3285,6 +3285,14 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/ValidarDesactivacion", ReplyAction="http://tempuri.org/IServicioProductos/ValidarDesactivacionResponse")]
         System.Threading.Tasks.Task<bool> ValidarDesactivacionAsync(string codigoProducto);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/ValidarDesactivacionInsumo", ReplyAction="http://tempuri.org/IServicioProductos/ValidarDesactivacionInsumoResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioProductos/ValidarDesactivacionInsumoExcepcionServidor" +
+            "ItaliaPizzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        bool ValidarDesactivacionInsumo(string codigoProducto);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/ValidarDesactivacionInsumo", ReplyAction="http://tempuri.org/IServicioProductos/ValidarDesactivacionInsumoResponse")]
+        System.Threading.Tasks.Task<bool> ValidarDesactivacionInsumoAsync(string codigoProducto);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/DesactivarProducto", ReplyAction="http://tempuri.org/IServicioProductos/DesactivarProductoResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioProductos/DesactivarProductoExcepcionServidorItaliaPi" +
             "zzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
@@ -3463,6 +3471,14 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         public System.Threading.Tasks.Task<bool> ValidarDesactivacionAsync(string codigoProducto) {
             return base.Channel.ValidarDesactivacionAsync(codigoProducto);
+        }
+        
+        public bool ValidarDesactivacionInsumo(string codigoProducto) {
+            return base.Channel.ValidarDesactivacionInsumo(codigoProducto);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ValidarDesactivacionInsumoAsync(string codigoProducto) {
+            return base.Channel.ValidarDesactivacionInsumoAsync(codigoProducto);
         }
         
         public int DesactivarProducto(string codigoProducto) {

@@ -100,8 +100,15 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void CargarFiltrosCategorias()
         {
+            LimpiarStackPanelCategorias();
             CargarCategoriasInsumo();
             CargarCategoriasProductoVenta();
+        }
+
+        private void LimpiarStackPanelCategorias()
+        {
+            stackPanelCategoriasInsumo.Children.Clear();
+            stackPanelCategoriasProductoVenta.Children.Clear();
         }
 
         private void CargarCategoriasInsumo()
@@ -338,8 +345,9 @@ namespace ItaliaPizza_Cliente.Vistas
             string codigoProducto = elementoConsultaInsumo.ProductoAsignado.Codigo;
             string nombre = elementoConsultaInsumo.ProductoAsignado.Nombre; 
             bool esActivo = elementoConsultaInsumo.ProductoAsignado.EsActivo;
+            bool esProductoVenta = false;
 
-            int filasAfectadas = ActivarDesactivarProducto(esActivo, codigoProducto, nombre);
+            int filasAfectadas = ActivarDesactivarProducto(esActivo, codigoProducto, nombre, esProductoVenta);
             if (filasAfectadas > 0)
             {
                 elementoConsultaInsumo.ProductoAsignado.EsActivo = !esActivo;
@@ -353,8 +361,9 @@ namespace ItaliaPizza_Cliente.Vistas
             string codigoProducto = elementoConsultaProductoVenta.ProductoAsignado.Codigo;
             string nombre = elementoConsultaProductoVenta.ProductoAsignado.Nombre;
             bool esActivo = elementoConsultaProductoVenta.ProductoAsignado.EsActivo;
+            bool esProductoVenta = true;
 
-            int filasAfectadas = ActivarDesactivarProducto(esActivo, codigoProducto, nombre);
+            int filasAfectadas = ActivarDesactivarProducto(esActivo, codigoProducto, nombre, esProductoVenta);
             if (filasAfectadas > 0)
             {
                 elementoConsultaProductoVenta.ProductoAsignado.EsActivo = !esActivo;
@@ -362,13 +371,13 @@ namespace ItaliaPizza_Cliente.Vistas
             }
         }
 
-        private int ActivarDesactivarProducto(bool esActivo, string codigoProducto, string nombre)
+        private int ActivarDesactivarProducto(bool esActivo, string codigoProducto, string nombre, bool esProductoVenta)
         {
             int filasAfectadas = -1;
 
             try
             {
-                filasAfectadas = AdministrarActivacionDesactivacionProducto(esActivo, codigoProducto, nombre);
+                filasAfectadas = AdministrarActivacionDesactivacionProducto(esActivo, codigoProducto, nombre, esProductoVenta);
             }
             catch (EndpointNotFoundException ex)
             {
@@ -404,25 +413,65 @@ namespace ItaliaPizza_Cliente.Vistas
             return filasAfectadas;
         }
 
-        private int AdministrarActivacionDesactivacionProducto(bool esActivo, string codigoProducto, string nombre)
+        private int AdministrarActivacionDesactivacionProducto(bool esActivo, string codigoProducto, string nombre, bool esProductoVenta)
         {
             int filasAfectadas = -1;
 
             if (esActivo)
             {
-                if (ValidarDesactivacionProductoVenta(codigoProducto))
-                {
-                    filasAfectadas = ConfirmarDesactivacionProducto(codigoProducto, nombre);
-                }
-                else
-                {
-                    MostrarMensajeDesactivacionInvalida();
-                    filasAfectadas = -1;
-                }
+                filasAfectadas = ManejarDesactivacion(codigoProducto, nombre, esProductoVenta);
             }
             else
             {
                 filasAfectadas = ConfirmarActivacionProducto(codigoProducto, nombre);
+            }
+
+            return filasAfectadas;
+        }
+
+        private int ManejarDesactivacion(string codigoProducto, string nombre, bool esProductoVenta)
+        {
+            int filasAfectadas = -1;
+
+            if (esProductoVenta)
+            {
+                filasAfectadas = ManejarDesactivacionProductoVenta(codigoProducto, nombre);
+            }
+            else
+            {
+                filasAfectadas = ManejarDesactivacionInsumo(codigoProducto, nombre);
+            }
+
+            return filasAfectadas;
+        }
+
+        private int ManejarDesactivacionProductoVenta(string codigoProducto, string nombre)
+        {
+            int filasAfectadas = -1;
+
+            if (ValidarDesactivacionProductoVenta(codigoProducto))
+            {
+                filasAfectadas = ConfirmarDesactivacionProducto(codigoProducto, nombre);
+            }
+            else
+            {
+                MostrarMensajeDesactivacionInvalida();
+            }
+
+            return filasAfectadas;
+        }
+
+        private int ManejarDesactivacionInsumo(string codigoProducto, string nombre)
+        {
+            int filasAfectadas = -1;
+
+            if (ValidarDesactivacionInsumo(codigoProducto))
+            {
+                filasAfectadas = ConfirmarDesactivacionProducto(codigoProducto, nombre);
+            }
+            else
+            {
+                MostrarMensajeDesactivacionInsumoInvalida();
             }
 
             return filasAfectadas;
@@ -433,6 +482,15 @@ namespace ItaliaPizza_Cliente.Vistas
             bool esDesactivacionValida = false;
             ServicioProductosClient servicioProductosClient = new ServicioProductosClient();
             esDesactivacionValida = servicioProductosClient.ValidarDesactivacion(codigoProducto);
+
+            return esDesactivacionValida;
+        }
+
+        private bool ValidarDesactivacionInsumo(string codigoProducto)
+        {
+            bool esDesactivacionValida = false;
+            ServicioProductosClient servicioProductosClient = new ServicioProductosClient();
+            esDesactivacionValida = servicioProductosClient.ValidarDesactivacionInsumo(codigoProducto);
 
             return esDesactivacionValida;
         }
@@ -488,6 +546,12 @@ namespace ItaliaPizza_Cliente.Vistas
         private void MostrarMensajeDesactivacionInvalida()
         {
             VentanaEmergente ventanaEmergente = new VentanaEmergente("No se puede desactivar", "No puedes desactivar este producto porque hay un pedido pendiente que hace uso de este", Window.GetWindow(this), VENTANA_ERROR);
+            ventanaEmergente.ShowDialog();
+        }
+
+        private void MostrarMensajeDesactivacionInsumoInvalida()
+        {
+            VentanaEmergente ventanaEmergente = new VentanaEmergente("No se puede desactivar", "No puedes desactivar este insumo porque hay un producto en venta que hace uso de este", Window.GetWindow(this), VENTANA_ERROR);
             ventanaEmergente.ShowDialog();
         }
 

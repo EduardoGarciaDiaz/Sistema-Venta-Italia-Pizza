@@ -149,6 +149,7 @@ namespace ItaliaPizza_Cliente.Vistas
             ventana.FiltrarOpcionesPanelLateral(empleado.DatosEmpleado.IdTipoEmpleado);
             ventana.SkpMenuLateral.Visibility = Visibility.Visible;
             ventana.FrameNavigator.NavigationService.Navigate(paginaDeIncio);
+            ventana.MostrarBotonAgregarGastosVarios();
         }
 
 
