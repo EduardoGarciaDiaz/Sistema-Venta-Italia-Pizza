@@ -57,6 +57,21 @@ namespace ItaliaPizza_Contratos
         [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
         EmpleadoDto RecuperarEmpleadoPorNombreUsuario(string nombreUsuario);
 
+        [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
+        bool ValidarActualizacionNombreDeUsuarioUnico(string nuevoNombreUsuario, int idUsuarioModificar);
+
+        [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
+        bool ValidarActualizacionCorreoUnico(string nuevoCorreo, int idUsuarioModificar);
+
+        [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
+        bool ActualizarEmpleado(EmpleadoDto empleadoEdicion);
+
+        [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
+        bool ActualizarCliente(UsuarioDto usuarioEdicion);
     }
 
     

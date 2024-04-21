@@ -3686,6 +3686,40 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioUsuarios/RecuperarEmpleadoPorNombreUsuario", ReplyAction="http://tempuri.org/IServicioUsuarios/RecuperarEmpleadoPorNombreUsuarioResponse")]
         System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.EmpleadoDto> RecuperarEmpleadoPorNombreUsuarioAsync(string nombreUsuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioUsuarios/ValidarActualizacionNombreDeUsuarioUnico", ReplyAction="http://tempuri.org/IServicioUsuarios/ValidarActualizacionNombreDeUsuarioUnicoResp" +
+            "onse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioUsuarios/ValidarActualizacionNombreDeUsuarioUnicoExce" +
+            "pcionServidorItaliaPizzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        bool ValidarActualizacionNombreDeUsuarioUnico(string nuevoNombreUsuario, int idUsuarioModificar);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioUsuarios/ValidarActualizacionNombreDeUsuarioUnico", ReplyAction="http://tempuri.org/IServicioUsuarios/ValidarActualizacionNombreDeUsuarioUnicoResp" +
+            "onse")]
+        System.Threading.Tasks.Task<bool> ValidarActualizacionNombreDeUsuarioUnicoAsync(string nuevoNombreUsuario, int idUsuarioModificar);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioUsuarios/ValidarActualizacionCorreoUnico", ReplyAction="http://tempuri.org/IServicioUsuarios/ValidarActualizacionCorreoUnicoResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioUsuarios/ValidarActualizacionCorreoUnicoExcepcionServ" +
+            "idorItaliaPizzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        bool ValidarActualizacionCorreoUnico(string nuevoCorreo, int idUsuarioModificar);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioUsuarios/ValidarActualizacionCorreoUnico", ReplyAction="http://tempuri.org/IServicioUsuarios/ValidarActualizacionCorreoUnicoResponse")]
+        System.Threading.Tasks.Task<bool> ValidarActualizacionCorreoUnicoAsync(string nuevoCorreo, int idUsuarioModificar);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioUsuarios/ActualizarEmpleado", ReplyAction="http://tempuri.org/IServicioUsuarios/ActualizarEmpleadoResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioUsuarios/ActualizarEmpleadoExcepcionServidorItaliaPiz" +
+            "zaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        bool ActualizarEmpleado(ItaliaPizza_Cliente.ServicioItaliaPizza.EmpleadoDto empleadoEdicion);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioUsuarios/ActualizarEmpleado", ReplyAction="http://tempuri.org/IServicioUsuarios/ActualizarEmpleadoResponse")]
+        System.Threading.Tasks.Task<bool> ActualizarEmpleadoAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.EmpleadoDto empleadoEdicion);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioUsuarios/ActualizarCliente", ReplyAction="http://tempuri.org/IServicioUsuarios/ActualizarClienteResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioUsuarios/ActualizarClienteExcepcionServidorItaliaPizz" +
+            "aFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        bool ActualizarCliente(ItaliaPizza_Cliente.ServicioItaliaPizza.UsuarioDto usuarioEdicion);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioUsuarios/ActualizarCliente", ReplyAction="http://tempuri.org/IServicioUsuarios/ActualizarClienteResponse")]
+        System.Threading.Tasks.Task<bool> ActualizarClienteAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.UsuarioDto usuarioEdicion);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -3801,6 +3835,38 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         public System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.EmpleadoDto> RecuperarEmpleadoPorNombreUsuarioAsync(string nombreUsuario) {
             return base.Channel.RecuperarEmpleadoPorNombreUsuarioAsync(nombreUsuario);
+        }
+        
+        public bool ValidarActualizacionNombreDeUsuarioUnico(string nuevoNombreUsuario, int idUsuarioModificar) {
+            return base.Channel.ValidarActualizacionNombreDeUsuarioUnico(nuevoNombreUsuario, idUsuarioModificar);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ValidarActualizacionNombreDeUsuarioUnicoAsync(string nuevoNombreUsuario, int idUsuarioModificar) {
+            return base.Channel.ValidarActualizacionNombreDeUsuarioUnicoAsync(nuevoNombreUsuario, idUsuarioModificar);
+        }
+        
+        public bool ValidarActualizacionCorreoUnico(string nuevoCorreo, int idUsuarioModificar) {
+            return base.Channel.ValidarActualizacionCorreoUnico(nuevoCorreo, idUsuarioModificar);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ValidarActualizacionCorreoUnicoAsync(string nuevoCorreo, int idUsuarioModificar) {
+            return base.Channel.ValidarActualizacionCorreoUnicoAsync(nuevoCorreo, idUsuarioModificar);
+        }
+        
+        public bool ActualizarEmpleado(ItaliaPizza_Cliente.ServicioItaliaPizza.EmpleadoDto empleadoEdicion) {
+            return base.Channel.ActualizarEmpleado(empleadoEdicion);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ActualizarEmpleadoAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.EmpleadoDto empleadoEdicion) {
+            return base.Channel.ActualizarEmpleadoAsync(empleadoEdicion);
+        }
+        
+        public bool ActualizarCliente(ItaliaPizza_Cliente.ServicioItaliaPizza.UsuarioDto usuarioEdicion) {
+            return base.Channel.ActualizarCliente(usuarioEdicion);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ActualizarClienteAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.UsuarioDto usuarioEdicion) {
+            return base.Channel.ActualizarClienteAsync(usuarioEdicion);
         }
     }
     

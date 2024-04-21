@@ -256,7 +256,65 @@ namespace ItaliaPizza_DataAccess
             }
             return resultadoOperacion;
         }
-   
 
+        public bool ValidarActualizacionCorreoUnico(string nuevoCorreo, int idUsuarioModificar)
+        {
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    return !context.Usuarios.Any(usuario => usuario.CorreoElectronico.Equals(nuevoCorreo) && usuario.IdUsuario != idUsuarioModificar);
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+        }
+
+        public int ActualizarUsuario(Usuarios clienteEdicion)
+        {
+            int filasAfectadas = -1;
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    var cliente = context.Usuarios.Find(clienteEdicion.IdUsuario);
+                    if (cliente != null)
+                    {
+                        context.Entry(cliente).CurrentValues.SetValues(clienteEdicion);
+                        filasAfectadas = context.SaveChanges();
+                    }
+
+                    return filasAfectadas;
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+        }
     }
 }
