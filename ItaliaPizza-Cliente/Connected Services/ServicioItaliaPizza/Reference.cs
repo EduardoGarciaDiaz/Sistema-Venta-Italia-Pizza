@@ -3308,6 +3308,14 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/RecuperarProductosInventariados", ReplyAction="http://tempuri.org/IServicioProductos/RecuperarProductosInventariadosResponse")]
         System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.Producto[]> RecuperarProductosInventariadosAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/ActualizarProducto", ReplyAction="http://tempuri.org/IServicioProductos/ActualizarProductoResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioProductos/ActualizarProductoExcepcionServidorItaliaPi" +
+            "zzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        int ActualizarProducto(ItaliaPizza_Cliente.ServicioItaliaPizza.Producto producto);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/ActualizarProducto", ReplyAction="http://tempuri.org/IServicioProductos/ActualizarProductoResponse")]
+        System.Threading.Tasks.Task<int> ActualizarProductoAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.Producto producto);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -3479,6 +3487,14 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         public System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.Producto[]> RecuperarProductosInventariadosAsync() {
             return base.Channel.RecuperarProductosInventariadosAsync();
+        }
+        
+        public int ActualizarProducto(ItaliaPizza_Cliente.ServicioItaliaPizza.Producto producto) {
+            return base.Channel.ActualizarProducto(producto);
+        }
+        
+        public System.Threading.Tasks.Task<int> ActualizarProductoAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.Producto producto) {
+            return base.Channel.ActualizarProductoAsync(producto);
         }
     }
     

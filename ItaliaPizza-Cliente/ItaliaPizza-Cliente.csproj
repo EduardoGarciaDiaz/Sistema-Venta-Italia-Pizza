@@ -155,6 +155,9 @@
     <Compile Include="Vistas\ConsultaProveedores.xaml.cs">
       <DependentUpon>ConsultaProveedores.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Vistas\EdicionProducto.xaml.cs">
+      <DependentUpon>EdicionProducto.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\EdicionProveedor.xaml.cs">
       <DependentUpon>EdicionProveedor.xaml</DependentUpon>
     </Compile>
@@ -325,6 +328,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vistas\ConsultaProveedores.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\EdicionProducto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

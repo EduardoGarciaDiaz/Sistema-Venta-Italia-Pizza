@@ -1,0 +1,106 @@
+﻿<Page x:Class="ItaliaPizza_Cliente.Vistas.EdicionProducto"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ItaliaPizza_Cliente.Vistas"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1300" Background="#F6F6F6"
+      Title="RegistroProducto">
+
+    <Page.Resources>
+        <Style TargetType="{x:Type TextBox}" >
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="15" />
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style TargetType="{x:Type Button}" >
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="20" />
+                </Style>
+            </Style.Resources>
+        </Style>
+
+    </Page.Resources>
+
+
+    <Viewbox Stretch="Fill">
+        <Grid Height="800" Width="1300">
+
+            <Label Content="Modificar producto"  HorizontalAlignment="Left" Margin="33,14,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FFD6B400" FontSize="30"/>
+
+            <!--Producto-->
+            <Rectangle HorizontalAlignment="Left" Height="266" Margin="37,71,0,0" VerticalAlignment="Top" Width="1207" Fill="White" RadiusX="20" RadiusY="20"></Rectangle>
+            <Label Content="Código"  HorizontalAlignment="Left" Margin="59,90,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18"/>
+            <Label x:Name="lblCodigoProducto" Content="" Margin="72,126,1080,638" FontSize="18"/>
+            <Label Content="*Nombre"  HorizontalAlignment="Left" Margin="227,90,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18" Width="172"/>
+            <TextBox x:Name="tbxNombre" HorizontalAlignment="Left" Margin="241,124,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="977" Height="37" VerticalContentAlignment="Center" FontSize="18" Padding="5 0 0 0" MaxLength="49" TextChanged="TbxNombre_TextChanged"/>
+            <Label Content="*Descripción"  HorizontalAlignment="Left" Margin="61,173,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18"/>
+            <TextBox x:Name="tbxDescripcion" HorizontalAlignment="Left" Margin="68,209,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="1147" Height="91" FontSize="18" Padding="5 0 0 0" MaxLength="197" TextChanged="TbxDescripcion_TextChanged"/>
+
+            <Label x:Name="lblErrorNombre" Content="Campo obligatorio" Visibility="Hidden" HorizontalAlignment="Left" Margin="240,159,0,0" VerticalAlignment="Top" Width="246" Foreground="Red" Height="28"/>
+            <Label x:Name="lblErrorDescripcion" Content="Campo obligatorio" Visibility="Hidden" HorizontalAlignment="Left" Margin="66,299,0,0" VerticalAlignment="Top" Width="246" Foreground="Red" Height="28"/>
+
+
+            <Rectangle HorizontalAlignment="Left" Height="219" Margin="686,391,0,0" VerticalAlignment="Top" Width="548" Fill="White" RadiusX="20" RadiusY="20"/>
+
+            <!--Producto en venta-->
+            <Label Content="*Precio"  HorizontalAlignment="Left" Margin="707,411,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18"/>
+            <TextBox x:Name="tbxPrecio" HorizontalAlignment="Left" Margin="712,446,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="264" Height="40" VerticalContentAlignment="Center" FontSize="16" Padding="25 0 0 0" MaxLength="17" TextChanged="TbxPrecio_TextChanged" PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown"/>
+            <Label Content="Foto"  HorizontalAlignment="Left" Margin="1049,409,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18"/>
+
+            <Image HorizontalAlignment="Left" Height="85" Margin="1075,475,0,0" VerticalAlignment="Top" Width="86" Source="/Recursos/Iconos/icono_camara.png"/>
+            <Rectangle x:Name="rectangleFotoProducto" HorizontalAlignment="Left" Height="138" Margin="1049,444,0,0" Stroke="Black" VerticalAlignment="Top" Width="138" Cursor="Hand" RadiusX="15" RadiusY="15" MouseLeftButtonDown="RectangleFoto_Click" Fill="Transparent"/>
+
+            <Label Content="$"  HorizontalAlignment="Left" Margin="716,449,0,0" VerticalAlignment="Top" Foreground="Black" FontSize="18"/>
+            <Label Content="*Categoría de producto en venta"  HorizontalAlignment="Left" Margin="701,508,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18"/>
+            <ComboBox x:Name="cbxCategoriasProductoVenta" HorizontalAlignment="Left" Margin="710,540,0,0" VerticalAlignment="Top" Width="269" Height="40 " VerticalContentAlignment="Center" FontSize="16" SelectionChanged="cbxCategoriaProductoVenta_Changed" DisplayMemberPath="Nombre" SelectedValuePath="Id"/>
+
+            <!--Error ProductoVenta-->
+            <Label x:Name="lblErrorPrecio" Content="Campo obligatorio" Visibility="Hidden" HorizontalAlignment="Left" Margin="710,483,0,0" VerticalAlignment="Top" Width="246" Foreground="Red" Height="28"/>
+            <Label x:Name="lblErrorFoto" Content="Peso inválido." HorizontalAlignment="Left" Margin="1075,579,0,0" VerticalAlignment="Top" Width="93" Foreground="Red" Height="30" Visibility="Hidden"/>
+
+            <Rectangle x:Name="rectangleBloqueoProductoVenta" HorizontalAlignment="Left" Height="213" Margin="688,393,0,0" VerticalAlignment="Top" Width="548" RadiusX="20" RadiusY="20" Fill="#B8000000" />
+
+            <!--Insumos-->
+            <Rectangle HorizontalAlignment="Left" Height="340" Margin="44,397,0,0" VerticalAlignment="Top" Width="549" Fill="White" RadiusX="20" RadiusY="20"/>
+            <Label Content="*Cantidad"  HorizontalAlignment="Left" Margin="65,411,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18"/>
+            <TextBox x:Name="tbxCantidad" Margin="72,445,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="222" Height="40" HorizontalAlignment="Left" VerticalContentAlignment="Center" FontSize="18" Padding="5 0 0 0" MaxLength="5" TextChanged="TbxCantidad_TextChanged" PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown"/>
+            <Label Content="*Unidad de medida"  HorizontalAlignment="Left" Margin="329,413,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18"/>
+            <ComboBox x:Name="cbxUnidadMedida" HorizontalAlignment="Left" Margin="335,445,0,0" VerticalAlignment="Top" Width="234" Height="40" VerticalContentAlignment="Center" FontSize="16" SelectionChanged="cbxUnidadMedida_SelectionChanged" DisplayMemberPath="Nombre" SelectedValuePath="Id"/>
+            <Label Content="*Costo unitario"  HorizontalAlignment="Left" Margin="67,497,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18"/>
+            <TextBox x:Name="tbxCostoUnitario" HorizontalAlignment="Left" Margin="77,530,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="222" Height="40" VerticalContentAlignment="Center" FontSize="18" Padding="25 0 0 0" MaxLength="18" TextChanged="TbxCostoUnitario_TextChanged" PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown"/>
+            <Label Content="Restricciones"  HorizontalAlignment="Left" Margin="73,587,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18"/>
+            <TextBox x:Name="tbxRestricciones" HorizontalAlignment="Left" Margin="81,621,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="498" Height="85" HorizontalContentAlignment="Stretch" FontSize="18" Padding="5 0 0 0"/>
+            <Label Content="$"  HorizontalAlignment="Left" Margin="82,533,0,0" VerticalAlignment="Top" Foreground="Black" FontSize="18"/>
+            <Label Content="*Categoría de insumo"  HorizontalAlignment="Left" Margin="329,498,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18"/>
+            <ComboBox x:Name="cbxCategoriasInsumo" HorizontalAlignment="Left" Margin="335,530,0,0" VerticalAlignment="Top" Width="234" Height="40 " VerticalContentAlignment="Center" FontSize="16" SelectionChanged="cbxCategoriasInsumo_SelectionChanged" DisplayMemberPath="Nombre" SelectedValuePath="Id"/>
+
+            <!--Error Insumo-->
+            <Label x:Name="lblErrorCantidad" Content="Campo obligatorio" Visibility="Hidden" HorizontalAlignment="Left" Margin="70,480,0,0" VerticalAlignment="Top" Width="136" Foreground="Red" Height="28"/>
+            <Label x:Name="lblErrorCostoUnitario" Content="Campo obligatorio" Visibility="Hidden" HorizontalAlignment="Left" Margin="73,570,0,0" VerticalAlignment="Top" Width="246" Foreground="Red" Height="28"/>
+
+            <Label x:Name="lblErrorRestriccion" Content="Campo obligatorio" Visibility="Hidden" HorizontalAlignment="Left" Margin="79,704,0,0" VerticalAlignment="Top" Width="246" Foreground="Red" Height="28"/>
+
+            <Rectangle x:Name="rectangleBloqueoInsumo" Height="326" Margin="40,392,0,0" VerticalAlignment="Top" Width="561" RadiusX="20" RadiusY="20" Fill="#B8000000" HorizontalAlignment="Left" />
+
+            <!--Botones-->
+            <Button Content="Guardar" HorizontalAlignment="Left" Margin="682,624,0,0" VerticalAlignment="Top" Height="64" Width="552" Foreground="Black" BorderBrush="#FFF8D72A" Background="#FFF8D72A" FontSize="24" FontWeight="Bold" Cursor="Hand" Click="BtnGuardar_Click"/>
+            <Button Content="Cancelar" HorizontalAlignment="Left" Margin="683,699,0,0" VerticalAlignment="Top" Height="63" Width="546" Foreground="#FFD67272" BorderBrush="#FFD67272" Background="#FFF6F6F6" FontSize="24" FontWeight="Bold" Cursor="Hand" Click="BtnCancelar_Click"/>
+
+            <!--Etiquetas de error-->
+            <!--Error producto-->
+            <Label x:Name="lbErrorCodigo" Content="*" Visibility="Collapsed" HorizontalAlignment="Left" Margin="89,173,0,0" VerticalAlignment="Top" Width="246" FontSize="9" VerticalContentAlignment="Center" Foreground="Red"/>
+            <Label x:Name="lbErrorCategoria" Content="*" Visibility="Collapsed" HorizontalAlignment="Left" Margin="363,177,0,0" VerticalAlignment="Top" Width="246" FontSize="9" VerticalContentAlignment="Center" Foreground="Red"/>
+            <Label x:Name="lbErrorNombre" Content="*" Visibility="Collapsed" HorizontalAlignment="Left" Margin="92,238,0,0" VerticalAlignment="Top" Width="520" FontSize="9" VerticalContentAlignment="Center" Foreground="Red"/>
+            <Label x:Name="lbErrorDescripcion" Content="*" Visibility="Collapsed" HorizontalAlignment="Left" Margin="96,349,0,0" VerticalAlignment="Top" Width="520" FontSize="9" VerticalContentAlignment="Center" Foreground="Red"/>
+            <Label Content="Propiedades de insumo"  HorizontalAlignment="Left" Margin="39,353,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18"/>
+            <Label Content="Propiedades de producto en venta"  HorizontalAlignment="Left" Margin="684,353,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18"/>
+
+        </Grid>
+    </Viewbox>
+
+</Page>

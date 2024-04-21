@@ -390,6 +390,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="ActualizarProducto">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="producto" nillable="true" type="q20:Producto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActualizarProductoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ActualizarProductoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="RecuperarRecetas">
     <xs:complexType>
       <xs:sequence />
@@ -398,7 +412,7 @@
   <xs:element name="RecuperarRecetasResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="RecuperarRecetasResult" nillable="true" type="q20:ArrayOfReceta" />
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="RecuperarRecetasResult" nillable="true" type="q21:ArrayOfReceta" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -412,14 +426,14 @@
   <xs:element name="RecuperarInsumosRecetaResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="RecuperarInsumosRecetaResult" nillable="true" type="q21:ArrayOfInsumoReceta" />
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="RecuperarInsumosRecetaResult" nillable="true" type="q22:ArrayOfInsumoReceta" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GuardarReceta">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="receta" nillable="true" type="q22:RecetaProducto" />
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="receta" nillable="true" type="q23:RecetaProducto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -454,14 +468,14 @@
   <xs:element name="BuscarClienteResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="BuscarClienteResult" nillable="true" type="q23:ArrayOfClienteBusqueda" />
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="BuscarClienteResult" nillable="true" type="q24:ArrayOfClienteBusqueda" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GuardarEmpleado">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="empleadoNuevo" nillable="true" type="q24:EmpleadoDto" />
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="empleadoNuevo" nillable="true" type="q25:EmpleadoDto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -475,7 +489,7 @@
   <xs:element name="GuardarCliente">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="clienteNuevo" nillable="true" type="q25:UsuarioDto" />
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="clienteNuevo" nillable="true" type="q26:UsuarioDto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -494,7 +508,7 @@
   <xs:element name="RecuperarTiposEmpleadoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="RecuperarTiposEmpleadoResult" nillable="true" type="q26:ArrayOfTipoEmpleadoDto" />
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="RecuperarTiposEmpleadoResult" nillable="true" type="q27:ArrayOfTipoEmpleadoDto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -534,7 +548,7 @@
   <xs:element name="RecuperarClientesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="RecuperarClientesResult" nillable="true" type="q27:ArrayOfUsuarioDto" />
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="RecuperarClientesResult" nillable="true" type="q28:ArrayOfUsuarioDto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -546,7 +560,7 @@
   <xs:element name="RecuperarEmpleadosResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="RecuperarEmpleadosResult" nillable="true" type="q28:ArrayOfEmpleadoDto" />
+        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="RecuperarEmpleadosResult" nillable="true" type="q29:ArrayOfEmpleadoDto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -576,7 +590,7 @@
   <xs:element name="RecuperarClientePorIdResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="RecuperarClientePorIdResult" nillable="true" type="q29:Cliente" />
+        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="RecuperarClientePorIdResult" nillable="true" type="q30:Cliente" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -590,7 +604,7 @@
   <xs:element name="RecuperarEmpleadoPorNombreUsuarioResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="RecuperarEmpleadoPorNombreUsuarioResult" nillable="true" type="q30:EmpleadoDto" />
+        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="RecuperarEmpleadoPorNombreUsuarioResult" nillable="true" type="q31:EmpleadoDto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -602,7 +616,7 @@
   <xs:element name="RecuperarProveedoresResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="RecuperarProveedoresResult" nillable="true" type="q31:ArrayOfProveedorDto" />
+        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="RecuperarProveedoresResult" nillable="true" type="q32:ArrayOfProveedorDto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -614,14 +628,14 @@
   <xs:element name="RecuperarProveedoresActivosResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="RecuperarProveedoresActivosResult" nillable="true" type="q32:ArrayOfProveedorDto" />
+        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="RecuperarProveedoresActivosResult" nillable="true" type="q33:ArrayOfProveedorDto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GuardarProveedorNuevo">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="proveedorNuevo" nillable="true" type="q33:ProveedorDto" />
+        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="proveedorNuevo" nillable="true" type="q34:ProveedorDto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -635,7 +649,7 @@
   <xs:element name="ActualizarInformacionProveedor">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="proveedor" nillable="true" type="q34:ProveedorDto" />
+        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="proveedor" nillable="true" type="q35:ProveedorDto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -744,7 +758,7 @@
   <xs:element name="GuardarGastoVario">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="gastoVario" nillable="true" type="q35:GastoVario" />
+        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="gastoVario" nillable="true" type="q36:GastoVario" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -779,14 +793,14 @@
   <xs:element name="RecuperarCorteCajaResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="RecuperarCorteCajaResult" nillable="true" type="q36:CorteCaja" />
+        <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="RecuperarCorteCajaResult" nillable="true" type="q37:CorteCaja" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GuardarCorteCaja">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="corteCaja" nillable="true" type="q37:CorteCaja" />
+        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="corteCaja" nillable="true" type="q38:CorteCaja" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -800,7 +814,7 @@
   <xs:element name="ActualizarCorteCaja">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="corteCaja" nillable="true" type="q38:CorteCaja" />
+        <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs" minOccurs="0" name="corteCaja" nillable="true" type="q39:CorteCaja" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

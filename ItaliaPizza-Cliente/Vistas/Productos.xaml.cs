@@ -665,28 +665,27 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void ImgModificar_Click(object sender, EventArgs e)
         {
-            VentanaEmergente ventanaEmergente = new VentanaEmergente("Próxima implementación", "La edición del producto se implementará pronto...", Window.GetWindow(this), 2);
-            ventanaEmergente.ShowDialog();
-
             // Generar un objeto producto con los datos del producto seleccionado
             // Enviar el objeto producto a la ventana de modificar producto
+            Producto productoEdicion;
 
             if (sender is ElementoConsultaInsumo)
             {
                 ElementoConsultaInsumo elementoConsultaInsumo = (ElementoConsultaInsumo)sender;
-                Producto productoEdicion = elementoConsultaInsumo.ProductoAsignado;
+                productoEdicion = elementoConsultaInsumo.ProductoAsignado;
                 Console.WriteLine("Insumo a modificar");
 
             } 
             else
             {
                 ElementoConsultaProductoVenta elementoConsultaProductoVenta = (ElementoConsultaProductoVenta)sender;
-                Producto productoEdicion = elementoConsultaProductoVenta.ProductoAsignado;
+                productoEdicion = elementoConsultaProductoVenta.ProductoAsignado;
                 Console.WriteLine("Producto Venta a modificar");
 
             }
 
-            // NavigationService.Navigate(new ModificacionProducto(productoEdicion));
+            EdicionProducto edicionProducto = new EdicionProducto(_categoriasProductoVenta, _categoriasInsumo, productoEdicion);
+            NavigationService.Navigate(edicionProducto);
         }
 
         private void BtnValidarInventario_Click(object sender, RoutedEventArgs e)

@@ -487,5 +487,18 @@ namespace ItaliaPizza_Servicios
                 throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
             }
         }
+
+        public int ActualizarProducto(Producto producto)
+        {
+            ProductoDAO productoDAO= new ProductoDAO();
+            try
+            {
+                return productoDAO.ActualizarProducto(producto);
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
+        }
     }
 }
