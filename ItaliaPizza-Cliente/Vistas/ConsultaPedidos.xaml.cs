@@ -445,10 +445,16 @@ namespace ItaliaPizza_Cliente.Vistas
             
             try
             {
-                _pedidoSeleccionado = servicioPedidosClient.RecuperarPedido(_pedidoSeleccionado.NumeroPedido);
-                Cliente cliente = new ServicioUsuariosClient().RecuperarClientePorId(_pedidoSeleccionado.IdCliente);
+                if (EmpleadoSingleton.getInstance().DatosEmpleado.IdTipoEmpleado == (int)EnumTiposEmpleado.Cajero)
+                {
+                    _pedidoSeleccionado = servicioPedidosClient.RecuperarPedido(_pedidoSeleccionado.NumeroPedido);
+                    Cliente cliente = new ServicioUsuariosClient().RecuperarClientePorId(_pedidoSeleccionado.IdCliente);
+                    MostrarPedido(_pedidoSeleccionado, cliente);
+                } else
+                {
+                    bdrSeleccionaUnPedido.Visibility = Visibility.Visible;
+                }
                 RecuperarPedidos();
-                MostrarPedido(_pedidoSeleccionado, cliente);
             }
             catch (EndpointNotFoundException ex)
             {
