@@ -426,7 +426,23 @@ namespace ItaliaPizza_Servicios
             {
                 throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
             }
+        }
 
+        public bool ValidarDesactivacionInsumo(string codigoProducto)
+        {
+            bool esDesactivacionValida = false;
+            InsumoDAO insumoDAO = new InsumoDAO();
+
+            try
+            {
+                esDesactivacionValida = insumoDAO.ValidarDesactivacionInsumo(codigoProducto);
+
+                return esDesactivacionValida;
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
         }
 
         public int DesactivarProducto(string codigoProducto)
@@ -483,5 +499,44 @@ namespace ItaliaPizza_Servicios
             reprotePdf.contenidoReporte = GeneradorPDF.GenerarReproteProductosPDF(insumos, productos);
             return reprotePdf;
         }
+
+        public List<Producto> RecuperarProductosInventariados()
+        {
+            ProductoDAO productoDAO = new ProductoDAO();
+
+            try
+            {
+                List<Productos> productos = productoDAO.RecuperarProductos();
+
+                List<Productos> productosTemporales = new List<Productos>();
+                productosTemporales.AddRange(productos.Where(producto => producto.Insumos != null && producto.EsInventariado == true));
+
+                List<Producto> productosConvertidos = new List<Producto>();
+                foreach (Productos producto in productosTemporales)
+                {
+                    productosConvertidos.Add(AuxiliarPreparacionDatos.ConvertirProductosAProductoInventariado(producto));
+                }
+
+                return productosConvertidos;
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
+        }
+
+        public int ActualizarProducto(Producto producto)
+        {
+            ProductoDAO productoDAO= new ProductoDAO();
+            try
+            {
+                return productoDAO.ActualizarProducto(producto);
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
+        }
+        
     }
 }

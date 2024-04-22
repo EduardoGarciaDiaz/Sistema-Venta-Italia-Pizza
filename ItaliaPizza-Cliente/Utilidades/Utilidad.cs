@@ -50,7 +50,7 @@ namespace ItaliaPizza_Cliente.Utilidades
             }
         }
 
-        public static void MostrarLabelDuranteSegundos(Label label, int segundos)
+        public static void MostrarMensaje(Label label, int segundos)
         {
             label.Visibility = Visibility.Visible;
 

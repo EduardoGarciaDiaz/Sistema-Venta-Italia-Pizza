@@ -153,6 +153,9 @@
     <Compile Include="Recursos\ControlesUsuario\BtnMenuLateral.xaml.cs">
       <DependentUpon>BtnMenuLateral.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Recursos\ControlesUsuario\ElementoConsultaOrdenCompra.xaml.cs">
+      <DependentUpon>ElementoConsultaOrdenCompra.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Recursos\ControlesUsuario\ElementoConsultaPedido.xaml.cs">
       <DependentUpon>ElementoConsultaPedido.xaml</DependentUpon>
     </Compile>
@@ -201,10 +204,14 @@
     <Compile Include="Recursos\ControlesUsuario\ElementoInsumoOrdenCompraSeleccionado.xaml.cs">
       <DependentUpon>ElementoInsumoOrdenCompraSeleccionado.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Recursos\ControlesUsuario\ElementoValidacionProducto.xaml.cs">
+      <DependentUpon>ElementoValidacionProducto.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utilidades\CampoTextoConLabel.cs" />
     <Compile Include="Utilidades\CifradorContraseñas.cs" />
     <Compile Include="Utilidades\ConvertidorBytes.cs" />
     <Compile Include="Utilidades\EmpleadoSingleton.cs" />
+    <Compile Include="Utilidades\EnumEstadosOrdenCompra.cs" />
     <Compile Include="Utilidades\EnumEstadosPedido.cs" />
     <Compile Include="Utilidades\EnumTiposEmpleado.cs" />
     <Compile Include="Utilidades\EnumTiposServicio.cs" />
@@ -226,6 +233,9 @@
     <Compile Include="Vistas\ConsultaProveedores.xaml.cs">
       <DependentUpon>ConsultaProveedores.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Vistas\EdicionProducto.xaml.cs">
+      <DependentUpon>EdicionProducto.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\EdicionProveedor.xaml.cs">
       <DependentUpon>EdicionProveedor.xaml</DependentUpon>
     </Compile>
@@ -243,6 +253,9 @@
     </Compile>
     <Compile Include="Vistas\Recetas.xaml.cs">
       <DependentUpon>Recetas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\RegistroCorteCaja.xaml.cs">
+      <DependentUpon>RegistroCorteCaja.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\RegistroOrdenCompra.xaml.cs">
       <DependentUpon>RegistroOrdenCompra.xaml</DependentUpon>
@@ -263,6 +276,9 @@
     <Compile Include="Vistas\RegistroReceta.xaml.cs">
       <DependentUpon>RegistroReceta.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Vistas\EdicionUsuario.xaml.cs">
+      <DependentUpon>EdicionUsuario.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\RegistroUsuario.xaml.cs">
       <DependentUpon>RegistroUsuario.xaml</DependentUpon>
     </Compile>
@@ -271,6 +287,9 @@
     </Compile>
     <Compile Include="Vistas\Usuarios.xaml.cs">
       <DependentUpon>Usuarios.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\ValidacionInventario.xaml.cs">
+      <DependentUpon>ValidacionInventario.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -305,6 +324,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Recursos\ControlesUsuario\BtnMenuLateral.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Recursos\ControlesUsuario\ElementoConsultaOrdenCompra.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -372,6 +395,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Recursos\ControlesUsuario\ElementoValidacionProducto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Utilidades\VentanaEmergente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -389,6 +416,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vistas\ConsultaProveedores.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\EdicionProducto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -416,6 +447,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Vistas\RegistroCorteCaja.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Vistas\RegistroOrdenCompra.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -440,6 +475,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Vistas\EdicionUsuario.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Vistas\RegistroUsuario.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -449,6 +488,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vistas\Usuarios.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\ValidacionInventario.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -480,10 +523,16 @@
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.ClienteBusqueda.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.CorteCaja.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.EmpleadoDto.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.InsumoOrdenCompraDto.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.OrdenDeCompraDto.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.Pedido.datasource">
@@ -661,6 +710,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Recursos\Iconos\icono_reporte.png" />
+    <Resource Include="Recursos\Iconos\icono_calculadora.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

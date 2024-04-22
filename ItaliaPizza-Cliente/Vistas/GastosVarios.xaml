@@ -35,7 +35,7 @@
     <Border CornerRadius="25" Background="#F6F6F6" Height="550" Width="450">
         <Viewbox Stretch="Fill">
             <Grid Height="550" Width="450">
-                <Border CornerRadius="10,10,0,0" Background="red" Margin="0,0,0,519" >
+                <Border CornerRadius="10,10,0,0" Background="Black" Margin="0,0,0,519" >
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="50*"/>

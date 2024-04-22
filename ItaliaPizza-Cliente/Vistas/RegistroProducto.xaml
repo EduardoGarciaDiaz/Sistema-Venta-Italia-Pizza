@@ -67,7 +67,7 @@
             <CheckBox x:Name="chbxEsInventariado" Content="Es inventariado" HorizontalAlignment="Left" Margin="92,424,0,0" VerticalAlignment="Top" Foreground="#FF7E7E7E" FontWeight="Bold" FontSize="18" VerticalContentAlignment="Center" Checked="ChbxEsInventariado_Checked" Unchecked="ChbxEsInventariado_Unchecked"/>
             <Label Content="Insumos"  HorizontalAlignment="Left" Margin="549,412,0,0" VerticalAlignment="Top" Foreground="#FF7E7E7E" FontSize="10"/>
             <Label Content="*Cantidad"  HorizontalAlignment="Left" Margin="85,463,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18"/>
-            <TextBox x:Name="tbxCantidad" Margin="92,497,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="222" Height="27" HorizontalAlignment="Left" VerticalContentAlignment="Center" FontSize="16" Padding="5 0 0 0" MaxLength="20"/>
+            <TextBox x:Name="tbxCantidad" Margin="92,497,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="222" Height="27" HorizontalAlignment="Left" VerticalContentAlignment="Center" FontSize="16" Padding="5 0 0 0" MaxLength="5"/>
             <Label Content="*Unidad de medida"  HorizontalAlignment="Left" Margin="331,463,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18"/>
             <ComboBox x:Name="cbxUnidadMedida" HorizontalAlignment="Left" Margin="335,497,0,0" VerticalAlignment="Top" Width="234" Height="27" VerticalContentAlignment="Center" FontSize="16"/>
             <Label Content="*Costo unitario"  HorizontalAlignment="Left" Margin="85,537,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18"/>

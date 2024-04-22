@@ -66,10 +66,10 @@ namespace ItaliaPizza_Cliente.Vistas
             {
                 List<Categoria> categoriasProductoVenta = servicioProductosCliente.RecuperarCategoriasProductoVenta().ToList();
                 MostrarCategoriasProductoVenta(categoriasProductoVenta);
-                _productosVenta = servicioProductosCliente.RecuperarProductosVenta().ToList();
-                MostrarProductosVenta(_productosVenta);
                 _tiposServicio = servicioPedidosCliente.RecuperarTiposServicio().ToList();
                 _tipoServicioSeleccionado = _tiposServicio.ElementAt((int)EnumTiposServicio.EnEstablecimiento);
+                _productosVenta = servicioProductosCliente.RecuperarProductosVenta().ToList();
+                MostrarProductosVenta(_productosVenta);
             }
             catch (EndpointNotFoundException ex)
             {
@@ -121,14 +121,14 @@ namespace ItaliaPizza_Cliente.Vistas
                     if (productoDisponibleParaVenta)
                     {
                         ProductoVentaPedidos productoSeleccionado = _productosVenta.Where(producto => producto.Codigo == codigoProducto).FirstOrDefault();
-                        _productosEnPedido.Add(productoSeleccionado.Codigo, 1);
-                        MostrarDatosProductoSeleccionado(productoSeleccionado);
+                        AgregarProductoAPedido(productoSeleccionado);
                         CalcularCantidades();
                         MostrarCantidades();
+                        MostrarDatosProductoSeleccionado(productoSeleccionado);
                     }
                     else
                     {
-                        Utilidad.MostrarLabelDuranteSegundos(LblProductoNoDisponible, 2);
+                        Utilidad.MostrarMensaje(LblProductoNoDisponible, 2);
                     }
                 }
                 catch (EndpointNotFoundException ex)
@@ -162,6 +162,12 @@ namespace ItaliaPizza_Cliente.Vistas
                     ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
                 }
             }
+        }
+
+        private void AgregarProductoAPedido(ProductoVentaPedidos producto)
+        {
+            int cantidad = 1;
+            _productosEnPedido.Add(producto.Codigo, cantidad);
         }
 
         private void BtnRestarProductoClicked(object sender, EventArgs e)
@@ -327,14 +333,10 @@ namespace ItaliaPizza_Cliente.Vistas
                 {
                     _clientes.Clear();
                     ServicioUsuariosClient servicioUsuariosCliente = new ServicioUsuariosClient();
-                    List<ClienteBusqueda> clientesBusqueda = servicioUsuariosCliente.BuscarCliente(this.BarraBusquedaClientes.TxtBusqueda.Text).ToList();
-                    if (clientesBusqueda.Any())
+                    List<ClienteBusqueda> clientesCoincidentes = servicioUsuariosCliente.BuscarCliente(this.BarraBusquedaClientes.TxtBusqueda.Text).ToList();
+                    if (clientesCoincidentes.Any())
                     {
-                        foreach (ClienteBusqueda clienteBusqueda in clientesBusqueda)
-                        {
-                            _clientes.Add(clienteBusqueda);
-                        }
-                        this.BarraBusquedaClientes.ListaClientes.Visibility = Visibility.Visible;
+                        MostrarCoincidencias(clientesCoincidentes);
                     }
                     else
                     {
@@ -375,8 +377,18 @@ namespace ItaliaPizza_Cliente.Vistas
             else
             {
                 LblMensajeAdvertenciaCliente.Content = MENSAJE_CAMPO_VACIO;
-                Utilidad.MostrarLabelDuranteSegundos(LblMensajeAdvertenciaCliente, 2);
+                Utilidad.MostrarMensaje(LblMensajeAdvertenciaCliente, 2);
             }
+        }
+
+        private void MostrarCoincidencias(List<ClienteBusqueda> clientesCoincidentes)
+        {
+
+            foreach (ClienteBusqueda clienteBusqueda in clientesCoincidentes)
+            {
+                _clientes.Add(clienteBusqueda);
+            }
+            this.BarraBusquedaClientes.ListaClientes.Visibility = Visibility.Visible;
         }
 
         private void TxtBusquedaClienteChanged(object sender, EventArgs e)
@@ -398,13 +410,19 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             if (BarraBusquedaClientes.ListaClientes.SelectedItem is ClienteBusqueda cliente)
             {
-                _clienteSeleccionado = cliente;
-                LblNombreCliente.Content = cliente.Nombre;
-                LblCorreoElectronicoCliente.Content = cliente.Correo;
-                this.BarraBusquedaClientes.ListaClientes.Visibility = Visibility.Collapsed;
-                this.BarraBusquedaClientes.TxtBusqueda.Text = "";
-                this.BarraBusquedaClientes.Placeholder.Text = MENSAJE_BUSQUEDA_OTRO_CLIENTE;
+                MostrarDatosCliente(cliente);
             }
+        }
+
+        private void MostrarDatosCliente(ClienteBusqueda cliente)
+        {
+            _clienteSeleccionado = cliente;
+            LblNombreCliente.Content = cliente.Nombre;
+            LblCorreoElectronicoCliente.Content = cliente.Correo;
+            this.BarraBusquedaClientes.ListaClientes.Visibility = Visibility.Collapsed;
+            this.BarraBusquedaClientes.TxtBusqueda.Text = "";
+            this.BarraBusquedaClientes.Placeholder.Text = MENSAJE_BUSQUEDA_OTRO_CLIENTE;
+
         }
 
         private void ImgBuscarProductosClicked(object sender, EventArgs e)
@@ -412,11 +430,7 @@ namespace ItaliaPizza_Cliente.Vistas
             string valorBusqueda = BarraBusquedaProductos.TxtBusqueda.Text.ToString();
             if (!(ValidarCamposVacios(valorBusqueda)))
             {
-                List<ProductoVentaPedidos> resultadoBusquedaProductos = new List<ProductoVentaPedidos>();
-                resultadoBusquedaProductos = _productosVenta.Where(producto =>
-                    producto.Nombre.ToLower().Contains(valorBusqueda.ToLower())
-                    || producto.Codigo.ToLower().Contains(valorBusqueda.ToLower())
-                ).ToList();
+                List<ProductoVentaPedidos> resultadoBusquedaProductos = BuscarProducto(valorBusqueda);
                 if (resultadoBusquedaProductos.Count != 0)
                 {
                     MostrarProductosVenta(resultadoBusquedaProductos);
@@ -429,8 +443,18 @@ namespace ItaliaPizza_Cliente.Vistas
             else
             {
                 LblMensajeAdvertenciaProducto.Content = MENSAJE_CAMPO_VACIO;
-                Utilidad.MostrarLabelDuranteSegundos(LblMensajeAdvertenciaProducto, 2);
+                Utilidad.MostrarMensaje(LblMensajeAdvertenciaProducto, 2);
             }
+        }
+
+        private List<ProductoVentaPedidos> BuscarProducto(string valorBusqueda)
+        {
+            List<ProductoVentaPedidos> resultadoBusquedaProductos = new List<ProductoVentaPedidos>();
+            resultadoBusquedaProductos = _productosVenta.Where(producto =>
+                producto.Nombre.ToLower().Contains(valorBusqueda.ToLower())
+                || producto.Codigo.ToLower().Contains(valorBusqueda.ToLower())
+            ).ToList();
+            return resultadoBusquedaProductos;
         }
 
         private void BtnEntregaDomicilio_Click(object sender, RoutedEventArgs e)
@@ -478,7 +502,7 @@ namespace ItaliaPizza_Cliente.Vistas
             else
             {
                 LblMensajeSeleccionClienteProductoObligatoria.Visibility = Visibility.Visible;
-                Utilidad.MostrarLabelDuranteSegundos(LblMensajeSeleccionClienteProductoObligatoria, 3);
+                Utilidad.MostrarMensaje(LblMensajeSeleccionClienteProductoObligatoria, 3);
             }
         }
 
@@ -615,7 +639,7 @@ namespace ItaliaPizza_Cliente.Vistas
                 }
                 else
                 {
-                    Utilidad.MostrarLabelDuranteSegundos(LblProductoNoDisponible, 2);
+                    Utilidad.MostrarMensaje(LblProductoNoDisponible, 2);
                 }
             }
             catch (EndpointNotFoundException ex)

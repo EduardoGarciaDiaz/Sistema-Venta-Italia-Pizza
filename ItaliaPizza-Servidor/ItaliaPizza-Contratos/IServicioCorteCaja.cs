@@ -9,25 +9,24 @@ using System.Threading.Tasks;
 
 namespace ItaliaPizza_Contratos
 {
+
     [ServiceContract]
-    public interface IServicioOrdenesCompra
+    public interface IServicioCorteCaja
     {
         [OperationContract]
-        void OperacionOrdenesEjemplo();
-
-        [OperationContract]
-        int GuardarOrdenDeCompraNueva(OrdenDeCompraDto ordenDeCompraDto);
-
-        [OperationContract]
-        bool EnviarOrdenDeCompra(int idOrdenDeCompra);
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
+        CorteCaja RecuperarCorteCaja(DateTime fecha);
 
         [OperationContract]
         [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
-        double RecuperarSalidasDeOrdenesCompraPorFecha(DateTime fecha);
+        int GuardarCorteCaja(CorteCaja corteCaja);
 
         [OperationContract]
         [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
-        List<OrdenDeCompraDto> RecuperarOrdenesDeCompra();
+        int ActualizarCorteCaja(CorteCaja corteCaja);
 
+        [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
+        bool ExisteCorteCaja(DateTime fecha);
     }
 }

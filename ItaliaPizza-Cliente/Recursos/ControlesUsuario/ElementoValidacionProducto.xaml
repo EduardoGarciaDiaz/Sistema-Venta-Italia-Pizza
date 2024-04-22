@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="ItaliaPizza_Cliente.Recursos.ControlesUsuario.ElementoValidacionProducto"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ItaliaPizza_Cliente.Recursos.ControlesUsuario"
+             mc:Ignorable="d" 
+             d:DesignHeight="60" d:DesignWidth="1250" Margin="0 5 0 5">
+    <Viewbox Height="60" Width="1250">
+        <Grid>
+            <Rectangle RadiusX="30" RadiusY="30" Fill="White" Height="60" Width="1250"></Rectangle>
+            <Label Content="Código:"  FontSize="18" Margin="20,2,1048,26" FontWeight="Medium"/>
+            <Label Name="lblCodigo" Content="" Width="170"  FontSize="18" Margin="92,2,976,26"/>
+            <Label Content="Nombre:"  FontSize="18" Margin="20,27,1048,1" FontWeight="Medium"/>
+            <Label Name="lblNombre" Content="" Width="290"  FontSize="18" Margin="101,28,859,0"/>
+
+            <Label Content="Categoría:"  FontSize="18" Margin="402,2,666,26" FontWeight="Medium"/>
+            <Label Name="lblCategoria" Content=""  FontSize="18" Margin="490,2,578,26"/>
+            <Label Content="Cantidad:"  FontSize="18" Margin="402,27,666,1" FontWeight="Medium"/>
+            <Label Name="lblCantidad" Content=""  FontSize="18" Margin="488,28,617,0"/>
+            <Label Content="Costo:"  FontSize="18" Margin="581,27,487,1" FontWeight="Medium"/>
+            <Label Name="lblCosto" Content=""  FontSize="18" Margin="641,28,464,0"/>
+
+            <Label Content="Cantidad física:"  FontSize="18" Margin="746,14,322,14" FontWeight="Bold"/>
+            <TextBox Name="tbxCantidadFisica" MaxLength="5"  Text="" FontSize="28" Margin="884,0,0,0" Width="100" Height="42" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyDown="TbxCantidadFisicaEnter_Pressed"/>
+            <Label Name="lblUnidadMedida" Content=""  FontSize="18" Margin="989,14,234,14" FontWeight="Medium"/>
+            <TextBlock Name="tbkRespuestaValidacion" Text="" FontSize="18" Margin="1065,0,0,0" Width="175" FontWeight="Bold" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+
+
+        </Grid>
+    </Viewbox>
+</UserControl>

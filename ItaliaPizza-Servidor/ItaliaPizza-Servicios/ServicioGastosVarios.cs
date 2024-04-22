@@ -28,5 +28,18 @@ namespace ItaliaPizza_Servicios
                 throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(ex);
             }
         }
+
+        public double RecuperarSalidasGastosVarios(DateTime fecha)
+        {
+            GastoVarioDAO gastoVarioDAO = new GastoVarioDAO();
+            try
+            {
+                return gastoVarioDAO.RecuperarSalidasGastosVarios(fecha);
+            }
+            catch (ExcepcionDataAccess ex)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(ex);
+            }
+        }
     }
 }

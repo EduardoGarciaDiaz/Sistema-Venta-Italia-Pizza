@@ -368,5 +368,44 @@ namespace ItaliaPizza_DataAccess
             }
         }
 
+        public bool ValidarDesactivacionInsumo(string codigoProducto)
+        {
+            bool insumoValidoADesactivar = true;
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    var insumos = from i in context.Insumos
+                                  join ri in context.RecetasInsumos on i.CodigoProducto equals ri.CodigoProducto
+                                  join r in context.Recetas on ri.IdReceta equals r.IdReceta
+                                  join p in context.Productos on r.CodigoProducto equals p.CodigoProducto
+                                  where p.EsActivo == true && i.CodigoProducto == codigoProducto
+                                  select i;
+
+                    if (insumos.Count() > 0)
+                    {
+                        insumoValidoADesactivar = false;
+                    }
+
+                    return insumoValidoADesactivar;
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+        }
+
     }
 }

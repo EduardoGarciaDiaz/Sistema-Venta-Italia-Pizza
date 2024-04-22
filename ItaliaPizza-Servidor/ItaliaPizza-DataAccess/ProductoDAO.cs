@@ -363,6 +363,64 @@ namespace ItaliaPizza_DataAccess
             return productosVenta;
         }
 
+
+        public int ActualizarProducto(Producto producto)
+        {
+            int filasAfectadas = -1;
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    Productos productos = context.Productos.FirstOrDefault(p => p.CodigoProducto.Equals(producto.Codigo));
+                    if (productos != default)
+                    {
+                        productos.Nombre = producto.Nombre;
+                        productos.Descripcion = producto.Descripcion;
+                    }
+                    if (producto.ProductoVenta != null)
+                    {
+                        ProductosVenta productosVenta = context.ProductosVenta.FirstOrDefault(p => p.CodigoProducto.Equals(producto.Codigo));
+                        if ( productosVenta != default)
+                        {
+                            productosVenta.Precio = producto.ProductoVenta.Precio;
+                            productosVenta.Foto = producto.ProductoVenta.Foto;
+                            productosVenta.IdCategoriaProductoVenta = producto.ProductoVenta.Categoria.Id;
+                        }
+                    }
+                    if (producto.Insumo != null)
+                    {
+                        Insumos insumos = context.Insumos.FirstOrDefault(i => i.CodigoProducto.Equals(producto.Codigo));
+                        if ( insumos != default)
+                        {
+                            insumos.Cantidad = producto.Insumo.Cantidad;
+                            insumos.IdUnidadMedida = producto.Insumo.UnidadMedida.Id;
+                            insumos.Costo = producto.Insumo.CostoUnitario;
+                            insumos.IdCategoriaInsumo = producto.Insumo.Categoria.Id;
+                            insumos.Restricciones = producto.Insumo.Restriccion;
+                        }
+                    }
+                    filasAfectadas = context.SaveChanges();
+                }               
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+                return filasAfectadas;
+        }
+        
+
         public List<ProductosVenta> RecuperarTodosProductosVentaPorCategoria(List<Categoria> categorias)
         {
             List<ProductosVenta> productosVenta = new List<ProductosVenta>();
@@ -405,5 +463,4 @@ namespace ItaliaPizza_DataAccess
 
 
     } 
-
 }

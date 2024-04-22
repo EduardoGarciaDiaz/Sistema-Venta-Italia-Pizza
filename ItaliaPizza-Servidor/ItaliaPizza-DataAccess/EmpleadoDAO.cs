@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ItaliaPizza_DataAccess.Excepciones;
 using System.Data.Entity.Migrations;
+using System.Runtime.Remoting.Contexts;
 
 namespace ItaliaPizza_DataAccess
 {
@@ -277,5 +278,65 @@ namespace ItaliaPizza_DataAccess
             return resultadoOperacion;
         }
 
+        public static bool ValidarActualizacionNombreDeUsuarioUnico(string nuevoNombreUsuario, int idUsuarioModificar)
+        {
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    return !context.Empleados.Any(empleado => empleado.NombreUsuario.Equals(nuevoNombreUsuario) && empleado.IdUsuario != idUsuarioModificar);
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+        }
+
+        public static int ActualizarEmpleado(Empleados empleadoEdicion )
+        {
+            int filasAfectadas = -1;
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    var empleado = context.Empleados.Find(empleadoEdicion.IdUsuario);
+                    if (empleado != null)
+                    {
+                        context.Entry(empleado).CurrentValues.SetValues(empleadoEdicion);
+                        filasAfectadas = context.SaveChanges();
+                    }
+
+                    return filasAfectadas;
+                }
+                
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+        }
     }
 }

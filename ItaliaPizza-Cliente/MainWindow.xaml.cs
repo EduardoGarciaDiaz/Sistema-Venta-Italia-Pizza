@@ -62,6 +62,14 @@ namespace ItaliaPizza_Cliente
         {
             AgregarBotonPedido();
             AgregarBotonPedidos();
+            AgregarBotonCorte();
+        }
+
+        private void AgregarBotonCorte()
+        {
+            brdCorteCaja.Visibility = Visibility.Visible;
+            lblTituloCorte.Visibility = Visibility.Visible;
+            imgCorteCaja.Visibility= Visibility.Visible;
         }
 
         private void OpcionesPanelChef()
@@ -85,6 +93,11 @@ namespace ItaliaPizza_Cliente
         public void MostrarNombre(string nombreCompleto)
         {
             lblNombre.Content = nombreCompleto;
+        }
+
+        public void MostrarBotonAgregarGastosVarios()
+        {
+            gridGastos.Visibility = Visibility.Visible;
         }
 
         private void AgregarBotonPedido()
@@ -242,6 +255,12 @@ namespace ItaliaPizza_Cliente
         {
             InicioSesion inicioSesion = new InicioSesion();
             FrameNavigator.NavigationService.Navigate(inicioSesion);
+            OcultarBotonGastosVarios();
+        }
+
+        private void OcultarBotonGastosVarios()
+        {
+            gridGastos.Visibility = Visibility.Collapsed;
         }
 
         private void CerrarSesion()
@@ -252,6 +271,9 @@ namespace ItaliaPizza_Cliente
                 ServicioInicioSesionClient servicioInicioSesionClient = new ServicioInicioSesionClient();
                 servicioInicioSesionClient.CerrarSesion(EmpleadoSingleton.getInstance().IdUsuario);
                 lblNombre.Content = String.Empty;
+                lblTituloCorte.Visibility = Visibility.Hidden;
+                imgCorteCaja.Visibility = Visibility.Hidden;
+                brdCorteCaja.Visibility = Visibility.Hidden;
             }
             catch (EndpointNotFoundException)
             {
@@ -291,6 +313,14 @@ namespace ItaliaPizza_Cliente
             }
         }
 
+        private void CorteCaja_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (EmpleadoSingleton.getInstance().DatosEmpleado.IdTipoEmpleado == (int)EnumTiposEmpleado.Cajero)
+            {
+                RegistroCorteCaja registroCorteCaja = new RegistroCorteCaja(FrameNavigator);
+                registroCorteCaja.ShowDialog();
+            }
+        }
     } 
 
 }
