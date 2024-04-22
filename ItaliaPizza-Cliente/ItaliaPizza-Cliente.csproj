@@ -80,6 +80,9 @@
     <Compile Include="Recursos\ControlesUsuario\BtnMenuLateral.xaml.cs">
       <DependentUpon>BtnMenuLateral.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Recursos\ControlesUsuario\ElementoConsultaOrdenCompra.xaml.cs">
+      <DependentUpon>ElementoConsultaOrdenCompra.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Recursos\ControlesUsuario\ElementoConsultaPedido.xaml.cs">
       <DependentUpon>ElementoConsultaPedido.xaml</DependentUpon>
     </Compile>
@@ -134,6 +137,7 @@
     <Compile Include="Utilidades\CampoTextoConLabel.cs" />
     <Compile Include="Utilidades\ConvertidorBytes.cs" />
     <Compile Include="Utilidades\EmpleadoSingleton.cs" />
+    <Compile Include="Utilidades\EnumEstadosOrdenCompra.cs" />
     <Compile Include="Utilidades\EnumEstadosPedido.cs" />
     <Compile Include="Utilidades\EnumTiposEmpleado.cs" />
     <Compile Include="Utilidades\EnumTiposServicio.cs" />
@@ -240,6 +244,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Recursos\ControlesUsuario\BtnMenuLateral.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Recursos\ControlesUsuario\ElementoConsultaOrdenCompra.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -434,6 +442,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.InsumoOrdenCompraDto.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.OrdenDeCompraDto.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.Pedido.datasource">

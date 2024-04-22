@@ -25,5 +25,9 @@ namespace ItaliaPizza_Contratos
         [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
         double RecuperarSalidasDeOrdenesCompraPorFecha(DateTime fecha);
 
+        [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
+        List<OrdenDeCompraDto> RecuperarOrdenesDeCompra();
+
     }
 }

@@ -2938,6 +2938,14 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
             "", ReplyAction="http://tempuri.org/IServicioOrdenesCompra/RecuperarSalidasDeOrdenesCompraPorFecha" +
             "Response")]
         System.Threading.Tasks.Task<double> RecuperarSalidasDeOrdenesCompraPorFechaAsync(System.DateTime fecha);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioOrdenesCompra/RecuperarOrdenesDeCompra", ReplyAction="http://tempuri.org/IServicioOrdenesCompra/RecuperarOrdenesDeCompraResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioOrdenesCompra/RecuperarOrdenesDeCompraExcepcionServid" +
+            "orItaliaPizzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        ItaliaPizza_Cliente.ServicioItaliaPizza.OrdenDeCompraDto[] RecuperarOrdenesDeCompra();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioOrdenesCompra/RecuperarOrdenesDeCompra", ReplyAction="http://tempuri.org/IServicioOrdenesCompra/RecuperarOrdenesDeCompraResponse")]
+        System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.OrdenDeCompraDto[]> RecuperarOrdenesDeCompraAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -2997,6 +3005,14 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         public System.Threading.Tasks.Task<double> RecuperarSalidasDeOrdenesCompraPorFechaAsync(System.DateTime fecha) {
             return base.Channel.RecuperarSalidasDeOrdenesCompraPorFechaAsync(fecha);
+        }
+        
+        public ItaliaPizza_Cliente.ServicioItaliaPizza.OrdenDeCompraDto[] RecuperarOrdenesDeCompra() {
+            return base.Channel.RecuperarOrdenesDeCompra();
+        }
+        
+        public System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.OrdenDeCompraDto[]> RecuperarOrdenesDeCompraAsync() {
+            return base.Channel.RecuperarOrdenesDeCompraAsync();
         }
     }
     

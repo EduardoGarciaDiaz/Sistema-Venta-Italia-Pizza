@@ -215,7 +215,7 @@ namespace ItaliaPizza_Cliente.Vistas
                 dineroEnCaja = _dineroCaja,
                 diferencia = _diferencia,
                 fecha = _fechaSeleccionada,
-                nombreUsuario = EmpleadoSingleton.getInstance().NombreUsuario
+                nombreUsuario = EmpleadoSingleton.getInstance().DatosEmpleado.NombreUsuario
             };
             ServicioCorteCajaClient servicioCorteCajaCliente = new ServicioCorteCajaClient();
             int registroExitoso;

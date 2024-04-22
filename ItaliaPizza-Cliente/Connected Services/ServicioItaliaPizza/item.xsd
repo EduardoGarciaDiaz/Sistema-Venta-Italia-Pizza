@@ -60,6 +60,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="InsumoOrdenCompraDto" nillable="true" type="tns:InsumoOrdenCompraDto" />
+  <xs:complexType name="ArrayOfOrdenDeCompraDto">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="OrdenDeCompraDto" nillable="true" type="tns:OrdenDeCompraDto" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOrdenDeCompraDto" nillable="true" type="tns:ArrayOfOrdenDeCompraDto" />
   <xs:complexType name="ArrayOfTipoServicio">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="TipoServicio" nillable="true" type="tns:TipoServicio" />

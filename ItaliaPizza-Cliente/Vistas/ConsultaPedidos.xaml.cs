@@ -55,7 +55,6 @@ namespace ItaliaPizza_Cliente.Vistas
             lbEntregados.Tag = (int)EnumEstadosPedido.Entregado;
             lbCancelados.Tag = (int)EnumEstadosPedido.Cancelado;
             MostrarFiltrosEstado();
-
             RecuperarPedidos();
         }
 
@@ -65,7 +64,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
             var servicioPedidosClient = new ServicioPedidosClient();
             var empleadoSingleton = EmpleadoSingleton.getInstance();
-            int nuevoEstadoPedido = DeterminarNuevoEstadoPedido(_pedidoSeleccionado.IdEstadoPedido, empleadoSingleton.TipoEmpleado.IdTipoEmpleado);
+            int nuevoEstadoPedido = DeterminarNuevoEstadoPedido(_pedidoSeleccionado.IdEstadoPedido, empleadoSingleton.DatosEmpleado.IdTipoEmpleado);
 
             if (nuevoEstadoPedido != -1)
             {
@@ -194,7 +193,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void MostrarFiltrosEstado()
         {
-            int idTipoEmpleado = EmpleadoSingleton.getInstance().TipoEmpleado.IdTipoEmpleado;
+            int idTipoEmpleado = EmpleadoSingleton.getInstance().DatosEmpleado.IdTipoEmpleado;
             switch (idTipoEmpleado)
             {
                 case (int)EnumTiposEmpleado.Mesero:
@@ -224,7 +223,7 @@ namespace ItaliaPizza_Cliente.Vistas
         private void RecuperarPedidos()
         {
             ServicioPedidosClient servicioPedidosCliente = new ServicioPedidosClient();
-            int idTipoEmpleado = EmpleadoSingleton.getInstance().TipoEmpleado.IdTipoEmpleado;
+            int idTipoEmpleado = EmpleadoSingleton.getInstance().DatosEmpleado.IdTipoEmpleado;
             try
             {
                 if (idTipoEmpleado == (int)EnumTiposEmpleado.Cajero)
@@ -356,7 +355,7 @@ namespace ItaliaPizza_Cliente.Vistas
         private void MostrarContenidoDeBoton(int idEstadoPedido)
         {
             EmpleadoSingleton empleadoSingleton = EmpleadoSingleton.getInstance();
-            int tipoEmpleado = empleadoSingleton.TipoEmpleado.IdTipoEmpleado;
+            int tipoEmpleado = empleadoSingleton.DatosEmpleado.IdTipoEmpleado;
 
             switch (idEstadoPedido)
             {

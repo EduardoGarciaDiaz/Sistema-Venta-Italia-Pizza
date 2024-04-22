@@ -186,6 +186,71 @@ namespace ItaliaPizza_DataAccess
             return salidasOrdenesCompra;
         }
 
+        public static List<OrdenDeCompraDto> RecuperarOrdenesDeCompra()
+        {
+            List<OrdenDeCompraDto> ordenesCompra = new List<OrdenDeCompraDto>();
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    ordenesCompra = context.OrdenesCompra.ToList().ConvertAll(o => new OrdenDeCompraDto()
+                    {
+                        IdOrdenCompra = o.IdOrdenCompra,
+                        Fecha = (DateTime)o.Fecha,
+                        IdEstadoOrdenCompra = o.EstadosOrdenCompra.IdEstadoOrdenCompra,
+                        IdProveedor = o.Proveedores.IdProveedor,
+                        Proveedor = new ProveedorDto()
+                        {
+                            RFC = o.Proveedores.RFC,
+                            CorreoElectronico = o.Proveedores.CorreoElectronico,
+                            EsActivo = o.Proveedores.EsActivo ?? false,
+                            Direccion = new DireccionDto()
+                            {
+                                IdDireccion = o.Proveedores.Direcciones.IdDireccion,
+                                Calle = o.Proveedores.Direcciones.Calle,
+                                Ciudad = o.Proveedores.Direcciones.Ciudad,
+                                CodigoPostal = o.Proveedores.Direcciones.CodigoPostal,
+                                Colonia = o.Proveedores.Direcciones.Colonia,
+                                Numero = (int)o.Proveedores.Direcciones.Numero
+                            },
+                            IdDireccion = o.Proveedores.Direcciones.IdDireccion,
+                            IdProveedor = o.Proveedores.IdProveedor,
+                            NombreCompleto = o.Proveedores.NombreCompleto,
+                            NumeroTelefono = o.Proveedores.NumeroTelefono
+                        },
+                        listaElementosOrdenCompra = o.OrdenesCompraInsumos.ToList().ConvertAll(l => new ElementoOrdenCompraDto()
+                        {
+                            CantidadInsumosAdquiridos = (int) l.CantidadInsumosAdquiridos,
+                            IdElementoOrdenCompra = l.IdOrdenCompraInsumo,
+                            InsumoOrdenCompraDto = new InsumoOrdenCompraDto()
+                            {
+                                Codigo = l.Insumos.CodigoProducto,
+                                CostoUnitario = (float) l.Insumos.Costo,
+                                Nombre = context.Productos.FirstOrDefault(p => p.CodigoProducto == l.Insumos.CodigoProducto).Nombre,
+                                UnidadMedida = l.Insumos.UnidadesMedida.Nombre
+                            }
+                        })
+                    });
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            return ordenesCompra;
+        }
+
     }
 }
 
