@@ -81,6 +81,6 @@ namespace ItaliaPizza_Contratos
 
         [OperationContract]
         [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
-        byte[] GenerarReporteProductos(List<Categoria> categoriasSeleccionadas, bool incluirAgotados);
+        Reporte GenerarReporteProductos(List<Categoria> categoriasSeleccionadas, bool incluirAgotados);
     }
 }

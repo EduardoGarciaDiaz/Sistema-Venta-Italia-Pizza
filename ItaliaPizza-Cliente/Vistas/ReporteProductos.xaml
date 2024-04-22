@@ -50,7 +50,7 @@
                     </Grid>
                 </Border>
 
-                <Label Content="Fecha de elaboración : 12 de abril del 2023 : 12:12:12"  Width="auto" Padding="10,3"  FontWeight="Bold" Background="#E8E8E8" Margin="25,43,106,483" Name="dpkFechaGasto">
+                <Label Name="lblFechaActual" Content="Fecha de elaboración : 12 de abril del 2023 : 12:12:12"  Width="auto" Padding="10,3"  FontWeight="Bold" Background="#E8E8E8" Margin="25,43,83,483" >
                     <Label.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="12"/>

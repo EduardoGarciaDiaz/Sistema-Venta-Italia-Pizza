@@ -178,7 +178,7 @@ namespace ItaliaPizza_DataAccess
             {
                 using (var context = new ItaliaPizzaEntities())
                 {
-                    if (nombreUsuario.Equals("mesero"))
+                    if (nombreUsuario.Equals("Mesero", StringComparison.OrdinalIgnoreCase))
                     {
                        var  mesero = context.Meseros.Include(u => u.Usuarios.Direcciones).Include(e => e.Usuarios).Include(e => e.Empleados).Include(e => e.Empleados.TiposEmpleado).First();
                         
@@ -239,10 +239,10 @@ namespace ItaliaPizza_DataAccess
             {
                 using (var context = new ItaliaPizzaEntities())
                 {
-                    bool existe = context.Empleados.Any(emp => emp.NombreUsuario.Equals(nombreUsuario) && emp.Contraseña.Equals(contraseña));  
+                    bool existe = context.Empleados.Any(emp => emp.NombreUsuario.Equals(nombreUsuario) && emp.Contraseña.Equals(contraseña));
                     if (existe)
                     {
-                        if (!nombreUsuario.Equals("mesero")) {
+                        if (!nombreUsuario.Equals("Mesero", StringComparison.OrdinalIgnoreCase)) {
                             if ((bool)context.Empleados.FirstOrDefault(emp => emp.NombreUsuario.Equals(nombreUsuario)).Usuarios.EsActivo)
                             {
                                 resultadoOperacion = 1;

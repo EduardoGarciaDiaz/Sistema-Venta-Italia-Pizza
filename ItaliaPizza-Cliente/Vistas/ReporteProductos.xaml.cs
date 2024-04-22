@@ -32,6 +32,9 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void PrepararVentana(object sender, RoutedEventArgs e)
         {
+            DateTime fechaActual = DateTime.Now;
+            string fecha = "Fecha de elaboración: " + fechaActual.ToString("dd 'de' MMMM 'del' yyyy ' : ' HH:mm:ss") ;
+            lblFechaActual.Content = fecha;
             ServicioProductosClient prodcutosCliente = new ServicioProductosClient();
             categoriasInsumos = prodcutosCliente.RecuperarCategoriasInsumo().ToList();
             categoriasProductosVenta = prodcutosCliente.RecuperarCategoriasProductoVenta().ToList();
@@ -59,7 +62,7 @@ namespace ItaliaPizza_Cliente.Vistas
         private void BtnTodos_Click(object sender, RoutedEventArgs e)
         {
             List<CheckBox> categoriassCheckBox = ObtenerCheckBoxCategorias();
-            bool almenosUnaCategoria = ValidarMinimoDeCategoriasSeleccionadas(categoriassCheckBox);
+            bool almenosUnaCategoria = ValidarMinimoDeCategoriasSinSeleccionar(categoriassCheckBox);
             CambiarSeleccionTodasLasCategorias(categoriassCheckBox, almenosUnaCategoria);
         }
 
@@ -83,12 +86,12 @@ namespace ItaliaPizza_Cliente.Vistas
             return categoriassCh;
         }
 
-        private bool ValidarMinimoDeCategoriasSeleccionadas(List<CheckBox> categoriassCheckBox)
+        private bool ValidarMinimoDeCategoriasSinSeleccionar(List<CheckBox> categoriassCheckBox)
         {
             bool validar = false;
             foreach (var item in categoriassCheckBox)
             {
-                if ((bool)item.IsChecked)
+                if (!(bool)item.IsChecked)
                 {
                     validar = true;
                     break;
@@ -112,9 +115,9 @@ namespace ItaliaPizza_Cliente.Vistas
             {
                 bool incluirAgotados = chbAgotados.IsChecked.Value;
                 ServicioProductosClient servicioProductosClient = new ServicioProductosClient();
-                byte[] bytesReporte = servicioProductosClient.GenerarReporteProductos(categoriasSeleccioandas.ToArray(), incluirAgotados);
+                Reporte bytesReporte = servicioProductosClient.GenerarReporteProductos(categoriasSeleccioandas.ToArray(), incluirAgotados);
                 GuardarReporte(bytesReporte);
-                VentanaEmergente ventanaEmergente = new VentanaEmergente("Reporte generado", "Reporte generado exitosamente", Window.GetWindow(this), 1);
+                VentanaEmergente ventanaEmergente = new VentanaEmergente("Reporte generado", "Reporte generado y guardado exitosamente", Window.GetWindow(this), 2);
                 ventanaEmergente.ShowDialog();
             }
             else
@@ -125,15 +128,36 @@ namespace ItaliaPizza_Cliente.Vistas
 
         }
 
-        private void GuardarReporte(byte[] bytesReporte)
+        private void GuardarReporte(Reporte reporte)
         {
-            using (MemoryStream memoryStream = new MemoryStream(bytesReporte))
+            if (reporte != null && reporte.contenidoReporte != null)
             {
-                Document document = new Document(memoryStream);
-                DateTime fechaActual = DateTime.Now;
-                document.Save("ReporteProdcutos_"+fechaActual.ToString()+".pdf");
+                try
+                {
+                    using (MemoryStream memoryStream = new MemoryStream(reporte.contenidoReporte))
+                    {
+                        using (Document document = new Document(memoryStream))
+                        {
+                            DateTime fechaActual = DateTime.Now;
+                            string nombreArchivo = "ReporteProductos" + fechaActual.ToString("yyyyMMdd_HHmmss") + ".pdf";
+                            string rutaCompleta = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), nombreArchivo);
+                            document.Save(rutaCompleta);
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    VentanaEmergente ventanaEmergente = new VentanaEmergente("Error", "Ocurrio un error al generar el reporte", Window.GetWindow(this), 1);
+                    ventanaEmergente.ShowDialog();
+                }
+            }
+            else
+            {
+                VentanaEmergente ventanaEmergente = new VentanaEmergente("Error", "Ocurrio un error al generar el reporte", Window.GetWindow(this), 1);
+                ventanaEmergente.ShowDialog();
             }
         }
+
 
         private List<Categoria> ObtenerCategoriasSelccionadas()
         {
@@ -145,7 +169,7 @@ namespace ItaliaPizza_Cliente.Vistas
                     CheckBox categoria = (CheckBox) item;
                     if ((bool)categoria.IsChecked)
                     {
-                        categoriassCh.Add(categoriasProductosVenta.FirstOrDefault(cat => cat.Nombre.Equals(categoria.Name)));
+                        categoriassCh.Add(categoriasProductosVenta.FirstOrDefault(cat => cat.Nombre.Equals(categoria.Content)));
                     }
                 }
             }
@@ -156,7 +180,7 @@ namespace ItaliaPizza_Cliente.Vistas
                     CheckBox categoria = (CheckBox)item;
                     if ((bool)categoria.IsChecked)
                     {
-                        categoriassCh.Add(categoriasInsumos.FirstOrDefault(cat => cat.Nombre.Equals(categoria.Name)));
+                        categoriassCh.Add(categoriasInsumos.FirstOrDefault(cat => cat.Nombre.Equals(categoria.Content)));
                     }
                 }
             }

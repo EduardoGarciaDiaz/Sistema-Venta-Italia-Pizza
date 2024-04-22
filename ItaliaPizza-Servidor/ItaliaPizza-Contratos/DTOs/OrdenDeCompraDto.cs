@@ -18,6 +18,9 @@ namespace ItaliaPizza_Contratos.DTOs
 
         [DataMember]
         public int IdEstadoOrdenCompra { get; set; }
+        
+        [DataMember]
+        public float Costo { get; set; }
 
         [DataMember]
         public int IdProveedor { get; set; }

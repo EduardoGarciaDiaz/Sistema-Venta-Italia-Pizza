@@ -329,14 +329,20 @@ namespace ItaliaPizza_DataAccess
 
             try
             {
+                List<ProductosVenta> productosVentaRecuperados = new List<ProductosVenta>();
                 using (var context = new ItaliaPizzaEntities())
                 {
-                    productosVenta = context.ProductosVenta.Where(productoV => (bool)productoV.Productos.EsActivo && categorias.Any(cat => cat.Nombre.Equals(productoV.CategoriasProductoVenta.Nombre)))
+                    productosVentaRecuperados = context.ProductosVenta.Where(cat => (bool) cat.Productos.EsActivo)
                             .Include(pro => pro.Productos)
                             .Include(pro => pro.CategoriasProductoVenta)
                             .Include(pro => pro.Productos.Insumos)
                             .Include(pro => pro.Productos.Insumos.UnidadesMedida)
                             .ToList();
+                    foreach (var item in productosVentaRecuperados)
+                    {
+
+                        if (categorias.Any(cat => cat.Nombre.Equals(item.CategoriasProductoVenta.Nombre))) productosVenta.Add(item);
+                    }
                 }
             }
             catch (EntityException ex)
@@ -363,14 +369,20 @@ namespace ItaliaPizza_DataAccess
 
             try
             {
+                List<ProductosVenta> productosVentaRecuperados = new List<ProductosVenta>();
                 using (var context = new ItaliaPizzaEntities())
                 {
-                    productosVenta = context.ProductosVenta.Where(productoV => categorias.Any(cat => cat.Nombre.Equals(productoV.CategoriasProductoVenta.Nombre)))
+                    productosVentaRecuperados = context.ProductosVenta
                             .Include(pro => pro.Productos)
                             .Include(pro => pro.CategoriasProductoVenta)
                             .Include(pro => pro.Productos.Insumos)
                             .Include(pro => pro.Productos.Insumos.UnidadesMedida)
                             .ToList();
+                    foreach (var item in productosVentaRecuperados)
+                    {
+
+                        if (categorias.Any(cat => cat.Nombre.Equals(item.CategoriasProductoVenta.Nombre))) productosVenta.Add(item);
+                    }
                 }
             }
             catch (EntityException ex)

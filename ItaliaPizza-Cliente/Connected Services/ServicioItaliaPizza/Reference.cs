@@ -23,6 +23,9 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private float CostoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime FechaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -47,6 +50,19 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public float Costo {
+            get {
+                return this.CostoField;
+            }
+            set {
+                if ((this.CostoField.Equals(value) != true)) {
+                    this.CostoField = value;
+                    this.RaisePropertyChanged("Costo");
+                }
             }
         }
         
@@ -1865,6 +1881,51 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Reporte", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs")]
+    [System.SerializableAttribute()]
+    public partial class Reporte : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private byte[] contenidoReporteField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public byte[] contenidoReporte {
+            get {
+                return this.contenidoReporteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.contenidoReporteField, value) != true)) {
+                    this.contenidoReporteField = value;
+                    this.RaisePropertyChanged("contenidoReporte");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Receta", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs")]
     [System.SerializableAttribute()]
     public partial class Receta : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -3109,10 +3170,10 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/GenerarReporteProductos", ReplyAction="http://tempuri.org/IServicioProductos/GenerarReporteProductosResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioProductos/GenerarReporteProductosExcepcionServidorIta" +
             "liaPizzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
-        byte[] GenerarReporteProductos(ItaliaPizza_Cliente.ServicioItaliaPizza.Categoria[] categoriasSeleccionadas, bool incluirAgotados);
+        ItaliaPizza_Cliente.ServicioItaliaPizza.Reporte GenerarReporteProductos(ItaliaPizza_Cliente.ServicioItaliaPizza.Categoria[] categoriasSeleccionadas, bool incluirAgotados);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/GenerarReporteProductos", ReplyAction="http://tempuri.org/IServicioProductos/GenerarReporteProductosResponse")]
-        System.Threading.Tasks.Task<byte[]> GenerarReporteProductosAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.Categoria[] categoriasSeleccionadas, bool incluirAgotados);
+        System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.Reporte> GenerarReporteProductosAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.Categoria[] categoriasSeleccionadas, bool incluirAgotados);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -3278,11 +3339,11 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
             return base.Channel.ActivarProductoAsync(codigoProducto);
         }
         
-        public byte[] GenerarReporteProductos(ItaliaPizza_Cliente.ServicioItaliaPizza.Categoria[] categoriasSeleccionadas, bool incluirAgotados) {
+        public ItaliaPizza_Cliente.ServicioItaliaPizza.Reporte GenerarReporteProductos(ItaliaPizza_Cliente.ServicioItaliaPizza.Categoria[] categoriasSeleccionadas, bool incluirAgotados) {
             return base.Channel.GenerarReporteProductos(categoriasSeleccionadas, incluirAgotados);
         }
         
-        public System.Threading.Tasks.Task<byte[]> GenerarReporteProductosAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.Categoria[] categoriasSeleccionadas, bool incluirAgotados) {
+        public System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.Reporte> GenerarReporteProductosAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.Categoria[] categoriasSeleccionadas, bool incluirAgotados) {
             return base.Channel.GenerarReporteProductosAsync(categoriasSeleccionadas, incluirAgotados);
         }
     }

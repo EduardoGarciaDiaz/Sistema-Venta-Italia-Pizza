@@ -2,16 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Aspose.Cells;
-using System.Net.Mail;
-using System.Net;
-using System.Data.Entity.Core.Metadata.Edm;
-using Aspose.Pdf;
-using Aspose.Pdf.Text;
-using System.Web;
 using System.IO;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Kernel.Geom;
+using iText.Layout.Element;
+using System.Runtime.Remoting.Messaging;
+using ItaliaPizza_DataAccess.Excepciones;
 
 
 namespace ItaliaPizza_Servicios.Auxiliares
@@ -53,135 +51,132 @@ namespace ItaliaPizza_Servicios.Auxiliares
 
     public static class GeneradorPDF
     {
-       public static byte[] GenerarReproteProductosPDF(List<Insumos> insumosLista, List<ProductosVenta> productosLista)
+        public static byte[] GenerarReproteProductosPDF(List<Insumos> insumosLista, List<ProductosVenta> productosLista)
         {
-
-           byte[] pdfBytes  = new byte[1024];
-            Document pdf = new Document();           
-           try
-           {
-                Page pagina = pdf.Pages.Add();
-
-                TextFragment titulo = new TextFragment("Reporte de Productos");
-                titulo.TextState.FontSize = 16;
-                titulo.TextState.FontStyle = FontStyles.Bold;
-                pagina.Paragraphs.Add(titulo);
-
-                TextFragment subtituloInsumos = new TextFragment("Insumo");
-                subtituloInsumos.TextState.FontSize = 14;
-                subtituloInsumos.TextState.FontStyle = FontStyles.Bold;
-                pagina.Paragraphs.Add(subtituloInsumos);
-
-
-
-                Table insumosTable = new Table();
-                insumosTable.ColumnWidths = "100 100 100 100 100 100 100";
-                Color colorCelda = Color.LightGray;
-                for (int fila = 0; fila < insumosLista.Count; fila++)
-                {
-                    if (fila%2 == 0)
-                    {
-                        colorCelda = Color.LightGray;
-                    }
-                    else
-                    {
-                        colorCelda = Color.WhiteSmoke;
-                    }
-                    Aspose.Pdf.Row row = insumosTable.Rows.Add();
-                    
-                    Aspose.Pdf.Cell celda1 = row.Cells.Add(insumosLista.ToArray()[fila].Productos.CodigoProducto);
-                    celda1.BackgroundColor = colorCelda;
-                    Aspose.Pdf.Cell celda2 = row.Cells.Add(insumosLista.ToArray()[fila].Productos.Nombre);
-                    celda2.BackgroundColor = colorCelda;
-                    Aspose.Pdf.Cell celda3 = row.Cells.Add(insumosLista.ToArray()[fila].Cantidad.ToString());
-                    celda3.BackgroundColor = colorCelda;
-                    Aspose.Pdf.Cell celda4 = row.Cells.Add(insumosLista.ToArray()[fila].Costo.ToString());
-                    celda4.BackgroundColor = colorCelda;
-                    Aspose.Pdf.Cell celda5 = row.Cells.Add(insumosLista.ToArray()[fila].UnidadesMedida.Nombre);
-                    celda5.BackgroundColor = colorCelda;
-                    Aspose.Pdf.Cell celda6= row.Cells.Add(insumosLista.ToArray()[fila].CategoriasInsumo.Nombre);
-                    celda6.BackgroundColor = colorCelda;
-                    String activo;
-                    if ((bool)insumosLista.ToArray()[fila].Productos.EsActivo)
-                    {
-                        activo = "Activo";
-                    }
-                    else
-                    {
-                        activo = "Inactivo";
-                    }
-                    Aspose.Pdf.Cell celda7 = row.Cells.Add(activo);
-                    celda7.BackgroundColor = colorCelda;
-                }
-                pagina.Paragraphs.Add(insumosTable);
-
-                TextFragment prodcutosVentaSubtitulo = new TextFragment("Productos");
-                prodcutosVentaSubtitulo.TextState.FontSize = 14;
-                prodcutosVentaSubtitulo.TextState.FontStyle = FontStyles.Bold;
-                pagina.Paragraphs.Add(prodcutosVentaSubtitulo);
-
-
-                Table tablaProductos = new Table();
-                insumosTable.ColumnWidths = "100 100 100 100 100 100 100 100";
-                for (int fila = 0; fila < productosLista.Count; fila++)
-                {
-                    if (fila % 2 == 0)
-                    {
-                        colorCelda = Color.LightGray;
-                    }
-                    else
-                    {
-                        colorCelda = Color.WhiteSmoke;
-                    }
-                    Aspose.Pdf.Row row = insumosTable.Rows.Add();
-
-                    Aspose.Pdf.Cell celda1 = row.Cells.Add(productosLista.ToArray()[fila].Productos.CodigoProducto);
-                    celda1.BackgroundColor = colorCelda;
-                    Aspose.Pdf.Cell celda2 = row.Cells.Add(productosLista.ToArray()[fila].Productos.Nombre);
-                    celda2.BackgroundColor = colorCelda;
-                    Aspose.Pdf.Cell celda3 = row.Cells.Add(productosLista.ToArray()[fila].Precio.ToString());
-                    celda3.BackgroundColor = colorCelda;
-                    Aspose.Pdf.Cell celda8 = row.Cells.Add(productosLista.ToArray()[fila].CategoriasProductoVenta.Nombre);
-                    celda8.BackgroundColor = colorCelda;
-
-                    string esInventariado = "No";
-                    string cantidad = "N/A";
-                    string costo = "N/A";
-                    if (productosLista.ToArray()[fila].Productos.Insumos != null)
-                    {
-                        esInventariado = "Si";
-                        cantidad = productosLista.ToArray()[fila].Productos.Insumos.Cantidad.ToString();
-                        costo = productosLista.ToArray()[fila].Productos.Insumos.Costo.ToString();
-                    }
-                    Aspose.Pdf.Cell celda4 = row.Cells.Add(esInventariado);
-                    celda4.BackgroundColor = colorCelda;
-                    Aspose.Pdf.Cell celda5 = row.Cells.Add(cantidad);
-                    celda5.BackgroundColor = colorCelda;
-                    Aspose.Pdf.Cell celda6 = row.Cells.Add(costo);
-                    celda6.BackgroundColor = colorCelda;
-                    String activo = "Activo";
-                    if ((bool)productosLista.ToArray()[fila].Productos.EsActivo)
-                    {                       
-                        activo = "Inactivo";
-                    }
-                    Aspose.Pdf.Cell celda7 = row.Cells.Add(activo);
-                    celda7.BackgroundColor = colorCelda;
-                }
-                pagina.Paragraphs.Add(tablaProductos);
-
-                using (MemoryStream memoryStream = new MemoryStream())
-                {
-                    pdf.Save(memoryStream);
-                    pdfBytes = memoryStream.ToArray();
-                }
-            }
-            catch (Exception ex) 
+            byte[] pdfBytes = null;
+            try
             {
-                
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    PdfWriter escritor = new PdfWriter(stream);
+                    PdfDocument pdf = new PdfDocument(escritor);
+                    Document document = new Document(pdf, PageSize.LETTER);
+                    document.SetMargins(25, 25, 25, 25);
+
+                    Paragraph titulo = new Paragraph("Reporte de Productos")
+                        .SetFontSize(16);
+                    document.Add(titulo);
+
+                    Paragraph subtituloInsumos = new Paragraph("Insumo")
+                        .SetFontSize(14);
+                    document.Add(subtituloInsumos);
+
+                    Table insumosTable = new Table(7).UseAllAvailableWidth();
+
+                    iText.Layout.Element.Cell[] cabeceras = new iText.Layout.Element.Cell[]
+                    {
+                        new iText.Layout.Element.Cell().Add(new Paragraph("Codigo Producto")),
+                        new iText.Layout.Element.Cell().Add(new Paragraph("Nombre")),
+                        new iText.Layout.Element.Cell().Add(new Paragraph("Cantidad disponible")),
+                        new iText.Layout.Element.Cell().Add(new Paragraph("Costo")),
+                        new iText.Layout.Element.Cell().Add(new Paragraph("Unidad Medida")),
+                        new iText.Layout.Element.Cell().Add(new Paragraph("Categoria")),
+                        new iText.Layout.Element.Cell().Add(new Paragraph("Status"))
+                    };
+                    foreach (var cell in cabeceras)
+                    {
+                        insumosTable.AddCell(cell);
+                    }
+
+                    for (int fila = 0; fila < insumosLista.Count; fila++)
+                    {
+                        iText.Layout.Element.Cell[] cells = new iText.Layout.Element.Cell[]
+                        {
+                            new iText.Layout.Element.Cell().Add(new Paragraph(insumosLista[fila].Productos.CodigoProducto)),
+                            new iText.Layout.Element.Cell().Add(new Paragraph(insumosLista[fila].Productos.Nombre)),
+                            new iText.Layout.Element.Cell().Add(new Paragraph(insumosLista[fila].Cantidad.ToString())),
+                            new iText.Layout.Element.Cell().Add(new Paragraph(insumosLista[fila].Costo.ToString())),
+                            new iText.Layout.Element.Cell().Add(new Paragraph(insumosLista[fila].UnidadesMedida.Nombre)),
+                            new iText.Layout.Element.Cell().Add(new Paragraph(insumosLista[fila].CategoriasInsumo.Nombre)),
+                            new iText.Layout.Element.Cell().Add(new Paragraph((bool)insumosLista[fila].Productos.EsActivo ? "Activo" : "Inactivo"))
+                        };
+
+                        foreach (var cell in cells)
+                        {
+                            insumosTable.AddCell(cell);
+                        }
+                    }
+
+                    document.Add(insumosTable);
+
+
+                    Paragraph prodcutosVentaSubtitulo = new Paragraph("Productos")
+                        .SetFontSize(14);
+                    document.Add(prodcutosVentaSubtitulo);
+
+                    Table tablaProductos = new Table(8).UseAllAvailableWidth();
+
+                    iText.Layout.Element.Cell[] cabecerasProductos = new iText.Layout.Element.Cell[]
+                    {
+                        new iText.Layout.Element.Cell().Add(new Paragraph("Codigo Producto")),
+                        new iText.Layout.Element.Cell().Add(new Paragraph("Nombre")),
+                        new iText.Layout.Element.Cell().Add(new Paragraph("Precio")),
+                        new iText.Layout.Element.Cell().Add(new Paragraph("Categoria")),
+                        new iText.Layout.Element.Cell().Add(new Paragraph("Inventariado")),
+                        new iText.Layout.Element.Cell().Add(new Paragraph("Cantidad")),
+                        new iText.Layout.Element.Cell().Add(new Paragraph("Costo")),
+                        new iText.Layout.Element.Cell().Add(new Paragraph("Status"))
+                    };
+
+                    foreach (var cell in cabecerasProductos)
+                    {
+                        tablaProductos.AddCell(cell);
+                    }
+
+                    for (int fila = 0; fila < productosLista.Count; fila++)
+                    {
+                        string esInventariado = "No";
+                        string cantidad = "N/A";
+                        string costo = "N/A";
+                        if (productosLista[fila].Productos.Insumos != null)
+                        {
+                            esInventariado = "Si";
+                            cantidad = productosLista[fila].Productos.Insumos.Cantidad.ToString();
+                            costo = productosLista[fila].Productos.Insumos.Costo.ToString();
+                        }
+                        iText.Layout.Element.Cell[] celdasProducto = new iText.Layout.Element.Cell[]
+                        {
+                            new iText.Layout.Element.Cell().Add(new Paragraph(productosLista[fila].Productos.CodigoProducto)),
+                            new iText.Layout.Element.Cell().Add(new Paragraph(productosLista[fila].Productos.Nombre)),
+                            new iText.Layout.Element.Cell().Add(new Paragraph(productosLista[fila].Precio.ToString())),
+                            new iText.Layout.Element.Cell().Add(new Paragraph(productosLista[fila].CategoriasProductoVenta.Nombre)),
+                            new iText.Layout.Element.Cell().Add(new Paragraph(esInventariado)),
+                            new iText.Layout.Element.Cell().Add(new Paragraph(cantidad)),
+                            new iText.Layout.Element.Cell().Add(new Paragraph(costo)),
+                            new iText.Layout.Element.Cell().Add(new Paragraph((bool)productosLista[fila].Productos.EsActivo ? "Activo" : "Inactivo"))
+                        };
+
+                        foreach (var cell in celdasProducto)
+                        {
+                            tablaProductos.AddCell(cell);
+                        }
+                    }
+
+                    document.Add(tablaProductos);
+
+                    document.Close();
+
+                    pdfBytes = stream.ToArray();
+                }
             }
+            catch (Exception ex)
+            {
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+
             return pdfBytes;
         }
-    
+
     }
 
 }

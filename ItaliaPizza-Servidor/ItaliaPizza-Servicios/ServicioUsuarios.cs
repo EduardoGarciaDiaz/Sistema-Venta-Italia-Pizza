@@ -267,7 +267,7 @@ namespace ItaliaPizza_Servicios
             try
             {
                 var empleado = EmpleadoDAO.RecuperarEmpleadoProNombreUsuarioBD(nombreUsuario);               
-                if (!nombreUsuario.Equals("mesero"))
+                if (!nombreUsuario.Equals("Mesero", StringComparison.OrdinalIgnoreCase))
                 {
                     empleadoDto = RecuperarEmpleadoComun(nombreUsuario);
                 }

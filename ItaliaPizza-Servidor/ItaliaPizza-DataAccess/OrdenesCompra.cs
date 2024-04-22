@@ -24,6 +24,7 @@ namespace ItaliaPizza_DataAccess
         public Nullable<System.DateTime> Fecha { get; set; }
         public Nullable<int> IdEstadoOrdenCompra { get; set; }
         public Nullable<int> IdProveedor { get; set; }
+        public Nullable<double> Costo { get; set; }
     
         public virtual EstadosOrdenCompra EstadosOrdenCompra { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

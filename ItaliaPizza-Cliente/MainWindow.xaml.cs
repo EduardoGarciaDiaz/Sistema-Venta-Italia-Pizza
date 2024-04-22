@@ -73,6 +73,7 @@ namespace ItaliaPizza_Cliente
         private void OpcionesPanelInventarista()
         {
             AgregarBotonProductos();
+            AgregarBotonReporteProductos();
             AgregarBotonConsultaOrdenesDeCompra();
             AgregarBotonProveedores();
         }
@@ -207,6 +208,21 @@ namespace ItaliaPizza_Cliente
         {
             ConsultaProveedores paginaConsultaProveedores = new ConsultaProveedores();
             FrameNavigator.NavigationService.Navigate(paginaConsultaProveedores);
+        }
+
+        private void AgregarBotonReporteProductos()
+        {
+            BtnMenuLateral reprorteProductos = new BtnMenuLateral();
+            reprorteProductos.ImgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_proveedor.png", UriKind.Relative));
+            reprorteProductos.LblNombreBoton.Content = "Reportes";
+            reprorteProductos.Click += BtnReporteProductos_Click;
+            SkpMenuLateral.Children.Add(reprorteProductos);
+        }
+
+        private void BtnReporteProductos_Click(object sender, RoutedEventArgs e)
+        {
+            ReporteProductos paginaReporteProductos = new ReporteProductos(FrameNavigator);
+            paginaReporteProductos.ShowDialog();
         }
 
 

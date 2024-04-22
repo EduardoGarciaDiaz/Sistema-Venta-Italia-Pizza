@@ -202,6 +202,7 @@
       <DependentUpon>ElementoInsumoOrdenCompraSeleccionado.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utilidades\CampoTextoConLabel.cs" />
+    <Compile Include="Utilidades\CifradorContraseñas.cs" />
     <Compile Include="Utilidades\ConvertidorBytes.cs" />
     <Compile Include="Utilidades\EmpleadoSingleton.cs" />
     <Compile Include="Utilidades\EnumEstadosPedido.cs" />
@@ -498,6 +499,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.ProveedorDto.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.Reporte.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\ServicioItaliaPizza\ItaliaPizza_Cliente.ServicioItaliaPizza.TipoServicio.datasource">

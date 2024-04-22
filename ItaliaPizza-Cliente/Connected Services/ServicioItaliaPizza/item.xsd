@@ -3,6 +3,7 @@
   <xs:import schemaLocation="http://localhost:8082/?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:complexType name="OrdenDeCompraDto">
     <xs:sequence>
+      <xs:element minOccurs="0" name="Costo" type="xs:float" />
       <xs:element minOccurs="0" name="Fecha" type="xs:dateTime" />
       <xs:element minOccurs="0" name="IdEstadoOrdenCompra" type="xs:int" />
       <xs:element minOccurs="0" name="IdOrdenCompra" type="xs:int" />
@@ -227,6 +228,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfProducto" nillable="true" type="tns:ArrayOfProducto" />
+  <xs:complexType name="Reporte">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="contenidoReporte" nillable="true" type="xs:base64Binary" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Reporte" nillable="true" type="tns:Reporte" />
   <xs:complexType name="ArrayOfReceta">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Receta" nillable="true" type="tns:Receta" />

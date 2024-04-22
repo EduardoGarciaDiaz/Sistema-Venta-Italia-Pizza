@@ -463,8 +463,9 @@ namespace ItaliaPizza_Servicios
             return filasAfectadas;
         }
 
-        public byte[] GenerarReporteProductos(List<Categoria> categoriasSeleccionadas, bool incluirAgotados)
-        {            
+        public Reporte GenerarReporteProductos(List<Categoria> categoriasSeleccionadas, bool incluirAgotados)
+        {
+            Reporte reprotePdf = new Reporte();
             List<Insumos> insumos;
             List<ProductosVenta> productos;
             InsumoDAO insumoDAO =new InsumoDAO();
@@ -479,7 +480,8 @@ namespace ItaliaPizza_Servicios
                 insumos = insumoDAO.RecuperarInsumosActivosPorCategoria(categoriasSeleccionadas.ToList());
                 productos = productoDAO.RecuperarProductosVentaPorCategoriaActivos(categoriasSeleccionadas.ToList());
             }
-            return GeneradorPDF.GenerarReproteProductosPDF(insumos, productos);
+            reprotePdf.contenidoReporte = GeneradorPDF.GenerarReproteProductosPDF(insumos, productos);
+            return reprotePdf;
         }
     }
 }
