@@ -624,67 +624,6 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TipoServicio", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs")]
-    [System.SerializableAttribute()]
-    public partial class TipoServicio : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NombreField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Id {
-            get {
-                return this.IdField;
-            }
-            set {
-                if ((this.IdField.Equals(value) != true)) {
-                    this.IdField = value;
-                    this.RaisePropertyChanged("Id");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Nombre {
-            get {
-                return this.NombreField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NombreField, value) != true)) {
-                    this.NombreField = value;
-                    this.RaisePropertyChanged("Nombre");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
     [System.SerializableAttribute()]
     public partial class ExcepcionServidorItaliaPizza : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -730,6 +669,67 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
                 if ((object.ReferenceEquals(this.StackTraceField, value) != true)) {
                     this.StackTraceField = value;
                     this.RaisePropertyChanged("StackTrace");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TipoServicio", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs")]
+    [System.SerializableAttribute()]
+    public partial class TipoServicio : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Nombre {
+            get {
+                return this.NombreField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreField, value) != true)) {
+                    this.NombreField = value;
+                    this.RaisePropertyChanged("Nombre");
                 }
             }
         }
@@ -2809,6 +2809,163 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CorteCaja", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.DTOs")]
+    [System.SerializableAttribute()]
+    public partial class CorteCaja : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double diferenciaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double dineroEnCajaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime fechaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double fondoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double ingresosRegistradosField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string nombreUsuarioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double salidasRegistradasField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double diferencia {
+            get {
+                return this.diferenciaField;
+            }
+            set {
+                if ((this.diferenciaField.Equals(value) != true)) {
+                    this.diferenciaField = value;
+                    this.RaisePropertyChanged("diferencia");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double dineroEnCaja {
+            get {
+                return this.dineroEnCajaField;
+            }
+            set {
+                if ((this.dineroEnCajaField.Equals(value) != true)) {
+                    this.dineroEnCajaField = value;
+                    this.RaisePropertyChanged("dineroEnCaja");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime fecha {
+            get {
+                return this.fechaField;
+            }
+            set {
+                if ((this.fechaField.Equals(value) != true)) {
+                    this.fechaField = value;
+                    this.RaisePropertyChanged("fecha");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double fondo {
+            get {
+                return this.fondoField;
+            }
+            set {
+                if ((this.fondoField.Equals(value) != true)) {
+                    this.fondoField = value;
+                    this.RaisePropertyChanged("fondo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double ingresosRegistrados {
+            get {
+                return this.ingresosRegistradosField;
+            }
+            set {
+                if ((this.ingresosRegistradosField.Equals(value) != true)) {
+                    this.ingresosRegistradosField = value;
+                    this.RaisePropertyChanged("ingresosRegistrados");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string nombreUsuario {
+            get {
+                return this.nombreUsuarioField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.nombreUsuarioField, value) != true)) {
+                    this.nombreUsuarioField = value;
+                    this.RaisePropertyChanged("nombreUsuario");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double salidasRegistradas {
+            get {
+                return this.salidasRegistradasField;
+            }
+            set {
+                if ((this.salidasRegistradasField.Equals(value) != true)) {
+                    this.salidasRegistradasField = value;
+                    this.RaisePropertyChanged("salidasRegistradas");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServicioItaliaPizza.IServicioOrdenesCompra")]
     public interface IServicioOrdenesCompra {
@@ -2830,6 +2987,26 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioOrdenesCompra/EnviarOrdenDeCompra", ReplyAction="http://tempuri.org/IServicioOrdenesCompra/EnviarOrdenDeCompraResponse")]
         System.Threading.Tasks.Task<bool> EnviarOrdenDeCompraAsync(int idOrdenDeCompra);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioOrdenesCompra/RecuperarSalidasDeOrdenesCompraPorFecha" +
+            "", ReplyAction="http://tempuri.org/IServicioOrdenesCompra/RecuperarSalidasDeOrdenesCompraPorFecha" +
+            "Response")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioOrdenesCompra/RecuperarSalidasDeOrdenesCompraPorFecha" +
+            "ExcepcionServidorItaliaPizzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        double RecuperarSalidasDeOrdenesCompraPorFecha(System.DateTime fecha);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioOrdenesCompra/RecuperarSalidasDeOrdenesCompraPorFecha" +
+            "", ReplyAction="http://tempuri.org/IServicioOrdenesCompra/RecuperarSalidasDeOrdenesCompraPorFecha" +
+            "Response")]
+        System.Threading.Tasks.Task<double> RecuperarSalidasDeOrdenesCompraPorFechaAsync(System.DateTime fecha);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioOrdenesCompra/RecuperarOrdenesDeCompra", ReplyAction="http://tempuri.org/IServicioOrdenesCompra/RecuperarOrdenesDeCompraResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioOrdenesCompra/RecuperarOrdenesDeCompraExcepcionServid" +
+            "orItaliaPizzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        ItaliaPizza_Cliente.ServicioItaliaPizza.OrdenDeCompraDto[] RecuperarOrdenesDeCompra();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioOrdenesCompra/RecuperarOrdenesDeCompra", ReplyAction="http://tempuri.org/IServicioOrdenesCompra/RecuperarOrdenesDeCompraResponse")]
+        System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.OrdenDeCompraDto[]> RecuperarOrdenesDeCompraAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -2881,6 +3058,22 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         public System.Threading.Tasks.Task<bool> EnviarOrdenDeCompraAsync(int idOrdenDeCompra) {
             return base.Channel.EnviarOrdenDeCompraAsync(idOrdenDeCompra);
+        }
+        
+        public double RecuperarSalidasDeOrdenesCompraPorFecha(System.DateTime fecha) {
+            return base.Channel.RecuperarSalidasDeOrdenesCompraPorFecha(fecha);
+        }
+        
+        public System.Threading.Tasks.Task<double> RecuperarSalidasDeOrdenesCompraPorFechaAsync(System.DateTime fecha) {
+            return base.Channel.RecuperarSalidasDeOrdenesCompraPorFechaAsync(fecha);
+        }
+        
+        public ItaliaPizza_Cliente.ServicioItaliaPizza.OrdenDeCompraDto[] RecuperarOrdenesDeCompra() {
+            return base.Channel.RecuperarOrdenesDeCompra();
+        }
+        
+        public System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.OrdenDeCompraDto[]> RecuperarOrdenesDeCompraAsync() {
+            return base.Channel.RecuperarOrdenesDeCompraAsync();
         }
     }
     
@@ -2943,6 +3136,14 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioPedidos/ActualizarEstadoPedido", ReplyAction="http://tempuri.org/IServicioPedidos/ActualizarEstadoPedidoResponse")]
         System.Threading.Tasks.Task<int> ActualizarEstadoPedidoAsync(int numeroPedido, int idEstadoPedido);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioPedidos/RecuperarIngresosDePedidosPorFecha", ReplyAction="http://tempuri.org/IServicioPedidos/RecuperarIngresosDePedidosPorFechaResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioPedidos/RecuperarIngresosDePedidosPorFechaExcepcionSe" +
+            "rvidorItaliaPizzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        double RecuperarIngresosDePedidosPorFecha(System.DateTime fecha);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioPedidos/RecuperarIngresosDePedidosPorFecha", ReplyAction="http://tempuri.org/IServicioPedidos/RecuperarIngresosDePedidosPorFechaResponse")]
+        System.Threading.Tasks.Task<double> RecuperarIngresosDePedidosPorFechaAsync(System.DateTime fecha);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -3027,6 +3228,14 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         public System.Threading.Tasks.Task<int> ActualizarEstadoPedidoAsync(int numeroPedido, int idEstadoPedido) {
             return base.Channel.ActualizarEstadoPedidoAsync(numeroPedido, idEstadoPedido);
         }
+        
+        public double RecuperarIngresosDePedidosPorFecha(System.DateTime fecha) {
+            return base.Channel.RecuperarIngresosDePedidosPorFecha(fecha);
+        }
+        
+        public System.Threading.Tasks.Task<double> RecuperarIngresosDePedidosPorFechaAsync(System.DateTime fecha) {
+            return base.Channel.RecuperarIngresosDePedidosPorFechaAsync(fecha);
+        }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -3106,6 +3315,8 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         System.Threading.Tasks.Task<bool> ValidarDisponibilidadDeProductoAsync(string codigoProducto, int cantidadProductos);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/RecuperarInsumosActivos", ReplyAction="http://tempuri.org/IServicioProductos/RecuperarInsumosActivosResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioProductos/RecuperarInsumosActivosExcepcionServidorIta" +
+            "liaPizzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
         ItaliaPizza_Cliente.ServicioItaliaPizza.InsumoOrdenCompraDto[] RecuperarInsumosActivos();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/RecuperarInsumosActivos", ReplyAction="http://tempuri.org/IServicioProductos/RecuperarInsumosActivosResponse")]
@@ -3151,6 +3362,14 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/ValidarDesactivacion", ReplyAction="http://tempuri.org/IServicioProductos/ValidarDesactivacionResponse")]
         System.Threading.Tasks.Task<bool> ValidarDesactivacionAsync(string codigoProducto);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/ValidarDesactivacionInsumo", ReplyAction="http://tempuri.org/IServicioProductos/ValidarDesactivacionInsumoResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioProductos/ValidarDesactivacionInsumoExcepcionServidor" +
+            "ItaliaPizzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        bool ValidarDesactivacionInsumo(string codigoProducto);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/ValidarDesactivacionInsumo", ReplyAction="http://tempuri.org/IServicioProductos/ValidarDesactivacionInsumoResponse")]
+        System.Threading.Tasks.Task<bool> ValidarDesactivacionInsumoAsync(string codigoProducto);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/DesactivarProducto", ReplyAction="http://tempuri.org/IServicioProductos/DesactivarProductoResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioProductos/DesactivarProductoExcepcionServidorItaliaPi" +
             "zzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
@@ -3174,6 +3393,22 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/GenerarReporteProductos", ReplyAction="http://tempuri.org/IServicioProductos/GenerarReporteProductosResponse")]
         System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.Reporte> GenerarReporteProductosAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.Categoria[] categoriasSeleccionadas, bool incluirAgotados);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/RecuperarProductosInventariados", ReplyAction="http://tempuri.org/IServicioProductos/RecuperarProductosInventariadosResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioProductos/RecuperarProductosInventariadosExcepcionSer" +
+            "vidorItaliaPizzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        ItaliaPizza_Cliente.ServicioItaliaPizza.Producto[] RecuperarProductosInventariados();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/RecuperarProductosInventariados", ReplyAction="http://tempuri.org/IServicioProductos/RecuperarProductosInventariadosResponse")]
+        System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.Producto[]> RecuperarProductosInventariadosAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/ActualizarProducto", ReplyAction="http://tempuri.org/IServicioProductos/ActualizarProductoResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioProductos/ActualizarProductoExcepcionServidorItaliaPi" +
+            "zzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        int ActualizarProducto(ItaliaPizza_Cliente.ServicioItaliaPizza.Producto producto);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioProductos/ActualizarProducto", ReplyAction="http://tempuri.org/IServicioProductos/ActualizarProductoResponse")]
+        System.Threading.Tasks.Task<int> ActualizarProductoAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.Producto producto);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -3323,6 +3558,14 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
             return base.Channel.ValidarDesactivacionAsync(codigoProducto);
         }
         
+        public bool ValidarDesactivacionInsumo(string codigoProducto) {
+            return base.Channel.ValidarDesactivacionInsumo(codigoProducto);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ValidarDesactivacionInsumoAsync(string codigoProducto) {
+            return base.Channel.ValidarDesactivacionInsumoAsync(codigoProducto);
+        }
+        
         public int DesactivarProducto(string codigoProducto) {
             return base.Channel.DesactivarProducto(codigoProducto);
         }
@@ -3345,6 +3588,22 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         public System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.Reporte> GenerarReporteProductosAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.Categoria[] categoriasSeleccionadas, bool incluirAgotados) {
             return base.Channel.GenerarReporteProductosAsync(categoriasSeleccionadas, incluirAgotados);
+        }
+        
+        public ItaliaPizza_Cliente.ServicioItaliaPizza.Producto[] RecuperarProductosInventariados() {
+            return base.Channel.RecuperarProductosInventariados();
+        }
+        
+        public System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.Producto[]> RecuperarProductosInventariadosAsync() {
+            return base.Channel.RecuperarProductosInventariadosAsync();
+        }
+        
+        public int ActualizarProducto(ItaliaPizza_Cliente.ServicioItaliaPizza.Producto producto) {
+            return base.Channel.ActualizarProducto(producto);
+        }
+        
+        public System.Threading.Tasks.Task<int> ActualizarProductoAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.Producto producto) {
+            return base.Channel.ActualizarProductoAsync(producto);
         }
     }
     
@@ -3536,6 +3795,40 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioUsuarios/RecuperarEmpleadoPorNombreUsuario", ReplyAction="http://tempuri.org/IServicioUsuarios/RecuperarEmpleadoPorNombreUsuarioResponse")]
         System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.EmpleadoDto> RecuperarEmpleadoPorNombreUsuarioAsync(string nombreUsuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioUsuarios/ValidarActualizacionNombreDeUsuarioUnico", ReplyAction="http://tempuri.org/IServicioUsuarios/ValidarActualizacionNombreDeUsuarioUnicoResp" +
+            "onse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioUsuarios/ValidarActualizacionNombreDeUsuarioUnicoExce" +
+            "pcionServidorItaliaPizzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        bool ValidarActualizacionNombreDeUsuarioUnico(string nuevoNombreUsuario, int idUsuarioModificar);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioUsuarios/ValidarActualizacionNombreDeUsuarioUnico", ReplyAction="http://tempuri.org/IServicioUsuarios/ValidarActualizacionNombreDeUsuarioUnicoResp" +
+            "onse")]
+        System.Threading.Tasks.Task<bool> ValidarActualizacionNombreDeUsuarioUnicoAsync(string nuevoNombreUsuario, int idUsuarioModificar);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioUsuarios/ValidarActualizacionCorreoUnico", ReplyAction="http://tempuri.org/IServicioUsuarios/ValidarActualizacionCorreoUnicoResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioUsuarios/ValidarActualizacionCorreoUnicoExcepcionServ" +
+            "idorItaliaPizzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        bool ValidarActualizacionCorreoUnico(string nuevoCorreo, int idUsuarioModificar);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioUsuarios/ValidarActualizacionCorreoUnico", ReplyAction="http://tempuri.org/IServicioUsuarios/ValidarActualizacionCorreoUnicoResponse")]
+        System.Threading.Tasks.Task<bool> ValidarActualizacionCorreoUnicoAsync(string nuevoCorreo, int idUsuarioModificar);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioUsuarios/ActualizarEmpleado", ReplyAction="http://tempuri.org/IServicioUsuarios/ActualizarEmpleadoResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioUsuarios/ActualizarEmpleadoExcepcionServidorItaliaPiz" +
+            "zaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        bool ActualizarEmpleado(ItaliaPizza_Cliente.ServicioItaliaPizza.EmpleadoDto empleadoEdicion);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioUsuarios/ActualizarEmpleado", ReplyAction="http://tempuri.org/IServicioUsuarios/ActualizarEmpleadoResponse")]
+        System.Threading.Tasks.Task<bool> ActualizarEmpleadoAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.EmpleadoDto empleadoEdicion);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioUsuarios/ActualizarCliente", ReplyAction="http://tempuri.org/IServicioUsuarios/ActualizarClienteResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioUsuarios/ActualizarClienteExcepcionServidorItaliaPizz" +
+            "aFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        bool ActualizarCliente(ItaliaPizza_Cliente.ServicioItaliaPizza.UsuarioDto usuarioEdicion);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioUsuarios/ActualizarCliente", ReplyAction="http://tempuri.org/IServicioUsuarios/ActualizarClienteResponse")]
+        System.Threading.Tasks.Task<bool> ActualizarClienteAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.UsuarioDto usuarioEdicion);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -3651,6 +3944,38 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         public System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.EmpleadoDto> RecuperarEmpleadoPorNombreUsuarioAsync(string nombreUsuario) {
             return base.Channel.RecuperarEmpleadoPorNombreUsuarioAsync(nombreUsuario);
+        }
+        
+        public bool ValidarActualizacionNombreDeUsuarioUnico(string nuevoNombreUsuario, int idUsuarioModificar) {
+            return base.Channel.ValidarActualizacionNombreDeUsuarioUnico(nuevoNombreUsuario, idUsuarioModificar);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ValidarActualizacionNombreDeUsuarioUnicoAsync(string nuevoNombreUsuario, int idUsuarioModificar) {
+            return base.Channel.ValidarActualizacionNombreDeUsuarioUnicoAsync(nuevoNombreUsuario, idUsuarioModificar);
+        }
+        
+        public bool ValidarActualizacionCorreoUnico(string nuevoCorreo, int idUsuarioModificar) {
+            return base.Channel.ValidarActualizacionCorreoUnico(nuevoCorreo, idUsuarioModificar);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ValidarActualizacionCorreoUnicoAsync(string nuevoCorreo, int idUsuarioModificar) {
+            return base.Channel.ValidarActualizacionCorreoUnicoAsync(nuevoCorreo, idUsuarioModificar);
+        }
+        
+        public bool ActualizarEmpleado(ItaliaPizza_Cliente.ServicioItaliaPizza.EmpleadoDto empleadoEdicion) {
+            return base.Channel.ActualizarEmpleado(empleadoEdicion);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ActualizarEmpleadoAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.EmpleadoDto empleadoEdicion) {
+            return base.Channel.ActualizarEmpleadoAsync(empleadoEdicion);
+        }
+        
+        public bool ActualizarCliente(ItaliaPizza_Cliente.ServicioItaliaPizza.UsuarioDto usuarioEdicion) {
+            return base.Channel.ActualizarCliente(usuarioEdicion);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ActualizarClienteAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.UsuarioDto usuarioEdicion) {
+            return base.Channel.ActualizarClienteAsync(usuarioEdicion);
         }
     }
     
@@ -3889,6 +4214,14 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioGastosVarios/GuardarGastoVario", ReplyAction="http://tempuri.org/IServicioGastosVarios/GuardarGastoVarioResponse")]
         System.Threading.Tasks.Task<int> GuardarGastoVarioAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.GastoVario gastoVario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioGastosVarios/RecuperarSalidasGastosVarios", ReplyAction="http://tempuri.org/IServicioGastosVarios/RecuperarSalidasGastosVariosResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioGastosVarios/RecuperarSalidasGastosVariosExcepcionSer" +
+            "vidorItaliaPizzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        double RecuperarSalidasGastosVarios(System.DateTime fecha);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioGastosVarios/RecuperarSalidasGastosVarios", ReplyAction="http://tempuri.org/IServicioGastosVarios/RecuperarSalidasGastosVariosResponse")]
+        System.Threading.Tasks.Task<double> RecuperarSalidasGastosVariosAsync(System.DateTime fecha);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -3924,6 +4257,111 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         public System.Threading.Tasks.Task<int> GuardarGastoVarioAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.GastoVario gastoVario) {
             return base.Channel.GuardarGastoVarioAsync(gastoVario);
+        }
+        
+        public double RecuperarSalidasGastosVarios(System.DateTime fecha) {
+            return base.Channel.RecuperarSalidasGastosVarios(fecha);
+        }
+        
+        public System.Threading.Tasks.Task<double> RecuperarSalidasGastosVariosAsync(System.DateTime fecha) {
+            return base.Channel.RecuperarSalidasGastosVariosAsync(fecha);
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServicioItaliaPizza.IServicioCorteCaja")]
+    public interface IServicioCorteCaja {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCorteCaja/RecuperarCorteCaja", ReplyAction="http://tempuri.org/IServicioCorteCaja/RecuperarCorteCajaResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioCorteCaja/RecuperarCorteCajaExcepcionServidorItaliaPi" +
+            "zzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        ItaliaPizza_Cliente.ServicioItaliaPizza.CorteCaja RecuperarCorteCaja(System.DateTime fecha);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCorteCaja/RecuperarCorteCaja", ReplyAction="http://tempuri.org/IServicioCorteCaja/RecuperarCorteCajaResponse")]
+        System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.CorteCaja> RecuperarCorteCajaAsync(System.DateTime fecha);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCorteCaja/GuardarCorteCaja", ReplyAction="http://tempuri.org/IServicioCorteCaja/GuardarCorteCajaResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioCorteCaja/GuardarCorteCajaExcepcionServidorItaliaPizz" +
+            "aFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        int GuardarCorteCaja(ItaliaPizza_Cliente.ServicioItaliaPizza.CorteCaja corteCaja);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCorteCaja/GuardarCorteCaja", ReplyAction="http://tempuri.org/IServicioCorteCaja/GuardarCorteCajaResponse")]
+        System.Threading.Tasks.Task<int> GuardarCorteCajaAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.CorteCaja corteCaja);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCorteCaja/ActualizarCorteCaja", ReplyAction="http://tempuri.org/IServicioCorteCaja/ActualizarCorteCajaResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioCorteCaja/ActualizarCorteCajaExcepcionServidorItaliaP" +
+            "izzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        int ActualizarCorteCaja(ItaliaPizza_Cliente.ServicioItaliaPizza.CorteCaja corteCaja);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCorteCaja/ActualizarCorteCaja", ReplyAction="http://tempuri.org/IServicioCorteCaja/ActualizarCorteCajaResponse")]
+        System.Threading.Tasks.Task<int> ActualizarCorteCajaAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.CorteCaja corteCaja);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCorteCaja/ExisteCorteCaja", ReplyAction="http://tempuri.org/IServicioCorteCaja/ExisteCorteCajaResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioCorteCaja/ExisteCorteCajaExcepcionServidorItaliaPizza" +
+            "Fault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        bool ExisteCorteCaja(System.DateTime fecha);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCorteCaja/ExisteCorteCaja", ReplyAction="http://tempuri.org/IServicioCorteCaja/ExisteCorteCajaResponse")]
+        System.Threading.Tasks.Task<bool> ExisteCorteCajaAsync(System.DateTime fecha);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IServicioCorteCajaChannel : ItaliaPizza_Cliente.ServicioItaliaPizza.IServicioCorteCaja, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class ServicioCorteCajaClient : System.ServiceModel.ClientBase<ItaliaPizza_Cliente.ServicioItaliaPizza.IServicioCorteCaja>, ItaliaPizza_Cliente.ServicioItaliaPizza.IServicioCorteCaja {
+        
+        public ServicioCorteCajaClient() {
+        }
+        
+        public ServicioCorteCajaClient(string endpointConfigurationName) : 
+                base(endpointConfigurationName) {
+        }
+        
+        public ServicioCorteCajaClient(string endpointConfigurationName, string remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public ServicioCorteCajaClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public ServicioCorteCajaClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(binding, remoteAddress) {
+        }
+        
+        public ItaliaPizza_Cliente.ServicioItaliaPizza.CorteCaja RecuperarCorteCaja(System.DateTime fecha) {
+            return base.Channel.RecuperarCorteCaja(fecha);
+        }
+        
+        public System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.CorteCaja> RecuperarCorteCajaAsync(System.DateTime fecha) {
+            return base.Channel.RecuperarCorteCajaAsync(fecha);
+        }
+        
+        public int GuardarCorteCaja(ItaliaPizza_Cliente.ServicioItaliaPizza.CorteCaja corteCaja) {
+            return base.Channel.GuardarCorteCaja(corteCaja);
+        }
+        
+        public System.Threading.Tasks.Task<int> GuardarCorteCajaAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.CorteCaja corteCaja) {
+            return base.Channel.GuardarCorteCajaAsync(corteCaja);
+        }
+        
+        public int ActualizarCorteCaja(ItaliaPizza_Cliente.ServicioItaliaPizza.CorteCaja corteCaja) {
+            return base.Channel.ActualizarCorteCaja(corteCaja);
+        }
+        
+        public System.Threading.Tasks.Task<int> ActualizarCorteCajaAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.CorteCaja corteCaja) {
+            return base.Channel.ActualizarCorteCajaAsync(corteCaja);
+        }
+        
+        public bool ExisteCorteCaja(System.DateTime fecha) {
+            return base.Channel.ExisteCorteCaja(fecha);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ExisteCorteCajaAsync(System.DateTime fecha) {
+            return base.Channel.ExisteCorteCajaAsync(fecha);
         }
     }
 }
