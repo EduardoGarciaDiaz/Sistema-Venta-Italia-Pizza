@@ -360,6 +360,15 @@
   <wsdl:message name="IServicioProductos_ActivarProducto_ExcepcionServidorItaliaPizzaFault_FaultMessage">
     <wsdl:part xmlns:q29="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones" name="detail" element="q29:ExcepcionServidorItaliaPizza" />
   </wsdl:message>
+  <wsdl:message name="IServicioProductos_GenerarReporteProductos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GenerarReporteProductos" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProductos_GenerarReporteProductos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GenerarReporteProductosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioProductos_GenerarReporteProductos_ExcepcionServidorItaliaPizzaFault_FaultMessage">
+    <wsdl:part xmlns:q29="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones" name="detail" element="q29:ExcepcionServidorItaliaPizza" />
+  </wsdl:message>
   <wsdl:message name="IServicioProductos_RecuperarProductosInventariados_InputMessage">
     <wsdl:part name="parameters" element="tns:RecuperarProductosInventariados" />
   </wsdl:message>
@@ -830,6 +839,11 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioProductos/ActivarProducto" message="tns:IServicioProductos_ActivarProducto_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioProductos/ActivarProductoResponse" message="tns:IServicioProductos_ActivarProducto_OutputMessage" />
       <wsdl:fault wsaw:Action="http://tempuri.org/IServicioProductos/ActivarProductoExcepcionServidorItaliaPizzaFault" name="ExcepcionServidorItaliaPizzaFault" message="tns:IServicioProductos_ActivarProducto_ExcepcionServidorItaliaPizzaFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GenerarReporteProductos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioProductos/GenerarReporteProductos" message="tns:IServicioProductos_GenerarReporteProductos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioProductos/GenerarReporteProductosResponse" message="tns:IServicioProductos_GenerarReporteProductos_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IServicioProductos/GenerarReporteProductosExcepcionServidorItaliaPizzaFault" name="ExcepcionServidorItaliaPizzaFault" message="tns:IServicioProductos_GenerarReporteProductos_ExcepcionServidorItaliaPizzaFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="RecuperarProductosInventariados">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioProductos/RecuperarProductosInventariados" message="tns:IServicioProductos_RecuperarProductosInventariados_InputMessage" />
@@ -1399,6 +1413,18 @@
     </wsdl:operation>
     <wsdl:operation name="ActivarProducto">
       <soap12:operation soapAction="http://tempuri.org/IServicioProductos/ActivarProducto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ExcepcionServidorItaliaPizzaFault">
+        <soap12:fault use="literal" name="ExcepcionServidorItaliaPizzaFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GenerarReporteProductos">
+      <soap12:operation soapAction="http://tempuri.org/IServicioProductos/GenerarReporteProductos" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

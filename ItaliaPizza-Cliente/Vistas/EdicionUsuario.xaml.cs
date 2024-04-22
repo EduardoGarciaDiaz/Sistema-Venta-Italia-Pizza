@@ -458,7 +458,7 @@ namespace ItaliaPizza_Cliente.Vistas
             return new EmpleadoDto()
             {
                 NombreUsuario = txbNombreUsuario.Text.Trim(),
-                Contraseña = txbContrasena.Password.Trim(),
+                Contraseña = CifradorContraseñas.EncriptarContraseña(txbContrasena.Password.Trim()),
                 IdTipoEmpleado = (cbmTipoEmpleado.SelectedItem as TipoEmpleadoDto).IdTipoEmpleado,
                 TipoEmpleado = (cbmTipoEmpleado.SelectedItem as TipoEmpleadoDto).Nombre,
                 IdUsuario = _empleadoEdicion.IdUsuario,

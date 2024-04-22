@@ -213,6 +213,84 @@ namespace ItaliaPizza_DataAccess
             }
         }
 
+        public List<Insumos> RecuperarInsumosActivosPorCategoria(List<Categoria> categoriasSeleccioandas)
+        {
+            List<Insumos> insumos = new List<Insumos>();
+            try
+            {
+                List<Insumos> insumosRecueprados = new List<Insumos>();
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    List<CategoriasInsumo> categorias = new List<CategoriasInsumo>();
+                    
+                    insumosRecueprados = context.Insumos
+                        .Where(insumo => (bool)insumo.Productos.EsActivo && insumo.Cantidad > 0)
+                        .Include(ins => ins.Productos)
+                        .Include(ins => ins.UnidadesMedida)
+                        .Include(ins => ins.CategoriasInsumo)
+                        .ToList();                    
+                }
+                foreach (var item in insumosRecueprados)
+                {
+                    if (categoriasSeleccioandas.Any(cat => cat.Nombre == item.CategoriasInsumo.Nombre)) insumos.Add(item);
+                }
+                return insumos;
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+        }
+        public List<Insumos> RecuperarTodosInsumosPorCategoria(List<Categoria> categoriasSeleccioandas)
+        {
+            List<Insumos> insumos = new List<Insumos>();
+            try
+            {
+
+                List<Insumos> insumosRecuperados = new List<Insumos>();
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    insumosRecuperados = context.Insumos
+                        .Include(ins => ins.Productos)
+                        .Include(ins => ins.UnidadesMedida)
+                        .Include(ins => ins.CategoriasInsumo)
+                        .ToList();
+                }
+                foreach (var item in insumosRecuperados)
+                {
+                    if (categoriasSeleccioandas.Any(cat => cat.Nombre == item.CategoriasInsumo.Nombre)) insumos.Add(item);
+                }
+                return insumos;
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+        }
+
+
         public void ApartarCantidadInsumo(string codigoInsumo, double cantidadParaApartar)
         {
             lock(_lock)

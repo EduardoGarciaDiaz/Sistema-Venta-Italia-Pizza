@@ -119,11 +119,11 @@
                         </StackPanel>
                     </ScrollViewer>
                     <Separator Height="10" FontWeight="Black" FontSize="20" Canvas.Top="529" Width="562" Canvas.Left="19" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                    <Label Content="Total Productos: " Foreground="Black" FontWeight="Black" Style="{StaticResource fieldTags}" Canvas.Left="23" Canvas.Top="552" VerticalAlignment="Top" HorizontalAlignment="Center"/>
-                    <Label x:Name="lblTotalProducto" Content="10000" Style="{StaticResource fieldTags}" Canvas.Left="159" Canvas.Top="553" VerticalAlignment="Top" Width="76" HorizontalAlignment="Center"/>
+                    <Label Content="Total Productos: " Foreground="Black" FontWeight="Black" Style="{StaticResource fieldTags}" Canvas.Left="14" Canvas.Top="552" VerticalAlignment="Top"/>
+                    <Label x:Name="lblTotalProducto" Content="0" Style="{StaticResource fieldTags}" Canvas.Left="151" Canvas.Top="553" VerticalAlignment="Top" Width="76"/>
 
-                    <Label Content="Costos de orden de compra: " Foreground="Black" FontWeight="Black" Style="{StaticResource fieldTags}" Canvas.Left="22" Canvas.Top="583" VerticalAlignment="Top" HorizontalAlignment="Center"/>
-                    <Label x:Name="lblTotalCosto" Content="10000" Style="{StaticResource fieldTags}" Canvas.Left="250" Canvas.Top="585" Width="76" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                    <Label Content="Costos de orden de compra: " Foreground="Black" FontWeight="Black" Style="{StaticResource fieldTags}" Canvas.Left="17" Canvas.Top="648" VerticalAlignment="Top"/>
+                    <Label x:Name="lblTotalCosto" Content="0" Style="{StaticResource fieldTags}" Canvas.Left="244" Canvas.Top="650" Width="76" VerticalAlignment="Top"/>
 
                     <Border  Style="{StaticResource buttonBorder}" Background="#7BD252" Canvas.Left="325" Canvas.Top="552" HorizontalAlignment="Left" VerticalAlignment="Center" Width="243">
                         <Button Content="Enviar Orden de Compra" Style="{StaticResource CustomButton}" Click="BtnEnviarOrdenCompra_Click"/>
@@ -136,6 +136,10 @@
                     <Border  Style="{StaticResource buttonBorder}" Background="Transparent" BorderBrush="Red" Canvas.Left="323" Canvas.Top="643" HorizontalAlignment="Left" VerticalAlignment="Center" Width="244">
                         <Button Content="Cancelar" Style="{StaticResource CustomButton}" Foreground="Red" Click="BtnCancelarOrden_Click"/>
                     </Border>
+                    <Label Content="Subtotoal: " Foreground="Black" FontWeight="Black" Style="{StaticResource fieldTags}" Canvas.Left="16" Canvas.Top="591" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                    <Label x:Name="lblSubtotal" Content="0" Style="{StaticResource fieldTags}" Canvas.Left="105" Canvas.Top="592" Width="76" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                    <Label Content="IVA: " Foreground="Black" FontWeight="Black" Style="{StaticResource fieldTags}" Canvas.Left="16" Canvas.Top="620" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Label x:Name="lblIva" Content="0" Style="{StaticResource fieldTags}" Canvas.Left="55" Canvas.Top="620" Width="76" VerticalAlignment="Top"/>
 
                 </Canvas>
             </Border>

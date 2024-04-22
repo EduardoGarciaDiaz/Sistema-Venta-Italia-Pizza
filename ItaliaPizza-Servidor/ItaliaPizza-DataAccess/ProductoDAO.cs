@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ItaliaPizza_DataAccess.Excepciones;
+using System.Data.Entity;
 
 namespace ItaliaPizza_DataAccess
 {
@@ -322,6 +323,47 @@ namespace ItaliaPizza_DataAccess
             }
         }
 
+        public List<ProductosVenta> RecuperarProductosVentaPorCategoriaActivos(List<Categoria> categorias)
+        {
+            List<ProductosVenta> productosVenta = new List<ProductosVenta>();
+
+            try
+            {
+                List<ProductosVenta> productosVentaRecuperados = new List<ProductosVenta>();
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    productosVentaRecuperados = context.ProductosVenta.Where(cat => (bool) cat.Productos.EsActivo)
+                            .Include(pro => pro.Productos)
+                            .Include(pro => pro.CategoriasProductoVenta)
+                            .Include(pro => pro.Productos.Insumos)
+                            .Include(pro => pro.Productos.Insumos.UnidadesMedida)
+                            .ToList();
+                    foreach (var item in productosVentaRecuperados)
+                    {
+
+                        if (categorias.Any(cat => cat.Nombre.Equals(item.CategoriasProductoVenta.Nombre))) productosVenta.Add(item);
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            return productosVenta;
+        }
+
+
         public int ActualizarProducto(Producto producto)
         {
             int filasAfectadas = -1;
@@ -358,9 +400,7 @@ namespace ItaliaPizza_DataAccess
                         }
                     }
                     filasAfectadas = context.SaveChanges();
-                }
-
-                
+                }               
             }
             catch (EntityException ex)
             {
@@ -377,7 +417,50 @@ namespace ItaliaPizza_DataAccess
                 ManejadorExcepcion.ManejarExcepcionFatal(ex);
                 throw new ExcepcionDataAccess(ex.Message);
             }
-            return filasAfectadas;
+                return filasAfectadas;
         }
-    }
+        
+
+        public List<ProductosVenta> RecuperarTodosProductosVentaPorCategoria(List<Categoria> categorias)
+        {
+            List<ProductosVenta> productosVenta = new List<ProductosVenta>();
+
+            try
+            {
+                List<ProductosVenta> productosVentaRecuperados = new List<ProductosVenta>();
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    productosVentaRecuperados = context.ProductosVenta
+                            .Include(pro => pro.Productos)
+                            .Include(pro => pro.CategoriasProductoVenta)
+                            .Include(pro => pro.Productos.Insumos)
+                            .Include(pro => pro.Productos.Insumos.UnidadesMedida)
+                            .ToList();
+                    foreach (var item in productosVentaRecuperados)
+                    {
+
+                        if (categorias.Any(cat => cat.Nombre.Equals(item.CategoriasProductoVenta.Nombre))) productosVenta.Add(item);
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            return productosVenta;
+        }
+
+
+    } 
 }

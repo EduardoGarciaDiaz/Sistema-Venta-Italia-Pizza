@@ -245,6 +245,7 @@ namespace ItaliaPizza_Servicios.Auxiliares
                 IdOrdenCompra = ordenDeCompraDto.IdOrdenCompra,
                 IdEstadoOrdenCompra = ordenDeCompraDto.IdEstadoOrdenCompra,
                 Fecha = ordenDeCompraDto.Fecha,
+                Costo = ordenDeCompraDto.Costo,
                 IdProveedor = ordenDeCompraDto.IdProveedor,            
             };
             return ordenesCompra;

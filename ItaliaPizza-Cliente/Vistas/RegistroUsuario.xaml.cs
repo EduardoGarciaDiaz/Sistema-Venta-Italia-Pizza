@@ -43,13 +43,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void PrepararVentana(object sender, RoutedEventArgs e)
         {
-            ObtenerTiposEmpleados();
-            //if ((int)EnumTiposEmpleado.Cajero == EmpleadoSingleton.getInstance().DatosEmpleado.IdTipoEmpleado)
-            //{
-            //    rdbCliente.IsChecked = true;
-            //    rdbCliente.IsEnabled = false;
-            //    rdbEmpleado.IsEnabled = false;
-            //}
+            ObtenerTiposEmpleados();           
         }
        
 
@@ -150,7 +144,7 @@ namespace ItaliaPizza_Cliente.Vistas
             bool sePuedeGuardar;
             bool esEmpleado = (bool)rdbEmpleado.IsChecked;
             sePuedeGuardar = ValidarCamposLlenosUsuario();
-            if (esEmpleado)
+            if (sePuedeGuardar && esEmpleado)
             {
                 sePuedeGuardar = ValidarCamposLLenosEmpleado();
             }
@@ -175,7 +169,7 @@ namespace ItaliaPizza_Cliente.Vistas
                 else
                 {
                     GuardarCliente(usuarioNuevo);
-                    MostrarMensajeError();
+                    MostrarMensajeExito();
                 }                
             }
         }
@@ -340,7 +334,7 @@ namespace ItaliaPizza_Cliente.Vistas
             return new EmpleadoDto()
             {
                 NombreUsuario = txbNombreUsuario.Text.Trim(),
-                Contraseña = txbContrasena.Password.Trim(),
+                Contraseña = CifradorContraseñas.EncriptarContraseña(txbContrasena.Password.Trim()),
                 IdTipoEmpleado = (cbmTipoEmpleado.SelectedItem as TipoEmpleadoDto).IdTipoEmpleado,
                 TipoEmpleado = (cbmTipoEmpleado.SelectedItem as TipoEmpleadoDto).Nombre,
                 IdUsuario = 0,
@@ -367,11 +361,6 @@ namespace ItaliaPizza_Cliente.Vistas
             LimpiarCampos();           
         }
 
-        private void MostrarMensajeError()
-        {
-            VentanaEmergente ventanaEmergente = new VentanaEmergente("Error ", "Ocurrio un error al guardar al usuario nuevo.", Window.GetWindow(this), 1);
-            ventanaEmergente.ShowDialog();            
-        }
 
         private void LimpiarCampos()
         {
@@ -439,7 +428,7 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             txbNombreUsuario.Text = "Mesero";
             txbNombreUsuario.IsEnabled = false;
-            txbContrasena.Password = "Mesero";
+            txbContrasena.Password = "mesero";
             txbContrasena.IsEnabled = false;
         }
 
@@ -486,7 +475,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void MostrarMensajeConfirmacion()
         {
-            VentanaEmergente ventanaEmergente = new VentanaEmergente("Cuidado!!!", "¿Seguro que desea cancelar el registro?, se perderán los datos del usuario?", "Si, Cancelar Registro", "No, Cancelar Accion", Window.GetWindow(this), 3);
+            VentanaEmergente ventanaEmergente = new VentanaEmergente("Cuidado!!!", "¿Seguro que desea cancelar el registro?, se perderán los datos del usuario", "Si, Cancelar Registro", "No, Cancelar Accion", Window.GetWindow(this), 3);
             ventanaEmergente.ShowDialog();
             if (ventanaEmergente.AceptarAccion)
             {
