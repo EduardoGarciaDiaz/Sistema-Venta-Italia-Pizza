@@ -27,7 +27,6 @@ namespace ItaliaPizza_Cliente.Vistas
         private List<OrdenDeCompraDto> _ordenesCompra = new List<OrdenDeCompraDto>();
 
         private SolidColorBrush _colorBrushAmarillo = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFD6B400"));
-        private SolidColorBrush _colorBrushRojo = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFD67272"));
         private SolidColorBrush _colorBrushNegro = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#00000000"));
         private SolidColorBrush _colorBrushGris = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF656565"));
         private int _estadoSeleccionado = 0;
@@ -58,7 +57,8 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             ElementoConsultaOrdenCompra elementoConsultaOrdenCompra = sender as ElementoConsultaOrdenCompra;
             OrdenDeCompraDto orden = elementoConsultaOrdenCompra.OrdenDeCompraDto;
-            //Accion
+            RegistroPagoOrdenCompra registroPagoOrdenCompra = new RegistroPagoOrdenCompra(orden);
+            NavigationService.Navigate(registroPagoOrdenCompra);
         }
 
         private void PrepararDatos_Loaded(object sender, RoutedEventArgs e)
@@ -82,7 +82,7 @@ namespace ItaliaPizza_Cliente.Vistas
                     lblNombreProveedor = { Content = ordenCompra.Proveedor.NombreCompleto },
                     lblCantidadInsumosSolicitados = { Content = $"{ordenCompra.listaElementosOrdenCompra.Length} productos." },
                     LblFecha = { Content = ordenCompra.Fecha.ToShortDateString() },
-                    LblTotalOrdenCompra = { Content = $"${ordenCompra.listaElementosOrdenCompra.Sum(p => p.InsumoOrdenCompraDto.CostoUnitario):F2}" },
+                    LblTotalOrdenCompra = { Content = $"${ordenCompra.listaElementosOrdenCompra.Sum(p => (p.CantidadInsumosAdquiridos * p.InsumoOrdenCompraDto.CostoUnitario)):F2}" },
                     OrdenDeCompraDto = ordenCompra
                 };
                 CambiarColorBotonOrdenCompra(ordenCompra.IdEstadoOrdenCompra, elementoConsultaOrdenCompra.btnAccionOrdenCompra);
@@ -125,7 +125,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
                 case (int)EnumEstadosOrdenCompra.Borrador:
                     btnAccionOrdenCompra.Content = "Modificar";
-                    btnAccionOrdenCompra.Background = _colorBrushNegro;
+                    btnAccionOrdenCompra.Background = new SolidColorBrush(Colors.Black);
                     btnAccionOrdenCompra.Foreground = new SolidColorBrush(Colors.White);
                     break;
 

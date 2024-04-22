@@ -95,5 +95,17 @@ namespace ItaliaPizza_Servicios
                 throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
             }
         }
+
+        public bool RegistrarPagoOrdenCompra(OrdenDeCompraDto ordenCompra)
+        {
+            try
+            {
+                return OrdenDeCompraDAO.RegistrarPagoOrdenCompra(ordenCompra);
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
+        }
     }
 }

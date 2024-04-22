@@ -329,5 +329,72 @@ namespace ItaliaPizza_DataAccess
             }
         }
 
+        public bool ActualizarCantidadSolicitadaInsumo(int idInsumoOrden, double cantidadNueva)
+        {
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    OrdenesCompraInsumos insumoEnOrden = context.OrdenesCompraInsumos.FirstOrDefault(i => i.IdOrdenCompraInsumo == idInsumoOrden);
+                    insumoEnOrden.CantidadInsumosAdquiridos = (int) cantidadNueva;
+                    if (context.SaveChanges() > 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            return false;
+        }
+
+        public bool ActualizarInventarioInsumo(string codigoInsumo, double cantidadAgregada)
+        {
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    Insumos insumo = context.Insumos.FirstOrDefault(i => i.CodigoProducto == codigoInsumo);
+                    if (insumo != default)
+                    {
+                        insumo.Cantidad = insumo.Cantidad + cantidadAgregada;
+                        if (context.SaveChanges() > 0)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            return false;
+        }
+
     }
 }

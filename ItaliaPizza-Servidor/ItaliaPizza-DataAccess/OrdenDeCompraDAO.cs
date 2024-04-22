@@ -15,8 +15,12 @@ namespace ItaliaPizza_DataAccess
     public static class OrdenDeCompraDAO
     {
 
+        private const int ESTADO_SURTIDA = 3;
+
         public static int GuardarOrdenDeCompra(OrdenesCompra ordenesCompra)
         {
+
+
             int idOrdenNueva = 0;
             try
             {
@@ -249,6 +253,50 @@ namespace ItaliaPizza_DataAccess
                 throw new ExcepcionDataAccess(ex.Message);
             }
             return ordenesCompra;
+        }
+
+        public static bool RegistrarPagoOrdenCompra(OrdenDeCompraDto ordenDeCompra)
+        {
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    OrdenesCompra ordenesCompra = context.OrdenesCompra.FirstOrDefault(o => o.IdOrdenCompra == ordenDeCompra.IdOrdenCompra);
+                    if (ordenesCompra != default)
+                    {
+                        ordenesCompra.IdEstadoOrdenCompra = ordenDeCompra.IdEstadoOrdenCompra;
+                        InsumoDAO insumoDAO = new InsumoDAO();
+                        foreach(OrdenesCompraInsumos ordenesCompraInsumos in ordenesCompra.OrdenesCompraInsumos)
+                        {
+                            double cantidad = ordenDeCompra.listaElementosOrdenCompra.FirstOrDefault(i => 
+                                i.IdElementoOrdenCompra == ordenesCompraInsumos.IdOrdenCompraInsumo).CantidadInsumosAdquiridos;
+                            insumoDAO.ActualizarCantidadSolicitadaInsumo(ordenesCompraInsumos.IdOrdenCompraInsumo, cantidad);
+                            insumoDAO.ActualizarInventarioInsumo(ordenesCompraInsumos.Insumos.CodigoProducto, cantidad);
+                        }
+                        if (context.SaveChanges() > 0)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+
+            return false;
         }
 
     }

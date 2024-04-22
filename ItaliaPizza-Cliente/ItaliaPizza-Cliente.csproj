@@ -98,6 +98,9 @@
     <Compile Include="Recursos\ControlesUsuario\ElementoInsumoReceta.xaml.cs">
       <DependentUpon>ElementoInsumoReceta.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Recursos\ControlesUsuario\ElementoInsumoRegistroPagoOrden.xaml.cs">
+      <DependentUpon>ElementoInsumoRegistroPagoOrden.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Recursos\ControlesUsuario\ElementoInsumoRegistroReceta.xaml.cs">
       <DependentUpon>ElementoInsumoRegistroReceta.xaml</DependentUpon>
     </Compile>
@@ -186,6 +189,9 @@
     <Compile Include="Vistas\RegistroOrdenCompra.xaml.cs">
       <DependentUpon>RegistroOrdenCompra.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Vistas\RegistroPagoOrdenCompra.xaml.cs">
+      <DependentUpon>RegistroPagoOrdenCompra.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\RegistroPedido.xaml.cs">
       <DependentUpon>RegistroPedido.xaml</DependentUpon>
     </Compile>
@@ -271,6 +277,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Recursos\ControlesUsuario\ElementoInsumoReceta.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Recursos\ControlesUsuario\ElementoInsumoRegistroPagoOrden.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -375,6 +385,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vistas\RegistroOrdenCompra.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\RegistroPagoOrdenCompra.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

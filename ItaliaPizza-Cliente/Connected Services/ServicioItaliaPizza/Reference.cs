@@ -2946,6 +2946,14 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioOrdenesCompra/RecuperarOrdenesDeCompra", ReplyAction="http://tempuri.org/IServicioOrdenesCompra/RecuperarOrdenesDeCompraResponse")]
         System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.OrdenDeCompraDto[]> RecuperarOrdenesDeCompraAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioOrdenesCompra/RegistrarPagoOrdenCompra", ReplyAction="http://tempuri.org/IServicioOrdenesCompra/RegistrarPagoOrdenCompraResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(ItaliaPizza_Cliente.ServicioItaliaPizza.ExcepcionServidorItaliaPizza), Action="http://tempuri.org/IServicioOrdenesCompra/RegistrarPagoOrdenCompraExcepcionServid" +
+            "orItaliaPizzaFault", Name="ExcepcionServidorItaliaPizza", Namespace="http://schemas.datacontract.org/2004/07/ItaliaPizza_Contratos.Excepciones")]
+        bool RegistrarPagoOrdenCompra(ItaliaPizza_Cliente.ServicioItaliaPizza.OrdenDeCompraDto ordenCompra);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioOrdenesCompra/RegistrarPagoOrdenCompra", ReplyAction="http://tempuri.org/IServicioOrdenesCompra/RegistrarPagoOrdenCompraResponse")]
+        System.Threading.Tasks.Task<bool> RegistrarPagoOrdenCompraAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.OrdenDeCompraDto ordenCompra);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -3013,6 +3021,14 @@ namespace ItaliaPizza_Cliente.ServicioItaliaPizza {
         
         public System.Threading.Tasks.Task<ItaliaPizza_Cliente.ServicioItaliaPizza.OrdenDeCompraDto[]> RecuperarOrdenesDeCompraAsync() {
             return base.Channel.RecuperarOrdenesDeCompraAsync();
+        }
+        
+        public bool RegistrarPagoOrdenCompra(ItaliaPizza_Cliente.ServicioItaliaPizza.OrdenDeCompraDto ordenCompra) {
+            return base.Channel.RegistrarPagoOrdenCompra(ordenCompra);
+        }
+        
+        public System.Threading.Tasks.Task<bool> RegistrarPagoOrdenCompraAsync(ItaliaPizza_Cliente.ServicioItaliaPizza.OrdenDeCompraDto ordenCompra) {
+            return base.Channel.RegistrarPagoOrdenCompraAsync(ordenCompra);
         }
     }
     
