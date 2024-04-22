@@ -1,4 +1,5 @@
-﻿using ItaliaPizza_DataAccess.Excepciones;
+﻿using ItaliaPizza_Contratos.DTOs;
+using ItaliaPizza_DataAccess.Excepciones;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
@@ -69,6 +70,41 @@ namespace ItaliaPizza_DataAccess
                 throw new ExcepcionDataAccess(ex.Message);
             }
             return direcciones;        
+        }
+
+        public static int ActualizarDireccion(Direcciones direccionEdicion)
+        {
+            int filasAfectadas = -1;
+
+            try
+            {
+                using (var context = new ItaliaPizzaEntities())
+                {
+                    var direccion = context.Direcciones.Find(direccionEdicion.IdDireccion);
+                    if (direccion != null)
+                    {
+                        context.Entry(direccion).CurrentValues.SetValues(direccionEdicion);
+                        filasAfectadas = context.SaveChanges();
+                    }
+
+                    return filasAfectadas;
+                }
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
         }
 
     }

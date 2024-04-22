@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using ItaliaPizza_Servicios.Auxiliares;
 using ItaliaPizza_DataAccess.Excepciones;
+using ItaliaPizza_Contratos.Excepciones;
+using System.ServiceModel;
 
 namespace ItaliaPizza_Servicios
 {
@@ -320,5 +322,104 @@ namespace ItaliaPizza_Servicios
             return empleadoDto;
         }
 
+        public bool ValidarActualizacionNombreDeUsuarioUnico(string nuevoNombreUsuario, int idUsuarioModificar)
+        {
+            bool esActualizacionValida = false;
+
+            try
+            {
+                esActualizacionValida = EmpleadoDAO.ValidarActualizacionNombreDeUsuarioUnico(nuevoNombreUsuario, idUsuarioModificar);
+
+                return esActualizacionValida;
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
+        }
+
+        public bool ValidarActualizacionCorreoUnico(string nuevoCorreo, int idUsuarioModificar)
+        {
+            bool esActualizacionValida = false;
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+
+            try
+            {
+                esActualizacionValida = usuarioDAO.ValidarActualizacionCorreoUnico(nuevoCorreo, idUsuarioModificar);
+
+                return esActualizacionValida;
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
+        }
+
+        public bool ActualizarEmpleado(EmpleadoDto empleadoEdicion)
+        {
+            bool seGuardoEmpleado = false;
+
+            if (empleadoEdicion != null)
+            {
+                int exito;
+                Direcciones direccionEdicion = AuxiliarConversorDTOADAO.ConvertirDireccionDtoADirecciones(empleadoEdicion.Usuario.Direccion);
+                try
+                {
+                    exito = DireccionDAO.ActualizarDireccion(direccionEdicion);
+                    if (exito > 0)
+                    {
+                        UsuarioDAO usuarioDAO = new UsuarioDAO();
+                        Usuarios usuariosNuevo = AuxiliarConversorDTOADAO.ConvertirUsuarioDtoAUsuarios(empleadoEdicion.Usuario);
+                        exito = usuarioDAO.ActualizarUsuario(usuariosNuevo);
+                        if (exito > 0)
+                        {
+                            Empleados empleado = AuxiliarConversorDTOADAO.ConvertirEmpleadoDtoAEmpleado(empleadoEdicion);
+                            exito = EmpleadoDAO.ActualizarEmpleado(empleado);
+                            if (exito > 0)
+                            {
+                                seGuardoEmpleado = true;
+                            }
+                        }
+                    }
+                }
+                catch (ExcepcionDataAccess e)
+                {
+                    throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+                }
+            }
+
+            return seGuardoEmpleado;
+
+        }
+
+        public bool ActualizarCliente(UsuarioDto usuarioEdicion)
+        {
+            bool seGuardoCliente = false;
+            if (usuarioEdicion != null)
+            {
+                int exito;
+                Direcciones direccionEdicion = AuxiliarConversorDTOADAO.ConvertirDireccionDtoADirecciones(usuarioEdicion.Direccion);
+                try
+                {
+                    exito = DireccionDAO.ActualizarDireccion(direccionEdicion);
+
+                    if (exito > 0)
+                    {
+                        UsuarioDAO usuarioDAO = new UsuarioDAO();
+                        Usuarios usuariosEdicion = AuxiliarConversorDTOADAO.ConvertirUsuarioDtoAUsuarios(usuarioEdicion);
+                        exito = usuarioDAO.ActualizarUsuario(usuariosEdicion);
+                        if (exito > 0)
+                        {
+                            seGuardoCliente = true;
+                        }
+                    }
+                }
+                catch (ExcepcionDataAccess e)
+                {
+                    throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+                }
+            }
+            return seGuardoCliente;
+        }
     }
 }

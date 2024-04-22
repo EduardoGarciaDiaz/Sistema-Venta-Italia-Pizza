@@ -141,10 +141,20 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void BtnModificarUsuario_Click(object sender, EventArgs e)
         {
-           // ElementoUsuario elementoUsuario = sender as ElementoUsuario;
-            //UsuarioDto usuario =  elementoUsuario.usuario;
-            VentanaEmergente ventanaEmergente = new VentanaEmergente("AVISO!!", "La funcionalidad modificar sera proximamemnte impelemtada", Window.GetWindow(this), 2);
-            ventanaEmergente.ShowDialog();
+            ElementoUsuario elementoUsuario = sender as ElementoUsuario;
+            EdicionUsuario paginaEdicionUsuario;
+
+            if (elementoUsuario.empleado != null)
+            {
+                EmpleadoDto empleado = elementoUsuario.empleado;
+                paginaEdicionUsuario = new EdicionUsuario(empleado);
+            } else
+            {
+                UsuarioDto usuario = elementoUsuario.usuario;
+                paginaEdicionUsuario = new EdicionUsuario(usuario);
+            }
+
+            NavigationService.Navigate(paginaEdicionUsuario);
         }
 
         private void BtnDesactivarActivar_Click(Object sender, EventArgs e)

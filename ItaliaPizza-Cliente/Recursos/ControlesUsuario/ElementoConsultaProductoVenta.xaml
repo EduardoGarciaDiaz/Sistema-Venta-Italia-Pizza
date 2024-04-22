@@ -31,7 +31,7 @@
             </Grid>
 
             <Grid>
-                <Grid Margin="102,220,86,19" MouseDown="BtnDesactivarActivar_Click">
+                <Grid Margin="102,220,86,19" MouseDown="BtnDesactivarActivar_Click" Cursor="Hand">
                     <Border x:Name="brdActivoBackground" Background="Black" BorderBrush="Black" BorderThickness="1.9" Margin="0" CornerRadius="10" />
                     <Ellipse  Name="btnEsActivo" Fill="Yellow" Height="16" Width="16" HorizontalAlignment="Right" Margin="2,0,2,0"  />
                 </Grid>

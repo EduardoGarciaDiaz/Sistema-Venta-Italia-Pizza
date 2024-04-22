@@ -202,6 +202,9 @@
     <Compile Include="Vistas\RegistroReceta.xaml.cs">
       <DependentUpon>RegistroReceta.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Vistas\EdicionUsuario.xaml.cs">
+      <DependentUpon>EdicionUsuario.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\RegistroUsuario.xaml.cs">
       <DependentUpon>RegistroUsuario.xaml</DependentUpon>
     </Compile>
@@ -394,6 +397,10 @@
     <Page Include="Vistas\RegistroReceta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\EdicionUsuario.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Vistas\RegistroUsuario.xaml">
       <Generator>MSBuild:Compile</Generator>

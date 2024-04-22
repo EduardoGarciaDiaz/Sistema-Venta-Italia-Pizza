@@ -14,7 +14,7 @@
                 <Label Content="Código:"  FontSize="18"  FontWeight="Medium" Margin="10,0,666,16"/>
                 <Label Name="lblCodigo"  Content="11111111:"  FontSize="18" Margin="74,0,469,16" />
                 <Label Content="Nombre:"  FontSize="18" FontWeight="Medium" Margin="10,25,657,0" />
-                <Label Name="lblNombre" Content="11111111:"  FontSize="18" Margin="84,25,442,-5" />
+                <Label Name="lblNombre" Content="11111111:"  FontSize="18" Margin="84,25,471,-5" />
 
                 <Label Content="Categoría:"  FontSize="18" FontWeight="Medium" Margin="274,-1,383,16"/>
                 <Label Name="lblCategoria" Content="11111111:"  FontSize="18" Margin="360,0,179,21" />
@@ -25,12 +25,12 @@
             </Grid>
 
             <Grid>
-                <Image Source="/Recursos/Iconos/icono_modificar.png" Height="30" Width="30" Margin="618,6,102,19" MouseLeftButtonDown="ImgModificarInsumo_Click"/>
+                <Image Source="/Recursos/Iconos/icono_modificar.png" Height="30" Width="30" Cursor="Hand" Margin="618,6,102,19" MouseLeftButtonDown="ImgModificarInsumo_Click"/>
                 <Label Content="Modificar"  Padding="0" HorizontalContentAlignment="Center" Margin="604,36,88,3"/>
             </Grid>
 
             <Grid>
-                <Grid Margin="677,13,26,21"  MouseLeftButtonDown="BtnDesactivarActivar_Click" >
+                <Grid Margin="677,13,26,21"  MouseLeftButtonDown="BtnDesactivarActivar_Click" Cursor="Hand">
                     <Border x:Name="brdActivoBackground" Background="Black" BorderBrush="Black" BorderThickness="1.9" Margin="0" CornerRadius="10"/>
                     <Ellipse  Name="btnEsActivo" Fill="Yellow" Height="16" Width="16" HorizontalAlignment="Right" Margin="2,0,2,0" />
                 </Grid>

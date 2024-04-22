@@ -94,6 +94,11 @@ namespace ItaliaPizza_Cliente
             lblNombre.Content = nombreCompleto;
         }
 
+        public void MostrarBotonAgregarGastosVarios()
+        {
+            gridGastos.Visibility = Visibility.Visible;
+        }
+
         private void AgregarBotonPedido()
         {
             BtnMenuLateral pedidos = new BtnMenuLateral();
@@ -234,6 +239,12 @@ namespace ItaliaPizza_Cliente
         {
             InicioSesion inicioSesion = new InicioSesion();
             FrameNavigator.NavigationService.Navigate(inicioSesion);
+            OcultarBotonGastosVarios();
+        }
+
+        private void OcultarBotonGastosVarios()
+        {
+            gridGastos.Visibility = Visibility.Collapsed;
         }
 
         private void CerrarSesion()
