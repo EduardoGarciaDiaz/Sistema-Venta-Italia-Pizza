@@ -1,4 +1,5 @@
-﻿using ItaliaPizza_Cliente.Recursos.ControlesUsuario;
+﻿using Aspose.Pdf.Annotations;
+using ItaliaPizza_Cliente.Recursos.ControlesUsuario;
 using ItaliaPizza_Cliente.ServicioItaliaPizza;
 using ItaliaPizza_Cliente.Utilidades;
 using System;
@@ -43,7 +44,17 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             ElementoConsultaOrdenCompra elementoConsultaOrdenCompra = sender as ElementoConsultaOrdenCompra;
             OrdenDeCompraDto orden = elementoConsultaOrdenCompra.OrdenDeCompraDto;
-            //Accion
+
+            MostrarDatosOrdenCompra(orden);
+            MostrarDatosProveedor(orden.Proveedor);
+            MostrarInsumos(orden.listaElementosOrdenCompra.ToList());
+            ucOrdenCompra.Visibility = Visibility.Visible;
+            brdFondo.Visibility = Visibility.Visible;
+        }
+
+        private void ImgCerrar_MouseLeftButtonDown(object sender, EventArgs e)
+        {
+            CerrarTarjeta();
         }
 
         private void BtnModificarOrdenCompra_Click(object sender, RoutedEventArgs e)
@@ -63,6 +74,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void PrepararDatos_Loaded(object sender, RoutedEventArgs e)
         {
+            ucOrdenCompra.ClickCerrar += ImgCerrar_MouseLeftButtonDown;
             _proveedores = RecuperarProveedores();
             CargarProveedores(_proveedores);
             _ordenesCompra = RecuperarOrdenesOrdenesCompra();
@@ -82,7 +94,7 @@ namespace ItaliaPizza_Cliente.Vistas
                     lblNombreProveedor = { Content = ordenCompra.Proveedor.NombreCompleto },
                     lblCantidadInsumosSolicitados = { Content = $"{ordenCompra.listaElementosOrdenCompra.Length} productos." },
                     LblFecha = { Content = ordenCompra.Fecha.ToShortDateString() },
-                    LblTotalOrdenCompra = { Content = $"${ordenCompra.listaElementosOrdenCompra.Sum(p => (p.CantidadInsumosAdquiridos * p.InsumoOrdenCompraDto.CostoUnitario)):F2}" },
+                    LblTotalOrdenCompra = { Content = $"${ordenCompra.Costo:F2}" },
                     OrdenDeCompraDto = ordenCompra
                 };
                 CambiarColorBotonOrdenCompra(ordenCompra.IdEstadoOrdenCompra, elementoConsultaOrdenCompra.btnAccionOrdenCompra);
@@ -138,6 +150,45 @@ namespace ItaliaPizza_Cliente.Vistas
                 default:
                     break;
             }
+        }
+
+        private void MostrarInsumos(List<ElementoOrdenCompraDto> listaElementosOrdenCompra)
+        {
+            listaElementosOrdenCompra?.ForEach(i =>
+            {
+                InsumoOrdenCompraDto insumo = i.InsumoOrdenCompraDto;
+                OrdenCompraInsumoItem insumoItem = new OrdenCompraInsumoItem()
+                {
+                    lblNombreInsumo = { Content = insumo.Nombre },
+                    lblCodigoInsumo = { Content = insumo.Codigo },
+                    lblNombreUnidad = { Content = insumo.UnidadMedida },
+                    lblCosto = { Content = "$" + insumo.CostoUnitario.ToString("F2") },
+                    lblCantidadSolicitada = { Content = i.CantidadInsumosAdquiridos }
+                };
+                ucOrdenCompra.skpContenedorInsumos.Children.Add(insumoItem);
+            });
+        }
+
+        private void MostrarDatosProveedor(ProveedorDto proveedor)
+        {
+            ucOrdenCompra.lblNombreProveedor.Content = proveedor.NombreCompleto;
+            ucOrdenCompra.lblCorreoElectronicoProveedor.Content = proveedor.CorreoElectronico;
+            ucOrdenCompra.lblNumeroTelefonoProveedor.Content = proveedor.NumeroTelefono;
+        }
+
+        private void MostrarDatosOrdenCompra(OrdenDeCompraDto orden)
+        {
+            ucOrdenCompra.lblNumeroOrden.Content = orden.IdOrdenCompra.ToString();
+            ucOrdenCompra.lblFechaOrdenCompra.Content = orden.Fecha.ToShortDateString();
+
+            double total = orden.Costo;
+            double subtotal = total / 1.16;
+            double iva = subtotal * 0.16;
+
+            ucOrdenCompra.lbSubtotal.Content = subtotal.ToString("F2");
+            ucOrdenCompra.lbIVA.Content = iva.ToString("F2");
+            ucOrdenCompra.lbTotal.Content = total.ToString("F2");
+
         }
 
         private void BtnRegistrarOrdenCompra_Click(object sender, RoutedEventArgs e)
@@ -245,6 +296,12 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             _fechaSeleccionada = (DateTime) DpkFechaBusqueda.SelectedDate;
             FiltrarOrdenesCompra(_proveedorSeleccionado, _estadoSeleccionado, _fechaSeleccionada);
+        }
+
+        private void CerrarTarjeta()
+        {
+            brdFondo.Visibility = Visibility.Collapsed;
+            ucOrdenCompra.Visibility = Visibility.Collapsed;
         }
     }
 }

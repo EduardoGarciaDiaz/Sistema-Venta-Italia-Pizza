@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="ItaliaPizza_Cliente.Recursos.ControlesUsuario.OrdenCompraInsumoItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ItaliaPizza_Cliente.Recursos.ControlesUsuario"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="380"
+             >
+    <Grid>
+        <Border CornerRadius="15"
+                    Background="White"/>
+
+        <Label x:Name="lblNombreInsumo" Content="Harina de Trigo de origen de veracurz"
+               FontSize="18px" Margin="5,1,11,61" FontWeight="Bold"/>
+        <Label Content="Código"
+            FontSize="16" Margin="4,29,296,33" FontWeight="Bold"/>
+        <Label Content="Costo"
+            FontSize="16" Margin="215,29,103,33" FontWeight="Bold"/>
+        <Label Content="Cant. solic."
+            FontSize="16" Margin="278,29,1,33" FontWeight="Bold"/>
+        <Label Content="Unidad"
+            FontSize="16" Margin="133,29,171,33" FontWeight="Bold"/>
+        <Label x:Name="lblCodigoInsumo" Content="Harina de Trigo de origen de veracurz"
+            FontSize="16" Margin="3,54,253,8"/>
+        <Label x:Name="lblNombreUnidad" Content="Pz"
+            FontSize="16" Margin="135,53,184,9" HorizontalContentAlignment="Center"/>
+        <Label x:Name="lblCosto" Content="123"
+            FontSize="16" Margin="212,54,101,8" HorizontalContentAlignment="Center"/>
+        <Label x:Name="lblCantidadSolicitada" Content="1"
+            FontSize="16" Margin="291,54,11,8" HorizontalContentAlignment="Center"/>
+    </Grid>
+</UserControl>

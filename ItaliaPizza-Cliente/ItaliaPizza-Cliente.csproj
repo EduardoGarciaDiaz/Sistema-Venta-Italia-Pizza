@@ -210,6 +210,12 @@
     <Compile Include="Recursos\ControlesUsuario\ElementoValidacionProducto.xaml.cs">
       <DependentUpon>ElementoValidacionProducto.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Recursos\ControlesUsuario\OrdenCompraInsumoItem.xaml.cs">
+      <DependentUpon>OrdenCompraInsumoItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Recursos\ControlesUsuario\TarjetaOrdenCompra.xaml.cs">
+      <DependentUpon>TarjetaOrdenCompra.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utilidades\CampoTextoConLabel.cs" />
     <Compile Include="Utilidades\CifradorContraseñas.cs" />
     <Compile Include="Utilidades\ConvertidorBytes.cs" />
@@ -406,6 +412,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Recursos\ControlesUsuario\ElementoValidacionProducto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Recursos\ControlesUsuario\OrdenCompraInsumoItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Recursos\ControlesUsuario\TarjetaOrdenCompra.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -200,6 +200,7 @@ namespace ItaliaPizza_DataAccess
                     ordenesCompra = context.OrdenesCompra.ToList().ConvertAll(o => new OrdenDeCompraDto()
                     {
                         IdOrdenCompra = o.IdOrdenCompra,
+                        Costo = (float) o.Costo,
                         Fecha = (DateTime)o.Fecha,
                         IdEstadoOrdenCompra = o.EstadosOrdenCompra.IdEstadoOrdenCompra,
                         IdProveedor = o.Proveedores.IdProveedor,
@@ -265,6 +266,7 @@ namespace ItaliaPizza_DataAccess
                     if (ordenesCompra != default)
                     {
                         ordenesCompra.IdEstadoOrdenCompra = ordenDeCompra.IdEstadoOrdenCompra;
+                        ordenesCompra.Costo = ordenDeCompra.Costo;
                         InsumoDAO insumoDAO = new InsumoDAO();
                         foreach(OrdenesCompraInsumos ordenesCompraInsumos in ordenesCompra.OrdenesCompraInsumos)
                         {

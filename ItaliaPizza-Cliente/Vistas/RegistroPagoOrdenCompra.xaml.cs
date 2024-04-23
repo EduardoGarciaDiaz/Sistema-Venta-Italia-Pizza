@@ -77,9 +77,9 @@ namespace ItaliaPizza_Cliente.Vistas
         private void CalcularYMostrarTotales()
         {
             List<ElementoInsumoRegistroPagoOrden> insumos = SkpContenedorOrdenesCompra.Children.OfType<ElementoInsumoRegistroPagoOrden>().ToList();
-            double total = insumos.Sum(i => double.Parse(i.lblTotalInsumos.Content.ToString()));
-            double subtotal = total / 1.16;
+            double subtotal = insumos.Sum(i => double.Parse(i.lblTotalInsumos.Content.ToString()));
             double iva = subtotal * 0.16;
+            double total = subtotal + iva;
 
             lblSubtotal.Content = subtotal.ToString("F2");
             lblIVA.Content = iva.ToString("F2");
@@ -120,6 +120,7 @@ namespace ItaliaPizza_Cliente.Vistas
         private void BtnRegistrarPago_Click(object sender, RoutedEventArgs e)
         {
             _ordenCompra.IdEstadoOrdenCompra = (int)EnumEstadosOrdenCompra.Surtida;
+            _ordenCompra.Costo = float.Parse(lblTotal.Content.ToString());
             List<ElementoInsumoRegistroPagoOrden> insumos = SkpContenedorOrdenesCompra.Children.OfType<ElementoInsumoRegistroPagoOrden>().ToList();
             insumos?.ForEach(i =>
             {

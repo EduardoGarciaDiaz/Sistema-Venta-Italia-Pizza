@@ -6,12 +6,12 @@
         xmlns:uc="clr-namespace:ItaliaPizza_Cliente.Recursos.ControlesUsuario"
         xmlns:local="clr-namespace:ItaliaPizza_Cliente"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1250"
+        Title="MainWindow" Height="810" Width="1365"
         WindowStartupLocation="CenterScreen"
         Background="Transparent"
         MinWidth="500">
     <Viewbox Stretch="Fill">
-        <Grid Height="800" Width="1250">
+        <Grid Height="810" Width="1365">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="13*"/>
                 <ColumnDefinition Width="37*"/>

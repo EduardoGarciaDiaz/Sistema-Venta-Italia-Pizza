@@ -136,7 +136,7 @@
                     <Border  Style="{StaticResource buttonBorder}" Background="Transparent" BorderBrush="Red" Canvas.Left="323" Canvas.Top="643" HorizontalAlignment="Left" VerticalAlignment="Center" Width="244">
                         <Button Content="Cancelar" Style="{StaticResource CustomButton}" Foreground="Red" Click="BtnCancelarOrden_Click"/>
                     </Border>
-                    <Label Content="Subtotoal: " Foreground="Black" FontWeight="Black" Style="{StaticResource fieldTags}" Canvas.Left="16" Canvas.Top="591" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                    <Label Content="Subtotal: " Foreground="Black" FontWeight="Black" Style="{StaticResource fieldTags}" Canvas.Left="16" Canvas.Top="591" VerticalAlignment="Top" HorizontalAlignment="Center"/>
                     <Label x:Name="lblSubtotal" Content="0" Style="{StaticResource fieldTags}" Canvas.Left="105" Canvas.Top="592" Width="76" VerticalAlignment="Top" HorizontalAlignment="Center"/>
                     <Label Content="IVA: " Foreground="Black" FontWeight="Black" Style="{StaticResource fieldTags}" Canvas.Left="16" Canvas.Top="620" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                     <Label x:Name="lblIva" Content="0" Style="{StaticResource fieldTags}" Canvas.Left="55" Canvas.Top="620" Width="76" VerticalAlignment="Top"/>

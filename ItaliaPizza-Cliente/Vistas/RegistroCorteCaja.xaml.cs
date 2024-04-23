@@ -227,7 +227,7 @@ namespace ItaliaPizza_Cliente.Vistas
                 registroExitoso = servicioCorteCajaCliente.GuardarCorteCaja(corte);
             }
 
-            if (registroExitoso > 0)
+            if (registroExitoso >= 0)
             {
                 ManejarRegistroExitoso();
             }

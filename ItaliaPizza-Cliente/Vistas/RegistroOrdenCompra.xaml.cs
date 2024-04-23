@@ -439,7 +439,7 @@ namespace ItaliaPizza_Cliente.Vistas
                 IdOrdenCompra = 0,
                 IdEstadoOrdenCompra = 0,
                 Fecha = DateTime.Now,                
-                Costo = float.Parse(lblSubtotal.Content.ToString()),
+                Costo = float.Parse(lblTotalCosto.Content.ToString()),
                 Proveedor = proveedores.FirstOrDefault(pro => pro.RFC.Equals(lblRFCProveedor.Content)),
                 IdProveedor = proveedores.FirstOrDefault(pro => pro.RFC.Equals(lblRFCProveedor.Content)).IdProveedor,
                 listaElementosOrdenCompra = listaInsumosOrden.ToArray()

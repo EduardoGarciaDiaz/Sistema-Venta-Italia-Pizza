@@ -90,92 +90,10 @@
                 </StackPanel>
             </ScrollViewer>
 
+            <Label x:Name="lblMensajeSinResultados" Margin="393,343,394,360" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="" FontSize="20" Visibility="Hidden">
 
-
-            <Border Margin="1378,8,-550,8" CornerRadius="20" Background="White">
-
-            </Border>
-            <Label Content="Pedido:" Margin="1403,0,-174,716" FontWeight="Bold" FontSize="16" Height="32" VerticalAlignment="Bottom"/>
-            <Label x:Name="lbNumeroPedido" 
-                   Content="" 
-                   Margin="903,0,216,716" 
-                   FontSize="16" 
-                   Height="32" 
-                   VerticalAlignment="Bottom" 
-                   FontFamily="Segoe UI Semibold"/>
-
-            <!--Datos de cliente-->
-            <Border 
-                Margin="1404,62,-513,658" 
-                Background="#FFEEEEEE" 
-                CornerRadius="10">
-            </Border>
-            <Image Source="/Recursos/Iconos/icono_usuario.png" Margin="1416,69,-157,664"/>
-            <Label x:Name="lbNombreCliente" 
-                   Margin="910,61,120,680" 
-                   FontFamily="Segoe UI Variable Display" 
-                   FontSize="15"/>
-            <Label x:Name="lbCorreoElectronicoCliente" 
-                   Margin="910,81,123,660" 
-                   FontFamily="Segoe UI Variable Display" 
-                   FontSize="15"/>
-            <Label x:Name="lbTipoServicio" 
-                   Background="#d6b400" 
-                   Margin="1401,121,-296,0" 
-                   HorizontalContentAlignment="Center" 
-                   FontSize="14" 
-                   Foreground="White" 
-                   VerticalAlignment="Top" 
-                   VerticalContentAlignment="Center" Height="28">
-                <Label.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="15"/>
-                    </Style>
-                </Label.Resources>
             </Label>
-            <Border Background="#F6f6f6" Margin="1405,181,-536,162" CornerRadius="15">
 
-            </Border>
-
-            <ScrollViewer Margin="1405,186,-532,174" RenderTransformOrigin="0.5,0.5">
-                <StackPanel x:Name="skpContenedorProductos" 
-                            Orientation="Vertical" 
-                            Width="380">
-                </StackPanel>
-            </ScrollViewer>
-
-
-            <Label Content="Subtotal" 
-                   Margin="1403,612,-243,129"/>
-            <Label Content="IVA" 
-                   Margin="1405,635,-245,103"/>
-            <Label Content="Total" 
-                   Margin="1400,663,-240,75" 
-                   FontSize="18" 
-                   FontFamily="Segoe UI Semibold"/>
-            <Label x:Name="lbSubtotal" 
-                    Content="" 
-                   Margin="0,612,-531,0" 
-                   HorizontalAlignment="Right" 
-                   HorizontalContentAlignment="Right" 
-                   VerticalAlignment="Top" 
-                   Width="116"/>
-            <Label x:Name="lbIVA" 
-                   Content="" 
-                   Margin="0,635,-531,0" 
-                   HorizontalAlignment="Right" 
-                   HorizontalContentAlignment="Right" 
-                   VerticalAlignment="Top" Width="116"/>
-            <Label x:Name="lbTotal" 
-                   Content="" 
-                   Margin="0,663,-531,0" 
-                   HorizontalAlignment="Right" 
-                   HorizontalContentAlignment="Right" 
-                   VerticalAlignment="Top" 
-                   Width="116" 
-                   FontSize="15"/>
-            <Separator Background="#7F000000" Margin="1407,662,-533,104" Foreground="{x:Null}"/>
-            <Label Content="Productos" x:Name="LblCorreoElectronicoCliente_Copiar" Margin="1401,150,-368,591" FontFamily="Segoe UI Variable Display" FontSize="15"/>
             <Button Content="Registrar orden de compra" FontSize="24" Background="Black" Margin="853,717,71,6" RenderTransformOrigin="0.5,0.5" Click="BtnRegistrarOrdenCompra_Click" Foreground="White">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
@@ -184,10 +102,16 @@
                 </Button.Resources>
             </Button>
 
-            <Label x:Name="lblMensajeSinResultados" Margin="393,343,394,360" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="" FontSize="20" Visibility="Hidden">
-                
-            </Label>
 
+            <Border
+                x:Name="brdFondo"
+                Background="#99000000" Visibility="Collapsed">
+
+            </Border>
+
+            <!--Tarjeta de datos-->
+
+            <uc:TarjetaOrdenCompra x:Name="ucOrdenCompra" Height="772" Width="472" Margin="831,0,-3,-2" Visibility="Collapsed"/>
         </Grid>
     </Viewbox>
 </Page>

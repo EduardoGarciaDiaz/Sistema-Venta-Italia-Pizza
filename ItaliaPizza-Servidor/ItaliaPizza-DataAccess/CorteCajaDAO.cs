@@ -48,7 +48,7 @@ namespace ItaliaPizza_DataAccess
 
         public int ActualizarCorteCaja(CorteCaja corteCaja)
         {
-            int filasAfectadas = 0;
+            int filasAfectadas = -1;
             try
             {
                 using (var context = new ItaliaPizzaEntities())
@@ -101,7 +101,7 @@ namespace ItaliaPizza_DataAccess
                     };
                     context.CortesCaja.Add(corte);
                     context.SaveChanges();
-                    corteCajaId = corteCaja.Id;
+                    corteCajaId = corte.IdCorteCaja;
                 }
             }
             catch (EntityException ex)
