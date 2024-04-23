@@ -212,8 +212,10 @@
 
                     <Label Content="* Contraseña" Style="{StaticResource fieldTags}"  Width="auto" Height="auto" Canvas.Left="6" Canvas.Top="121" HorizontalAlignment="Center" VerticalAlignment="Top" />
                     <Border Style="{StaticResource textBoxBorder}" Canvas.Left="22" Canvas.Top="159" Width="378" HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <PasswordBox x:Name="txbContrasena" Style="{StaticResource passwordBox}" Margin="2,0,2,0" MaxLength ="20"/>
+                        <PasswordBox  x:Name="txbContrasena" Style="{StaticResource passwordBox}" Margin="2,0,2,0" MaxLength ="20"/>
                     </Border>
+                    <Rectangle x:Name="rectangleBloqueoContrasena" Fill="#B2D5D1D1" RadiusX="10" RadiusY="10" Height="34" Width="378" Canvas.Left="22" Canvas.Top="159" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
                     <Label Name="lblContrasena" Style="{StaticResource errorLabel}" Canvas.Left="28" Canvas.Top="195" HorizontalAlignment="Left" VerticalAlignment="Center" Height="29" Width="363" />
                     <Label Name="lblContrasenaVer" Padding="0" Style="{StaticResource fieldTags}" Foreground="Black" Canvas.Left="31" Canvas.Top="160" VerticalAlignment="Top" Height="29" Width="307" Visibility="Collapsed"/>
 
@@ -225,6 +227,7 @@
                     <Image Source="/Recursos/Iconos/icono_ver_contrasena.png" Height="30" Width="48" Canvas.Left="406" Canvas.Top="160" MouseDown="bttVerContrasena_Click" MouseLeave="bttVerContrasena_Leave" />
                     <Rectangle Fill="#B2D5D1D1" RadiusX="10" RadiusY="10" Height="34" Width="209" Canvas.Left="432" Canvas.Top="82" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
+                    <CheckBox x:Name="chbxActualizarContraseña" Canvas.Left="477" Canvas.Top="167" Content="Actualizar contraseña" Checked="ChbxActualizarContrasena_Checked" Unchecked="ChbxActualizarContrasena_Unchecked"></CheckBox>
                 </Canvas>
             </Border>
 

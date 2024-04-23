@@ -95,7 +95,6 @@ namespace ItaliaPizza_Cliente.Vistas
                 rdbEmpleado.IsChecked = true;
                 cbmTipoEmpleado.SelectedItem = tiposEmpleados.Find(tipo => tipo.IdTipoEmpleado == _empleadoEdicion.IdTipoEmpleado);
                 txbNombreUsuario.Text = _empleadoEdicion.NombreUsuario;
-                txbContrasena.Password = _empleadoEdicion.Contraseña;
             }
             else
             {
@@ -332,7 +331,8 @@ namespace ItaliaPizza_Cliente.Vistas
                 camposLlenos = false;
             }
 
-            if (String.IsNullOrEmpty(txbContrasena.Password.ToString().Trim()))
+            if (chbxActualizarContraseña.IsChecked == true
+                && String.IsNullOrEmpty(txbContrasena.Password.ToString().Trim()))
             {
                 lblContrasena.Content = CAMPO_VACIO;
                 camposLlenos = false;
@@ -455,15 +455,22 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private EmpleadoDto CrearObjetoEmpleado(UsuarioDto usuarioNuevo)
         {
-            return new EmpleadoDto()
+            EmpleadoDto empleadoActualizado = new EmpleadoDto()
             {
                 NombreUsuario = txbNombreUsuario.Text.Trim(),
-                Contraseña = CifradorContraseñas.EncriptarContraseña(txbContrasena.Password.Trim()),
+                Contraseña = _empleadoEdicion.Contraseña,
                 IdTipoEmpleado = (cbmTipoEmpleado.SelectedItem as TipoEmpleadoDto).IdTipoEmpleado,
                 TipoEmpleado = (cbmTipoEmpleado.SelectedItem as TipoEmpleadoDto).Nombre,
                 IdUsuario = _empleadoEdicion.IdUsuario,
                 Usuario = usuarioNuevo
             };
+
+            if (chbxActualizarContraseña.IsChecked == true)
+            {
+                empleadoActualizado.Contraseña = CifradorContraseñas.EncriptarContraseña(txbContrasena.Password.Trim());
+            }
+
+            return empleadoActualizado;
         }
 
         private bool ActualizarEmpleado(EmpleadoDto empleadoNuevo)
@@ -518,6 +525,21 @@ namespace ItaliaPizza_Cliente.Vistas
             brdCoverDatosEmpleado.Visibility = Visibility.Visible;
         }
 
+        private void ChbxActualizarContrasena_Checked(object sender, RoutedEventArgs e)
+        {
+            if (chbxActualizarContraseña.IsChecked == true)
+            {
+                rectangleBloqueoContrasena.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void ChbxActualizarContrasena_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (chbxActualizarContraseña.IsChecked == false)
+            {
+                rectangleBloqueoContrasena.Visibility = Visibility.Visible;
+            }
+        }
 
         private void RdbEmpleado_Checked(object sender, RoutedEventArgs e)
         {
