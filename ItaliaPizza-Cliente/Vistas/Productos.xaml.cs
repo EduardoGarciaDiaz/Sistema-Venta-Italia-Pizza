@@ -41,7 +41,6 @@ namespace ItaliaPizza_Cliente.Vistas
         public Productos()
         {
             InitializeComponent();
-
             this.Loaded += Productos_Loaded;
         }
 
@@ -107,6 +106,8 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void LimpiarStackPanelCategorias()
         {
+            _categoriasInsumo.Clear();
+            _categoriasProductoVenta.Clear();
             stackPanelCategoriasInsumo.Children.Clear();
             stackPanelCategoriasProductoVenta.Children.Clear();
         }
@@ -210,6 +211,7 @@ namespace ItaliaPizza_Cliente.Vistas
         private void MostrarCoincidenciasInsumos(string textoABuscar)
         {
             stackPanelInsumos.Children.Clear();
+            lblSinInsumos.Visibility = Visibility.Visible;
 
             foreach (Producto producto in _insumos)
             {
@@ -220,11 +222,13 @@ namespace ItaliaPizza_Cliente.Vistas
                 if (nombre.Contains(textoABuscar) || codigo.Contains(textoABuscar) || categoria.Contains(textoABuscar))
                 {
                     MostrarProductoTipoInsumo(producto);
-                }             
+                    lblSinInsumos.Visibility = Visibility.Collapsed;
+                }
                 
                 if (textoABuscar == FILTRO_TODOS)
                 {
                     MostrarProductoTipoInsumo(producto);
+                    lblSinInsumos.Visibility = Visibility.Collapsed;
                 }
             }
         }
@@ -243,6 +247,7 @@ namespace ItaliaPizza_Cliente.Vistas
         private void MostrarCoincidenciasProductosVenta(string textoABuscar)
         {
             wrapPanelProductosVenta.Children.Clear();
+            lblSinProductosVenta.Visibility = Visibility.Visible;
 
             foreach (Producto producto in _productosVenta)
             {
@@ -253,11 +258,13 @@ namespace ItaliaPizza_Cliente.Vistas
                 if (nombre.Contains(textoABuscar) || codigo.Contains(textoABuscar) || categoria.Contains(textoABuscar))
                 {
                     MostrarProductoTipoVenta(producto);
+                    lblSinProductosVenta.Visibility = Visibility.Collapsed;
                 }
 
                 if (textoABuscar == FILTRO_TODOS)
                 {
                     MostrarProductoTipoVenta(producto);
+                    lblSinProductosVenta.Visibility = Visibility.Collapsed;
                 }
             }
         }

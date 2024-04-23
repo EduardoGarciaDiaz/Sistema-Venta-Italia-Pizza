@@ -366,16 +366,16 @@ namespace ItaliaPizza_Servicios
                 try
                 {
                     exito = DireccionDAO.ActualizarDireccion(direccionEdicion);
-                    if (exito > 0)
+                    if (exito > -1)
                     {
                         UsuarioDAO usuarioDAO = new UsuarioDAO();
                         Usuarios usuariosNuevo = AuxiliarConversorDTOADAO.ConvertirUsuarioDtoAUsuarios(empleadoEdicion.Usuario);
                         exito = usuarioDAO.ActualizarUsuario(usuariosNuevo);
-                        if (exito > 0)
+                        if (exito > -1)
                         {
                             Empleados empleado = AuxiliarConversorDTOADAO.ConvertirEmpleadoDtoAEmpleado(empleadoEdicion);
                             exito = EmpleadoDAO.ActualizarEmpleado(empleado);
-                            if (exito > 0)
+                            if (exito > -1)
                             {
                                 seGuardoEmpleado = true;
                             }
@@ -397,18 +397,18 @@ namespace ItaliaPizza_Servicios
             bool seGuardoCliente = false;
             if (usuarioEdicion != null)
             {
-                int exito;
+                int exito = -1;
                 Direcciones direccionEdicion = AuxiliarConversorDTOADAO.ConvertirDireccionDtoADirecciones(usuarioEdicion.Direccion);
                 try
                 {
                     exito = DireccionDAO.ActualizarDireccion(direccionEdicion);
 
-                    if (exito > 0)
+                    if (exito > -1)
                     {
                         UsuarioDAO usuarioDAO = new UsuarioDAO();
                         Usuarios usuariosEdicion = AuxiliarConversorDTOADAO.ConvertirUsuarioDtoAUsuarios(usuarioEdicion);
                         exito = usuarioDAO.ActualizarUsuario(usuariosEdicion);
-                        if (exito > 0)
+                        if (exito > -1)
                         {
                             seGuardoCliente = true;
                         }
