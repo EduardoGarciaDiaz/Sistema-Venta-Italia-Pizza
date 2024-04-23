@@ -249,11 +249,13 @@ namespace ItaliaPizza_Cliente.Vistas
             string descripcion = tbxDescripcion.Text.Trim();
             Categoria categoria = (Categoria)cbxCategoria.SelectedItem;
 
-            Producto producto = new Producto();
-            producto.Codigo = codigo;
-            producto.Nombre = nombre;
-            producto.Descripcion = descripcion;
-            producto.EsActivo = esActivo;
+            Producto producto = new Producto
+            {
+                Codigo = codigo,
+                Nombre = nombre,
+                Descripcion = descripcion,
+                EsActivo = esActivo
+            };
 
             return producto;
         }

@@ -311,7 +311,7 @@ namespace ItaliaPizza_DataAccess
             {
                 using (var context = new ItaliaPizzaEntities())
                 {
-                    var empleado = context.Empleados.Find(empleadoEdicion.IdUsuario);
+                    var empleado = context.Empleados.Find(empleadoEdicion.NombreUsuario);
                     if (empleado != null)
                     {
                         context.Entry(empleado).CurrentValues.SetValues(empleadoEdicion);
@@ -320,7 +320,6 @@ namespace ItaliaPizza_DataAccess
 
                     return filasAfectadas;
                 }
-                
             }
             catch (EntityException ex)
             {
