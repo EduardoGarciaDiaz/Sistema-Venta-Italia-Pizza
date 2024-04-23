@@ -219,8 +219,10 @@ namespace ItaliaPizza_Cliente.Vistas
                             }
                         }
                     }
+                } else
+                {
+                    esTamañoValido = true;
                 }
-                esTamañoValido = true;
             }
             catch (IOException ex)
             {
@@ -404,27 +406,33 @@ namespace ItaliaPizza_Cliente.Vistas
         private bool ValidarCamposLlenos()
         {
             bool camposLlenos = true;
+
             if (string.IsNullOrWhiteSpace(tbxNombre.Text))
             {
                 camposLlenos = false;
                 Utilidad.MostrarTextoError(lblErrorNombre, "Campo obligatorio.");
             }
+
             if (string.IsNullOrWhiteSpace(tbxDescripcion.Text))
             {
                 camposLlenos = false;
                 Utilidad.MostrarTextoError(lblErrorDescripcion, "Campo obligatorio.");
             }
-            if (_productoEdicion.ProductoVenta != null) 
+
+            if (_productoEdicion.ProductoVenta != null)
             {
-                camposLlenos = ValidarCamposLlenosProductoVenta();
-                if (camposLlenos == false)
+                if (!ValidarCamposLlenosProductoVenta())
                 {
-                    return false;
+                    camposLlenos = false;
                 }
             }
+
             if (_productoEdicion.Insumo != null)
             {
-                camposLlenos = ValidarCamposLlenosInsumo();  
+                if (!ValidarCamposLlenosInsumo())
+                {
+                    camposLlenos = false; 
+                }
             }
 
             return camposLlenos;
@@ -433,29 +441,35 @@ namespace ItaliaPizza_Cliente.Vistas
         private bool ValidarCamposLlenosProductoVenta()
         {
             bool camposLlenos = true;
+
             if (string.IsNullOrWhiteSpace(tbxPrecio.Text))
             {
                 camposLlenos = false;
                 Utilidad.MostrarTextoError(lblErrorPrecio, "Campo obligatorio.");
             }
+
             return camposLlenos;
         }
 
         private bool ValidarCamposLlenosInsumo()
         {
             bool camposLlenos = true;
+
             if (string.IsNullOrWhiteSpace(tbxCantidad.Text))
             {
                 camposLlenos = false;
                 Utilidad.MostrarTextoError(lblErrorCantidad, "Campo obligatorio.");
             }
+
             if (string.IsNullOrWhiteSpace(tbxCostoUnitario.Text))
             {
                 camposLlenos = false;
                 Utilidad.MostrarTextoError(lblErrorCostoUnitario, "Campo obligatorio.");
             }
+
             return camposLlenos;
         }
+
 
         private void TbxNombre_TextChanged(object sender, TextChangedEventArgs e)
         {
