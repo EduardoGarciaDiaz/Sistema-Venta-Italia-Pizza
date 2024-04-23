@@ -5,6 +5,7 @@ using ItaliaPizza_Cliente.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -74,12 +75,45 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void PrepararDatos_Loaded(object sender, RoutedEventArgs e)
         {
-            ucOrdenCompra.ClickCerrar += ImgCerrar_MouseLeftButtonDown;
-            _proveedores = RecuperarProveedores();
-            CargarProveedores(_proveedores);
-            _ordenesCompra = RecuperarOrdenesOrdenesCompra();
-            DpkFechaBusqueda.SelectedDate = DateTime.Now;
-            MostrarOrdenesCompra((_ordenesCompra.Where(o => o.Fecha.Date == _fechaSeleccionada.Date).ToList()));
+            try
+            {
+                ucOrdenCompra.ClickCerrar += ImgCerrar_MouseLeftButtonDown;
+                _proveedores = RecuperarProveedores();
+                CargarProveedores(_proveedores);
+                _ordenesCompra = RecuperarOrdenesOrdenesCompra();
+                DpkFechaBusqueda.SelectedDate = DateTime.Now;
+                MostrarOrdenesCompra((_ordenesCompra.Where(o => o.Fecha.Date == _fechaSeleccionada.Date).ToList()));
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (CommunicationException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
         }
 
         private void MostrarOrdenesCompra(List<OrdenDeCompraDto> ordenesCompra)

@@ -4,6 +4,7 @@ using ItaliaPizza_Cliente.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -119,20 +120,53 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void BtnRegistrarPago_Click(object sender, RoutedEventArgs e)
         {
-            _ordenCompra.IdEstadoOrdenCompra = (int)EnumEstadosOrdenCompra.Surtida;
-            _ordenCompra.Costo = float.Parse(lblTotal.Content.ToString());
-            List<ElementoInsumoRegistroPagoOrden> insumos = SkpContenedorOrdenesCompra.Children.OfType<ElementoInsumoRegistroPagoOrden>().ToList();
-            insumos?.ForEach(i =>
+            try
             {
-                _ordenCompra.listaElementosOrdenCompra.FirstOrDefault(insumo =>
-                    insumo.InsumoOrdenCompraDto.Codigo == i.lblCodigoInsumo.Content.ToString())
-                    .CantidadInsumosAdquiridos = int.Parse(i.tbxCantidadInsumo.Text.ToString());
-            });
-            ServicioOrdenesCompraClient servicioOrdenesCompraCliente = new ServicioOrdenesCompraClient();
-            bool ordenActualizada = servicioOrdenesCompraCliente.RegistrarPagoOrdenCompra(_ordenCompra);
-            if (ordenActualizada)
+                _ordenCompra.IdEstadoOrdenCompra = (int)EnumEstadosOrdenCompra.Surtida;
+                _ordenCompra.Costo = float.Parse(lblTotal.Content.ToString());
+                List<ElementoInsumoRegistroPagoOrden> insumos = SkpContenedorOrdenesCompra.Children.OfType<ElementoInsumoRegistroPagoOrden>().ToList();
+                insumos?.ForEach(i =>
+                {
+                    _ordenCompra.listaElementosOrdenCompra.FirstOrDefault(insumo =>
+                        insumo.InsumoOrdenCompraDto.Codigo == i.lblCodigoInsumo.Content.ToString())
+                        .CantidadInsumosAdquiridos = int.Parse(i.tbxCantidadInsumo.Text.ToString());
+                });
+                ServicioOrdenesCompraClient servicioOrdenesCompraCliente = new ServicioOrdenesCompraClient();
+                bool ordenActualizada = servicioOrdenesCompraCliente.RegistrarPagoOrdenCompra(_ordenCompra);
+                if (ordenActualizada)
+                {
+                    ManejarRegistroExitoso();
+                }
+            }
+            catch (EndpointNotFoundException ex)
             {
-                ManejarRegistroExitoso();   
+                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (CommunicationException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
 
         }

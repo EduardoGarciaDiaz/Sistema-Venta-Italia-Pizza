@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -35,7 +36,6 @@ namespace ItaliaPizza_Cliente.Vistas
         private readonly Window _mainWindow;
         private Frame _frameNavigator;
 
-        //TODO: EXCEPCIONES
         public RegistroCorteCaja(Frame frameNavigator)
         {
             InitializeComponent();
@@ -47,28 +47,61 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void PrepararDatos(object sender, RoutedEventArgs e)
         {
-            lblFechaActual.Content = _fechaSeleccionada.ToString("dd 'de' MMMM 'de' yyyy", new System.Globalization.CultureInfo("es-ES"));
-            _ingresosPedidos = RecuperarIngresosDePedidosPorFecha(_fechaSeleccionada);
-            MostrarIngresos(_ingresosPedidos);
-            _salidasOrdenesCompra = RecuperarSalidasDeOrdenesCompraPorFecha(_fechaSeleccionada);
-            _salidasGastosVarios = RecuperarSalidasGastosVarios(_fechaSeleccionada);
-            MostrarSalidas(_salidasGastosVarios, _salidasOrdenesCompra);
-            _existeCorteCaja = ValidarExistenciaCorteCaja(_fechaSeleccionada);
-            if (_existeCorteCaja)
+            try
             {
-                CorteCaja corte = RecuperarCorteCaja(_fechaSeleccionada);
-                _fondoInicial = corte.fondo;
-                _dineroCaja = corte.dineroEnCaja;
-            } 
-            else
-            {
-                _fondoInicial = 0;
-                _dineroCaja = 0;
+                lblFechaActual.Content = _fechaSeleccionada.ToString("dd 'de' MMMM 'de' yyyy", new System.Globalization.CultureInfo("es-ES"));
+                _ingresosPedidos = RecuperarIngresosDePedidosPorFecha(_fechaSeleccionada);
+                MostrarIngresos(_ingresosPedidos);
+                _salidasOrdenesCompra = RecuperarSalidasDeOrdenesCompraPorFecha(_fechaSeleccionada);
+                _salidasGastosVarios = RecuperarSalidasGastosVarios(_fechaSeleccionada);
+                MostrarSalidas(_salidasGastosVarios, _salidasOrdenesCompra);
+                _existeCorteCaja = ValidarExistenciaCorteCaja(_fechaSeleccionada);
+                if (_existeCorteCaja)
+                {
+                    CorteCaja corte = RecuperarCorteCaja(_fechaSeleccionada);
+                    _fondoInicial = corte.fondo;
+                    _dineroCaja = corte.dineroEnCaja;
+                }
+                else
+                {
+                    _fondoInicial = 0;
+                    _dineroCaja = 0;
+                }
+                TbxFondoInicial.Text = _fondoInicial.ToString("F2");
+                TbxDineroCaja.Text = _dineroCaja.ToString("F2");
+                CalcularYMostrarEfectivoEsperado();
+                CalcularYMostrarDiferencia();
             }
-            TbxFondoInicial.Text = _fondoInicial.ToString("F2");
-            TbxDineroCaja.Text = _dineroCaja.ToString("F2");
-            CalcularYMostrarEfectivoEsperado();
-            CalcularYMostrarDiferencia();
+            catch (EndpointNotFoundException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
+            }
+            catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
+            }
+            catch (CommunicationException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
+            }
+            catch (Exception ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
+            }
         }
 
         private bool ValidarExistenciaCorteCaja(DateTime fechaSeleccionada)
@@ -207,29 +240,63 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void GuardarCorteCaja()
         {
-            CorteCaja corte = new CorteCaja()
+            try
             {
-                fondo = _fondoInicial,
-                ingresosRegistrados = _ingresosPedidos,
-                salidasRegistradas = (_salidasGastosVarios + _salidasOrdenesCompra),
-                dineroEnCaja = _dineroCaja,
-                diferencia = _diferencia,
-                fecha = _fechaSeleccionada,
-                nombreUsuario = EmpleadoSingleton.getInstance().DatosEmpleado.NombreUsuario
-            };
-            ServicioCorteCajaClient servicioCorteCajaCliente = new ServicioCorteCajaClient();
-            int registroExitoso;
-            if (_existeCorteCaja)
-            {
-                registroExitoso = servicioCorteCajaCliente.ActualizarCorteCaja(corte);
-            } else
-            {
-                registroExitoso = servicioCorteCajaCliente.GuardarCorteCaja(corte);
-            }
+                CorteCaja corte = new CorteCaja()
+                {
+                    fondo = _fondoInicial,
+                    ingresosRegistrados = _ingresosPedidos,
+                    salidasRegistradas = (_salidasGastosVarios + _salidasOrdenesCompra),
+                    dineroEnCaja = _dineroCaja,
+                    diferencia = _diferencia,
+                    fecha = _fechaSeleccionada,
+                    nombreUsuario = EmpleadoSingleton.getInstance().DatosEmpleado.NombreUsuario
+                };
+                ServicioCorteCajaClient servicioCorteCajaCliente = new ServicioCorteCajaClient();
+                int registroExitoso;
+                if (_existeCorteCaja)
+                {
+                    registroExitoso = servicioCorteCajaCliente.ActualizarCorteCaja(corte);
+                }
+                else
+                {
+                    registroExitoso = servicioCorteCajaCliente.GuardarCorteCaja(corte);
+                }
 
-            if (registroExitoso >= 0)
+                if (registroExitoso >= 0)
+                {
+                    ManejarRegistroExitoso();
+                }
+            }
+            catch (EndpointNotFoundException ex)
             {
-                ManejarRegistroExitoso();
+                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
+            }
+            catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
+            }
+            catch (CommunicationException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
+            }
+            catch (Exception ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
             }
         }
 
