@@ -259,7 +259,7 @@ namespace ItaliaPizza_Servicios.Auxiliares
                 Descripcion = gastoVario.Descripcion,
                 Fecha = gastoVario.Fecha,
                 Total = gastoVario.Monto,
-                NombreUsuario = gastoVario.nombreUsuario
+                NombreUsuario = gastoVario.NombreUsuario
             };
 
             return gastosVarios;

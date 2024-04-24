@@ -11,14 +11,14 @@ namespace ItaliaPizza_Contratos
 {
     [ServiceContract]
     public interface IServicioOrdenesCompra
-    {
-        [OperationContract]
-        void OperacionOrdenesEjemplo();
+    { 
 
         [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
         int GuardarOrdenDeCompraNueva(OrdenDeCompraDto ordenDeCompraDto);
 
         [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
         bool EnviarOrdenDeCompra(int idOrdenDeCompra);
 
         [OperationContract]

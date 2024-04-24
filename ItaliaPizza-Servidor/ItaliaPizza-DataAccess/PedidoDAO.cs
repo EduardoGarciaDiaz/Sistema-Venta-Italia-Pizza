@@ -118,7 +118,7 @@ namespace ItaliaPizza_DataAccess
                     {
                         NumeroPedido = p.NumeroPedido,
                         Fecha = (DateTime) p.FechaPedido,
-                        estadoPedido = new EstadoPedido()
+                        EstadoPedido = new EstadoPedido()
                         {
                             IdEstadoPedido = p.EstadosPedido.IdEstadoPedido,
                             Nombre = p.EstadosPedido.Nombre
@@ -161,7 +161,7 @@ namespace ItaliaPizza_DataAccess
                     {
                         NumeroPedido = p.NumeroPedido,
                         Fecha = (DateTime)p.FechaPedido,
-                        estadoPedido = new EstadoPedido()
+                        EstadoPedido = new EstadoPedido()
                         {
                             IdEstadoPedido = p.EstadosPedido.IdEstadoPedido,
                             Nombre = p.EstadosPedido.Nombre

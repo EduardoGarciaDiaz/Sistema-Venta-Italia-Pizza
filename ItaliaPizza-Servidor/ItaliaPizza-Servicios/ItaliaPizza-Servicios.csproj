@@ -194,9 +194,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Auxiliares\ConversorParaArchivos.cs" />
-    <Compile Include="Auxiliares\DispachadorCorreos.cs" />
+    <Compile Include="Auxiliares\DespachadorCorreos.cs" />
     <Compile Include="Auxiliares\EnumTiposProducto.cs" />
-    <Compile Include="Auxiliares\ListaEmpleadoActivos.cs" />
+    <Compile Include="Auxiliares\ListaEmpleadosActivos.cs" />
     <Compile Include="Auxiliares\ExcepcionServidorItaliaPizzaManager.cs" />
     <Compile Include="Auxiliares\MapeadorProductosAProductoVenta.cs" />
     <Compile Include="Auxiliares\AuxiliarPreparacionDatos.cs" />

@@ -35,10 +35,16 @@ namespace ItaliaPizza_Cliente.Vistas
             DateTime fechaActual = DateTime.Now;
             string fecha = "Fecha de elaboración: " + fechaActual.ToString("dd 'de' MMMM 'del' yyyy ' : ' HH:mm:ss") ;
             lblFechaActual.Content = fecha;
+            ObtenerCategorias();
+            CargarCheckBoxes(categoriasInsumos, categoriasProductosVenta);
+        }
+
+        private void ObtenerCategorias()
+        {
             ServicioProductosClient prodcutosCliente = new ServicioProductosClient();
             categoriasInsumos = prodcutosCliente.RecuperarCategoriasInsumo().ToList();
             categoriasProductosVenta = prodcutosCliente.RecuperarCategoriasProductoVenta().ToList();
-            CargarCheckBoxes(categoriasInsumos, categoriasProductosVenta);
+
         }
 
         private void CargarCheckBoxes(List<Categoria> categoriasInsumo, List<Categoria> categoriasVenta)

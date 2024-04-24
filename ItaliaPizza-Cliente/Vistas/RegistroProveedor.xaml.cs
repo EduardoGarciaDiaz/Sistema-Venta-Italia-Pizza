@@ -104,10 +104,10 @@ namespace ItaliaPizza_Cliente.Vistas
         private void GuardarProveedor()
         {
             bool sePuedeGuardar;
-            sePuedeGuardar = ValidarCamposLlenosUsuario();
+            sePuedeGuardar = ValidarCamposLlenos();
             if (sePuedeGuardar)
             {
-                sePuedeGuardar = ValidarFormatosDeCampos();
+                sePuedeGuardar = ValidarFormatos();
                 if (sePuedeGuardar)
                 {
                     string rfc = txbRfc.Text.Trim();
@@ -134,7 +134,7 @@ namespace ItaliaPizza_Cliente.Vistas
             }
         }
 
-        private bool ValidarCamposLlenosUsuario()
+        private bool ValidarCamposLlenos()
         {
             bool camposLlenos = true;
             foreach (var campo in camposDeDatos)
@@ -159,7 +159,7 @@ namespace ItaliaPizza_Cliente.Vistas
             return camposLlenos;
         }
 
-        private bool ValidarFormatosDeCampos()
+        private bool ValidarFormatos()
         {
             bool formatosValidos = true;
             if (!Regex.IsMatch(txbCorreo.Text.Trim().ToLower(), EMAIL_RULES_CHAR) || !Regex.IsMatch(txbCorreo.Text.Trim().ToLower(), EMAIL_ALLOW_CHAR))

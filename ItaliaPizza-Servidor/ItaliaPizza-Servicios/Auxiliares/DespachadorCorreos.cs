@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ItaliaPizza_Servicios.Auxiliares
 {
-    public static class DispachadorCorreos
+    public static class DespachadorCorreos
     {
         public static bool EnviarCorreo(string destinatario, string asunto, string cuerpo, string adjunto)
         {

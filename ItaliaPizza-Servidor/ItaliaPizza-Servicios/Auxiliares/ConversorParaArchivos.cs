@@ -44,7 +44,7 @@ namespace ItaliaPizza_Servicios.Auxiliares
             }
             string ordenGuardada = "ordenCompra" + "_" + ordenes.IdOrdenCompra.ToString() + ".xlsx";
             workbook.Save(ordenGuardada);
-            exito = DispachadorCorreos.EnviarCorreo(ordenes.Proveedores.CorreoElectronico, "Orden de compra", "Envio orden de compra", ordenGuardada);
+            exito = DespachadorCorreos.EnviarCorreo(ordenes.Proveedores.CorreoElectronico, "Orden de compra", "Envio orden de compra", ordenGuardada);
             return exito;
         }
     }

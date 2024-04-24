@@ -14,7 +14,7 @@ namespace ItaliaPizza_Servicios
     {
         public void CerrarSesion(int idEmpleado)
         {
-            ListaEmpleadoActivos.QuitarEmpleadoDeLista(idEmpleado);
+            ListaEmpleadosActivos.QuitarEmpleadoDeLista(idEmpleado);
         }
 
         public int ValidarCredenciales(string nombreUsuario, string contraseña)
@@ -27,7 +27,7 @@ namespace ItaliaPizza_Servicios
                     resultado = EmpleadoDAO.ValidarCredencialesBD(nombreUsuario, contraseña);
                     if (resultado == 1)
                     {
-                        if (!ListaEmpleadoActivos.EsEmpleadoNoActivo(nombreUsuario))
+                        if (!ListaEmpleadosActivos.EsEmpleadoNoActivo(nombreUsuario))
                         {
                             resultado = -1;
                         }

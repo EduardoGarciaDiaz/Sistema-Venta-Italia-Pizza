@@ -118,7 +118,7 @@ namespace ItaliaPizza_Cliente.Vistas
         private void GuardarProveedor()
         {
             bool sePuedeGuardar;
-            sePuedeGuardar = ValidarCamposLlenosUsuario();
+            sePuedeGuardar = ValidarCamposVacios();
             if (sePuedeGuardar)
             {
                 sePuedeGuardar = ValidarFormatosDeCampos();
@@ -147,7 +147,7 @@ namespace ItaliaPizza_Cliente.Vistas
             }
         }
 
-        private bool ValidarCamposLlenosUsuario()
+        private bool ValidarCamposVacios()
         {
             bool camposLlenos = true;
             foreach (var campo in camposDeDatos)

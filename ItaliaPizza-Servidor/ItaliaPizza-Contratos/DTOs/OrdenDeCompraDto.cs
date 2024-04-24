@@ -29,7 +29,7 @@ namespace ItaliaPizza_Contratos.DTOs
         public ProveedorDto Proveedor { get; set; }
 
         [DataMember]
-        public List<ElementoOrdenCompraDto> listaElementosOrdenCompra { get; set; }
+        public List<ElementoOrdenCompraDto> ListaElementosOrdenCompra { get; set; }
     
     }
 

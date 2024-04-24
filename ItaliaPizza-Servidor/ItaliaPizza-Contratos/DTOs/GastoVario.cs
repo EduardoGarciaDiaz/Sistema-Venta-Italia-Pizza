@@ -23,6 +23,6 @@ namespace ItaliaPizza_Contratos.DTOs
         public double Monto { get; set; }
 
         [DataMember]
-        public string nombreUsuario { get; set; }
+        public string NombreUsuario { get; set; }
     }
 }
