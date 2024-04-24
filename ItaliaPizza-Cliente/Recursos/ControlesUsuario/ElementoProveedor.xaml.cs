@@ -22,47 +22,28 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
     /// </summary>
     public partial class ElementoProveedor : UserControl
     {
-        public EventHandler btnModificarProveedor_Click;
-        public EventHandler btnCambiarEstadoProveedor_Click;
-        public int Id;
-        public ProveedorDto proveedorDto { get; set; }
-        public bool esActivo { get; set; }
+        public EventHandler BtnModificarProveedorClicked;
+        public EventHandler BtnCambiarEstadoProveedorClicked;
+        public int Id { get; set; }
+        public ProveedorDto ProveedorDto { get; set; }
+        public bool EsActivo { get; set; }
 
         public ElementoProveedor(ProveedorDto proveedor)
         {
             InitializeComponent();
-            this.proveedorDto = proveedor;
+            this.ProveedorDto = proveedor;
             CargarInformacion();
-            MostrarSiEstaActivo(esActivo);
+            MostrarSiEstaActivo(EsActivo);
         }
 
-        private void CargarInformacion()
+        private void BtnModificarProveedor_Click(object sender, MouseButtonEventArgs e)
         {
-            Id = proveedorDto.IdProveedor;
-            lblNombre.Text = proveedorDto.NombreCompleto.ToString(); 
-            String direccion = proveedorDto.Direccion.Ciudad + ", Col. " + proveedorDto.Direccion.Colonia.ToString() + " " + proveedorDto.Direccion.CodigoPostal + ", Calle " + proveedorDto.Direccion.Calle + " #" + proveedorDto.Direccion.Numero.ToString();
-            lblDireccion.Text = direccion;
-            lblCorreo.Text = proveedorDto.CorreoElectronico.ToString();
-            String telefono = proveedorDto.NumeroTelefono.ToString();
-            lblTelefono.Text = "(+52) " + telefono.Substring(0, 3) + "-" + telefono.Substring(3, 3) + "-" + telefono.Substring(6, 2) + "-" + telefono.Substring(8);
-            lblRFC.Text = proveedorDto.RFC;
-            this.esActivo = proveedorDto.EsActivo;
+            BtnModificarProveedorClicked?.Invoke(this, e);
         }
 
-        private void MostrarSiEstaActivo(bool esActivo)
+        private void BtnCambiarEstadoProveedor_Click(object sender, MouseButtonEventArgs e)
         {
-            if (esActivo)
-            {
-                brdActivoBackGorund.Background = new SolidColorBrush(Colors.Black);
-                btnEsActivo.HorizontalAlignment = HorizontalAlignment.Right;
-                lblModificarEstado.Content = "Desactivar";
-            }
-            else
-            {
-                brdActivoBackGorund.Background = new SolidColorBrush(Colors.Red);
-                btnEsActivo.HorizontalAlignment = HorizontalAlignment.Left;
-                lblModificarEstado.Content = "Activar";
-            }
+            BtnCambiarEstadoProveedorClicked?.Invoke(this, e);
         }
 
         public void CambiarEstado(bool estadoActivo)
@@ -79,18 +60,37 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
                 btnEsActivo.HorizontalAlignment = HorizontalAlignment.Left;
                 lblModificarEstado.Content = "Activar";
             }
-            this.esActivo = estadoActivo;
+            this.EsActivo = estadoActivo;
         }
 
-        private void BtnModificarProveedor_Click(object sender, MouseButtonEventArgs e)
+        private void CargarInformacion()
         {
-            btnModificarProveedor_Click?.Invoke(this, e);
+            Id = ProveedorDto.IdProveedor;
+            lblNombre.Text = ProveedorDto.NombreCompleto.ToString(); 
+            String direccion = ProveedorDto.Direccion.Ciudad + ", Col. " + ProveedorDto.Direccion.Colonia.ToString() + " " + ProveedorDto.Direccion.CodigoPostal + ", Calle " + ProveedorDto.Direccion.Calle + " #" + ProveedorDto.Direccion.Numero.ToString();
+            lblDireccion.Text = direccion;
+            lblCorreo.Text = ProveedorDto.CorreoElectronico.ToString();
+            String telefono = ProveedorDto.NumeroTelefono.ToString();
+            lblTelefono.Text = "(+52) " + telefono.Substring(0, 3) + "-" + telefono.Substring(3, 3) + "-" + telefono.Substring(6, 2) + "-" + telefono.Substring(8);
+            lblRFC.Text = ProveedorDto.RFC;
+            this.EsActivo = ProveedorDto.EsActivo;
         }
 
-        private void BtnCambiarEstadoProveedor_Click(object sender, MouseButtonEventArgs e)
+        private void MostrarSiEstaActivo(bool esActivo)
         {
-            btnCambiarEstadoProveedor_Click?.Invoke(this, e);
-        }
+            if (esActivo)
+            {
+                brdActivoBackGorund.Background = new SolidColorBrush(Colors.Black);
+                btnEsActivo.HorizontalAlignment = HorizontalAlignment.Right;
+                lblModificarEstado.Content = "Desactivar";
+            }
+            else
+            {
+                brdActivoBackGorund.Background = new SolidColorBrush(Colors.Red);
+                btnEsActivo.HorizontalAlignment = HorizontalAlignment.Left;
+                lblModificarEstado.Content = "Activar";
+            }
+        }               
 
 
     }

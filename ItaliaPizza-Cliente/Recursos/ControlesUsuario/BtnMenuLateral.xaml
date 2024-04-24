@@ -36,9 +36,9 @@
 
     <Grid>
 
-        <Image x:Name="ImgIconoBoton" Stretch="Uniform"
+        <Image x:Name="imgIconoBoton" Stretch="Uniform"
                    Source="/Recursos/Iconos/icono_agregar_usuario.png" Margin="14,7,13,20"/>
-        <Label x:Name="LblNombreBoton"
+        <Label x:Name="lblNombreBoton"
                Content="Pedido" 
                Margin="0,37,0,0" 
                HorizontalContentAlignment="Center" 
@@ -47,7 +47,7 @@
                VerticalAlignment="Top" 
                Height="24" 
                Foreground="#FFD6B400" Width="auto"/>
-        <Border x:Name="BdrBoton"
+        <Border x:Name="bdrBoton"
         CornerRadius="8">
 
         </Border>

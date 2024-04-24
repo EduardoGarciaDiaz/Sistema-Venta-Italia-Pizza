@@ -23,9 +23,9 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
     public partial class ElementoConsultaProductoVenta : UserControl
     {
         public Producto ProductoAsignado { get; set; }
-        public EventHandler gridProductoVenta_Click;
-        public EventHandler imgModificarProductoVenta_Click;
-        public EventHandler btnDesactivarActivarProducto_Click;
+        public EventHandler GridProductoVentaClicked;
+        public EventHandler ImgModificarProductoVentaClicked;
+        public EventHandler BtnDesactivarActivarProductoClicked;
         private const string SIMBOLO_MONEDA = "$";
 
         public ElementoConsultaProductoVenta()
@@ -79,17 +79,17 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
 
         private void GridProductoVenta_Click(object sender, RoutedEventArgs e)
         {
-            gridProductoVenta_Click?.Invoke(this, e);
+            GridProductoVentaClicked?.Invoke(this, e);
         }
 
         private void ImgModificarProductoVenta_Click(object sender, RoutedEventArgs e)
         {
-            imgModificarProductoVenta_Click?.Invoke(this, e);
+            ImgModificarProductoVentaClicked?.Invoke(this, e);
         }
 
         private void BtnDesactivarActivar_Click(object sender, MouseButtonEventArgs e)
         {
-            btnDesactivarActivarProducto_Click?.Invoke(this, e);
+            BtnDesactivarActivarProductoClicked?.Invoke(this, e);
         }
     }
 }

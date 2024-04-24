@@ -49,14 +49,14 @@
     </UserControl.Resources>
 
     <Canvas>
-        <Label x:Name="lblNameInsumo" Content="Slasa inglesa" Style="{StaticResource fieldTags}" Canvas.Left="17" Canvas.Top="11" VerticalAlignment="Top" Height="22"/>
+        <Label x:Name="lblNombreInsumo" Content="Slasa inglesa" Style="{StaticResource fieldTags}" Canvas.Left="17" Canvas.Top="11" VerticalAlignment="Top" Height="22"/>
         <Label x:Name="lblCodigoInsumo" Content="ISM0001" Style="{StaticResource field}" Canvas.Left="22" Canvas.Top="41" Height="22" VerticalAlignment="Top"/>
         <Label Content="Unidad" Style="{StaticResource fieldTags}" Canvas.Left="146" Canvas.Top="12" Height="22" VerticalAlignment="Top"/>
         <Label Content="Costo" Style="{StaticResource fieldTags}" Canvas.Left="225" Canvas.Top="12" Height="22" VerticalAlignment="Top"/>
         <Label x:Name="lblUnidadMedida" Content="KG" Style="{StaticResource field}" Canvas.Left="159" Canvas.Top="40" Height="22" VerticalAlignment="Top"/>
         <Label x:Name="lblCosto" Content="$ 130.70" Style="{StaticResource field}" Canvas.Left="215" Canvas.Top="40" Height="22" VerticalAlignment="Top"/>
         <Image Source="/Recursos/Iconos/icono_menos.png" Height="30" Width="31" Canvas.Left="330" Canvas.Top="15" HorizontalAlignment="Left" VerticalAlignment="Center" MouseDown="BtnInsumoMenos"/>
-        <TextBox x:Name="txbCantidad" Text="1000" VerticalContentAlignment="Center" MaxLength="4"  HorizontalContentAlignment="Center" Height="29" BorderBrush="Black" Width="57" Canvas.Left="366" Canvas.Top="16" TextChanged="TxbCantidad_TextChanged" PreviewTextInput="TxbCantidad_Input">
+        <TextBox x:Name="tbxCantidad" Text="1000" VerticalContentAlignment="Center" MaxLength="4"  HorizontalContentAlignment="Center" Height="29" BorderBrush="Black" Width="57" Canvas.Left="366" Canvas.Top="16" TextChanged="TxbCantidad_TextChanged" PreviewTextInput="TxbCantidad_Input">
             <TextBox.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="13"/>

@@ -50,7 +50,7 @@
 
 
     <Canvas Margin="-1,0,1,0"  >
-        <Label x:Name="lblNameInsumo" Content="Slasa inglesa" Style="{StaticResource fieldTags}" Canvas.Left="17" Canvas.Top="11" VerticalAlignment="Top" Height="22"/>
+        <Label x:Name="lblNombreInsumo" Content="Slasa inglesa" Style="{StaticResource fieldTags}" Canvas.Left="17" Canvas.Top="11" VerticalAlignment="Top" Height="22"/>
         <Label x:Name="lblCodigoInsumo" Content="ISM0001" Style="{StaticResource field}" Canvas.Left="22" Canvas.Top="41" Height="22" VerticalAlignment="Top"/>
         <Label Content="Unidad" Style="{StaticResource fieldTags}" Canvas.Left="146" Canvas.Top="12" Height="22" VerticalAlignment="Top"/>
         <Label Content="Existencia" Style="{StaticResource fieldTags}" Canvas.Left="295" Canvas.Top="11" Height="22" VerticalAlignment="Top"/>
@@ -59,7 +59,7 @@
         <Label x:Name="lblCosto" Content="$ 130.70" Style="{StaticResource field}" Canvas.Left="215" Canvas.Top="40" Height="22" VerticalAlignment="Top"/>
         <Label x:Name="lblExistencia" Content="30" Style="{StaticResource field}" Canvas.Left="318" Canvas.Top="39" Height="22" VerticalAlignment="Top"/>
         <Border CornerRadius="14" Style="{StaticResource buttonBorder}" Canvas.Left="393" Canvas.Top="23" HorizontalAlignment="Left" VerticalAlignment="Center" Width="88" Height="30">
-            <Button Content="Agregar a Orden" Style="{StaticResource CustomButton}" Click="BtnAgregarAOrden">
+            <Button Content="Agregar a Orden" Style="{StaticResource CustomButton}" Click="BtnAgregarAOrden_Click">
                 <Button.Resources>
                     <Style TargetType="{x:Type TextBox}">
                         <Setter Property="TextWrapping" Value="Wrap"/>

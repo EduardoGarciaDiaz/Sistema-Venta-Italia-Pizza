@@ -30,7 +30,7 @@ namespace ItaliaPizza_Cliente.Vistas
         private const string CAMPO_VACIO = "* Campo obligatorio";
         private const string CORREO_INVALIDO = "* Correo no valido";
         private const string TELEFONO_INVALIDO = "* Telefono no valido";
-        private const string NOMBRE_USUARIO_REPETIDO = "El nombre de usuario capturado ya existe, ingrese uno que no exista.";
+        private const string NOMBRE_USUARIO_REPETIDO = "El nombre de Usuario capturado ya existe, ingrese uno que no exista.";
         private const string CORREO_REPETIDO ="El correo capturado ya existe, ingrese uno que no exista.";
         private readonly string EMAIL_RULES_CHAR = "^(?=.{1,90}$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         private readonly string EMAIL_ALLOW_CHAR = "^[a-zA-Z0-9@,._=]{1,90}$";
@@ -57,32 +57,32 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             catch (EndpointNotFoundException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorConexionFallida();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (TimeoutException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorTiempoEspera();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (FaultException<ExcepcionServidorItaliaPizza> ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorBaseDatos();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (FaultException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (CommunicationException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (Exception ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
         }
@@ -109,32 +109,32 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             catch (EndpointNotFoundException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorConexionFallida();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (TimeoutException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorTiempoEspera();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (FaultException<ExcepcionServidorItaliaPizza> ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorBaseDatos();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (FaultException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (CommunicationException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (Exception ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
         }
@@ -186,7 +186,7 @@ namespace ItaliaPizza_Cliente.Vistas
             };
             foreach (var campo in camposDeDatos)
             {
-                if(!RevisarCampoVacio(campo.textBox.Text.Trim(), campo.labelError, CAMPO_VACIO)) {camposLlenos = false; }
+                if(!RevisarCampoVacio(campo.TextBox.Text.Trim(), campo.LabelError, CAMPO_VACIO)) {camposLlenos = false; }
             }
             if(rdbEmpleado.IsChecked == false && rdbCliente.IsChecked == false)
             {
@@ -356,7 +356,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void MostrarMensajeExito()
         {
-            VentanaEmergente ventanaEmergente = new VentanaEmergente("Registro Exitoso", "Se ha guardado correctamente al usuario nuevo.", Window.GetWindow(this), 2);
+            VentanaEmergente ventanaEmergente = new VentanaEmergente("Registro Exitoso", "Se ha guardado correctamente al Usuario nuevo.", Window.GetWindow(this), 2);
             ventanaEmergente.ShowDialog();
             LimpiarCampos();           
         }
@@ -475,7 +475,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void MostrarMensajeConfirmacion()
         {
-            VentanaEmergente ventanaEmergente = new VentanaEmergente("Cuidado!!!", "¿Seguro que desea cancelar el registro?, se perderán los datos del usuario", "Si, Cancelar Registro", "No, Cancelar Accion", Window.GetWindow(this), 3);
+            VentanaEmergente ventanaEmergente = new VentanaEmergente("Cuidado!!!", "¿Seguro que desea cancelar el registro?, se perderán los datos del Usuario", "Si, Cancelar Registro", "No, Cancelar Accion", Window.GetWindow(this), 3);
             ventanaEmergente.ShowDialog();
             if (ventanaEmergente.AceptarAccion)
             {

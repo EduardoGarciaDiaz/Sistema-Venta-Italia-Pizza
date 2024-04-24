@@ -44,7 +44,7 @@ namespace ItaliaPizza_Cliente.Vistas
             CargarTiposEmpleados(tiposEmpleado);
             barraBusquedaUsuario.Background = new SolidColorBrush(Colors.White);
             barraBusquedaUsuario.ImgBuscarClicked += ImgBuscar_Click;
-            barraBusquedaUsuario.Placeholder.Text = "Busca un usuario por nombre, direccion o telefono...";
+            barraBusquedaUsuario.plhrPista.Text = "Busca un Usuario por nombre, direccion o telefono...";
             ResaltarFiltroSeleccionado(brdTodos);
         }
 
@@ -58,32 +58,32 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             catch (EndpointNotFoundException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorConexionFallida();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (TimeoutException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorTiempoEspera();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (FaultException<ExcepcionServidorItaliaPizza> ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorBaseDatos();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (FaultException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (CommunicationException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (Exception ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
         }
@@ -112,16 +112,16 @@ namespace ItaliaPizza_Cliente.Vistas
             foreach (var item in listaEmpleados)
             {
                 ElementoUsuario elementoUsuario = new ElementoUsuario(item);
-                elementoUsuario.btnModificarUusuario_Click += BtnModificarUsuario_Click;
-                elementoUsuario.btnDesactivarActivarUsuario_Click += BtnDesactivarActivar_Click;
+                elementoUsuario.BtnModificarUsuarioClicked += BtnModificarUsuario_Click;
+                elementoUsuario.BtnDesactivarActivarUsuarioClicked += BtnDesactivarActivar_Click;
                 wrpUsuariosLista.Children.Add(elementoUsuario);
             }
             foreach (var item in listaClientes)
             {
                 ElementoUsuario elementoUsuario = new ElementoUsuario(item);
 
-                elementoUsuario.btnModificarUusuario_Click += BtnModificarUsuario_Click;
-                elementoUsuario.btnDesactivarActivarUsuario_Click += BtnDesactivarActivar_Click;
+                elementoUsuario.BtnModificarUsuarioClicked += BtnModificarUsuario_Click;
+                elementoUsuario.BtnDesactivarActivarUsuarioClicked += BtnDesactivarActivar_Click;
                 wrpUsuariosLista.Children.Add(elementoUsuario);
             }
             usuariosActuales = ObtenerUsuariosVisibles();
@@ -144,13 +144,13 @@ namespace ItaliaPizza_Cliente.Vistas
             ElementoUsuario elementoUsuario = sender as ElementoUsuario;
             EdicionUsuario paginaEdicionUsuario;
 
-            if (elementoUsuario.empleado != null)
+            if (elementoUsuario.Empleado != null)
             {
-                EmpleadoDto empleado = elementoUsuario.empleado;
+                EmpleadoDto empleado = elementoUsuario.Empleado;
                 paginaEdicionUsuario = new EdicionUsuario(empleado);
             } else
             {
-                UsuarioDto usuario = elementoUsuario.usuario;
+                UsuarioDto usuario = elementoUsuario.Usuario;
                 paginaEdicionUsuario = new EdicionUsuario(usuario);
             }
 
@@ -162,59 +162,59 @@ namespace ItaliaPizza_Cliente.Vistas
             ElementoUsuario elementoUsuario = sender as ElementoUsuario;
             try
             {
-                if (elementoUsuario.empleado != null)
+                if (elementoUsuario.Empleado != null)
                 {
-                    var empleado = elementoUsuario.empleado;
+                    var empleado = elementoUsuario.Empleado;
                     if (empleado.Usuario.EsActivo)
                     {
-                        elementoUsuario.empleado.Usuario.EsActivo = DesactivarActivarUsuario(empleado.IdUsuario, true, true, elementoUsuario);
+                        elementoUsuario.Empleado.Usuario.EsActivo = DesactivarActivarUsuario(empleado.IdUsuario, true, true, elementoUsuario);
                     }
                     else
                     {
-                        elementoUsuario.empleado.Usuario.EsActivo = DesactivarActivarUsuario(empleado.IdUsuario, true, false, elementoUsuario);
+                        elementoUsuario.Empleado.Usuario.EsActivo = DesactivarActivarUsuario(empleado.IdUsuario, true, false, elementoUsuario);
                     }
                 }
-                else if (elementoUsuario.usuario != null)
+                else if (elementoUsuario.Usuario != null)
                 {
-                    var cliente = elementoUsuario.usuario;
+                    var cliente = elementoUsuario.Usuario;
                     if (cliente.EsActivo)
                     {
-                        elementoUsuario.usuario.EsActivo = DesactivarActivarUsuario(cliente.IdUsuario, false, true, elementoUsuario);
+                        elementoUsuario.Usuario.EsActivo = DesactivarActivarUsuario(cliente.IdUsuario, false, true, elementoUsuario);
                     }
                     else
                     {
-                        elementoUsuario.usuario.EsActivo = DesactivarActivarUsuario(cliente.IdUsuario, false, false, elementoUsuario);
+                        elementoUsuario.Usuario.EsActivo = DesactivarActivarUsuario(cliente.IdUsuario, false, false, elementoUsuario);
                     }
                 }
             }
             catch (EndpointNotFoundException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorConexionFallida();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (TimeoutException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorTiempoEspera();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (FaultException<ExcepcionServidorItaliaPizza> ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorBaseDatos();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (FaultException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (CommunicationException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (Exception ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }          
 
@@ -229,14 +229,14 @@ namespace ItaliaPizza_Cliente.Vistas
                 usuario.brdActivoBackGorund.Background = new SolidColorBrush(Colors.Red);
                 usuario.btnEsActivo.HorizontalAlignment = HorizontalAlignment.Left;
                 usuario.lblModificarEstado.Content = "Activar";
-                usuario.esActivo = false;
-                VentanaEmergente ventanaEmergente = new VentanaEmergente("Información!!", "Se desactivo correctamente al usuario", Window.GetWindow(this), 2);
+                usuario.EsActivo = false;
+                VentanaEmergente ventanaEmergente = new VentanaEmergente("Información!!", "Se desactivo correctamente al Usuario", Window.GetWindow(this), 2);
                 ventanaEmergente.ShowDialog();
                 return false;
             }
             else if(esEmpelado  && desactivar)
             {
-                VentanaEmergente ventanaEmergente = new VentanaEmergente("Error!!", "No se pudo desactivar al empleado, revise si el usuario no esta actualemte activo, o verifque su conexión ", Window.GetWindow(this), 2);
+                VentanaEmergente ventanaEmergente = new VentanaEmergente("Error!!", "No se pudo desactivar al Empleado, revise si el Usuario no esta actualemte activo, o verifque su conexión ", Window.GetWindow(this), 2);
                 ventanaEmergente.ShowDialog();
                 return true;
             }
@@ -248,17 +248,17 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             else if (exitoAccion && !desactivar)
             {
-                usuario.esActivo = true;
+                usuario.EsActivo = true;
                 usuario.brdActivoBackGorund.Background = new SolidColorBrush(Colors.Black);
                 usuario.btnEsActivo.HorizontalAlignment = HorizontalAlignment.Right;
                 usuario.lblModificarEstado.Content = "Desactivar";
-                VentanaEmergente ventanaEmergente = new VentanaEmergente("Exito!!", "Se activo correctamente al usuario", Window.GetWindow(this), 2);
+                VentanaEmergente ventanaEmergente = new VentanaEmergente("Exito!!", "Se activo correctamente al Usuario", Window.GetWindow(this), 2);
                 ventanaEmergente.ShowDialog();
                 return true;
             }
             else
             {
-                VentanaEmergente ventanaEmergente = new VentanaEmergente("Error!!", "Hubo un probelma al activar al usuario, revise su conexion e intentelo mas tarde", Window.GetWindow(this), 2);
+                VentanaEmergente ventanaEmergente = new VentanaEmergente("Error!!", "Hubo un probelma al activar al Usuario, revise su conexion e intentelo mas tarde", Window.GetWindow(this), 2);
                 ventanaEmergente.ShowDialog();
                 return false;
             }
@@ -301,7 +301,7 @@ namespace ItaliaPizza_Cliente.Vistas
             btnFiltros.IsEnabled = true;
             tipoUsuarioActual = 1;
             ResaltarFiltroSeleccionado(brdEmpleados);
-            List<ElementoUsuario> usuariosFiltrados = usuariosActuales.Where(usuario => usuario.empleado != null).ToList();
+            List<ElementoUsuario> usuariosFiltrados = usuariosActuales.Where(usuario => usuario.Empleado != null).ToList();
             MostrarCoincidencias(usuariosFiltrados);
         }
 
@@ -312,7 +312,7 @@ namespace ItaliaPizza_Cliente.Vistas
             ltbListaTiposEmpleados.Visibility = Visibility.Hidden;
             tipoUsuarioActual = 2;
             ResaltarFiltroSeleccionado(brdClientes);
-            List<ElementoUsuario> usuariosFiltrados = usuariosActuales.Where(usuario => usuario.empleado == null).ToList();
+            List<ElementoUsuario> usuariosFiltrados = usuariosActuales.Where(usuario => usuario.Empleado == null).ToList();
             MostrarCoincidencias(usuariosFiltrados);
         }
 
@@ -328,7 +328,7 @@ namespace ItaliaPizza_Cliente.Vistas
             {
                 ltbListaTiposEmpleados.Items.Remove(itemSeleccionado);
                 AgregarFiltroDeTipoEmpleado(itemSeleccionado);
-                FiltrarEmpleados(usuariosActuales.Where(usuario => usuario.empleado != null).ToList());
+                FiltrarEmpleados(usuariosActuales.Where(usuario => usuario.Empleado != null).ToList());
                 ltbListaTiposEmpleados.Visibility = Visibility.Hidden;
             }
         }
@@ -341,7 +341,7 @@ namespace ItaliaPizza_Cliente.Vistas
             String nombreTipoEmpleado = ObtenerLabeTipoEMpleado(brdTipoEmpleado).Content.ToString();
             int columnaDeReferencia = Grid.GetColumn(brdTipoEmpleado);
             LimpiarFiltrosTipoEmpleado(columnaDeReferencia);
-            FiltrarEmpleados(usuariosActuales.Where(usuario => usuario.empleado != null).ToList());
+            FiltrarEmpleados(usuariosActuales.Where(usuario => usuario.Empleado != null).ToList());
             ListBoxItem lbiTipoEmpleado = new ListBoxItem();
             lbiTipoEmpleado.Name = "_" + tiposEmpleado.FirstOrDefault(tipo => tipo.Nombre.Equals(nombreTipoEmpleado)).IdTipoEmpleado;
             lbiTipoEmpleado.Content = tiposEmpleado.FirstOrDefault(tipo => tipo.Nombre.Equals(nombreTipoEmpleado)).Nombre;
@@ -478,7 +478,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void FiltrarUsuariosPorBusqueda()
         {
-            string criterioBusqueda = barraBusquedaUsuario.TxtBusqueda.Text.Trim().ToLower();
+            string criterioBusqueda = barraBusquedaUsuario.tbxBusqueda.Text.Trim().ToLower();
             List<ElementoUsuario> usuariosFiltrados = usuariosActuales.Where(usuario => usuario.lblNombre.Text.ToLower().Contains(criterioBusqueda) ||
                                                                                       usuario.lblDireccion.Text.ToLower().Contains(criterioBusqueda) ||
                                                                                       usuario.lblTelefono.Text.ToLower().Contains(criterioBusqueda)).ToList(); 
@@ -488,11 +488,11 @@ namespace ItaliaPizza_Cliente.Vistas
                     MostrarCoincidencias(usuariosFiltrados);
                     break;
                 case 1:
-                    usuariosFiltrados = usuariosFiltrados.Where(usuario => usuario.empleado != null).ToList();
+                    usuariosFiltrados = usuariosFiltrados.Where(usuario => usuario.Empleado != null).ToList();
                     MostrarCoincidencias(usuariosFiltrados);
                     break;
                 case 2:
-                    usuariosFiltrados = usuariosFiltrados.Where(usuario => usuario.empleado == null).ToList();
+                    usuariosFiltrados = usuariosFiltrados.Where(usuario => usuario.Empleado == null).ToList();
                     MostrarCoincidencias(usuariosFiltrados);
                     break;
             }

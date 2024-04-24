@@ -23,7 +23,7 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
     {
         public bool EsSeleccionado { get; set; }
         public InsumoRegistroReceta InsumoAsignado { get; set; }
-        public EventHandler gridInsumoRegistroReceta_Click;
+        public EventHandler GridInsumoRegistroRecetaClicked;
 
 
         public ElementoInsumoRegistroReceta()
@@ -38,6 +38,11 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
             CargarDatos();
         }
 
+        public void GridInsumoRegistroReceta_Click(object sender, RoutedEventArgs e)
+        {
+            GridInsumoRegistroRecetaClicked?.Invoke(this, e);
+        }       
+
         private void CargarDatos()
         {
             lbCodigo.Content = InsumoAsignado.Codigo;
@@ -45,9 +50,5 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
             lbCategoria.Content = InsumoAsignado.Categoria.Nombre;
         }
 
-        public void GridInsumoRegistroReceta_Click(object sender, RoutedEventArgs e)
-        {
-            gridInsumoRegistroReceta_Click?.Invoke(this, e);
-        }
     }
 }

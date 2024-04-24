@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace ItaliaPizza_Cliente.Utilidades
 {
-    public static class VentanasEmergentes
+    public static class ManejadorVentanasEmergentes
     {
         private const int VENTANA_ERROR = 1;
 

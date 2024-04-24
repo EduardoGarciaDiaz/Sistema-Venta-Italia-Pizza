@@ -48,27 +48,27 @@ namespace ItaliaPizza_Cliente.Vistas
                 }
                 catch (EndpointNotFoundException )
                 {
-                    VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                    ManejadorVentanasEmergentes.MostrarVentanaErrorConexionFallida();
                 }
                 catch (TimeoutException)
                 {
-                    VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                    ManejadorVentanasEmergentes.MostrarVentanaErrorTiempoEspera();
                 }
                 catch (FaultException<ExcepcionServidorItaliaPizza>)
                 {
-                    VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                    ManejadorVentanasEmergentes.MostrarVentanaErrorBaseDatos();
                 }
                 catch (FaultException)
                 {
-                    VentanasEmergentes.MostrarVentanaErrorServidor();
+                    ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 }
                 catch (CommunicationException)
                 {
-                    VentanasEmergentes.MostrarVentanaErrorServidor();
+                    ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 }
                 catch (Exception )
                 {
-                    VentanasEmergentes.MostrarVentanaErrorInesperado();
+                    ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
                 }
             }
         }

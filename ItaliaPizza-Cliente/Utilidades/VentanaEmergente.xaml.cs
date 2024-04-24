@@ -22,6 +22,7 @@ namespace ItaliaPizza_Cliente.Utilidades
         private const int VENTANA_ERROR = 1;
         private const int VENTANA_INFORMACION = 2;
         private const int VENTANA_CONFIRMACION = 3;
+
         public bool AceptarAccion { get; set; }
         public VentanaEmergente(String titulo, String mensaje, Window ventaPrincipal, int tipoVentana)
         {
@@ -45,22 +46,39 @@ namespace ItaliaPizza_Cliente.Utilidades
             MostrarVentana(ventaPrincipal, this);
         }
 
+        private void BtnAceptarAccion_Click(object sender, RoutedEventArgs e)
+        {
+            AceptarAccion = true;
+            this.Close();
+        }
+
+        private void BtnNegarAccion_Click(object sender, RoutedEventArgs e)
+        {
+            AceptarAccion = false;
+            this.Close();
+        }
+
+        private void BtnCerrarEmergente_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
         private void MostrarTipoVentana(int tipoVentana)
         {
             if (tipoVentana == VENTANA_ERROR)
             {
-                stp1boton.Visibility = Visibility.Visible;
+                skp1boton.Visibility = Visibility.Visible;
                 imgImagen.Source = new BitmapImage(new Uri("/Recursos/iconos/icono_error.png", UriKind.Relative));
 
             }
             else if (tipoVentana == VENTANA_INFORMACION)
             {
-                stp1boton.Visibility = Visibility.Visible;
+                skp1boton.Visibility = Visibility.Visible;
                 imgImagen.Source = new BitmapImage(new Uri("/Recursos/iconos/icono_exito.png", UriKind.Relative));
             }
             else if (tipoVentana == VENTANA_CONFIRMACION)
             {
-                stp2boton.Visibility = Visibility.Visible;
+                skp2boton.Visibility = Visibility.Visible;
                 imgImagen.Source = new BitmapImage(new Uri("/Recursos/iconos/icono_confirmacion.png", UriKind.Relative));
             }  
         }
@@ -77,21 +95,6 @@ namespace ItaliaPizza_Cliente.Utilidades
             }
         }
 
-        private void btnAceptarAccion_Click(object sender, RoutedEventArgs e)
-        {
-            AceptarAccion = true;
-            this.Close();
-        }
-
-        private void btnNegarAccion_Click(object sender, RoutedEventArgs e)
-        {
-            AceptarAccion = false;
-            this.Close();
-        }
-
-        private void btnCerrarEmergente_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
+       
     }
 }

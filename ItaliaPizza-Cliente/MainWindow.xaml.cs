@@ -103,9 +103,9 @@ namespace ItaliaPizza_Cliente
         private void AgregarBotonPedido()
         {
             BtnMenuLateral pedidos = new BtnMenuLateral();
-            pedidos.ImgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_carrito_seleccionado.png", UriKind.Relative));
-            pedidos.LblNombreBoton.Content = "Pedido";
-            pedidos.Click += BtnPedidoClick;
+            pedidos.imgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_carrito_seleccionado.png", UriKind.Relative));
+            pedidos.lblNombreBoton.Content = "Pedido";
+            pedidos.BtnMenuLateralClicked += BtnPedidoClick;
             SkpMenuLateral.Children.Add(pedidos);
         }
 
@@ -118,9 +118,9 @@ namespace ItaliaPizza_Cliente
         private void AgregarBotonProductos()
         {
             BtnMenuLateral producto = new BtnMenuLateral();
-            producto.ImgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_agregar_producto.png", UriKind.Relative));
-            producto.LblNombreBoton.Content = "Productos";
-            producto.Click += BtnProductoClick;
+            producto.imgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_agregar_producto.png", UriKind.Relative));
+            producto.lblNombreBoton.Content = "Productos";
+            producto.BtnMenuLateralClicked += BtnProductoClick;
             SkpMenuLateral.Children.Add(producto);
         }
 
@@ -133,9 +133,9 @@ namespace ItaliaPizza_Cliente
         private void AgregarBotonConsultaUsuarios()
         {
             BtnMenuLateral usuario = new BtnMenuLateral();
-            usuario.ImgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_agregar_usuario.png", UriKind.Relative));
-            usuario.LblNombreBoton.Content = "Usuarios";
-            usuario.Click += BtnUsuarioClick;
+            usuario.imgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_agregar_usuario.png", UriKind.Relative));
+            usuario.lblNombreBoton.Content = "Usuarios";
+            usuario.BtnMenuLateralClicked += BtnUsuarioClick;
             SkpMenuLateral.Children.Add(usuario);
         }
 
@@ -148,9 +148,9 @@ namespace ItaliaPizza_Cliente
         private void AgregarBotonRegistrarUsuarios()
         {
             BtnMenuLateral usuario = new BtnMenuLateral();
-            usuario.ImgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_agregar_usuario.png", UriKind.Relative));
-            usuario.LblNombreBoton.Content = "Usuarios";
-            usuario.Click += BtnRegistroUsuarioClick;
+            usuario.imgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_agregar_usuario.png", UriKind.Relative));
+            usuario.lblNombreBoton.Content = "Usuarios";
+            usuario.BtnMenuLateralClicked += BtnRegistroUsuarioClick;
             SkpMenuLateral.Children.Add(usuario);
         }
 
@@ -163,10 +163,10 @@ namespace ItaliaPizza_Cliente
         private void AgregarBotonRecetas()
         {
             BtnMenuLateral receta = new BtnMenuLateral();
-            receta.ImgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_receta.png",
+            receta.imgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_receta.png",
                 UriKind.Relative));
-            receta.LblNombreBoton.Content = "Recetas";
-            receta.Click += BtnRecetaClick;
+            receta.lblNombreBoton.Content = "Recetas";
+            receta.BtnMenuLateralClicked += BtnRecetaClick;
             SkpMenuLateral.Children.Add(receta);
         }
 
@@ -179,10 +179,10 @@ namespace ItaliaPizza_Cliente
         private void AgregarBotonPedidos()
         {
             BtnMenuLateral pedidos = new BtnMenuLateral();
-            pedidos.ImgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_pedidos.png",
+            pedidos.imgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_pedidos.png",
                 UriKind.Relative));
-            pedidos.LblNombreBoton.Content = "Pedidos";
-            pedidos.Click += BtnPedidosClick;
+            pedidos.lblNombreBoton.Content = "Pedidos";
+            pedidos.BtnMenuLateralClicked += BtnPedidosClick;
             SkpMenuLateral.Children.Add(pedidos);
         }
 
@@ -195,10 +195,10 @@ namespace ItaliaPizza_Cliente
         private void AgregarBotonConsultaOrdenesDeCompra()
         {
             BtnMenuLateral ordenes = new BtnMenuLateral();
-            ordenes.ImgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_Orden_Compra.png",
+            ordenes.imgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_Orden_Compra.png",
                 UriKind.Relative));
-            ordenes.LblNombreBoton.Content = "Ordenes";
-            ordenes.Click += BtnOrdenesCompraClick;
+            ordenes.lblNombreBoton.Content = "Ordenes";
+            ordenes.BtnMenuLateralClicked += BtnOrdenesCompraClick;
             SkpMenuLateral.Children.Add(ordenes);
         }
 
@@ -211,9 +211,9 @@ namespace ItaliaPizza_Cliente
         private void AgregarBotonProveedores()
         {
             BtnMenuLateral proveedor = new BtnMenuLateral();
-            proveedor.ImgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_proveedor.png",UriKind.Relative));
-            proveedor.LblNombreBoton.Content = "Proveedores";
-            proveedor.Click += BtnProveedores_Click;
+            proveedor.imgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_proveedor.png",UriKind.Relative));
+            proveedor.lblNombreBoton.Content = "Proveedores";
+            proveedor.BtnMenuLateralClicked += BtnProveedores_Click;
             SkpMenuLateral.Children.Add(proveedor);
         }
 
@@ -226,9 +226,9 @@ namespace ItaliaPizza_Cliente
         private void AgregarBotonReporteProductos()
         {
             BtnMenuLateral reprorteProductos = new BtnMenuLateral();
-            reprorteProductos.ImgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_proveedor.png", UriKind.Relative));
-            reprorteProductos.LblNombreBoton.Content = "Reportes";
-            reprorteProductos.Click += BtnReporteProductos_Click;
+            reprorteProductos.imgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_proveedor.png", UriKind.Relative));
+            reprorteProductos.lblNombreBoton.Content = "Reportes";
+            reprorteProductos.BtnMenuLateralClicked += BtnReporteProductos_Click;
             SkpMenuLateral.Children.Add(reprorteProductos);
         }
 
@@ -277,27 +277,27 @@ namespace ItaliaPizza_Cliente
             }
             catch (EndpointNotFoundException)
             {
-                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorConexionFallida();
             }
             catch (TimeoutException)
             {
-                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorTiempoEspera();
             }
             catch (FaultException<ExcepcionServidorItaliaPizza>)
             {
-                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorBaseDatos();
             }
             catch (FaultException)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
             }
             catch (CommunicationException)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
             }
             catch (Exception)
             {
-                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
             }
             EmpleadoSingleton.LimpiarSingleton();
         }

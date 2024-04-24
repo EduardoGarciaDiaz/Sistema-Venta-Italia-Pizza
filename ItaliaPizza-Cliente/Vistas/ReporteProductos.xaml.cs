@@ -136,11 +136,11 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void GuardarReporte(Reporte reporte)
         {
-            if (reporte != null && reporte.contenidoReporte != null)
+            if (reporte != null && reporte.ContenidoReporte != null)
             {
                 try
                 {
-                    using (MemoryStream memoryStream = new MemoryStream(reporte.contenidoReporte))
+                    using (MemoryStream memoryStream = new MemoryStream(reporte.ContenidoReporte))
                     {
                         using (Document document = new Document(memoryStream))
                         {

@@ -21,31 +21,31 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
     /// </summary>
     public partial class ElementoInsumoOrdenCompra : UserControl
     {
-        public EventHandler btnAgregarAOrden_Click;
-        public InsumoOrdenCompraDto insumoDto;
+        public EventHandler BtnAgregarAOrdenClicked;
+        public InsumoOrdenCompraDto Insumo { get; set; }
 
         public ElementoInsumoOrdenCompra(InsumoOrdenCompraDto insumo)
         {
             InitializeComponent();
             InstanciarInsumo(insumo);
-            this.insumoDto = insumo;
+            this.Insumo = insumo;
+        }
+      
+        private void BtnAgregarAOrden_Click(object sender, RoutedEventArgs e)
+        {
+            BtnAgregarAOrdenClicked?.Invoke(this, e);
         }
 
         private void InstanciarInsumo(InsumoOrdenCompraDto insumo)
         {
-            if (insumo != null) 
+            if (insumo != null)
             {
-                lblNameInsumo.Content = insumo.Nombre;
+                lblNombreInsumo.Content = insumo.Nombre;
                 lblCodigoInsumo.Content = insumo.Codigo;
                 lblCosto.Content = insumo.CostoUnitario;
                 lblExistencia.Content = insumo.Existencia;
                 lblUnidadMedida.Content = insumo.UnidadMedida;
             }
-        }
-
-        private void BtnAgregarAOrden(object sender, RoutedEventArgs e)
-        {
-            btnAgregarAOrden_Click?.Invoke(this, e);
         }
     }
 }

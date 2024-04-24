@@ -20,7 +20,7 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
     /// </summary>
     public partial class ElementoProductoVenta : UserControl
     {
-        public event RoutedEventHandler Click;
+        public event RoutedEventHandler ProdcutoVentaClicked;
 
         public ElementoProductoVenta()
         {
@@ -29,7 +29,7 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
 
         private void UcProductoVenta_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Click?.Invoke(this, new RoutedEventArgs());
+            ProdcutoVentaClicked?.Invoke(this, new RoutedEventArgs());
         }
     }
 }

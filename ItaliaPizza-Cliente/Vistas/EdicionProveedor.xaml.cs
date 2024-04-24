@@ -33,8 +33,8 @@ namespace ItaliaPizza_Cliente.Vistas
         private readonly string EMAIL_RULES_CHAR = "^(?=.{1,90}$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         private readonly string EMAIL_ALLOW_CHAR = "^[a-zA-Z0-9@,._=]{1,90}$";
         private readonly string RFC_FORMATT = @"^[A-Z&Ñ]{3,4}\d{6}[A-Z\d]{3}$";
-        private List<CampoTextoConLabel> camposDeDatos;
-        private ProveedorDto proveedorSeleccionado;
+        private List<CampoTextoConLabel> _camposDeDatos;
+        private readonly ProveedorDto _proveedorSeleccionado;
 
 
         public EdicionProveedor(ProveedorDto proveedorSeleccionado)
@@ -42,38 +42,20 @@ namespace ItaliaPizza_Cliente.Vistas
             InitializeComponent();
             this.Loaded += PreparaVentana;
             CargarInformacionEnCampos(proveedorSeleccionado);
-            this.proveedorSeleccionado = proveedorSeleccionado;
+            this._proveedorSeleccionado = proveedorSeleccionado;
         }
 
-        private void CargarInformacionEnCampos(ProveedorDto proveedorSeleccionado)
-        {
-            txbNombre.Text = proveedorSeleccionado.NombreCompleto.ToString();
-            txbRfc.Text = proveedorSeleccionado.RFC.ToString();
-            txbTelefono.Text = proveedorSeleccionado.NumeroTelefono;
-            txbCorreo.Text = proveedorSeleccionado.CorreoElectronico.ToString();
-            txbCiudad.Text = proveedorSeleccionado.Direccion.Ciudad.ToString();
-            txbColonia.Text = proveedorSeleccionado.Direccion.Colonia.ToString();
-            txbCalle.Text = proveedorSeleccionado.Direccion.Calle.ToString();
-            txbCodigoPostal.Text = proveedorSeleccionado.Direccion.CodigoPostal.ToString();
-            txbNumeroExterior.Text = proveedorSeleccionado.Direccion.Numero.ToString();
-        }
-
-        private void PreparaVentana(object sender, RoutedEventArgs e)
-        {
-            camposDeDatos = new List<CampoTextoConLabel>()
-            {
-                new CampoTextoConLabel(txbNombre,lblNombreError), new CampoTextoConLabel(txbRfc,lblRfcError), new CampoTextoConLabel(txbTelefono,lblTelefonoError),
-                new CampoTextoConLabel(txbCorreo,lblCorreoError),  new CampoTextoConLabel(txbCiudad,lblCiudadError),  new CampoTextoConLabel(txbColonia,lblColoniaError),
-                new CampoTextoConLabel(txbCalle,lblCalleError),  new CampoTextoConLabel(txbCodigoPostal,lblCodigoError),  new CampoTextoConLabel(txbNumeroExterior,lblNumeroExtError)
-            };
-        }
-
-        private void EntryJustInteger(object sender, TextCompositionEventArgs e)
+        private void TxbPermitirSoloEnteros(object sender, TextCompositionEventArgs e)
         {
             if (!int.TryParse(e.Text, out _))
             {
                 e.Handled = true;
             }
+        }
+
+        private void BtnCancelarEdicion_Click(object sender, RoutedEventArgs e)
+        {
+            MostrarMensajeConfirmacion();
         }
 
         private void BtnGuardarCambios_Click(object sender, RoutedEventArgs e)
@@ -84,37 +66,60 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             catch (EndpointNotFoundException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorConexionFallida();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (TimeoutException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorTiempoEspera();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (FaultException<ExcepcionServidorItaliaPizza> ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorBaseDatos();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (FaultException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (CommunicationException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (Exception ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
         }
 
+        private void CargarInformacionEnCampos(ProveedorDto proveedorSeleccionado)
+        {
+            tbxNombre.Text = proveedorSeleccionado.NombreCompleto.ToString();
+            tbxRfc.Text = proveedorSeleccionado.RFC.ToString();
+            tbxTelefono.Text = proveedorSeleccionado.NumeroTelefono;
+            tbxCorreo.Text = proveedorSeleccionado.CorreoElectronico.ToString();
+            tbxCiudad.Text = proveedorSeleccionado.Direccion.Ciudad.ToString();
+            tbxColonia.Text = proveedorSeleccionado.Direccion.Colonia.ToString();
+            tbxCalle.Text = proveedorSeleccionado.Direccion.Calle.ToString();
+            tbxCodigoPostal.Text = proveedorSeleccionado.Direccion.CodigoPostal.ToString();
+            tbxNumeroExterior.Text = proveedorSeleccionado.Direccion.Numero.ToString();
+        }
 
+        private void PreparaVentana(object sender, RoutedEventArgs e)
+        {
+            _camposDeDatos = new List<CampoTextoConLabel>()
+            {
+                new CampoTextoConLabel(tbxNombre,lblNombreError), new CampoTextoConLabel(tbxRfc,lblRfcError), new CampoTextoConLabel(tbxTelefono,lblTelefonoError),
+                new CampoTextoConLabel(tbxCorreo,lblCorreoError),  new CampoTextoConLabel(tbxCiudad,lblCiudadError),  new CampoTextoConLabel(tbxColonia,lblColoniaError),
+                new CampoTextoConLabel(tbxCalle,lblCalleError),  new CampoTextoConLabel(tbxCodigoPostal,lblCodigoError),  new CampoTextoConLabel(tbxNumeroExterior,lblNumeroExtError)
+            };
+        }
+
+      
         private void GuardarProveedor()
         {
             bool sePuedeGuardar;
@@ -124,9 +129,9 @@ namespace ItaliaPizza_Cliente.Vistas
                 sePuedeGuardar = ValidarFormatosDeCampos();
                 if (sePuedeGuardar)
                 {
-                    string rfc = txbRfc.Text.Trim();
-                    string correo = txbCorreo.Text.Trim();
-                    sePuedeGuardar = ValidarCamposUnicos(rfc, correo, proveedorSeleccionado.IdProveedor);
+                    string rfc = tbxRfc.Text.Trim();
+                    string correo = tbxCorreo.Text.Trim();
+                    sePuedeGuardar = ValidarCamposUnicos(rfc, correo, _proveedorSeleccionado.IdProveedor);
                 }
             }
             if (sePuedeGuardar)
@@ -150,9 +155,9 @@ namespace ItaliaPizza_Cliente.Vistas
         private bool ValidarCamposVacios()
         {
             bool camposLlenos = true;
-            foreach (var campo in camposDeDatos)
+            foreach (var campo in _camposDeDatos)
             {
-                if (!RevisarCampoVacio(campo.textBox.Text.Trim(), campo.labelError, CAMPO_VACIO)) { camposLlenos = false; }
+                if (!RevisarCampoVacio(campo.TextBox.Text.Trim(), campo.LabelError, CAMPO_VACIO)) { camposLlenos = false; }
             }
             return camposLlenos;
         }
@@ -175,7 +180,7 @@ namespace ItaliaPizza_Cliente.Vistas
         private bool ValidarFormatosDeCampos()
         {
             bool formatosValidos = true;
-            if (!Regex.IsMatch(txbCorreo.Text.Trim().ToLower(), EMAIL_RULES_CHAR) || !Regex.IsMatch(txbCorreo.Text.Trim().ToLower(), EMAIL_ALLOW_CHAR))
+            if (!Regex.IsMatch(tbxCorreo.Text.Trim().ToLower(), EMAIL_RULES_CHAR) || !Regex.IsMatch(tbxCorreo.Text.Trim().ToLower(), EMAIL_ALLOW_CHAR))
             {
                 lblCorreoError.Content = CORREO_INVALIDO;
                 formatosValidos = false;
@@ -184,7 +189,7 @@ namespace ItaliaPizza_Cliente.Vistas
             {
                 lblCorreoError.Content = String.Empty;
             }
-            if (txbTelefono.Text.Length != 10)
+            if (tbxTelefono.Text.Length != 10)
             {
                 lblTelefonoError.Content = TELEFONO_INVALIDO;
                 formatosValidos = false;
@@ -193,7 +198,7 @@ namespace ItaliaPizza_Cliente.Vistas
             {
                 lblTelefonoError.Content = String.Empty;
             }
-            if (!Regex.IsMatch(txbRfc.Text.Trim(), RFC_FORMATT))
+            if (!Regex.IsMatch(tbxRfc.Text.Trim(), RFC_FORMATT))
             {
                 lblRfcError.Content = RFC_INVALIDO;
                 formatosValidos = false;
@@ -235,30 +240,25 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             DireccionDto direccionProveedor = new DireccionDto()
             {
-                IdDireccion = proveedorSeleccionado.IdDireccion,
-                Ciudad = txbCiudad.Text.Trim(),
-                Colonia = txbColonia.Text.Trim(),
-                Calle = txbCalle.Text.Trim(),
-                CodigoPostal = txbCodigoPostal.Text.Trim(),
-                Numero = int.Parse(txbNumeroExterior.Text.Trim())
+                IdDireccion = _proveedorSeleccionado.IdDireccion,
+                Ciudad = tbxCiudad.Text.Trim(),
+                Colonia = tbxColonia.Text.Trim(),
+                Calle = tbxCalle.Text.Trim(),
+                CodigoPostal = tbxCodigoPostal.Text.Trim(),
+                Numero = int.Parse(tbxNumeroExterior.Text.Trim())
             };
             return new ProveedorDto()
             {
-                IdProveedor = proveedorSeleccionado.IdProveedor,
-                NombreCompleto = txbNombre.Text.Trim(),
-                RFC = txbRfc.Text.Trim(),
-                NumeroTelefono = txbTelefono.Text.Trim(),
-                CorreoElectronico = txbCorreo.Text.Trim(),
-                EsActivo = proveedorSeleccionado.EsActivo,
-                IdDireccion = proveedorSeleccionado.IdDireccion,
+                IdProveedor = _proveedorSeleccionado.IdProveedor,
+                NombreCompleto = tbxNombre.Text.Trim(),
+                RFC = tbxRfc.Text.Trim(),
+                NumeroTelefono = tbxTelefono.Text.Trim(),
+                CorreoElectronico = tbxCorreo.Text.Trim(),
+                EsActivo = _proveedorSeleccionado.EsActivo,
+                IdDireccion = _proveedorSeleccionado.IdDireccion,
                 Direccion = direccionProveedor
             };
-        }
-
-        private void BtnCancelarEdicion_Click(object sender, RoutedEventArgs e)
-        {
-            MostrarMensajeConfirmacion();
-        }
+        }      
 
         private void MostrarMensajeConfirmacion()
         {

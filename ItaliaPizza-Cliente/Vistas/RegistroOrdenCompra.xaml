@@ -65,7 +65,7 @@
             <Border  Background="White" Height="231" Width="618" Canvas.Left="32" Canvas.Top="101" HorizontalAlignment="Center" VerticalAlignment="Top" CornerRadius="15">
                 <Canvas x:Name="cnvDatosProveedor" Background="Transparent">
                     <Label Content="Datos Proveedor" Style="{StaticResource subTitleLabel}"/>
-                    <ListBox x:Name="lstProveedores" Height="41" Width="350" Canvas.Left="8" Canvas.Top="52" HorizontalAlignment="Left" VerticalAlignment="Center" SelectionChanged="lstProveedores_Selected">
+                    <ListBox x:Name="lbxProveedores" Height="41" Width="350" Canvas.Left="8" Canvas.Top="52" HorizontalAlignment="Left" VerticalAlignment="Center" SelectionChanged="LbxProveedores_Selected">
                         <ListBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="10"/>
@@ -101,7 +101,7 @@
                     <Label Content="Insumos" Style="{StaticResource subTitleLabel}"/>
                     <uc:BarraDeBusqueda x:Name="barraBusquedaInsumo" Canvas.Left="14" Canvas.Top="53" Width="538" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40"/>
                     <ScrollViewer VerticalScrollBarVisibility="Auto" Height="321" Width="587" Canvas.Left="14" Canvas.Top="111" HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <StackPanel Name="stpListaInsumos" Orientation="Vertical">
+                        <StackPanel Name="skpListaInsumos" Orientation="Vertical">
 
                         </StackPanel>
                     </ScrollViewer>
@@ -114,7 +114,7 @@
                     <Image Source="/Recursos/Iconos/icono_eliminar.png" Canvas.Left="517" Canvas.Top="12" HorizontalAlignment="Left" VerticalAlignment="Center" MouseDown="BtnLimpiarOrden_Click"/>
                     <Label Content="Limpiar orden" Style="{StaticResource fieldTags}" FontSize="10" Canvas.Left="505" Canvas.Top="45" VerticalAlignment="Top"/>
                     <ScrollViewer  Height="456" Width="595" Canvas.Left="1" Canvas.Top="63" HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <StackPanel x:Name="stpInsumosOrdenCompra">
+                        <StackPanel x:Name="skpInsumosOrdenCompra">
 
                         </StackPanel>
                     </ScrollViewer>

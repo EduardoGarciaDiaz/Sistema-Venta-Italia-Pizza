@@ -59,8 +59,8 @@ namespace ItaliaPizza_Cliente.Vistas
                 if (_existeCorteCaja)
                 {
                     CorteCaja corte = RecuperarCorteCaja(_fechaSeleccionada);
-                    _fondoInicial = corte.fondo;
-                    _dineroCaja = corte.dineroEnCaja;
+                    _fondoInicial = corte.Fondo;
+                    _dineroCaja = corte.DineroEnCaja;
                 }
                 else
                 {
@@ -74,32 +74,32 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             catch (EndpointNotFoundException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorConexionFallida();
                 ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
             }
             catch (TimeoutException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorTiempoEspera();
                 ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
             }
             catch (FaultException<ExcepcionServidorItaliaPizza> ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorBaseDatos();
                 ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
             }
             catch (FaultException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
             }
             catch (CommunicationException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
             }
             catch (Exception ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
                 ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
             }
         }
@@ -244,13 +244,13 @@ namespace ItaliaPizza_Cliente.Vistas
             {
                 CorteCaja corte = new CorteCaja()
                 {
-                    fondo = _fondoInicial,
-                    ingresosRegistrados = _ingresosPedidos,
-                    salidasRegistradas = (_salidasGastosVarios + _salidasOrdenesCompra),
-                    dineroEnCaja = _dineroCaja,
-                    diferencia = _diferencia,
-                    fecha = _fechaSeleccionada,
-                    nombreUsuario = EmpleadoSingleton.getInstance().DatosEmpleado.NombreUsuario
+                    Fondo = _fondoInicial,
+                    IngresosRegistrados = _ingresosPedidos,
+                    SalidasRegistradas = (_salidasGastosVarios + _salidasOrdenesCompra),
+                    DineroEnCaja = _dineroCaja,
+                    Diferencia = _diferencia,
+                    Fecha = _fechaSeleccionada,
+                    NombreUsuario = EmpleadoSingleton.getInstance().DatosEmpleado.NombreUsuario
                 };
                 ServicioCorteCajaClient servicioCorteCajaCliente = new ServicioCorteCajaClient();
                 int registroExitoso;
@@ -270,32 +270,32 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             catch (EndpointNotFoundException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorConexionFallida();
                 ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
             }
             catch (TimeoutException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorTiempoEspera();
                 ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
             }
             catch (FaultException<ExcepcionServidorItaliaPizza> ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorBaseDatos();
                 ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
             }
             catch (FaultException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
             }
             catch (CommunicationException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
             }
             catch (Exception ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
                 ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
             }
         }

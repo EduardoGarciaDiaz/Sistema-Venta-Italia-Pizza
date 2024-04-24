@@ -52,32 +52,32 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             catch (EndpointNotFoundException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorConexionFallida();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (TimeoutException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorTiempoEspera();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (FaultException<ExcepcionServidorItaliaPizza> ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorBaseDatos();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (FaultException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (CommunicationException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (Exception ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
         }
@@ -85,14 +85,14 @@ namespace ItaliaPizza_Cliente.Vistas
         private void AgregarEventos()
         {
             barraDeBusquedaInsumo.Placeholder.Text = "Buscar insumo...";
-            barraDeBusquedaInsumo.tbxBusqueda_TextChanged += TbxBusquedaInsumo_TextChanged;
-            barraDeBusquedaInsumo.imgBuscar_Click += ImgBuscarInsumo_Click;
-            barraDeBusquedaInsumo.enter_Pressed += EnterInsumo_Pressed;
+            barraDeBusquedaInsumo.TbxBusquedaTextChanged += TbxBusquedaInsumo_TextChanged;
+            barraDeBusquedaInsumo.ImgBuscarClicked += ImgBuscarInsumo_Click;
+            barraDeBusquedaInsumo.EnterPressed += EnterInsumo_Pressed;
 
             barraDeBusquedaProducto.Placeholder.Text = "Buscar producto sin receta...";
-            barraDeBusquedaProducto.tbxBusqueda_TextChanged += TbxBusquedaProducto_TextChanged;
-            barraDeBusquedaProducto.imgBuscar_Click += ImgBuscarProducto_Click;
-            barraDeBusquedaProducto.enter_Pressed += EnterProducto_Pressed;
+            barraDeBusquedaProducto.TbxBusquedaTextChanged += TbxBusquedaProducto_TextChanged;
+            barraDeBusquedaProducto.ImgBuscarClicked += ImgBuscarProducto_Click;
+            barraDeBusquedaProducto.EnterPressed += EnterProducto_Pressed;
         }
 
         private void CargarProductosSinReceta()
@@ -145,7 +145,7 @@ namespace ItaliaPizza_Cliente.Vistas
             ElementoProductoSinReceta elementoProductoSinReceta = 
                 new ElementoProductoSinReceta(productoSinReceta);
 
-            elementoProductoSinReceta.gridProductoSinReceta_Click += GridProductoSinReceta_Click;
+            elementoProductoSinReceta.GridProductoSinRecetaClicked += GridProductoSinReceta_Click;
 
             return elementoProductoSinReceta;
         }
@@ -233,7 +233,7 @@ namespace ItaliaPizza_Cliente.Vistas
             ElementoInsumoRegistroReceta elementoInsumoRegistroReceta = 
                 new ElementoInsumoRegistroReceta(insumo);
 
-            elementoInsumoRegistroReceta.gridInsumoRegistroReceta_Click += GridInsumoRegistroReceta_Click;
+            elementoInsumoRegistroReceta.GridInsumoRegistroRecetaClicked += GridInsumoRegistroReceta_Click;
 
             return elementoInsumoRegistroReceta;
         }
@@ -301,7 +301,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
             elementoInsumoSeleccionado.InsumoAsignado = insumoReceta;
 
-            elementoInsumoSeleccionado.btnDesasignarInsumo_Click += BtnDesasignarInsumo_Click;
+            elementoInsumoSeleccionado.BtnDesasignarInsumoClicked += BtnDesasignarInsumo_Click;
 
             return elementoInsumoSeleccionado;
         }
@@ -436,32 +436,32 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             catch (EndpointNotFoundException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorConexionFallida();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (TimeoutException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorTiempoEspera();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (FaultException<ExcepcionServidorItaliaPizza> ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorBaseDatos();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (FaultException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (CommunicationException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
             catch (Exception ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
             }
 

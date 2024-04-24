@@ -22,9 +22,9 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
     public partial class BarraDeBusquedaConLista : UserControl
     {
 
-        public EventHandler TxtBusqueda_EventHandler;
-        public EventHandler ImgBuscar_EventHandler;
-        public EventHandler Lista_SelectionChanged_EventHandler;
+        public EventHandler TxtBusquedaTextChanged;
+        public EventHandler ImgBuscarClicked;
+        public EventHandler ListaSelectionChanged;
 
         public BarraDeBusquedaConLista()
         {
@@ -33,17 +33,17 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
 
         private void ListaClientes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Lista_SelectionChanged_EventHandler?.Invoke(this, e);
+            ListaSelectionChanged?.Invoke(this, e);
         }
 
         private void ImgBuscar_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            ImgBuscar_EventHandler?.Invoke(this, e);
+            ImgBuscarClicked?.Invoke(this, e);
         }
 
         private void TxtBusqueda_TextChanged(object sender, TextChangedEventArgs e)
         {
-            TxtBusqueda_EventHandler?.Invoke(this, e);
+            TxtBusquedaTextChanged?.Invoke(this, e);
         }
     }
 

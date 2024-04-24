@@ -22,7 +22,7 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
     public partial class ElementoInsumoSeleccionado : UserControl
     {
         public InsumoReceta InsumoAsignado { get; set; }
-        public EventHandler btnDesasignarInsumo_Click;
+        public EventHandler BtnDesasignarInsumoClicked;
 
         public ElementoInsumoSeleccionado()
         {
@@ -36,6 +36,11 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
             CargarDatos();
         }
 
+        private void BtnDesasignarInsumo_Click(object sender, RoutedEventArgs e)
+        {
+            BtnDesasignarInsumoClicked?.Invoke(this, e);
+        }
+
         private void CargarDatos()
         {
             string cantidadInsumoPreestablecida = "1";
@@ -45,9 +50,5 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
             tbxCantidadInsumo.Text = cantidadInsumoPreestablecida;
         }
 
-        private void BtnDesasignarInsumo_Click(object sender, RoutedEventArgs e)
-        {
-            btnDesasignarInsumo_Click?.Invoke(this, e);
-        }
     }
 }

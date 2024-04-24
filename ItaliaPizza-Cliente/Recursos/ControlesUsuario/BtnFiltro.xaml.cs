@@ -20,7 +20,7 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
     /// </summary>
     public partial class BtnFiltro : UserControl
     {
-        public EventHandler btnFiltro_Click;
+        public EventHandler BtnFiltroClicked;
 
 
         public BtnFiltro()
@@ -30,7 +30,7 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
 
         private void BtnFiltro_Click(object sender, RoutedEventArgs e)
         {
-            btnFiltro_Click?.Invoke(this, e);
+            BtnFiltroClicked?.Invoke(this, e);
         }
     }
 }

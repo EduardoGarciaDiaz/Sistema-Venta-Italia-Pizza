@@ -38,12 +38,7 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
         private void TxtCantidadPagaCliente_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !EsTextoPermitido(TbxCantidadProducto.Text+e.Text);
-        }
-
-        private bool EsTextoPermitido(string texto)
-        {
-            return !_regex.IsMatch(texto) && texto.Length <= 4;
-        }
+        }       
 
         private void TbxCantidadProducto_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -63,6 +58,11 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
         private void TbxCantidadProducto_LostFocus(object sender, RoutedEventArgs e)
         {
             TbxLostFocusTbxCantidad.Invoke(this, e);
+        }
+
+        private bool EsTextoPermitido(string texto)
+        {
+            return !_regex.IsMatch(texto) && texto.Length <= 4;
         }
     }
 }
