@@ -39,7 +39,7 @@ namespace ItaliaPizza_Cliente.Vistas
         private void BtnIniciarSesion_Click(object sender, RoutedEventArgs e)
         {
             string nombreUsuario = txbNombreUsuario.Text.Trim();
-            string contrasena = CifradorContraseñas.EncriptarContraseña(txbContrasena.Password.ToString().Trim());
+            string contrasena = CifradorContraseñas.EncriptarContraseña(pwbxContrasena.Password.ToString().Trim());
             if(ValidarCamposVacios(nombreUsuario, contrasena))
             {
                 try

@@ -80,7 +80,7 @@
                         </TextBox.Resources>
                     </TextBox>
 
-                    <PasswordBox  x:Name="txbContrasena" MaxLength="20"  BorderBrush="#F8D72A" VerticalContentAlignment="Center" FontSize="32" FontWeight="SemiBold" Padding="5" BorderThickness="3" RenderTransformOrigin="0.5,0.5" Canvas.Left="21" Canvas.Top="168" Height="56" Width="515" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                    <PasswordBox  x:Name="pwbxContrasena" MaxLength="20"  BorderBrush="#F8D72A" VerticalContentAlignment="Center" FontSize="32" FontWeight="SemiBold" Padding="5" BorderThickness="3" RenderTransformOrigin="0.5,0.5" Canvas.Left="21" Canvas.Top="168" Height="56" Width="515" HorizontalAlignment="Left" VerticalAlignment="Top" >
                         <PasswordBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="16"/>

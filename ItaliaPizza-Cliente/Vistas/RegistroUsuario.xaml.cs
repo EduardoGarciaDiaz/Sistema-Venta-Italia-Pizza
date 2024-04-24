@@ -26,7 +26,6 @@ namespace ItaliaPizza_Cliente.Vistas
     /// </summary>
     public partial class RegistroUsuario : Page
     {
-        List<TipoEmpleadoDto> tiposEmpleados = new List<TipoEmpleadoDto>();
         private const string CAMPO_VACIO = "* Campo obligatorio";
         private const string CORREO_INVALIDO = "* Correo no valido";
         private const string TELEFONO_INVALIDO = "* Telefono no valido";
@@ -34,6 +33,7 @@ namespace ItaliaPizza_Cliente.Vistas
         private const string CORREO_REPETIDO ="El correo capturado ya existe, ingrese uno que no exista.";
         private readonly string EMAIL_RULES_CHAR = "^(?=.{1,90}$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         private readonly string EMAIL_ALLOW_CHAR = "^[a-zA-Z0-9@,._=]{1,90}$";
+        private List<TipoEmpleadoDto> _tiposEmpleados = new List<TipoEmpleadoDto>();
 
         public RegistroUsuario()
         {
@@ -45,53 +45,6 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             ObtenerTiposEmpleados();           
         }
-       
-
-        private void ObtenerTiposEmpleados()
-        {
-            try
-            {
-                ServicioUsuariosClient proxyServicioUsuariosClient = new ServicioUsuariosClient();
-                tiposEmpleados = proxyServicioUsuariosClient.RecuperarTiposEmpleado().ToList();
-                CargarTipoesEnLista(tiposEmpleados);
-            }
-            catch (EndpointNotFoundException ex)
-            {
-                ManejadorVentanasEmergentes.MostrarVentanaErrorConexionFallida();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
-            }
-            catch (TimeoutException ex)
-            {
-                ManejadorVentanasEmergentes.MostrarVentanaErrorTiempoEspera();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
-            }
-            catch (FaultException<ExcepcionServidorItaliaPizza> ex)
-            {
-                ManejadorVentanasEmergentes.MostrarVentanaErrorBaseDatos();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
-            }
-            catch (FaultException ex)
-            {
-                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
-            }
-            catch (CommunicationException ex)
-            {
-                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
-            }
-            catch (Exception ex)
-            {
-                ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
-            }
-        }
-
-        private void CargarTipoesEnLista(List<TipoEmpleadoDto> tiposEmpleadosRecuperados)
-        {
-            cbmTipoEmpleado.ItemsSource = tiposEmpleadosRecuperados;
-            cbmTipoEmpleado.DisplayMemberPath = "Nombre";
-        }
 
         private void EntryJustInteger(object sender, TextCompositionEventArgs e)
         {
@@ -99,6 +52,41 @@ namespace ItaliaPizza_Cliente.Vistas
             {
                 e.Handled = true;
             }
+        }
+
+        private void BtnVerContrasena_Click(object sender, MouseButtonEventArgs e)
+        {
+            MostrarContrasena();
+        }
+        private void CbxTipoEmpleado_Selected(object sender, SelectionChangedEventArgs e)
+        {
+            TipoEmpleadoDto tipoSeleccionado = (TipoEmpleadoDto)cbxTipoEmpleado.SelectedItem;
+            if (tipoSeleccionado != null && tipoSeleccionado.IdTipoEmpleado == (int)EnumTiposEmpleado.Mesero)
+            {
+                BloquearCamposEmpleado();
+            }
+            else
+            {
+                DesBloquearCamposEmpleado();
+            }
+        }
+        private void RdbEmpleado_Checked(object sender, RoutedEventArgs e)
+        {
+            HabilitarSeccionEmpleado();
+        }
+        private void RdbCliente_Checked(object sender, RoutedEventArgs e)
+        {
+            DeshabilitarSeccionEmpleado();
+        }        
+
+        private void BtnVerContrasena_Leave(object sender, MouseEventArgs e)
+        {
+            OcultarContrasena();
+        }
+
+        private void BtnCancelarRegistro_Click(object sender, RoutedEventArgs e)
+        {
+            MostrarMensajeConfirmacion();
         }
 
         private void BtnGuardarUsuario_Click(object sender, RoutedEventArgs e)
@@ -139,6 +127,52 @@ namespace ItaliaPizza_Cliente.Vistas
             }
         }
 
+        private void ObtenerTiposEmpleados()
+        {
+            try
+            {
+                ServicioUsuariosClient proxyServicioUsuariosClient = new ServicioUsuariosClient();
+                _tiposEmpleados = proxyServicioUsuariosClient.RecuperarTiposEmpleado().ToList();
+                CargarTipoesEnLista(_tiposEmpleados);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                ManejadorVentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                ManejadorVentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+            {
+                ManejadorVentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (CommunicationException ex)
+            {
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+            }
+        }
+               
+        private void CargarTipoesEnLista(List<TipoEmpleadoDto> tiposEmpleadosRecuperados)
+        {
+            cbxTipoEmpleado.ItemsSource = tiposEmpleadosRecuperados;
+            cbxTipoEmpleado.DisplayMemberPath = "Nombre";
+        }        
+
         private void GuardarUsuario()
         {
             bool sePuedeGuardar;
@@ -174,15 +208,14 @@ namespace ItaliaPizza_Cliente.Vistas
             }
         }
 
-
         private bool ValidarCamposLlenosUsuario()
         {
             bool camposLlenos = true;
             List<CampoTextoConLabel> camposDeDatos = new List<CampoTextoConLabel>()
             {
-                new CampoTextoConLabel(txbNombre,lblNombreError), new CampoTextoConLabel(txb1erApellido,lbl1erApellidoError), new CampoTextoConLabel(txbTelefono,lblTelefonoError), 
-                new CampoTextoConLabel(txbCorreo,lblCorreoError),  new CampoTextoConLabel(txbCiudad,lblCiudadError),  new CampoTextoConLabel(txbColonia,lblColoniaError),  
-                new CampoTextoConLabel(txbCalle,lblCalleError),  new CampoTextoConLabel(txbCodigoPostal,lblCodigoError),  new CampoTextoConLabel(txbNumeroExterior,lblNumeroExtError)
+                new CampoTextoConLabel(tbxNombre,lblNombreError), new CampoTextoConLabel(tbx1erApellido,lbl1erApellidoError), new CampoTextoConLabel(tbxTelefono,lblTelefonoError), 
+                new CampoTextoConLabel(tbxCorreo,lblCorreoError),  new CampoTextoConLabel(tbxCiudad,lblCiudadError),  new CampoTextoConLabel(tbxColonia,lblColoniaError),  
+                new CampoTextoConLabel(tbxCalle,lblCalleError),  new CampoTextoConLabel(tbxCodigoPostal,lblCodigoError),  new CampoTextoConLabel(tbxNumeroExterior,lblNumeroExtError)
             };
             foreach (var campo in camposDeDatos)
             {
@@ -218,7 +251,7 @@ namespace ItaliaPizza_Cliente.Vistas
         private bool ValidarCamposLLenosEmpleado()
         {
             bool camposLlenos = true;
-            if (String.IsNullOrEmpty(txbNombreUsuario.Text.Trim()))
+            if (String.IsNullOrEmpty(tbxNombreUsuario.Text.Trim()))
             {
                 lblNombreUsuarioError.Content = CAMPO_VACIO;
                 camposLlenos = false;
@@ -227,7 +260,7 @@ namespace ItaliaPizza_Cliente.Vistas
             {
                 lblNombreUsuarioError.Content = String.Empty;
             }
-            if (String.IsNullOrEmpty(txbContrasena.Password.ToString().Trim()))
+            if (String.IsNullOrEmpty(pwbxContrasena.Password.ToString().Trim()))
             {
                 lblContrasena.Content = CAMPO_VACIO;
                 camposLlenos = false;
@@ -236,7 +269,7 @@ namespace ItaliaPizza_Cliente.Vistas
             {
                 lblContrasena.Content = String.Empty;
             }
-            if (cbmTipoEmpleado.SelectedItem == null)
+            if (cbxTipoEmpleado.SelectedItem == null)
             {
                 lblTipoEmpleadoError.Content = CAMPO_VACIO;
                 camposLlenos = false;
@@ -251,7 +284,7 @@ namespace ItaliaPizza_Cliente.Vistas
         private bool ValidarFormatosDeCampos()
         {
             bool formatosValidos = true;
-            if (!Regex.IsMatch(txbCorreo.Text.Trim().ToLower(), EMAIL_RULES_CHAR) || !Regex.IsMatch(txbCorreo.Text.Trim().ToLower(), EMAIL_ALLOW_CHAR))
+            if (!Regex.IsMatch(tbxCorreo.Text.Trim().ToLower(), EMAIL_RULES_CHAR) || !Regex.IsMatch(tbxCorreo.Text.Trim().ToLower(), EMAIL_ALLOW_CHAR))
             {
                 lblCorreoError.Content = CORREO_INVALIDO;
                 formatosValidos = false;
@@ -260,7 +293,7 @@ namespace ItaliaPizza_Cliente.Vistas
             {
                 lblCorreoError.Content = String.Empty;
             }
-            if(txbTelefono.Text.Length != 10)
+            if(tbxTelefono.Text.Length != 10)
             {
                 lblTelefonoError.Content = TELEFONO_INVALIDO;
                 formatosValidos = false;
@@ -277,9 +310,9 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             bool sonUnicos = true;
             ServicioUsuariosClient servicioUsuariosClient = new ServicioUsuariosClient();
-            if (txbContrasena.IsEnabled)
+            if (pwbxContrasena.IsEnabled)
             {
-                if (!servicioUsuariosClient.ValidarNombreDeUsuarioUnico(txbNombreUsuario.Text.Trim()))
+                if (!servicioUsuariosClient.ValidarNombreDeUsuarioUnico(tbxNombreUsuario.Text.Trim()))
                 {
                     sonUnicos = false;
                     lblNombreUsuarioError.Content = NOMBRE_USUARIO_REPETIDO;
@@ -289,7 +322,7 @@ namespace ItaliaPizza_Cliente.Vistas
                     lblNombreUsuarioError.Content = String.Empty;
                 }
             }
-            if (!servicioUsuariosClient.ValidarCorreoUnico(txbCorreo.Text.Trim().ToLower()))
+            if (!servicioUsuariosClient.ValidarCorreoUnico(tbxCorreo.Text.Trim().ToLower()))
             {
                 sonUnicos = false;
                 lblCorreoError.Content = CORREO_REPETIDO;
@@ -307,11 +340,11 @@ namespace ItaliaPizza_Cliente.Vistas
             return new DireccionDto()
             {
                 IdDireccion = 0,
-                Ciudad = txbCiudad.Text.Trim(),
-                Colonia = txbColonia.Text.Trim(),
-                Calle = txbCalle.Text.Trim(),
-                CodigoPostal = txbCodigoPostal.Text.Trim(),
-                Numero = int.Parse(txbNumeroExterior.Text.Trim())
+                Ciudad = tbxCiudad.Text.Trim(),
+                Colonia = tbxColonia.Text.Trim(),
+                Calle = tbxCalle.Text.Trim(),
+                CodigoPostal = tbxCodigoPostal.Text.Trim(),
+                Numero = int.Parse(tbxNumeroExterior.Text.Trim())
             };
         }
 
@@ -320,9 +353,9 @@ namespace ItaliaPizza_Cliente.Vistas
             return new UsuarioDto()
             {
                 IdUsuario = 0,
-                NombreCompleto = txbNombre.Text.Trim() + " " + txb1erApellido.Text.Trim() + " " + txb2doApellido.Text.Trim(),
-                NumeroTelefono = txbTelefono.Text.Trim(),
-                CorreoElectronico = txbCorreo.Text.Trim().ToLower(),
+                NombreCompleto = tbxNombre.Text.Trim() + " " + tbx1erApellido.Text.Trim() + " " + txb2doApellido.Text.Trim(),
+                NumeroTelefono = tbxTelefono.Text.Trim(),
+                CorreoElectronico = tbxCorreo.Text.Trim().ToLower(),
                 EsActivo = true,
                 IdDireccion = 0,
                 Direccion = direccionNueva
@@ -333,10 +366,10 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             return new EmpleadoDto()
             {
-                NombreUsuario = txbNombreUsuario.Text.Trim(),
-                Contraseña = CifradorContraseñas.EncriptarContraseña(txbContrasena.Password.Trim()),
-                IdTipoEmpleado = (cbmTipoEmpleado.SelectedItem as TipoEmpleadoDto).IdTipoEmpleado,
-                TipoEmpleado = (cbmTipoEmpleado.SelectedItem as TipoEmpleadoDto).Nombre,
+                NombreUsuario = tbxNombreUsuario.Text.Trim(),
+                Contraseña = CifradorContraseñas.EncriptarContraseña(pwbxContrasena.Password.Trim()),
+                IdTipoEmpleado = (cbxTipoEmpleado.SelectedItem as TipoEmpleadoDto).IdTipoEmpleado,
+                TipoEmpleado = (cbxTipoEmpleado.SelectedItem as TipoEmpleadoDto).Nombre,
                 IdUsuario = 0,
                 Usuario = usuarioNuevo
             };
@@ -364,32 +397,27 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void LimpiarCampos()
         {
-            txbNombre.Text = String.Empty;
-            txb1erApellido.Text = String.Empty;
+            tbxNombre.Text = String.Empty;
+            tbx1erApellido.Text = String.Empty;
             txb2doApellido.Text = String.Empty;
-            txbTelefono.Text = String.Empty;
-            txbCorreo.Text = String.Empty;
+            tbxTelefono.Text = String.Empty;
+            tbxCorreo.Text = String.Empty;
             rdbEmpleado.IsChecked = false;
             rdbCliente.IsChecked = false;
             rdbEmpleado.Background = new SolidColorBrush(Colors.WhiteSmoke);
             rdbCliente.Background = new SolidColorBrush(Colors.WhiteSmoke);
-            txbCiudad.Text = String.Empty;
-            txbColonia.Text = String.Empty;
-            txbCalle.Text = String.Empty;
-            txbCodigoPostal.Text = String.Empty;
-            txbNumeroExterior.Text = String.Empty;
-            txbNombreUsuario.Text = String.Empty;
-            txbContrasena.Password = String.Empty;
-            cbmTipoEmpleado.SelectedIndex = -1;
+            tbxCiudad.Text = String.Empty;
+            tbxColonia.Text = String.Empty;
+            tbxCalle.Text = String.Empty;
+            tbxCodigoPostal.Text = String.Empty;
+            tbxNumeroExterior.Text = String.Empty;
+            tbxNombreUsuario.Text = String.Empty;
+            pwbxContrasena.Password = String.Empty;
+            cbxTipoEmpleado.SelectedIndex = -1;
             brdCoverDatosEmpleado.Visibility = Visibility.Visible;
         }
 
-
-        private void RdbEmpleado_Checked(object sender, RoutedEventArgs e)
-        {
-            HabilitarSeccionEmpleado();
-        }
-
+        
         private void HabilitarSeccionEmpleado()
         {
             brdCoverDatosEmpleado.Visibility = Visibility.Collapsed;
@@ -397,80 +425,46 @@ namespace ItaliaPizza_Cliente.Vistas
             rdbCliente.Background = new SolidColorBrush(Colors.WhiteSmoke);
         }
 
-        private void RdbCliente_Checked(object sender, RoutedEventArgs e)
-        {
-            DeshabilitarSeccionEmpleado();
-        }
-
         private void DeshabilitarSeccionEmpleado()
         {
             brdCoverDatosEmpleado.Visibility = Visibility.Visible;
             rdbEmpleado.Background = new SolidColorBrush(Colors.WhiteSmoke);
             rdbCliente.Background = new SolidColorBrush(Colors.Black);
-            cbmTipoEmpleado.SelectedItem = null;
+            cbxTipoEmpleado.SelectedItem = null;
             DesBloquearCamposEmpleado();
-        }
-
-        private void CmbTipoEmpleado_Selected(object sender, SelectionChangedEventArgs e)
-        {
-            TipoEmpleadoDto tipoSeleccionado = (TipoEmpleadoDto)cbmTipoEmpleado.SelectedItem;
-            if (tipoSeleccionado != null && tipoSeleccionado.IdTipoEmpleado == (int)EnumTiposEmpleado.Mesero)
-            {
-                BloquearCamposEmpleado();
-            }
-            else
-            {
-                DesBloquearCamposEmpleado();
-            }
         }
 
         private void BloquearCamposEmpleado()
         {
-            txbNombreUsuario.Text = "Mesero";
-            txbNombreUsuario.IsEnabled = false;
-            txbContrasena.Password = "mesero";
-            txbContrasena.IsEnabled = false;
+            tbxNombreUsuario.Text = "Mesero";
+            tbxNombreUsuario.IsEnabled = false;
+            pwbxContrasena.Password = "mesero";
+            pwbxContrasena.IsEnabled = false;
         }
 
         private void DesBloquearCamposEmpleado()
         {
-            txbNombreUsuario.Text = String.Empty;
-            txbNombreUsuario.IsEnabled = true;
-            txbContrasena.Password = String.Empty;
-            txbContrasena.IsEnabled = true;
-        }
-
-
-        private void bttVerContrasena_Click(object sender, MouseButtonEventArgs e)
-        {
-            MostrarContrasena();
+            tbxNombreUsuario.Text = String.Empty;
+            tbxNombreUsuario.IsEnabled = true;
+            pwbxContrasena.Password = String.Empty;
+            pwbxContrasena.IsEnabled = true;
         }
 
         private void MostrarContrasena()
         {
-            lblContrasenaVer.Content = txbContrasena.Password.ToString();
-            txbContrasena.Visibility = Visibility.Hidden;
+            lblContrasenaVer.Content = pwbxContrasena.Password.ToString();
+            pwbxContrasena.Visibility = Visibility.Hidden;
             lblContrasenaVer.Visibility = Visibility.Visible;
-        }
-
-        private void bttVerContrasena_Leave(object sender, MouseEventArgs e)
-        {
-            OcultarContrasena();
         }
 
         private void OcultarContrasena()
         {
             if (lblContrasenaVer != null && lblContrasenaVer.IsVisible)
             {
-                txbContrasena.Password = lblContrasenaVer.Content.ToString();
-                txbContrasena.Visibility = Visibility.Visible;
+                pwbxContrasena.Password = lblContrasenaVer.Content.ToString();
+                pwbxContrasena.Visibility = Visibility.Visible;
                 lblContrasenaVer.Visibility = Visibility.Hidden;
             }
-        }
-
-        private void BtnCancelarRegistro_Click(object sender, RoutedEventArgs e)
-        {
-            MostrarMensajeConfirmacion();
         }
 
         private void MostrarMensajeConfirmacion()

@@ -32,6 +32,93 @@ namespace ItaliaPizza_Cliente
             this.Closing += MainWindow_Cerrando;
         }
 
+        private void BtnPedidoClick(object sender, RoutedEventArgs e)
+        {
+            RegistroPedido registroPedido = new RegistroPedido();
+            FrameNavigator.NavigationService.Navigate(registroPedido);
+        }
+
+        private void BtnProductoClick(object sender, RoutedEventArgs e)
+        {
+            Productos producto = new Productos();
+            FrameNavigator.NavigationService.Navigate(producto);
+        }
+
+        private void BtnUsuarioClick(object sender, RoutedEventArgs e)
+        {
+            Usuarios usuarios = new Usuarios();
+            FrameNavigator.NavigationService.Navigate(usuarios);
+        }
+
+        private void BtnRegistroUsuarioClick(object sender, RoutedEventArgs e)
+        {
+            RegistroUsuario registroUsuarios = new RegistroUsuario();
+            FrameNavigator.NavigationService.Navigate(registroUsuarios);
+        }
+
+        private void BtnRecetaClick(object sender, RoutedEventArgs e)
+        {
+            Recetas recetas = new Recetas();
+            FrameNavigator.NavigationService.Navigate(recetas);
+        }
+
+        private void BtnPedidosClick(object sender, RoutedEventArgs e)
+        {
+            ConsultaPedidos consultaPedidos = new ConsultaPedidos();
+            FrameNavigator.NavigationService.Navigate(consultaPedidos);
+        }
+
+        private void BtnOrdenesCompraClick(object sender, RoutedEventArgs e)
+        {
+            ConsultaOrdenesDeCompra consultaOrdenesDeCompra = new ConsultaOrdenesDeCompra();
+            FrameNavigator.NavigationService.Navigate(consultaOrdenesDeCompra);
+        }
+
+        private void BtnProveedores_Click(object sender, RoutedEventArgs e)
+        {
+            ConsultaProveedores paginaConsultaProveedores = new ConsultaProveedores();
+            FrameNavigator.NavigationService.Navigate(paginaConsultaProveedores);
+        }
+
+        private void BtnReporteProductos_Click(object sender, RoutedEventArgs e)
+        {
+            ReporteProductos paginaReporteProductos = new ReporteProductos(FrameNavigator);
+            paginaReporteProductos.ShowDialog();
+        }
+
+        private void MainWindow_Cerrando(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            CerrarSesion();
+        }
+
+        private void Salir_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            CerrarSesion();
+            IrInicioSesion();
+        }
+
+
+
+        private void GastosVarios_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            string nombre = lblNombre.Content.ToString();
+
+            if (!string.IsNullOrEmpty(nombre))
+            {
+                GastosVarios gastosGenerales = new GastosVarios(FrameNavigator);
+                gastosGenerales.ShowDialog();
+            }
+        }
+
+        private void CorteCaja_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (EmpleadoSingleton.getInstance().DatosEmpleado.IdTipoEmpleado == (int)EnumTiposEmpleado.Cajero)
+            {
+                RegistroCorteCaja registroCorteCaja = new RegistroCorteCaja(FrameNavigator);
+                registroCorteCaja.ShowDialog();
+            }
+        }
+
         public void FiltrarOpcionesPanelLateral(int idTipoEmpleado)
         {
             switch (idTipoEmpleado)
@@ -53,6 +140,16 @@ namespace ItaliaPizza_Cliente
                     break;
             }
         }
+        public void MostrarNombre(string nombreCompleto)
+        {
+            lblNombre.Content = nombreCompleto;
+        }
+
+        public void MostrarBotonAgregarGastosVarios()
+        {
+            grdGastos.Visibility = Visibility.Visible;
+        }
+
         private void OpcionesPanelAdmin()
         {         
             AgregarBotonConsultaUsuarios();
@@ -90,16 +187,6 @@ namespace ItaliaPizza_Cliente
             AgregarBotonPedidos();
         }
 
-        public void MostrarNombre(string nombreCompleto)
-        {
-            lblNombre.Content = nombreCompleto;
-        }
-
-        public void MostrarBotonAgregarGastosVarios()
-        {
-            gridGastos.Visibility = Visibility.Visible;
-        }
-
         private void AgregarBotonPedido()
         {
             BtnMenuLateral pedidos = new BtnMenuLateral();
@@ -107,13 +194,7 @@ namespace ItaliaPizza_Cliente
             pedidos.lblNombreBoton.Content = "Pedido";
             pedidos.BtnMenuLateralClicked += BtnPedidoClick;
             SkpMenuLateral.Children.Add(pedidos);
-        }
-
-        private void BtnPedidoClick(object sender, RoutedEventArgs e)
-        {
-            RegistroPedido registroPedido = new RegistroPedido();
-            FrameNavigator.NavigationService.Navigate(registroPedido);
-        }
+        }        
 
         private void AgregarBotonProductos()
         {
@@ -122,13 +203,7 @@ namespace ItaliaPizza_Cliente
             producto.lblNombreBoton.Content = "Productos";
             producto.BtnMenuLateralClicked += BtnProductoClick;
             SkpMenuLateral.Children.Add(producto);
-        }
-
-        private void BtnProductoClick(object sender, RoutedEventArgs e)
-        {
-            Productos producto = new Productos();
-            FrameNavigator.NavigationService.Navigate(producto);
-        }
+        }       
 
         private void AgregarBotonConsultaUsuarios()
         {
@@ -137,28 +212,7 @@ namespace ItaliaPizza_Cliente
             usuario.lblNombreBoton.Content = "Usuarios";
             usuario.BtnMenuLateralClicked += BtnUsuarioClick;
             SkpMenuLateral.Children.Add(usuario);
-        }
-
-        private void BtnUsuarioClick(object sender, RoutedEventArgs e)
-        {
-            Usuarios usuarios = new Usuarios();
-            FrameNavigator.NavigationService.Navigate(usuarios);
-        }
-
-        private void AgregarBotonRegistrarUsuarios()
-        {
-            BtnMenuLateral usuario = new BtnMenuLateral();
-            usuario.imgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_agregar_usuario.png", UriKind.Relative));
-            usuario.lblNombreBoton.Content = "Usuarios";
-            usuario.BtnMenuLateralClicked += BtnRegistroUsuarioClick;
-            SkpMenuLateral.Children.Add(usuario);
-        }
-
-        private void BtnRegistroUsuarioClick(object sender, RoutedEventArgs e)
-        {
-            RegistroUsuario registroUsuarios = new RegistroUsuario();
-            FrameNavigator.NavigationService.Navigate(registroUsuarios);
-        }
+        }         
 
         private void AgregarBotonRecetas()
         {
@@ -168,13 +222,7 @@ namespace ItaliaPizza_Cliente
             receta.lblNombreBoton.Content = "Recetas";
             receta.BtnMenuLateralClicked += BtnRecetaClick;
             SkpMenuLateral.Children.Add(receta);
-        }
-
-        private void BtnRecetaClick(object sender, RoutedEventArgs e)
-        {
-            Recetas recetas = new Recetas();
-            FrameNavigator.NavigationService.Navigate(recetas);
-        }
+        }       
 
         private void AgregarBotonPedidos()
         {
@@ -186,12 +234,6 @@ namespace ItaliaPizza_Cliente
             SkpMenuLateral.Children.Add(pedidos);
         }
 
-        private void BtnPedidosClick(object sender, RoutedEventArgs e)
-        {
-            ConsultaPedidos consultaPedidos = new ConsultaPedidos();
-            FrameNavigator.NavigationService.Navigate(consultaPedidos);
-        }
-
         private void AgregarBotonConsultaOrdenesDeCompra()
         {
             BtnMenuLateral ordenes = new BtnMenuLateral();
@@ -200,13 +242,7 @@ namespace ItaliaPizza_Cliente
             ordenes.lblNombreBoton.Content = "Ordenes";
             ordenes.BtnMenuLateralClicked += BtnOrdenesCompraClick;
             SkpMenuLateral.Children.Add(ordenes);
-        }
-
-        private void BtnOrdenesCompraClick(object sender, RoutedEventArgs e)
-        {
-            ConsultaOrdenesDeCompra consultaOrdenesDeCompra = new ConsultaOrdenesDeCompra();
-            FrameNavigator.NavigationService.Navigate(consultaOrdenesDeCompra);
-        }
+        }       
 
         private void AgregarBotonProveedores()
         {
@@ -215,13 +251,7 @@ namespace ItaliaPizza_Cliente
             proveedor.lblNombreBoton.Content = "Proveedores";
             proveedor.BtnMenuLateralClicked += BtnProveedores_Click;
             SkpMenuLateral.Children.Add(proveedor);
-        }
-
-        private void BtnProveedores_Click(object sender, RoutedEventArgs e)
-        {
-            ConsultaProveedores paginaConsultaProveedores = new ConsultaProveedores();
-            FrameNavigator.NavigationService.Navigate(paginaConsultaProveedores);
-        }
+        }    
 
         private void AgregarBotonReporteProductos()
         {
@@ -230,26 +260,7 @@ namespace ItaliaPizza_Cliente
             reprorteProductos.lblNombreBoton.Content = "Reportes";
             reprorteProductos.BtnMenuLateralClicked += BtnReporteProductos_Click;
             SkpMenuLateral.Children.Add(reprorteProductos);
-        }
-
-        private void BtnReporteProductos_Click(object sender, RoutedEventArgs e)
-        {
-            ReporteProductos paginaReporteProductos = new ReporteProductos(FrameNavigator);
-            paginaReporteProductos.ShowDialog();
-        }
-
-
-
-        private void MainWindow_Cerrando(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            CerrarSesion();
-        }
-
-        private void Salir_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            CerrarSesion();
-            IrInicioSesion();
-        }
+        }      
 
         private void IrInicioSesion()
         {
@@ -260,7 +271,7 @@ namespace ItaliaPizza_Cliente
 
         private void OcultarBotonGastosVarios()
         {
-            gridGastos.Visibility = Visibility.Collapsed;
+            grdGastos.Visibility = Visibility.Collapsed;
         }
 
         private void CerrarSesion()
@@ -302,25 +313,7 @@ namespace ItaliaPizza_Cliente
             EmpleadoSingleton.LimpiarSingleton();
         }
 
-        private void GastosVarios_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            string nombre = lblNombre.Content.ToString();
-
-            if (!string.IsNullOrEmpty(nombre))
-            {
-                GastosVarios gastosGenerales = new GastosVarios(FrameNavigator);
-                gastosGenerales.ShowDialog();
-            }
-        }
-
-        private void CorteCaja_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (EmpleadoSingleton.getInstance().DatosEmpleado.IdTipoEmpleado == (int)EnumTiposEmpleado.Cajero)
-            {
-                RegistroCorteCaja registroCorteCaja = new RegistroCorteCaja(FrameNavigator);
-                registroCorteCaja.ShowDialog();
-            }
-        }
+        
     } 
 
 }

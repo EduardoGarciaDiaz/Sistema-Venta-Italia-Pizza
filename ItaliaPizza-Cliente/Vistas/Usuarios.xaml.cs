@@ -25,11 +25,11 @@ namespace ItaliaPizza_Cliente.Vistas
     /// </summary>
     public partial class Usuarios : Page
     {
-        private List<UsuarioDto> clientes;
-        private List<EmpleadoDto> empleados;
-        private List<TipoEmpleadoDto> tiposEmpleado;
-        private List<ElementoUsuario> usuariosActuales;
-        private int tipoUsuarioActual = 0;
+        private List<UsuarioDto> _clientes;
+        private List<EmpleadoDto> _empleados;
+        private List<TipoEmpleadoDto> _tiposEmpleado;
+        private List<ElementoUsuario> _usuariosActuales;
+        private int _tipoUsuarioActual = 0;
 
         public Usuarios()
         {
@@ -40,8 +40,8 @@ namespace ItaliaPizza_Cliente.Vistas
         private void PrepararVentana(object sender, RoutedEventArgs e)
         {
             ObtenerUusuarios();
-            MostrarUsuarios(clientes, empleados);
-            CargarTiposEmpleados(tiposEmpleado);
+            MostrarUsuarios(_clientes, _empleados);
+            CargarTiposEmpleados(_tiposEmpleado);
             barraBusquedaUsuario.Background = new SolidColorBrush(Colors.White);
             barraBusquedaUsuario.ImgBuscarClicked += ImgBuscar_Click;
             barraBusquedaUsuario.plhrPista.Text = "Busca un Usuario por nombre, direccion o telefono...";
@@ -88,57 +88,6 @@ namespace ItaliaPizza_Cliente.Vistas
             }
         }
 
-        private void ObtenerEmpleados()
-        {
-            ServicioUsuariosClient servicioUsuariosClient = new ServicioUsuariosClient();
-            empleados = servicioUsuariosClient.RecuperarEmpleados().ToList();
-        }
-
-        private void ObtenerClientes()
-        {
-            ServicioUsuariosClient servicioUsuariosClient = new ServicioUsuariosClient();
-            clientes = servicioUsuariosClient.RecuperarClientes().ToList();
-        }
-
-        private void ObtenerTiposEmpleados()
-        {
-            ServicioUsuariosClient servicioUsuariosClient = new ServicioUsuariosClient();
-            tiposEmpleado = servicioUsuariosClient.RecuperarTiposEmpleado().ToList();
-        }
-
-        private void MostrarUsuarios(List<UsuarioDto> listaClientes, List<EmpleadoDto> listaEmpleados)
-        {
-            wrpUsuariosLista.Children.Clear();
-            foreach (var item in listaEmpleados)
-            {
-                ElementoUsuario elementoUsuario = new ElementoUsuario(item);
-                elementoUsuario.BtnModificarUsuarioClicked += BtnModificarUsuario_Click;
-                elementoUsuario.BtnDesactivarActivarUsuarioClicked += BtnDesactivarActivar_Click;
-                wrpUsuariosLista.Children.Add(elementoUsuario);
-            }
-            foreach (var item in listaClientes)
-            {
-                ElementoUsuario elementoUsuario = new ElementoUsuario(item);
-
-                elementoUsuario.BtnModificarUsuarioClicked += BtnModificarUsuario_Click;
-                elementoUsuario.BtnDesactivarActivarUsuarioClicked += BtnDesactivarActivar_Click;
-                wrpUsuariosLista.Children.Add(elementoUsuario);
-            }
-            usuariosActuales = ObtenerUsuariosVisibles();
-        }
-
-        private void CargarTiposEmpleados(List<TipoEmpleadoDto> puestos)
-        {
-            foreach (var item in puestos)
-            {
-                ListBoxItem lbiTipoEmpleado = new ListBoxItem();
-                lbiTipoEmpleado.Name = "_"+item.IdTipoEmpleado.ToString();
-                lbiTipoEmpleado.Content = item.Nombre;
-                lbiTipoEmpleado.Style = (Style)FindResource("ListItem");                
-                ltbListaTiposEmpleados.Items.Add(lbiTipoEmpleado);
-            }
-        }
-
         private void BtnModificarUsuario_Click(object sender, EventArgs e)
         {
             ElementoUsuario elementoUsuario = sender as ElementoUsuario;
@@ -148,12 +97,12 @@ namespace ItaliaPizza_Cliente.Vistas
             {
                 EmpleadoDto empleado = elementoUsuario.Empleado;
                 paginaEdicionUsuario = new EdicionUsuario(empleado);
-            } else
+            }
+            else
             {
                 UsuarioDto usuario = elementoUsuario.Usuario;
                 paginaEdicionUsuario = new EdicionUsuario(usuario);
             }
-
             NavigationService.Navigate(paginaEdicionUsuario);
         }
 
@@ -216,10 +165,138 @@ namespace ItaliaPizza_Cliente.Vistas
             {
                 ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
                 ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
-            }          
+            }
 
         }
 
+        private void BtnFiltrosEmpleados_Click(object sender, MouseButtonEventArgs e)
+        {
+            if (lbxListaTiposEmpleados.IsVisible)
+            {
+                lbxListaTiposEmpleados.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                lbxListaTiposEmpleados.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void BtnTodos_Click(object sender, RoutedEventArgs e)
+        {
+            RemoverFiltrosTipoEmpleados();
+            btnFiltros.IsEnabled = false;
+            lbxListaTiposEmpleados.Visibility = Visibility.Hidden;
+            _tipoUsuarioActual = 0;
+            ResaltarFiltroSeleccionado(brdTodos);
+            MostrarCoincidencias(_usuariosActuales);
+        }
+
+        private void BtnEmpleados_Click(object sender, RoutedEventArgs e)
+        {
+            btnFiltros.IsEnabled = true;
+            _tipoUsuarioActual = 1;
+            ResaltarFiltroSeleccionado(brdEmpleados);
+            List<ElementoUsuario> usuariosFiltrados = _usuariosActuales.Where(usuario => usuario.Empleado != null).ToList();
+            MostrarCoincidencias(usuariosFiltrados);
+        }
+
+        private void BtnClientes_Click(object sender, RoutedEventArgs e)
+        {
+            RemoverFiltrosTipoEmpleados();
+            btnFiltros.IsEnabled = false;
+            lbxListaTiposEmpleados.Visibility = Visibility.Hidden;
+            _tipoUsuarioActual = 2;
+            ResaltarFiltroSeleccionado(brdClientes);
+            List<ElementoUsuario> usuariosFiltrados = _usuariosActuales.Where(usuario => usuario.Empleado == null).ToList();
+            MostrarCoincidencias(usuariosFiltrados);
+        }
+
+        private void BtnQuitarFiltroEmpleado_Click(object sender, MouseButtonEventArgs e)
+        {
+            Image imgBorrarTipoEmpleado = sender as Image;
+            StackPanel spnTipoEmpleado = imgBorrarTipoEmpleado.Parent as StackPanel;
+            Border brdTipoEmpleado = spnTipoEmpleado.Parent as Border;
+            String nombreTipoEmpleado = ObtenerLabelTipoEmpleado(brdTipoEmpleado).Content.ToString();
+            int columnaDeReferencia = Grid.GetColumn(brdTipoEmpleado);
+            LimpiarFiltrosTipoEmpleado(columnaDeReferencia);
+            FiltrarEmpleados(_usuariosActuales.Where(usuario => usuario.Empleado != null).ToList());
+            ListBoxItem lbiTipoEmpleado = new ListBoxItem();
+            lbiTipoEmpleado.Name = "_" + _tiposEmpleado.FirstOrDefault(tipo => tipo.Nombre.Equals(nombreTipoEmpleado)).IdTipoEmpleado;
+            lbiTipoEmpleado.Content = _tiposEmpleado.FirstOrDefault(tipo => tipo.Nombre.Equals(nombreTipoEmpleado)).Nombre;
+            lbiTipoEmpleado.Style = (Style)FindResource("ListItem");
+            lbxListaTiposEmpleados.Items.Add(lbiTipoEmpleado);
+        }
+
+        private void ImgBuscar_Click(object sender, EventArgs e)
+        {
+            FiltrarUsuariosPorBusqueda();
+        }
+
+        private void BtnRegistrarUsuario_Click(object sender, RoutedEventArgs e)
+        {
+            RegistroUsuario paginaRegistroUsuario = new RegistroUsuario();
+            MainWindow ventanaPrincipal = (MainWindow)Window.GetWindow(this);
+            ventanaPrincipal.FrameNavigator.NavigationService.Navigate(paginaRegistroUsuario);
+        }
+
+        private void TiposEmpleados_Selection(object sender, SelectionChangedEventArgs e)
+        {
+            SeleccionarFiltroTipoEmpleado();
+        }
+
+
+        private void ObtenerEmpleados()
+        {
+            ServicioUsuariosClient servicioUsuariosClient = new ServicioUsuariosClient();
+            _empleados = servicioUsuariosClient.RecuperarEmpleados().ToList();
+        }
+
+        private void ObtenerClientes()
+        {
+            ServicioUsuariosClient servicioUsuariosClient = new ServicioUsuariosClient();
+            _clientes = servicioUsuariosClient.RecuperarClientes().ToList();
+        }
+
+        private void ObtenerTiposEmpleados()
+        {
+            ServicioUsuariosClient servicioUsuariosClient = new ServicioUsuariosClient();
+            _tiposEmpleado = servicioUsuariosClient.RecuperarTiposEmpleado().ToList();
+        }
+
+        private void MostrarUsuarios(List<UsuarioDto> listaClientes, List<EmpleadoDto> listaEmpleados)
+        {
+            wrpUsuariosLista.Children.Clear();
+            foreach (var item in listaEmpleados)
+            {
+                ElementoUsuario elementoUsuario = new ElementoUsuario(item);
+                elementoUsuario.BtnModificarUsuarioClicked += BtnModificarUsuario_Click;
+                elementoUsuario.BtnDesactivarActivarUsuarioClicked += BtnDesactivarActivar_Click;
+                wrpUsuariosLista.Children.Add(elementoUsuario);
+            }
+            foreach (var item in listaClientes)
+            {
+                ElementoUsuario elementoUsuario = new ElementoUsuario(item);
+
+                elementoUsuario.BtnModificarUsuarioClicked += BtnModificarUsuario_Click;
+                elementoUsuario.BtnDesactivarActivarUsuarioClicked += BtnDesactivarActivar_Click;
+                wrpUsuariosLista.Children.Add(elementoUsuario);
+            }
+            _usuariosActuales = ObtenerUsuariosVisibles();
+        }
+
+        private void CargarTiposEmpleados(List<TipoEmpleadoDto> puestos)
+        {
+            foreach (var item in puestos)
+            {
+                ListBoxItem lbxiTipoEmpleado = new ListBoxItem();
+                lbxiTipoEmpleado.Name = "_"+item.IdTipoEmpleado.ToString();
+                lbxiTipoEmpleado.Content = item.Nombre;
+                lbxiTipoEmpleado.Style = (Style)FindResource("ListItem");                
+                lbxListaTiposEmpleados.Items.Add(lbxiTipoEmpleado);
+            }
+        }
+
+      
         private bool DesactivarActivarUsuario(int idUsuario, bool esEmpelado, bool desactivar, ElementoUsuario usuario)
         {
             ServicioUsuariosClient servicioUsuariosClient = new ServicioUsuariosClient();
@@ -270,84 +347,19 @@ namespace ItaliaPizza_Cliente.Vistas
             brdEmpleados.Background = new SolidColorBrush(Colors.Transparent);
             brdTodos.Background = new SolidColorBrush(Colors.Transparent);
             borderSeleccionado.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F8D72A"));            
-        }
-
-       
-
-        private void BtnFiltrosEmpleados_Click(object sender, MouseButtonEventArgs e)
-        {
-            if (ltbListaTiposEmpleados.IsVisible)
-            {
-                ltbListaTiposEmpleados.Visibility = Visibility.Hidden;
-            }
-            else
-            {
-                ltbListaTiposEmpleados.Visibility = Visibility.Visible;
-            }
-        }
-
-        private void BtnTodos_Click(object sender, RoutedEventArgs e)
-        {
-            RemoverFiltrosTipoEmpleados();
-            btnFiltros.IsEnabled = false;
-            ltbListaTiposEmpleados.Visibility = Visibility.Hidden;
-            tipoUsuarioActual = 0;
-            ResaltarFiltroSeleccionado(brdTodos);
-            MostrarCoincidencias(usuariosActuales);
-        }
-
-        private void BtnEmpleados_Click(object sender, RoutedEventArgs e)
-        {
-            btnFiltros.IsEnabled = true;
-            tipoUsuarioActual = 1;
-            ResaltarFiltroSeleccionado(brdEmpleados);
-            List<ElementoUsuario> usuariosFiltrados = usuariosActuales.Where(usuario => usuario.Empleado != null).ToList();
-            MostrarCoincidencias(usuariosFiltrados);
-        }
-
-        private void BtnClientes_Click(object sender, RoutedEventArgs e)
-        {
-            RemoverFiltrosTipoEmpleados();
-            btnFiltros.IsEnabled = false;
-            ltbListaTiposEmpleados.Visibility = Visibility.Hidden;
-            tipoUsuarioActual = 2;
-            ResaltarFiltroSeleccionado(brdClientes);
-            List<ElementoUsuario> usuariosFiltrados = usuariosActuales.Where(usuario => usuario.Empleado == null).ToList();
-            MostrarCoincidencias(usuariosFiltrados);
-        }
-
-        private void TiposEmpleados_Selection(object sender, SelectionChangedEventArgs e)
-        {
-            SeleccionarFiltroTipoEmpleado();
-        }
+        }       
 
         private void SeleccionarFiltroTipoEmpleado()
         {
-            ListBoxItem itemSeleccionado = ltbListaTiposEmpleados.SelectedItem as ListBoxItem;
+            ListBoxItem itemSeleccionado = lbxListaTiposEmpleados.SelectedItem as ListBoxItem;
             if (itemSeleccionado != null)
             {
-                ltbListaTiposEmpleados.Items.Remove(itemSeleccionado);
+                lbxListaTiposEmpleados.Items.Remove(itemSeleccionado);
                 AgregarFiltroDeTipoEmpleado(itemSeleccionado);
-                FiltrarEmpleados(usuariosActuales.Where(usuario => usuario.Empleado != null).ToList());
-                ltbListaTiposEmpleados.Visibility = Visibility.Hidden;
+                FiltrarEmpleados(_usuariosActuales.Where(usuario => usuario.Empleado != null).ToList());
+                lbxListaTiposEmpleados.Visibility = Visibility.Hidden;
             }
-        }
-
-        private void BtnQuitarFiltroEmpleado_Click(object sender, MouseButtonEventArgs e)
-        {
-            Image imgBorrarTipoEmpleado = sender as Image;
-            StackPanel spnTipoEmpleado = imgBorrarTipoEmpleado.Parent as StackPanel;
-            Border brdTipoEmpleado = spnTipoEmpleado.Parent as Border;
-            String nombreTipoEmpleado = ObtenerLabeTipoEMpleado(brdTipoEmpleado).Content.ToString();
-            int columnaDeReferencia = Grid.GetColumn(brdTipoEmpleado);
-            LimpiarFiltrosTipoEmpleado(columnaDeReferencia);
-            FiltrarEmpleados(usuariosActuales.Where(usuario => usuario.Empleado != null).ToList());
-            ListBoxItem lbiTipoEmpleado = new ListBoxItem();
-            lbiTipoEmpleado.Name = "_" + tiposEmpleado.FirstOrDefault(tipo => tipo.Nombre.Equals(nombreTipoEmpleado)).IdTipoEmpleado;
-            lbiTipoEmpleado.Content = tiposEmpleado.FirstOrDefault(tipo => tipo.Nombre.Equals(nombreTipoEmpleado)).Nombre;
-            lbiTipoEmpleado.Style = (Style)FindResource("ListItem");
-            ltbListaTiposEmpleados.Items.Add(lbiTipoEmpleado);
-        }
+        }            
 
         private void LimpiarFiltrosTipoEmpleado(int columnaDeReferencia)
         {
@@ -357,10 +369,10 @@ namespace ItaliaPizza_Cliente.Vistas
                 {
                     Border borderDetino = grdFiltros.Children[i] as Border;
                     Border borderSigueinte = grdFiltros.Children[i + 1] as Border;
-                    Label labelDestino = ObtenerLabeTipoEMpleado(borderDetino);
+                    Label labelDestino = ObtenerLabelTipoEmpleado(borderDetino);
                     if (borderSigueinte.Visibility == Visibility.Visible)
                     {
-                        Label labelSiguiente = ObtenerLabeTipoEMpleado(borderSigueinte);
+                        Label labelSiguiente = ObtenerLabelTipoEmpleado(borderSigueinte);
                         labelDestino.Content = labelSiguiente.Content;
                     }
                     else
@@ -373,7 +385,7 @@ namespace ItaliaPizza_Cliente.Vistas
                 else
                 {
                     Border borderDetino = grdFiltros.Children[i] as Border;
-                    Label labelDestino = ObtenerLabeTipoEMpleado(borderDetino);
+                    Label labelDestino = ObtenerLabelTipoEmpleado(borderDetino);
                     labelDestino.Content = String.Empty;
                     grdFiltros.Children[i].Visibility = Visibility.Collapsed;
                 }
@@ -385,26 +397,26 @@ namespace ItaliaPizza_Cliente.Vistas
             if (brdFiltro1.Visibility == Visibility.Collapsed)
             {
                 brdFiltro1.Visibility = Visibility.Visible;
-                Label lblFiltro1 = ObtenerLabeTipoEMpleado(brdFiltro1);
+                Label lblFiltro1 = ObtenerLabelTipoEmpleado(brdFiltro1);
                 lblFiltro1.Content = itemSeleciconado.Content;
             }
             else if (brdFiltro2.Visibility == Visibility.Collapsed)
             {
                 brdFiltro2.Visibility = Visibility.Visible;
-                Label lblFiltro2 = ObtenerLabeTipoEMpleado(brdFiltro2);
+                Label lblFiltro2 = ObtenerLabelTipoEmpleado(brdFiltro2);
                 lblFiltro2.Content = itemSeleciconado.Content;
             }
             else if (brdFiltro3.Visibility == Visibility.Collapsed)
             {
                 brdFiltro3.Visibility = Visibility.Visible;
-                Label labelFiltro3 = ObtenerLabeTipoEMpleado(brdFiltro3);
+                Label labelFiltro3 = ObtenerLabelTipoEmpleado(brdFiltro3);
                 labelFiltro3.Content = itemSeleciconado.Content;
 
             }
             else if (brdFiltro4.Visibility == Visibility.Collapsed)
             {
                 brdFiltro4.Visibility = Visibility.Visible;
-                Label lblFiltro4 = ObtenerLabeTipoEMpleado(brdFiltro4);
+                Label lblFiltro4 = ObtenerLabelTipoEmpleado(brdFiltro4);
                 lblFiltro4.Content = itemSeleciconado.Content;
             }
         }
@@ -418,26 +430,26 @@ namespace ItaliaPizza_Cliente.Vistas
             List<ElementoUsuario> puesto4;
             if (brdFiltro1.Visibility != Visibility.Collapsed)
             {
-                Label lblFiltro1 = ObtenerLabeTipoEMpleado(brdFiltro1);
+                Label lblFiltro1 = ObtenerLabelTipoEmpleado(brdFiltro1);
                 puesto1 = empleados.Where(usuario => usuario.lblTipoEmpleado.Text.Equals(lblFiltro1.Content)).ToList();
                 empleadosFiltrados.AddRange(puesto1);
 
                 if (brdFiltro2.Visibility != Visibility.Collapsed)
                 {
 
-                    Label lblFiltro2 = ObtenerLabeTipoEMpleado(brdFiltro2);
+                    Label lblFiltro2 = ObtenerLabelTipoEmpleado(brdFiltro2);
                     puesto2 = empleados.Where(usuario => usuario.lblTipoEmpleado.Text.Equals(lblFiltro2.Content)).ToList();
                     empleadosFiltrados.AddRange(puesto2);
                     if (brdFiltro3.Visibility != Visibility.Collapsed)
                     {
 
-                        Label labelFiltro3 = ObtenerLabeTipoEMpleado(brdFiltro3);
+                        Label labelFiltro3 = ObtenerLabelTipoEmpleado(brdFiltro3);
                         puesto3 = empleados.Where(usuario => usuario.lblTipoEmpleado.Text.Equals(labelFiltro3.Content)).ToList();
                         empleadosFiltrados.AddRange(puesto3);
                         if (brdFiltro4.Visibility != Visibility.Collapsed)
                         {
 
-                            Label lblFiltro4 = ObtenerLabeTipoEMpleado(brdFiltro4);
+                            Label lblFiltro4 = ObtenerLabelTipoEmpleado(brdFiltro4);
                             puesto4 = empleados.Where(usuario => usuario.lblTipoEmpleado.Text.Equals(lblFiltro4.Content)).ToList();
                             empleadosFiltrados.AddRange(puesto4);
                         }
@@ -459,30 +471,26 @@ namespace ItaliaPizza_Cliente.Vistas
             {
                 if (item.Visibility == Visibility.Visible)
                 { 
-                    Label label = ObtenerLabeTipoEMpleado(item);
+                    Label label = ObtenerLabelTipoEmpleado(item);
                     ListBoxItem lbiTipoEmpleado = new ListBoxItem();
-                    lbiTipoEmpleado.Name = "_" + tiposEmpleado.FirstOrDefault(tipo => tipo.Nombre.Equals(label.Content)).IdTipoEmpleado;
-                    lbiTipoEmpleado.Content = tiposEmpleado.FirstOrDefault(tipo => tipo.Nombre.Equals(label.Content)).Nombre;
+                    lbiTipoEmpleado.Name = "_" + _tiposEmpleado.FirstOrDefault(tipo => tipo.Nombre.Equals(label.Content)).IdTipoEmpleado;
+                    lbiTipoEmpleado.Content = _tiposEmpleado.FirstOrDefault(tipo => tipo.Nombre.Equals(label.Content)).Nombre;
                     lbiTipoEmpleado.Style = (Style)FindResource("ListItem");
-                    ltbListaTiposEmpleados.Items.Add(lbiTipoEmpleado);
+                    lbxListaTiposEmpleados.Items.Add(lbiTipoEmpleado);
                     label.Content = String.Empty;
                     item.Visibility = Visibility.Collapsed;
                 }
             }
         }
 
-        private void ImgBuscar_Click(object sender, EventArgs e)
-        {
-            FiltrarUsuariosPorBusqueda();
-        }
 
         private void FiltrarUsuariosPorBusqueda()
         {
             string criterioBusqueda = barraBusquedaUsuario.tbxBusqueda.Text.Trim().ToLower();
-            List<ElementoUsuario> usuariosFiltrados = usuariosActuales.Where(usuario => usuario.lblNombre.Text.ToLower().Contains(criterioBusqueda) ||
+            List<ElementoUsuario> usuariosFiltrados = _usuariosActuales.Where(usuario => usuario.lblNombre.Text.ToLower().Contains(criterioBusqueda) ||
                                                                                       usuario.lblDireccion.Text.ToLower().Contains(criterioBusqueda) ||
                                                                                       usuario.lblTelefono.Text.ToLower().Contains(criterioBusqueda)).ToList(); 
-            switch (tipoUsuarioActual)
+            switch (_tipoUsuarioActual)
             {
                 case 0:
                     MostrarCoincidencias(usuariosFiltrados);
@@ -503,9 +511,9 @@ namespace ItaliaPizza_Cliente.Vistas
             List<ElementoUsuario> usuariosAVisibles = new List<ElementoUsuario>();
             foreach (UIElement elemento in wrpUsuariosLista.Children)
             {
-                if (elemento is ElementoUsuario)
+                if (elemento is ElementoUsuario usuario)
                 {
-                    usuariosAVisibles.Add((ElementoUsuario)elemento);
+                    usuariosAVisibles.Add(usuario);
                 }
             }
             return usuariosAVisibles;
@@ -521,18 +529,12 @@ namespace ItaliaPizza_Cliente.Vistas
             }
         }
 
-        private Label ObtenerLabeTipoEMpleado(Border border)
+        private Label ObtenerLabelTipoEmpleado(Border border)
         {
             StackPanel children = (StackPanel)border.Child;
             Label label = (Label)children.Children[0];
             return label;
         }
 
-        private void BtnRegistrarUsuario_Click(object sender, RoutedEventArgs e)
-        {
-            RegistroUsuario paginaRegistroUsuario = new RegistroUsuario();
-            MainWindow ventanaPrincipal = (MainWindow) Window.GetWindow(this);
-            ventanaPrincipal.FrameNavigator.NavigationService.Navigate(paginaRegistroUsuario);
-        }
     }
 }

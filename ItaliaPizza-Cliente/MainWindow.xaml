@@ -78,7 +78,7 @@
                     MouseLeftButtonDown="Salir_MouseLeftButtonDown" Margin="0,0,0,175" Grid.RowSpan="2"/>
 
             <!--gasto general-->
-            <Grid x:Name="gridGastos" Grid.Row="0" Grid.Column="4" Cursor="Hand" Visibility="Collapsed" >
+            <Grid x:Name="grdGastos" Grid.Row="0" Grid.Column="4" Cursor="Hand" Visibility="Collapsed" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="29*"/>
                     <RowDefinition Height="12*"/>
