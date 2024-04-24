@@ -24,16 +24,13 @@ namespace ItaliaPizza_Cliente.Vistas
     public partial class GastosVarios : Window
     {
         private const int VENTANA_INFORMACION = 2;
-        private readonly Window _mainWindow;
         private readonly Window _windowOrigen;
-        private Frame _frameNavigator;
 
-        public GastosVarios(Frame frameNavigator, Window windowOrigen)
+        public GastosVarios(Window windowOrigen)
         {
             InitializeComponent();
-            _mainWindow = Application.Current.MainWindow;
             _windowOrigen = windowOrigen;
-            ConfigurarVentana(frameNavigator);
+            ConfigurarVentana();
             CargarFechaActual();
             CargarUsuario();
         }
@@ -243,24 +240,22 @@ namespace ItaliaPizza_Cliente.Vistas
             this.Close();
         }
 
-        private void ConfigurarVentana(Frame frameNavigator)
+        private void ConfigurarVentana()
         {
-            _frameNavigator = frameNavigator;
-            this.Owner = _mainWindow;
             SetSizeWindow();
             SetCenterWindow();
         }
 
         private void SetSizeWindow()
         {
-            this.Width = _mainWindow.Width;
-            this.Height = _mainWindow.Height;
+            this.Width = _windowOrigen.Width;
+            this.Height = _windowOrigen.Height;
         }
 
         private void SetCenterWindow()
         {
-            double centerX = _mainWindow.Left + (_mainWindow.Width - this.Width) / 2;
-            double centerY = _mainWindow.Top + (_mainWindow.Height - this.Height) / 2;
+            double centerX = _windowOrigen.Left + (_windowOrigen.Width - this.Width) / 2;
+            double centerY = _windowOrigen.Top + (_windowOrigen.Height - this.Height) / 2;
             this.Left = centerX;
             this.Top = centerY;
         }

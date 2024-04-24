@@ -81,7 +81,7 @@
             <Border Margin="0,-1,720,1"  Background="#FF161515" Opacity="1">
                 <Canvas Margin="0,2,0,0" >
                     <Label Content="Iniciar sesión" Style="{StaticResource subTitleLabel}" Canvas.Left="135" Canvas.Top="249" HorizontalAlignment="Center" VerticalAlignment="Top" Width="318" Foreground="White" FontFamily="Humnst777 BlkCn BT" FontSize="40" HorizontalContentAlignment="Center"/>
-                    <TextBox  x:Name="txbNombreUsuario" MaxLength="30" VerticalContentAlignment="Center" FontSize="32" FontWeight="SemiBold" Padding="5" BorderThickness="0,0,0,0" RenderTransformOrigin="0.5,0.5" Canvas.Left="83" Canvas.Top="364" Height="56" Width="410" HorizontalAlignment="Center" VerticalAlignment="Top" Background="#FFAE986F" >
+                    <TextBox  x:Name="txbNombreUsuario" MaxLength="30" VerticalContentAlignment="Center" FontSize="32" FontWeight="SemiBold" Padding="5" BorderThickness="0,0,0,0" RenderTransformOrigin="0.5,0.5" Canvas.Left="83" Canvas.Top="364" Height="56" Width="410" HorizontalAlignment="Center" VerticalAlignment="Top" Background="#FFAE986F" Foreground="White" >
                         <TextBox.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="10"/>
@@ -89,7 +89,7 @@
                         </TextBox.Resources>
                     </TextBox>
 
-                    <PasswordBox  x:Name="txbContrasena" Style="{StaticResource RoundedPasswordBox}" MaxLength="20"  VerticalContentAlignment="Center" FontSize="32" FontWeight="SemiBold" Padding="5" BorderThickness="3" RenderTransformOrigin="0.5,0.5" Canvas.Left="85" Canvas.Top="474" Height="56" Width="410" HorizontalAlignment="Center" VerticalAlignment="Top" BorderBrush="{x:Null}" Background="#FF6A73A3" >
+                    <PasswordBox  x:Name="txbContrasena" Style="{StaticResource RoundedPasswordBox}" MaxLength="20"  VerticalContentAlignment="Center" FontSize="32" FontWeight="SemiBold" Padding="5" BorderThickness="3" RenderTransformOrigin="0.5,0.5" Canvas.Left="85" Canvas.Top="474" Height="56" Width="410" HorizontalAlignment="Center" VerticalAlignment="Top" BorderBrush="{x:Null}" Background="#FF6A73A3" Foreground="White" >
 
                     </PasswordBox>
 

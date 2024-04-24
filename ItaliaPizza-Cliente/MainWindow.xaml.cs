@@ -297,7 +297,7 @@ namespace ItaliaPizza_Cliente
 
             if (!string.IsNullOrEmpty(nombre))
             {
-                GastosVarios gastosGenerales = new GastosVarios(FrameNavigator, this);
+                GastosVarios gastosGenerales = new GastosVarios(this);
                 gastosGenerales.ShowDialog();
             }
         }
@@ -306,7 +306,7 @@ namespace ItaliaPizza_Cliente
         {
             if (EmpleadoSingleton.getInstance().DatosEmpleado.IdTipoEmpleado == (int)EnumTiposEmpleado.Cajero)
             {
-                RegistroCorteCaja registroCorteCaja = new RegistroCorteCaja(FrameNavigator, this);
+                RegistroCorteCaja registroCorteCaja = new RegistroCorteCaja(this);
                 registroCorteCaja.ShowDialog();
             }
         }

@@ -33,16 +33,13 @@ namespace ItaliaPizza_Cliente.Vistas
         private double _diferencia = 0;
         private bool _existeCorteCaja = false;
         private const int VENTANA_INFORMACION = 2;
-        private readonly Window _mainWindow;
-        private Frame _frameNavigator;
         private readonly Window _windowOrigen;
 
-        public RegistroCorteCaja(Frame frameNavigator, Window windowOrigen)
+        public RegistroCorteCaja(Window windowOrigen)
         {
             InitializeComponent();
-            _mainWindow = Application.Current.MainWindow;
             _windowOrigen = windowOrigen;
-            ConfigurarVentana(frameNavigator);
+            ConfigurarVentana();
             _fechaSeleccionada = DateTime.Now;
             this.Loaded += PrepararDatos;
         }
@@ -345,24 +342,23 @@ namespace ItaliaPizza_Cliente.Vistas
             this.Close();
         }
 
-        private void ConfigurarVentana(Frame frameNavigator)
-        {
-            _frameNavigator = frameNavigator;
-            this.Owner = _mainWindow;
+        private void ConfigurarVentana()
+        {            
             SetSizeWindow();
             SetCenterWindow();
+
         }
 
         private void SetSizeWindow()
         {
-            this.Width = _mainWindow.Width;
-            this.Height = _mainWindow.Height;
+            this.Width = _windowOrigen.Width;
+            this.Height = _windowOrigen.Height;
         }
 
         private void SetCenterWindow()
         {
-            double centerX = _mainWindow.Left + (_mainWindow.Width - this.Width) / 2;
-            double centerY = _mainWindow.Top + (_mainWindow.Height - this.Height) / 2;
+            double centerX = _windowOrigen.Left + (_windowOrigen.Width - this.Width) / 2;
+            double centerY = _windowOrigen.Top + (_windowOrigen.Height - this.Height) / 2;
             this.Left = centerX;
             this.Top = centerY;
         }
