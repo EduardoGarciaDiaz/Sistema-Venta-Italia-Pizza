@@ -39,6 +39,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private List<PedidoConsultaDTO> _pedidos;
         private Pedido _pedidoSeleccionado;
+        public bool _esPrimeraVezEnMostrarse = true;
 
         public ConsultaPedidos()
         {
@@ -48,14 +49,52 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void ConsultaPedidos_Loaded(object sender, RoutedEventArgs e)
         {
-            this.BqdClientes.Placeholder.Text = "Ingresa nombre de cliente...";
-            this.BqdClientes.ImgBuscarClicked += ImgBuscarPedidoPorCliente;
-            lbEnProceso.Tag = (int)EnumEstadosPedido.EnProceso;
-            lbPreparados.Tag = (int)EnumEstadosPedido.Preparado;
-            lbEntregados.Tag = (int)EnumEstadosPedido.Entregado;
-            lbCancelados.Tag = (int)EnumEstadosPedido.Cancelado;
-            MostrarFiltrosEstado();
-            RecuperarPedidos();
+            if (_esPrimeraVezEnMostrarse)
+            {
+                _esPrimeraVezEnMostrarse = false;
+                try
+                {
+                    this.BqdClientes.Placeholder.Text = "Ingresa nombre de cliente...";
+                    this.BqdClientes.ImgBuscarClicked += ImgBuscarPedidoPorCliente;
+                    lbEnProceso.Tag = (int)EnumEstadosPedido.EnProceso;
+                    lbPreparados.Tag = (int)EnumEstadosPedido.Preparado;
+                    lbEntregados.Tag = (int)EnumEstadosPedido.Entregado;
+                    lbCancelados.Tag = (int)EnumEstadosPedido.Cancelado;
+                    MostrarFiltrosEstado();
+                    RecuperarPedidos();
+                    MostrarPedidos(_pedidos);
+                }
+                catch (EndpointNotFoundException ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
+                }
+                catch (TimeoutException ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
+                }
+                catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
+                }
+                catch (FaultException ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorServidor();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
+                }
+                catch (CommunicationException ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorServidor();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
+                }
+                catch (Exception ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorInesperado();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
+                }
+            }
         }
 
         private void BtnActualizarEstadoPedido_Click(object sender, RoutedEventArgs e)
@@ -97,32 +136,32 @@ namespace ItaliaPizza_Cliente.Vistas
             catch (EndpointNotFoundException ex)
             {
                 VentanasEmergentes.MostrarVentanaErrorConexionFallida();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (TimeoutException ex)
             {
                 VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (FaultException<ExcepcionServidorItaliaPizza> ex)
             {
                 VentanasEmergentes.MostrarVentanaErrorBaseDatos();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (FaultException ex)
             {
                 VentanasEmergentes.MostrarVentanaErrorServidor();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (CommunicationException ex)
             {
                 VentanasEmergentes.MostrarVentanaErrorServidor();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (Exception ex)
             {
                 VentanasEmergentes.MostrarVentanaErrorInesperado();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
         }
 
@@ -224,52 +263,20 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             ServicioPedidosClient servicioPedidosCliente = new ServicioPedidosClient();
             int idTipoEmpleado = EmpleadoSingleton.getInstance().DatosEmpleado.IdTipoEmpleado;
-            try
+            
+            if (idTipoEmpleado == (int)EnumTiposEmpleado.Cajero)
             {
-                if (idTipoEmpleado == (int)EnumTiposEmpleado.Cajero)
-                {
-                    _pedidos = servicioPedidosCliente.RecuperarPedidos().ToList();
-                }
-                else if (idTipoEmpleado == (int)EnumTiposEmpleado.Chef)
-                {
-                    _pedidos = servicioPedidosCliente.RecuperarPedidosEnProceso().ToList();
-                }
-                else
-                {
-                    _pedidos = servicioPedidosCliente.RecuperarPedidosPreparados().ToList();
-                }
-                MostrarPedidos(_pedidos);
+                _pedidos = servicioPedidosCliente.RecuperarPedidos().ToList();
             }
-            catch (EndpointNotFoundException ex)
+            else if (idTipoEmpleado == (int)EnumTiposEmpleado.Chef)
             {
-                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                _pedidos = servicioPedidosCliente.RecuperarPedidosEnProceso().ToList();
             }
-            catch (TimeoutException ex)
+            else
             {
-                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                _pedidos = servicioPedidosCliente.RecuperarPedidosPreparados().ToList();
             }
-            catch (FaultException<ExcepcionServidorItaliaPizza> ex)
-            {
-                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
-            }
-            catch (FaultException ex)
-            {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
-            }
-            catch (CommunicationException ex)
-            {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
-            }
-            catch (Exception ex)
-            {
-                VentanasEmergentes.MostrarVentanaErrorInesperado();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
-            }
+            
         }
 
         private void MostrarPedidos(List<PedidoConsultaDTO> pedidos)
@@ -455,36 +462,37 @@ namespace ItaliaPizza_Cliente.Vistas
                     bdrSeleccionaUnPedido.Visibility = Visibility.Visible;
                 }
                 RecuperarPedidos();
+                MostrarPedidos(_pedidos);
             }
             catch (EndpointNotFoundException ex)
             {
                 VentanasEmergentes.MostrarVentanaErrorConexionFallida();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (TimeoutException ex)
             {
                 VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (FaultException<ExcepcionServidorItaliaPizza> ex)
             {
                 VentanasEmergentes.MostrarVentanaErrorBaseDatos();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (FaultException ex)
             {
                 VentanasEmergentes.MostrarVentanaErrorServidor();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (CommunicationException ex)
             {
                 VentanasEmergentes.MostrarVentanaErrorServidor();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (Exception ex)
             {
                 VentanasEmergentes.MostrarVentanaErrorInesperado();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
         }
 

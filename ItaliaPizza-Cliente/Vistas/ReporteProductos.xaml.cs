@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.ServiceModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -32,13 +33,46 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void PrepararVentana(object sender, RoutedEventArgs e)
         {
-            DateTime fechaActual = DateTime.Now;
-            string fecha = "Fecha de elaboración: " + fechaActual.ToString("dd 'de' MMMM 'del' yyyy ' : ' HH:mm:ss") ;
-            lblFechaActual.Content = fecha;
-            ServicioProductosClient prodcutosCliente = new ServicioProductosClient();
-            categoriasInsumos = prodcutosCliente.RecuperarCategoriasInsumo().ToList();
-            categoriasProductosVenta = prodcutosCliente.RecuperarCategoriasProductoVenta().ToList();
-            CargarCheckBoxes(categoriasInsumos, categoriasProductosVenta);
+            try
+            {
+                DateTime fechaActual = DateTime.Now;
+                string fecha = "Fecha de elaboración: " + fechaActual.ToString("dd 'de' MMMM 'del' yyyy ' : ' HH:mm:ss");
+                lblFechaActual.Content = fecha;
+                ServicioProductosClient prodcutosCliente = new ServicioProductosClient();
+                categoriasInsumos = prodcutosCliente.RecuperarCategoriasInsumo().ToList();
+                categoriasProductosVenta = prodcutosCliente.RecuperarCategoriasProductoVenta().ToList();
+                CargarCheckBoxes(categoriasInsumos, categoriasProductosVenta);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorExcepcion.ManejarExcepcionError(ex, Application.Current.MainWindow, this);
+            }
+            catch (TimeoutException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorExcepcion.ManejarExcepcionError(ex, Application.Current.MainWindow, this);
+            }
+            catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorExcepcion.ManejarExcepcionError(ex, Application.Current.MainWindow, this);
+            }
+            catch (FaultException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, Application.Current.MainWindow, this);
+            }
+            catch (CommunicationException ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, Application.Current.MainWindow, this);
+            }
+            catch (Exception ex)
+            {
+                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorExcepcion.ManejarExcepcionError(ex, Application.Current.MainWindow, this);
+            }
         }
 
         private void CargarCheckBoxes(List<Categoria> categoriasInsumo, List<Categoria> categoriasVenta)
@@ -114,11 +148,44 @@ namespace ItaliaPizza_Cliente.Vistas
             if(categoriasSeleccioandas.Count != 0)
             {
                 bool incluirAgotados = chbAgotados.IsChecked.Value;
-                ServicioProductosClient servicioProductosClient = new ServicioProductosClient();
-                Reporte bytesReporte = servicioProductosClient.GenerarReporteProductos(categoriasSeleccioandas.ToArray(), incluirAgotados);
-                GuardarReporte(bytesReporte);
-                VentanaEmergente ventanaEmergente = new VentanaEmergente("Reporte generado", "Reporte generado y guardado exitosamente", Window.GetWindow(this), 2);
-                ventanaEmergente.ShowDialog();
+                try
+                {
+                    ServicioProductosClient servicioProductosClient = new ServicioProductosClient();
+                    Reporte bytesReporte = servicioProductosClient.GenerarReporteProductos(categoriasSeleccioandas.ToArray(), incluirAgotados);
+                    GuardarReporte(bytesReporte);
+                    VentanaEmergente ventanaEmergente = new VentanaEmergente("Reporte generado", "Reporte generado y guardado exitosamente", Window.GetWindow(this), 2);
+                    ventanaEmergente.ShowDialog();
+                }
+                catch (EndpointNotFoundException ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, Application.Current.MainWindow, this);
+                }
+                catch (TimeoutException ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, Application.Current.MainWindow, this);
+                }
+                catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, Application.Current.MainWindow, this);
+                }
+                catch (FaultException ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorServidor();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, Application.Current.MainWindow, this);
+                }
+                catch (CommunicationException ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorServidor();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, Application.Current.MainWindow, this);
+                }
+                catch (Exception ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorInesperado();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, Application.Current.MainWindow, this);
+                }
             }
             else
             {

@@ -13,20 +13,33 @@ namespace ItaliaPizza_Cliente.Utilidades
 {
     public class ManejadorExcepcion
     {
-        public static void ManejarExcepcionError(Exception ex, NavigationService navigationService)
+        public static void ManejarExcepcionError(Exception ex, Window mainWindow)
         {
             //_logger.Error(ex.Message + "\n" + ex.StackTrace + "\n");
             Console.WriteLine(ex.Message + "\n" + ex.StackTrace + "\n");
-            CerrarSesion();
-            navigationService?.Navigate(new InicioSesion());
+            InicioSesion inicioSesion = new InicioSesion();
+            inicioSesion.Show();
+            mainWindow.Close();
         }
 
-        public static void ManejarExcepcionFatal(Exception ex, NavigationService navigationService)
+        public static void ManejarExcepcionError(Exception ex, Window mainWindow, Window secondaryWindow)
+        {
+            //_logger.Error(ex.Message + "\n" + ex.StackTrace + "\n");
+            Console.WriteLine(ex.Message + "\n" + ex.StackTrace + "\n");
+            InicioSesion inicioSesion = new InicioSesion();
+            inicioSesion.Show();
+            secondaryWindow.Close();
+            mainWindow.Close();
+        }
+
+        public static void ManejarExcepcionFatal(Exception ex, Window mainWindow)
         {
             //_logger.Fatal(ex.Message + "\n" + ex.StackTrace + "\n");
             Console.WriteLine(ex.Message + "\n" + ex.StackTrace + "\n");
             CerrarSesion();
-            navigationService?.Navigate(new InicioSesion());
+            InicioSesion inicioSesion = new InicioSesion();
+            inicioSesion.Show();
+            mainWindow.Close();
         }
 
 

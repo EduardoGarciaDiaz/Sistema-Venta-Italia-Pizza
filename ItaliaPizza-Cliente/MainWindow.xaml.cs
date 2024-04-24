@@ -272,27 +272,21 @@ namespace ItaliaPizza_Cliente
             }
             catch (EndpointNotFoundException)
             {
-                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
             }
             catch (TimeoutException)
             {
-                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
             }
             catch (FaultException<ExcepcionServidorItaliaPizza>)
             {
-                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
             }
             catch (FaultException)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
             }
             catch (CommunicationException)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
             }
             catch (Exception)
             {
-                VentanasEmergentes.MostrarVentanaErrorInesperado();
             }
             EmpleadoSingleton.LimpiarSingleton();
         }
@@ -303,7 +297,7 @@ namespace ItaliaPizza_Cliente
 
             if (!string.IsNullOrEmpty(nombre))
             {
-                GastosVarios gastosGenerales = new GastosVarios(FrameNavigator);
+                GastosVarios gastosGenerales = new GastosVarios(FrameNavigator, this);
                 gastosGenerales.ShowDialog();
             }
         }
@@ -312,7 +306,7 @@ namespace ItaliaPizza_Cliente
         {
             if (EmpleadoSingleton.getInstance().DatosEmpleado.IdTipoEmpleado == (int)EnumTiposEmpleado.Cajero)
             {
-                RegistroCorteCaja registroCorteCaja = new RegistroCorteCaja(FrameNavigator);
+                RegistroCorteCaja registroCorteCaja = new RegistroCorteCaja(FrameNavigator, this);
                 registroCorteCaja.ShowDialog();
             }
         }
