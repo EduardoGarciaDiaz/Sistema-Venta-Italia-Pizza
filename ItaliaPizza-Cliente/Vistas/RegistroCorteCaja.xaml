@@ -52,7 +52,7 @@
                     </Grid>
                 </Border>
 
-                <DatePicker IsTodayHighlighted="True" Margin="22,41,207,472" x:Name="dpkFechaCorte"
+                <DatePicker IsTodayHighlighted="True" Margin="21,38,208,475" x:Name="dpkFechaCorte"
                     Background="White"
                     Padding="15,10,11,2" 
                     BorderThickness="1" 
@@ -67,7 +67,7 @@
                     </DatePicker.Resources>
                 </DatePicker>
 
-                <Separator HorizontalAlignment="Center" Margin="0,79,0,0" VerticalAlignment="Top" Height="12" Width="408" Background="#FFC9C9C9"/>
+                <Separator HorizontalAlignment="Center" Margin="0,87,0,0" VerticalAlignment="Top" Height="12" Width="408" Background="#FFC9C9C9"/>
 
                 <Label Content="¿Cuál fue el fondo inicial en Caja?" Foreground="Black" FontStretch="Medium" FontWeight="Bold" FontSize="14" Margin="20,100,198,420"/>
                 <TextBox x:Name="TbxFondoInicial" Text="" Padding="12, 0, 0, 0" HorizontalAlignment="Left" Margin="273,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156" Height="26" VerticalContentAlignment="Center" FontSize="16" MaxLength="10" BorderBrush="Black" TextChanged="TbxFondoInicial_TextChanged" PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown"/>
@@ -97,6 +97,8 @@
 
                 <Label Content="Diferencia" Foreground="Black" FontStretch="Medium" FontWeight="Bold" FontSize="14" Margin="20,316,198,204"/>
                 <Label x:Name="lblDiferencia" Content="$12500.00" Foreground="Black" FontStretch="Medium" FontSize="14" Margin="276,316,22,204" HorizontalContentAlignment="Right"/>
+                <Label x:Name="lblFechaSeleccionadaErronea"
+                    Content="Selecciona una fecha anterior o igual a la actual" Margin="21,72,206,449" FontSize="10" Foreground="#FFDF1414" Visibility="Hidden"/>
 
             </Grid>
         </Viewbox>

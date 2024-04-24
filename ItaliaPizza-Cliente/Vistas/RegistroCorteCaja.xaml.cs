@@ -313,11 +313,12 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void FechaDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
+            lblFechaSeleccionadaErronea.Visibility = Visibility.Collapsed;
             DateTime fechaSeleccionada = (DateTime)(sender as DatePicker).SelectedDate;
             bool fechaValida = ValidarFechaSeleccionada(fechaSeleccionada);
             if (fechaValida == false)
             {
-
+                MostrarMensajeFechaSeleccionadaError();
             } else
             {
                 _fechaSeleccionada = fechaSeleccionada;
@@ -325,9 +326,14 @@ namespace ItaliaPizza_Cliente.Vistas
             }
         }
 
+        private void MostrarMensajeFechaSeleccionadaError()
+        {
+            lblFechaSeleccionadaErronea.Visibility = Visibility.Visible;
+        }
+
         private bool ValidarFechaSeleccionada(DateTime fechaSeleccionada)
         {
-            bool fechaValida = false;
+            bool fechaValida;
             fechaValida = fechaSeleccionada.Date <= DateTime.Now.Date;
             return fechaValida;
         }

@@ -30,14 +30,24 @@ namespace ItaliaPizza_Cliente.Vistas
         private readonly Pedido _pedido;
         private Cliente _cliente;
         private RegistroPedido _registroPedido;
+        private bool _pagoRegistrado = false;
 
         public RegistroPagoPedido(Pedido pedido, RegistroPedido registroPedido)
         {
             this._pedido = pedido;
             this._registroPedido = registroPedido;
+            this.Unloaded += RegistroDePagoPedido_Unloaded;
             InitializeComponent();
             MostrarDatosDePedido(pedido);
             MostrarDatosDeCliente(pedido.IdCliente);
+        }
+
+        private void RegistroDePagoPedido_Unloaded(object sender, RoutedEventArgs e)
+        {
+            if (!_pagoRegistrado)
+            {
+                _registroPedido.DesapartarTodosLosProductosEnPedido();
+            }
         }
 
 
@@ -48,7 +58,6 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void ImgRegresar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            _registroPedido.DesapartarTodosLosProductosEnPedido();
             NavigationService.Navigate(new RegistroPedido());
         }
 
@@ -91,6 +100,7 @@ namespace ItaliaPizza_Cliente.Vistas
                 int numeroPedido = servicioPedidosCliente.GuardarPedido(_pedido);
                 if (numeroPedido > 0)
                 {
+                    _pagoRegistrado = true;
                     MostrarConfirmacionPedido(numeroPedido);
                 }
             }

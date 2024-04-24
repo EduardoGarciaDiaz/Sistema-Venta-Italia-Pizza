@@ -10,18 +10,14 @@
 
     <Viewbox >
         <Grid Height="800" Width="1300">
-            <Grid.Background>
-                <ImageBrush ImageSource="/Recursos/Iconos/icono_fondo.png"/>
-            </Grid.Background>
-            <TextBox Text="Bienvenido" Background="Yellow" BorderBrush="Black" BorderThickness="5" HorizontalContentAlignment="Center" TextWrapping="Wrap"   FontSize="32" Margin="407,359,391,388" RenderTransformOrigin="0.5,0.5">
-                <TextBox.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="20"/>
-                    </Style>
-                </TextBox.Resources>
-            </TextBox>
-
-      
+            <Border Background="#FF9D9682"
+                    CornerRadius="15" Margin="32,22,515,512">
+                
+            </Border>
+            <Image Source="/Recursos/Iconos/pizza.png" Margin="628,77,572,597" RenderTransformOrigin="0.035,0.634"/>
+            <Label Content="¡Hola, bienvenido al POS" Margin="55,53,687,685" Foreground="White" FontSize="40" FontWeight="Bold"></Label>
+            <Label Content="En el menú de la izquierda puedes ver tus opciones." Margin="66,215,563,523" Foreground="White" FontSize="24"/>
+            <Label Content="Italia Pizza!" Margin="363,102,639,636" Foreground="White" FontSize="43" FontWeight="Bold"/>
 
 
         </Grid>

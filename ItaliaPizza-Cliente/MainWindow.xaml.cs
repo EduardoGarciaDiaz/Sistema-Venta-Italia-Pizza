@@ -254,13 +254,8 @@ namespace ItaliaPizza_Cliente
         private void IrInicioSesion()
         {
             InicioSesion inicioSesion = new InicioSesion();
-            FrameNavigator.NavigationService.Navigate(inicioSesion);
-            OcultarBotonGastosVarios();
-        }
-
-        private void OcultarBotonGastosVarios()
-        {
-            gridGastos.Visibility = Visibility.Collapsed;
+            this.Close();
+            inicioSesion.Show();
         }
 
         private void CerrarSesion()

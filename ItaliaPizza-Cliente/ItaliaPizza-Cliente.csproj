@@ -740,5 +740,14 @@
     <Resource Include="Recursos\Iconos\icono_reporte.png" />
     <Resource Include="Recursos\Iconos\icono_calculadora.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Recursos\Iconos\icono_pizza_inicio.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Recursos\Iconos\pizza.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Recursos\Iconos\fondo_pizza.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

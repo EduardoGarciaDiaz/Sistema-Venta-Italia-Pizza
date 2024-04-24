@@ -21,19 +21,11 @@ namespace ItaliaPizza_Cliente.Vistas
     /// <summary>
     /// Lógica de interacción para InicioSesion.xaml
     /// </summary>
-    public partial class InicioSesion : Page
+    public partial class InicioSesion : Window
     {
         public InicioSesion()
         {
             InitializeComponent();
-            this.Loaded += LoadedPage;
-        }
-
-        private void LoadedPage(object sender, RoutedEventArgs e)
-        {
-            MainWindow ventana = (MainWindow)Window.GetWindow(this);
-            ventana.SkpMenuLateral.Visibility = Visibility.Hidden;
-            ventana.SkpMenuLateral.Children.Clear();
         }
 
         private void BtnIniciarSesion_Click(object sender, RoutedEventArgs e)
@@ -78,7 +70,7 @@ namespace ItaliaPizza_Cliente.Vistas
             bool camposlLenos = true;
             if (String.IsNullOrEmpty(nombreUsuario))
             {
-                lblErrrNombreUsuario.Content = "* Campo obligatorio requerido";
+                lblErrrNombreUsuario.Content = "Campo obligatorio *";
                 camposlLenos = false;
             }
             else
@@ -87,7 +79,7 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             if (String.IsNullOrEmpty(contrasena))
             {
-                lblErrorCOntrasena.Content = "* Campo obligatorio requerido";
+                lblErrorCOntrasena.Content = "Campo obligatorio *";
                 camposlLenos = false;
             }
             else
@@ -104,16 +96,16 @@ namespace ItaliaPizza_Cliente.Vistas
             int usuarioExiste = servicioInicioSesionClient.ValidarCredenciales(nombreUsuario, contrasena);
             if(usuarioExiste == 0)
             {
-                VentanaEmergente ventanaEmergente = new VentanaEmergente("Upps!!", "Credenciales incorrectas, ingrese una credenciales validas para iniciar sesion", Window.GetWindow(this), 1);
+                VentanaEmergente ventanaEmergente = new VentanaEmergente("¡Algo sucedió!", "Credenciales incorrectas. Ingrese una credenciales validas para iniciar sesion.", Window.GetWindow(this), 1);
                 ventanaEmergente.ShowDialog();
             }
             else if(usuarioExiste == -1)
             {
-                VentanaEmergente ventanaEmergente = new VentanaEmergente("Upps!!", "Parece ser que has inciado sesion previamente, cierra tu sesion activa para volver a ingresar", Window.GetWindow(this), 1);
+                VentanaEmergente ventanaEmergente = new VentanaEmergente("¡Algo sucedió!", "Ya tienes una sesión activa. Cierra sesión para iniciar desde otro dispositivo.", Window.GetWindow(this), 1);
                 ventanaEmergente.ShowDialog();
             }
             else if(usuarioExiste == 2){
-                VentanaEmergente ventanaEmergente = new VentanaEmergente("Upps!!", "Parece ser que tu cuenta esta desactivada, verificalo con tu administrador", Window.GetWindow(this), 1);
+                VentanaEmergente ventanaEmergente = new VentanaEmergente("!Algo sucedió!", "Tu cuenta se encuentra desactividad. Verifica con el administrador.", Window.GetWindow(this), 1);
                 ventanaEmergente.ShowDialog();
             }
             else
@@ -142,14 +134,14 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void NavegarVentanaInicio()
         {
-            MainWindow ventana = (MainWindow)Window.GetWindow(this);
-            PaginaDeIncio paginaDeIncio = new PaginaDeIncio();
+            MainWindow ventana = new MainWindow();
             EmpleadoSingleton empleado = EmpleadoSingleton.getInstance();
             ventana.MostrarNombre(empleado.NombreUsuario);
             ventana.FiltrarOpcionesPanelLateral(empleado.DatosEmpleado.IdTipoEmpleado);
             ventana.SkpMenuLateral.Visibility = Visibility.Visible;
-            ventana.FrameNavigator.NavigationService.Navigate(paginaDeIncio);
             ventana.MostrarBotonAgregarGastosVarios();
+            ventana.Show();
+            this.Close();
         }
 
 
