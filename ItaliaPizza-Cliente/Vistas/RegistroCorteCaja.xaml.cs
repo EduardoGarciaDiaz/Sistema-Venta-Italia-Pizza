@@ -33,14 +33,13 @@ namespace ItaliaPizza_Cliente.Vistas
         private double _diferencia = 0;
         private bool _existeCorteCaja = false;
         private const int VENTANA_INFORMACION = 2;
-        private readonly Window _mainWindow;
-        private Frame _frameNavigator;
+        private readonly Window _windowOrigen;
 
-        public RegistroCorteCaja(Frame frameNavigator)
+        public RegistroCorteCaja(Window windowOrigen)
         {
             InitializeComponent();
-            _mainWindow = Application.Current.MainWindow;
-            ConfigurarVentana(frameNavigator);
+            _windowOrigen = windowOrigen;
+            ConfigurarVentana();
             _fechaSeleccionada = DateTime.Now;
             this.Loaded += PrepararDatos;
         }
@@ -74,33 +73,33 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             catch (EndpointNotFoundException ex)
             {
-                ManejadorVentanasEmergentes.MostrarVentanaErrorConexionFallida();
-                ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
+                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorExcepcion.ManejarExcepcionError(ex, _windowOrigen, this);
             }
             catch (TimeoutException ex)
             {
-                ManejadorVentanasEmergentes.MostrarVentanaErrorTiempoEspera();
-                ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
+                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorExcepcion.ManejarExcepcionError(ex, _windowOrigen, this);
             }
             catch (FaultException<ExcepcionServidorItaliaPizza> ex)
             {
-                ManejadorVentanasEmergentes.MostrarVentanaErrorBaseDatos();
-                ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
+                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorExcepcion.ManejarExcepcionError(ex, _windowOrigen, this   );
             }
             catch (FaultException ex)
             {
-                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
-                ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, _windowOrigen, this);
             }
             catch (CommunicationException ex)
             {
-                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
-                ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, _windowOrigen, this);
             }
             catch (Exception ex)
             {
-                ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
-                ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
+                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorExcepcion.ManejarExcepcionError(ex, _windowOrigen, this);
             }
         }
 
@@ -270,33 +269,33 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             catch (EndpointNotFoundException ex)
             {
-                ManejadorVentanasEmergentes.MostrarVentanaErrorConexionFallida();
-                ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
+                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorExcepcion.ManejarExcepcionError(ex, _windowOrigen, this);
             }
             catch (TimeoutException ex)
             {
-                ManejadorVentanasEmergentes.MostrarVentanaErrorTiempoEspera();
-                ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
+                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorExcepcion.ManejarExcepcionError(ex, _windowOrigen, this);
             }
             catch (FaultException<ExcepcionServidorItaliaPizza> ex)
             {
-                ManejadorVentanasEmergentes.MostrarVentanaErrorBaseDatos();
-                ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
+                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorExcepcion.ManejarExcepcionError(ex, _windowOrigen, this);
             }
             catch (FaultException ex)
             {
-                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
-                ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, _windowOrigen, this);
             }
             catch (CommunicationException ex)
             {
-                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
-                ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, _windowOrigen, this);
             }
             catch (Exception ex)
             {
-                ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
-                ManejadorExcepcion.ManejarExcepcionError(ex, _frameNavigator.NavigationService);
+                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorExcepcion.ManejarExcepcionError(ex, _windowOrigen, this);
             }
         }
 
@@ -313,11 +312,12 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void FechaDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
+            lblFechaSeleccionadaErronea.Visibility = Visibility.Collapsed;
             DateTime fechaSeleccionada = (DateTime)(sender as DatePicker).SelectedDate;
             bool fechaValida = ValidarFechaSeleccionada(fechaSeleccionada);
             if (fechaValida == false)
             {
-
+                MostrarMensajeFechaSeleccionadaError();
             } else
             {
                 _fechaSeleccionada = fechaSeleccionada;
@@ -325,9 +325,14 @@ namespace ItaliaPizza_Cliente.Vistas
             }
         }
 
+        private void MostrarMensajeFechaSeleccionadaError()
+        {
+            lblFechaSeleccionadaErronea.Visibility = Visibility.Visible;
+        }
+
         private bool ValidarFechaSeleccionada(DateTime fechaSeleccionada)
         {
-            bool fechaValida = false;
+            bool fechaValida;
             fechaValida = fechaSeleccionada.Date <= DateTime.Now.Date;
             return fechaValida;
         }
@@ -337,24 +342,23 @@ namespace ItaliaPizza_Cliente.Vistas
             this.Close();
         }
 
-        private void ConfigurarVentana(Frame frameNavigator)
-        {
-            _frameNavigator = frameNavigator;
-            this.Owner = _mainWindow;
+        private void ConfigurarVentana()
+        {            
             SetSizeWindow();
             SetCenterWindow();
+
         }
 
         private void SetSizeWindow()
         {
-            this.Width = _mainWindow.Width;
-            this.Height = _mainWindow.Height;
+            this.Width = _windowOrigen.Width;
+            this.Height = _windowOrigen.Height;
         }
 
         private void SetCenterWindow()
         {
-            double centerX = _mainWindow.Left + (_mainWindow.Width - this.Width) / 2;
-            double centerY = _mainWindow.Top + (_mainWindow.Height - this.Height) / 2;
+            double centerX = _windowOrigen.Left + (_windowOrigen.Width - this.Width) / 2;
+            double centerY = _windowOrigen.Top + (_windowOrigen.Height - this.Height) / 2;
             this.Left = centerX;
             this.Top = centerY;
         }

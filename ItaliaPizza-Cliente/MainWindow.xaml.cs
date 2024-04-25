@@ -105,7 +105,7 @@ namespace ItaliaPizza_Cliente
 
             if (!string.IsNullOrEmpty(nombre))
             {
-                GastosVarios gastosGenerales = new GastosVarios(FrameNavigator);
+                GastosVarios gastosGenerales = new GastosVarios(this);
                 gastosGenerales.ShowDialog();
             }
         }
@@ -114,7 +114,7 @@ namespace ItaliaPizza_Cliente
         {
             if (EmpleadoSingleton.getInstance().DatosEmpleado.IdTipoEmpleado == (int)EnumTiposEmpleado.Cajero)
             {
-                RegistroCorteCaja registroCorteCaja = new RegistroCorteCaja(FrameNavigator);
+                RegistroCorteCaja registroCorteCaja = new RegistroCorteCaja(this);
                 registroCorteCaja.ShowDialog();
             }
         }
@@ -265,13 +265,8 @@ namespace ItaliaPizza_Cliente
         private void IrInicioSesion()
         {
             InicioSesion inicioSesion = new InicioSesion();
-            FrameNavigator.NavigationService.Navigate(inicioSesion);
-            OcultarBotonGastosVarios();
-        }
-
-        private void OcultarBotonGastosVarios()
-        {
-            grdGastos.Visibility = Visibility.Collapsed;
+            this.Close();
+            inicioSesion.Show();
         }
 
         private void CerrarSesion()
@@ -288,32 +283,26 @@ namespace ItaliaPizza_Cliente
             }
             catch (EndpointNotFoundException)
             {
-                ManejadorVentanasEmergentes.MostrarVentanaErrorConexionFallida();
             }
             catch (TimeoutException)
             {
-                ManejadorVentanasEmergentes.MostrarVentanaErrorTiempoEspera();
             }
             catch (FaultException<ExcepcionServidorItaliaPizza>)
             {
-                ManejadorVentanasEmergentes.MostrarVentanaErrorBaseDatos();
             }
             catch (FaultException)
             {
-                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
             }
             catch (CommunicationException)
             {
-                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
             }
             catch (Exception)
             {
-                ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
             }
             EmpleadoSingleton.LimpiarSingleton();
         }
 
-        
+       
     } 
 
 }

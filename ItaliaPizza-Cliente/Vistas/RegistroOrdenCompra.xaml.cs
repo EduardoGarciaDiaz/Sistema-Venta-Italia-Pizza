@@ -49,33 +49,33 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             catch (EndpointNotFoundException ex)
             {
-                ManejadorVentanasEmergentes.MostrarVentanaErrorConexionFallida();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (TimeoutException ex)
             {
-                ManejadorVentanasEmergentes.MostrarVentanaErrorTiempoEspera();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (FaultException<ExcepcionServidorItaliaPizza> ex)
             {
-                ManejadorVentanasEmergentes.MostrarVentanaErrorBaseDatos();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (FaultException ex)
             {
-                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (CommunicationException ex)
             {
-                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (Exception ex)
             {
-                ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
-                ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
         }
 
@@ -178,33 +178,33 @@ namespace ItaliaPizza_Cliente.Vistas
                         }
                         catch (EndpointNotFoundException ex)
                         {
-                            ManejadorVentanasEmergentes.MostrarVentanaErrorConexionFallida();
-                            ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                            VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                            ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
                         }
                         catch (TimeoutException ex)
                         {
-                            ManejadorVentanasEmergentes.MostrarVentanaErrorTiempoEspera();
-                            ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                            VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                            ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
                         }
                         catch (FaultException<ExcepcionServidorItaliaPizza> ex)
                         {
-                            ManejadorVentanasEmergentes.MostrarVentanaErrorBaseDatos();
-                            ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                            VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                            ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
                         }
                         catch (FaultException ex)
                         {
-                            ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
-                            ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                            VentanasEmergentes.MostrarVentanaErrorServidor();
+                            ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
                         }
                         catch (CommunicationException ex)
                         {
-                            ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
-                            ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                            VentanasEmergentes.MostrarVentanaErrorServidor();
+                            ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
                         }
                         catch (Exception ex)
                         {
-                            ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
-                            ManejadorExcepcion.ManejarExcepcionError(ex, NavigationService);
+                            VentanasEmergentes.MostrarVentanaErrorInesperado();
+                            ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
                         }
                     }
                 }
@@ -245,6 +245,31 @@ namespace ItaliaPizza_Cliente.Vistas
                 {
                     VentanaEmergente ventanaEmergente = new VentanaEmergente("Error", "Debes Seleccionar un proveedor para guardar la orden de compra", Window.GetWindow(this), 1);
                     ventanaEmergente.ShowDialog();
+                }
+                catch (TimeoutException ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
+                }
+                catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
+                }
+                catch (FaultException ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorServidor();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
+                }
+                catch (CommunicationException ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorServidor();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
+                }
+                catch (Exception ex)
+                {
+                    VentanasEmergentes.MostrarVentanaErrorInesperado();
+                    ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
                 }
             }
             catch (EndpointNotFoundException ex)

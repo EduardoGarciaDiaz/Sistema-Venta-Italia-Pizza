@@ -9,9 +9,9 @@
     <Viewbox Margin="0">
         <Grid Background="White" Height="299" Width="511" >
             
-            <TextBlock Name="txbTitulo" Margin="147,34,51,215" Text="Tipo de ventana emergente"  FontSize="24" FontWeight="Bold" RenderTransformOrigin="0.505,0.578" TextWrapping="Wrap" />
-            <TextBlock Name="txbDescripcion" FontSize="16" Text="Detalles de la ventana emergente" TextWrapping="Wrap" Margin="164,96,14,75"/>
-            <Image Name="imgImagen" Margin="8,73,354,95" Source="/Recursos/iconos/icono_informacion.png"></Image>
+            <TextBlock Name="txbTitulo" Margin="100,32,98,217" Text="Tipo de ventana emergente"  FontSize="24" FontWeight="Bold" RenderTransformOrigin="0.505,0.578" TextWrapping="Wrap" />
+            <TextBlock Name="txbDescripcion" FontSize="16" Text="Detalles de la ventana emergente" TextWrapping="Wrap" Margin="103,83,75,88"/>
+            <Image Name="imgImagen" Margin="20,31,408,228" Source="/Recursos/iconos/icono_informacion.png"></Image>
 
             <StackPanel Name="skp1boton" Margin="176,254,172,15" Visibility="Hidden">
                 <Border Height="30" Width="155" CornerRadius="15" Background="#F8D72A" BorderBrush="black" BorderThickness="2">
