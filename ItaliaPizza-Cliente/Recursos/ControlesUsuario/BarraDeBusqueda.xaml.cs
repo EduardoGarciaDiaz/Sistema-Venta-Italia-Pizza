@@ -21,7 +21,7 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
     public partial class BarraDeBusqueda : UserControl
     {
         public EventHandler ImgBuscarClicked;
-        public EventHandler TxtBusquedaTextChanged;
+        public EventHandler TxbBusquedaTextChanged;
         public EventHandler EnterPressed;
 
         public BarraDeBusqueda()
@@ -36,7 +36,7 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
 
         private void TxtBusqueda_TextChanged(object sender, TextChangedEventArgs e)
         {
-            TxtBusquedaTextChanged?.Invoke(this, e);
+            TxbBusquedaTextChanged?.Invoke(this, e);
         }
 
         private void Enter_Pressed(object sender, KeyEventArgs e)

@@ -45,32 +45,32 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             catch (EndpointNotFoundException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorConexionFallida();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Application.Current.MainWindow, this);
             }
             catch (TimeoutException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorTiempoEspera();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Application.Current.MainWindow, this);
             }
             catch (FaultException<ExcepcionServidorItaliaPizza> ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorBaseDatos();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Application.Current.MainWindow, this);
             }
             catch (FaultException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Application.Current.MainWindow, this);
             }
             catch (CommunicationException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Application.Current.MainWindow, this);
             }
             catch (Exception ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Application.Current.MainWindow, this);
             }
         }
@@ -158,32 +158,32 @@ namespace ItaliaPizza_Cliente.Vistas
                 }
                 catch (EndpointNotFoundException ex)
                 {
-                    VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                    ManejadorVentanasEmergentes.MostrarVentanaErrorConexionFallida();
                     ManejadorExcepcion.ManejarExcepcionError(ex, Application.Current.MainWindow, this);
                 }
                 catch (TimeoutException ex)
                 {
-                    VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                    ManejadorVentanasEmergentes.MostrarVentanaErrorTiempoEspera();
                     ManejadorExcepcion.ManejarExcepcionError(ex, Application.Current.MainWindow, this);
                 }
                 catch (FaultException<ExcepcionServidorItaliaPizza> ex)
                 {
-                    VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                    ManejadorVentanasEmergentes.MostrarVentanaErrorBaseDatos();
                     ManejadorExcepcion.ManejarExcepcionError(ex, Application.Current.MainWindow, this);
                 }
                 catch (FaultException ex)
                 {
-                    VentanasEmergentes.MostrarVentanaErrorServidor();
+                    ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                     ManejadorExcepcion.ManejarExcepcionError(ex, Application.Current.MainWindow, this);
                 }
                 catch (CommunicationException ex)
                 {
-                    VentanasEmergentes.MostrarVentanaErrorServidor();
+                    ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                     ManejadorExcepcion.ManejarExcepcionError(ex, Application.Current.MainWindow, this);
                 }
                 catch (Exception ex)
                 {
-                    VentanasEmergentes.MostrarVentanaErrorInesperado();
+                    ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
                     ManejadorExcepcion.ManejarExcepcionError(ex, Application.Current.MainWindow, this);
                 }
             }
@@ -197,11 +197,11 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void GuardarReporte(Reporte reporte)
         {
-            if (reporte != null && reporte.contenidoReporte != null)
+            if (reporte != null && reporte.ContenidoReporte != null)
             {
                 try
                 {
-                    using (MemoryStream memoryStream = new MemoryStream(reporte.contenidoReporte))
+                    using (MemoryStream memoryStream = new MemoryStream(reporte.ContenidoReporte))
                     {
                         using (Document document = new Document(memoryStream))
                         {

@@ -8,14 +8,14 @@
     
     <Viewbox Width="550" Height="47">
         <Grid Width="550" Height="47">
-            <TextBox x:Name="tbxBusqueda" Margin="0,0,60,0" BorderThickness="0,0,0,0" FontSize="16" Padding="15,10,0,0" TextChanged="TxtBusqueda_TextChanged" KeyDown="Enter_Pressed">
+            <TextBox x:Name="txbBusqueda" Margin="0,0,60,0" BorderThickness="0,0,0,0" FontSize="16" Padding="15,10,0,0" TextChanged="TxtBusqueda_TextChanged" KeyDown="Enter_Pressed">
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="20"/>
                     </Style>
                 </TextBox.Resources>
             </TextBox>
-            <TextBlock x:Name="plhrPista" IsHitTestVisible="False" TextWrapping="Wrap" Text="Buscar un producto..." VerticalAlignment="Center" Foreground="DarkGray" HorizontalAlignment="Left" Width="491" FontSize="16" Height="47" Padding="16,10,0,0">
+            <TextBlock x:Name="plhrInstruccion" IsHitTestVisible="False" TextWrapping="Wrap" Text="Buscar un producto..." VerticalAlignment="Center" Foreground="DarkGray" HorizontalAlignment="Left" Width="491" FontSize="16" Height="47" Padding="16,10,0,0">
                 <TextBlock.Style>
                     <Style TargetType="{x:Type TextBlock}">
                         <Setter Property="Visibility" Value="Collapsed"/>

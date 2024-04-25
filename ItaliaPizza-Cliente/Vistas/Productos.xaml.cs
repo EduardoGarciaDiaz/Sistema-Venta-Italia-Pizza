@@ -54,39 +54,39 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             catch (EndpointNotFoundException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorConexionFallida();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (TimeoutException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorTiempoEspera();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (FaultException<ExcepcionServidorItaliaPizza> ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorBaseDatos();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (FaultException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (CommunicationException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (Exception ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
         }
 
         private void AgregarEventos()
         {
-            barraDeBusqueda.TxtBusquedaTextChanged += TbxBusqueda_TextChanged;
+            barraDeBusqueda.TxbBusquedaTextChanged += TbxBusqueda_TextChanged;
             barraDeBusqueda.ImgBuscarClicked += ImgBuscar_Click;
             barraDeBusqueda.EnterPressed += Enter_Pressed;
         }
@@ -388,32 +388,32 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             catch (EndpointNotFoundException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorConexionFallida();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (TimeoutException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorTiempoEspera();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (FaultException<ExcepcionServidorItaliaPizza> ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorBaseDatos();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (FaultException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (CommunicationException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (Exception ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
 
@@ -706,14 +706,14 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void BuscarProductos()
         {
-            if (barraDeBusqueda.tbxBusqueda.Text != string.Empty)
+            if (barraDeBusqueda.txbBusqueda.Text != string.Empty)
             {
                 LimpiarFiltrosCategorias(stackPanelCategoriasInsumo);
                 LimpiarFiltrosCategorias(stackPanelCategoriasProductoVenta);
                 wrapPanelProductosVenta.Children.Clear();
                 stackPanelInsumos.Children.Clear();
 
-                string textoABuscar = barraDeBusqueda.tbxBusqueda.Text.Trim().ToUpper();
+                string textoABuscar = barraDeBusqueda.txbBusqueda.Text.Trim().ToUpper();
                 MostrarCoincidenciasInsumos(textoABuscar);
                 MostrarCoincidenciasProductosVenta(textoABuscar);
             }
@@ -721,7 +721,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void TbxBusqueda_TextChanged(object sender, EventArgs e)
         {
-            if (barraDeBusqueda.tbxBusqueda.Text.Trim() == string.Empty)
+            if (barraDeBusqueda.txbBusqueda.Text.Trim() == string.Empty)
             {
                 MostrarProductosTipoInsumo();
                 MostrarProductosTipoVenta();
