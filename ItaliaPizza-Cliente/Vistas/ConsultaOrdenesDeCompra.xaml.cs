@@ -153,7 +153,7 @@ namespace ItaliaPizza_Cliente.Vistas
             ventanaPrincipal.FrameNavigator.NavigationService.Navigate(paginaRegistrarOrdenCompra);
         }
 
-        private void Combo_ItemSeleccionadoChangedCombo_ItemSeleccionadoChanged(object sender, SelectionChangedEventArgs e)
+        private void Combo_ItemSeleccionadoChanged(object sender, SelectionChangedEventArgs e)
         {
             _proveedorSeleccionado = cbxProveedores.SelectedItem as ProveedorDto;
             FiltrarOrdenesCompra(_proveedorSeleccionado, _estadoSeleccionado, _fechaSeleccionada);

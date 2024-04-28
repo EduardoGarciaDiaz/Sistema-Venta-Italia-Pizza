@@ -161,6 +161,10 @@ namespace ItaliaPizza_Cliente.Vistas
                             rectangleFotoProducto.Fill = new ImageBrush(mapaBits);
                             _fotoBytes = File.ReadAllBytes(_rutaFoto);
                         }
+                        else
+                        {
+                            _fotoCambio = false;
+                        }
                     }
                 }
             }

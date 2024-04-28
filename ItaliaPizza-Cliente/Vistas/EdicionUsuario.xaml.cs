@@ -638,7 +638,7 @@ namespace ItaliaPizza_Cliente.Vistas
                 MainWindow ventanaPrincipal = (MainWindow)Window.GetWindow(this);
                 if ((int)EnumTiposEmpleado.Cajero == EmpleadoSingleton.getInstance().DatosEmpleado.IdTipoEmpleado)
                 {
-                    PaginaDeIncio paginaDeIncio = new PaginaDeIncio();
+                    PaginaDeInicio paginaDeIncio = new PaginaDeInicio();
                     ventanaPrincipal.FrameNavigator.NavigationService.Navigate(paginaDeIncio);
                 }
                 else

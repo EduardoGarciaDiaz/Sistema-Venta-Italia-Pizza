@@ -18,9 +18,9 @@ namespace ItaliaPizza_Cliente.Vistas
     /// <summary>
     /// Interaction logic for PaginaDeIncio.xaml
     /// </summary>
-    public partial class PaginaDeIncio : Page
+    public partial class PaginaDeInicio : Page
     {
-        public PaginaDeIncio()
+        public PaginaDeInicio()
         {
             InitializeComponent();
         }

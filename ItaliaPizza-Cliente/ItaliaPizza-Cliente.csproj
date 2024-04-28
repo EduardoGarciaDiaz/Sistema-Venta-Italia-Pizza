@@ -254,8 +254,8 @@
     <Compile Include="Vistas\InicioSesion.xaml.cs">
       <DependentUpon>InicioSesion.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Vistas\PaginaDeIncio.xaml.cs">
-      <DependentUpon>PaginaDeIncio.xaml</DependentUpon>
+    <Compile Include="Vistas\PaginaDeInicio.xaml.cs">
+      <DependentUpon>PaginaDeInicio.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\Productos.xaml.cs">
       <DependentUpon>Productos.xaml</DependentUpon>
@@ -459,7 +459,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Vistas\PaginaDeIncio.xaml">
+    <Page Include="Vistas\PaginaDeInicio.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

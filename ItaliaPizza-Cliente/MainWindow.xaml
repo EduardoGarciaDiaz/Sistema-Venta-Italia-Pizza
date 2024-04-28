@@ -126,7 +126,7 @@
                Grid.ColumnSpan="6"
                Grid.RowSpan="2"
                NavigationUIVisibility="Hidden"
-               Source="/Vistas/PaginaDeIncio.xaml" Grid.Column="1"
+               Source="/Vistas/PaginaDeInicio.xaml" Grid.Column="1"
             />
         </Grid>
     </Viewbox>
