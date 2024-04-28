@@ -57,7 +57,7 @@
 
             <Label Content="$"  HorizontalAlignment="Left" Margin="716,449,0,0" VerticalAlignment="Top" Foreground="Black" FontSize="18"/>
             <Label Content="*Categoría de producto en venta"  HorizontalAlignment="Left" Margin="701,508,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18"/>
-            <ComboBox x:Name="cbxCategoriasProductoVenta" HorizontalAlignment="Left" Margin="710,540,0,0" VerticalAlignment="Top" Width="269" Height="40 " VerticalContentAlignment="Center" FontSize="16" SelectionChanged="cbxCategoriaProductoVenta_Changed" DisplayMemberPath="Nombre" SelectedValuePath="Id"/>
+            <ComboBox x:Name="cbxCategoriasProductoVenta" HorizontalAlignment="Left" Margin="710,540,0,0" VerticalAlignment="Top" Width="269" Height="40 " VerticalContentAlignment="Center" FontSize="16" SelectionChanged="CbxCategoriaProductoVenta_Changed" DisplayMemberPath="Nombre" SelectedValuePath="Id"/>
 
             <!--Error ProductoVenta-->
             <Label x:Name="lblErrorPrecio" Content="Campo obligatorio" Visibility="Hidden" HorizontalAlignment="Left" Margin="710,483,0,0" VerticalAlignment="Top" Width="246" Foreground="Red" Height="28"/>
@@ -70,14 +70,14 @@
             <Label Content="*Cantidad"  HorizontalAlignment="Left" Margin="65,411,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18"/>
             <TextBox x:Name="tbxCantidad" Margin="72,445,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="222" Height="40" HorizontalAlignment="Left" VerticalContentAlignment="Center" FontSize="18" Padding="5 0 0 0" MaxLength="5" TextChanged="TbxCantidad_TextChanged" PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown"/>
             <Label Content="*Unidad de medida"  HorizontalAlignment="Left" Margin="329,413,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18"/>
-            <ComboBox x:Name="cbxUnidadMedida" HorizontalAlignment="Left" Margin="335,445,0,0" VerticalAlignment="Top" Width="234" Height="40" VerticalContentAlignment="Center" FontSize="16" SelectionChanged="cbxUnidadMedida_SelectionChanged" DisplayMemberPath="Nombre" SelectedValuePath="Id"/>
+            <ComboBox x:Name="cbxUnidadMedida" HorizontalAlignment="Left" Margin="335,445,0,0" VerticalAlignment="Top" Width="234" Height="40" VerticalContentAlignment="Center" FontSize="16" SelectionChanged="CbxUnidadMedida_SelectionChanged" DisplayMemberPath="Nombre" SelectedValuePath="Id"/>
             <Label Content="*Costo unitario"  HorizontalAlignment="Left" Margin="67,497,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18"/>
             <TextBox x:Name="tbxCostoUnitario" HorizontalAlignment="Left" Margin="77,530,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="222" Height="40" VerticalContentAlignment="Center" FontSize="18" Padding="25 0 0 0" MaxLength="18" TextChanged="TbxCostoUnitario_TextChanged" PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown"/>
             <Label Content="Restricciones"  HorizontalAlignment="Left" Margin="73,587,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18"/>
             <TextBox x:Name="tbxRestricciones" HorizontalAlignment="Left" Margin="81,621,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="498" Height="85" HorizontalContentAlignment="Stretch" FontSize="18" Padding="5 0 0 0"/>
             <Label Content="$"  HorizontalAlignment="Left" Margin="82,533,0,0" VerticalAlignment="Top" Foreground="Black" FontSize="18"/>
             <Label Content="*Categoría de insumo"  HorizontalAlignment="Left" Margin="329,498,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF7E7E7E" FontSize="18"/>
-            <ComboBox x:Name="cbxCategoriasInsumo" HorizontalAlignment="Left" Margin="335,530,0,0" VerticalAlignment="Top" Width="234" Height="40 " VerticalContentAlignment="Center" FontSize="16" SelectionChanged="cbxCategoriasInsumo_SelectionChanged" DisplayMemberPath="Nombre" SelectedValuePath="Id"/>
+            <ComboBox x:Name="cbxCategoriasInsumo" HorizontalAlignment="Left" Margin="335,530,0,0" VerticalAlignment="Top" Width="234" Height="40 " VerticalContentAlignment="Center" FontSize="16" SelectionChanged="CbxCategoriasInsumo_SelectionChanged" DisplayMemberPath="Nombre" SelectedValuePath="Id"/>
 
             <!--Error Insumo-->
             <Label x:Name="lblErrorCantidad" Content="Campo obligatorio" Visibility="Hidden" HorizontalAlignment="Left" Margin="70,480,0,0" VerticalAlignment="Top" Width="136" Foreground="Red" Height="28"/>

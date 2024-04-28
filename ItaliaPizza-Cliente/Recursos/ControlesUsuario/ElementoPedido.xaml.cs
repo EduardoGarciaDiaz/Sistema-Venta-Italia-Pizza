@@ -37,7 +37,7 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
 
         private void TxtCantidadPagaCliente_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            e.Handled = !EsTextoPermitido(TbxCantidadProducto.Text+e.Text);
+            e.Handled = !EsTextoPermitido(tbxCantidadProducto.Text+e.Text);
         }       
 
         private void TbxCantidadProducto_TextChanged(object sender, TextChangedEventArgs e)

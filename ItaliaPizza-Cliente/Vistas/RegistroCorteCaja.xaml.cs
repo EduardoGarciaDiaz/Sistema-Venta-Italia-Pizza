@@ -23,6 +23,8 @@ namespace ItaliaPizza_Cliente.Vistas
     /// </summary>
     public partial class RegistroCorteCaja : Window
     {
+        private const int VENTANA_INFORMACION = 2;
+
         private double _ingresosPedidos = 0;
         private double _salidasOrdenesCompra = 0;
         private double _salidasGastosVarios = 0;
@@ -32,7 +34,6 @@ namespace ItaliaPizza_Cliente.Vistas
         private double _dineroCaja = 0;
         private double _diferencia = 0;
         private bool _existeCorteCaja = false;
-        private const int VENTANA_INFORMACION = 2;
         private readonly Window _windowOrigen;
 
         public RegistroCorteCaja(Window windowOrigen)
@@ -41,10 +42,10 @@ namespace ItaliaPizza_Cliente.Vistas
             _windowOrigen = windowOrigen;
             ConfigurarVentana();
             _fechaSeleccionada = DateTime.Now;
-            this.Loaded += PrepararDatos;
+            this.Loaded += PrepararDatos_Loaded;
         }
 
-        private void PrepararDatos(object sender, RoutedEventArgs e)
+        private void PrepararDatos_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -67,7 +68,7 @@ namespace ItaliaPizza_Cliente.Vistas
                     _dineroCaja = 0;
                 }
                 TbxFondoInicial.Text = _fondoInicial.ToString("F2");
-                TbxDineroCaja.Text = _dineroCaja.ToString("F2");
+                tbxDineroCaja.Text = _dineroCaja.ToString("F2");
                 CalcularYMostrarEfectivoEsperado();
                 CalcularYMostrarDiferencia();
             }
@@ -100,6 +101,92 @@ namespace ItaliaPizza_Cliente.Vistas
             {
                 ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
                 ManejadorExcepcion.ManejarExcepcionError(ex, _windowOrigen, this);
+            }
+        }
+
+        private void BtnCancelar_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void TbxFondoInicial_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            lblCampoObligatorioFondoInicial.Visibility = Visibility.Hidden;
+            TextBox campo = (TextBox)sender;
+            if (!string.IsNullOrWhiteSpace(campo.Text))
+            {
+                _fondoInicial = double.Parse(campo.Text);
+            }
+            else
+            {
+                _fondoInicial = 0;
+            }
+            CalcularYMostrarEfectivoEsperado();
+            CalcularYMostrarDiferencia();
+        }
+
+        private void TbxDineroCaja_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            lblCampoObligatorioDineroEnCaja.Visibility = Visibility.Hidden;
+            TextBox campo = (TextBox)sender;
+            if (!string.IsNullOrWhiteSpace(campo.Text))
+            {
+                _dineroCaja = double.Parse(campo.Text);
+            }
+            else
+            {
+                _dineroCaja = 0;
+            }
+            CalcularYMostrarDiferencia();
+        }
+
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            string fullText = textBox.Text.Insert(textBox.SelectionStart, e.Text);
+
+            bool isDecimal = Double.TryParse(fullText, NumberStyles.Any, CultureInfo.InvariantCulture, out double result);
+            if (!isDecimal || fullText.Equals(""))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void BtnFinalizar_Click(object sender, RoutedEventArgs e)
+        {
+            bool camposLlenos = ValidarCamposLlenos();
+            if (camposLlenos)
+            {
+                GuardarCorteCaja();
+            }
+            else
+            {
+                MostrarMensajeCamposObligatorios();
+            }
+        }
+
+        private void FechaDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            lblFechaSeleccionadaErronea.Visibility = Visibility.Collapsed;
+            DateTime fechaSeleccionada = (DateTime)(sender as DatePicker).SelectedDate;
+            bool fechaValida = ValidarFechaSeleccionada(fechaSeleccionada);
+            if (fechaValida == false)
+            {
+                dpkFechaCorte.SelectedDate = _fechaSeleccionada;
+                MostrarMensajeFechaSeleccionadaError();
+            }
+            else
+            {
+                _fechaSeleccionada = fechaSeleccionada;
+                PrepararDatos_Loaded(sender, e);
             }
         }
 
@@ -155,72 +242,9 @@ namespace ItaliaPizza_Cliente.Vistas
             lblDiferencia.Content = "$" + _diferencia.ToString("F2");
         }
 
-        private void TbxFondoInicial_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            lblCampoObligatorioFondoInicial.Visibility = Visibility.Hidden;
-            TextBox campo = (TextBox)sender;   
-            if (!string.IsNullOrWhiteSpace(campo.Text))
-            {
-                _fondoInicial = double.Parse(campo.Text);
-            } else
-            {
-                _fondoInicial = 0;
-            }
-            CalcularYMostrarEfectivoEsperado();
-            CalcularYMostrarDiferencia();
-        }
-
-        private void TbxDineroCaja_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            lblCampoObligatorioDineroEnCaja.Visibility = Visibility.Hidden;
-            TextBox campo = (TextBox)sender;
-            if (!string.IsNullOrWhiteSpace(campo.Text))
-            {
-                _dineroCaja = double.Parse(campo.Text);
-            } 
-            else
-            {
-                _dineroCaja = 0;
-            }
-            CalcularYMostrarDiferencia();
-        }
-
-        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            double result;
-            TextBox textBox = sender as TextBox;
-            string fullText = textBox.Text.Insert(textBox.SelectionStart, e.Text);
-
-            bool isDecimal = Double.TryParse(fullText, NumberStyles.Any, CultureInfo.InvariantCulture, out result);
-            if (!isDecimal || fullText.Equals(""))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Space)
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void BtnFinalizar_Click(object sender, RoutedEventArgs e)
-        {
-            bool camposLlenos = ValidarCamposLlenos();
-            if (camposLlenos)
-            {
-                GuardarCorteCaja();
-            } else
-            {
-                MostrarMensajeCamposObligatorios();
-            }
-        }
-
         private void MostrarMensajeCamposObligatorios()
         {
-            if (string.IsNullOrWhiteSpace(TbxDineroCaja.Text))
+            if (string.IsNullOrWhiteSpace(tbxDineroCaja.Text))
             {
                 lblCampoObligatorioDineroEnCaja.Visibility = Visibility.Visible;
             }
@@ -232,8 +256,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
         bool ValidarCamposLlenos()
         {
-            bool camposLlenos = false;
-            camposLlenos = !(string.IsNullOrWhiteSpace(TbxDineroCaja.Text)) && !(string.IsNullOrWhiteSpace(TbxFondoInicial.Text));
+            bool camposLlenos = !string.IsNullOrWhiteSpace(tbxDineroCaja.Text) && !string.IsNullOrWhiteSpace(TbxFondoInicial.Text);
             return camposLlenos;
         }
 
@@ -310,22 +333,6 @@ namespace ItaliaPizza_Cliente.Vistas
             this.Close();
         }
 
-        private void FechaDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-            lblFechaSeleccionadaErronea.Visibility = Visibility.Collapsed;
-            DateTime fechaSeleccionada = (DateTime)(sender as DatePicker).SelectedDate;
-            bool fechaValida = ValidarFechaSeleccionada(fechaSeleccionada);
-            if (fechaValida == false)
-            {
-                dpkFechaCorte.SelectedDate = _fechaSeleccionada;
-                MostrarMensajeFechaSeleccionadaError();
-            } else
-            {
-                _fechaSeleccionada = fechaSeleccionada;
-                PrepararDatos(sender, e);
-            }
-        }
-
         private void MostrarMensajeFechaSeleccionadaError()
         {
             Utilidad.MostrarMensaje(lblFechaSeleccionadaErronea, 3);
@@ -336,11 +343,6 @@ namespace ItaliaPizza_Cliente.Vistas
             bool fechaValida;
             fechaValida = fechaSeleccionada.Date <= DateTime.Now.Date;
             return fechaValida;
-        }
-
-        private void BtnCancelar_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
 
         private void ConfigurarVentana()

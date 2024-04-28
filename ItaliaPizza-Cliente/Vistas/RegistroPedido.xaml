@@ -16,7 +16,7 @@
             <!--Barra de busqueda de productos-->
             <uc:BarraDeBusqueda x:Name="BarraBusquedaProductos" 
                                 Margin="28,12,722,741" Width="550"/>
-            <Label x:Name="LblMensajeAdvertenciaProducto" 
+            <Label x:Name="lblMensajeAdvertenciaProducto" 
                    Margin="32,53,862,718" Foreground="#FFB35353" 
                    Content=""/>
 
@@ -27,7 +27,7 @@
                     CornerRadius="10,10,10,10">
                 <ScrollViewer VerticalScrollBarVisibility="Disabled" 
                               Margin="-1,-1,1,1">
-                    <StackPanel x:Name="SkpCategoriasProductoVenta" 
+                    <StackPanel x:Name="skpCategoriasProductoVenta" 
                                 Orientation="Horizontal">
                         <Label Content="Todas" 
                                FontSize="18" 
@@ -43,7 +43,7 @@
             <!--Seccion de productos-->
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" 
                           Margin="14,191,492,21">
-                <StackPanel x:Name="SkpContenedorProductos" Orientation="Vertical">
+                <StackPanel x:Name="skpContenedorProductos" Orientation="Vertical">
 
                 </StackPanel>
             </ScrollViewer>
@@ -53,7 +53,7 @@
                    Margin="31,139,0,0" VerticalAlignment="Top" 
                    FontSize="18"/>
             
-            <Label x:Name="LblProductoNoDisponible" 
+            <Label x:Name="lblProductoNoDisponible" 
                    Margin="270,151,502,620" 
                    Foreground="#FFB35353" 
                    Content="El producto seleccionado no se encuentra disponible o la existencia de insumos es insuficiente." 
@@ -86,7 +86,7 @@
             </Border>
             
             <!--Seccion de datos del cliente-->
-            <Label x:Name="LblMensajeAdvertenciaCliente" 
+            <Label x:Name="lblMensajeAdvertenciaCliente" 
                    Margin="864,84,30,687" 
                    Foreground="#FFB35353"/>
             <Border Margin="864,114,27,622" 
@@ -95,11 +95,11 @@
             </Border>
             <Image Source="/Recursos/Iconos/icono_usuario.png" 
                    Margin="876,109,383,624"/>
-            <Label x:Name="LblNombreCliente" Margin="930,117,46,648" FontFamily="Segoe UI Variable Display" FontSize="15"/>
-            <Label x:Name="LblCorreoElectronicoCliente" Margin="930,138,103,630" FontFamily="Segoe UI Variable Display" FontSize="15"/>
+            <Label x:Name="lblNombreCliente" Margin="930,117,46,648" FontFamily="Segoe UI Variable Display" FontSize="15"/>
+            <Label x:Name="lblCorreoElectronicoCliente" Margin="930,138,103,630" FontFamily="Segoe UI Variable Display" FontSize="15"/>
 
             <!--Botones de seleccion de servicio-->
-            <Button x:Name="BtnComerEstablecimiento" 
+            <Button x:Name="btnComerEstablecimiento" 
                     Content="Comer en establecimiento" 
                     Margin="862,187,212,583" 
                     BorderThickness="0,0,0,0" 
@@ -115,7 +115,7 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button x:Name="BtnEntregaDomicilio" 
+            <Button x:Name="btnEntregaDomicilio" 
                     Content="Entrega a domicilio" 
                     Margin="1096,187,26,583" 
                     BorderThickness="0,0,0,0" 
@@ -141,7 +141,7 @@
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" 
                           Margin="871,261,46,189">
 
-                <StackPanel x:Name="SkpContenedorProductosPedido"/>
+                <StackPanel x:Name="skpContenedorProductosPedido"/>
             </ScrollViewer>
 
             <!--Resumen de pago-->
@@ -159,7 +159,7 @@
                    Margin="864,682,296,88" 
                    FontSize="15"/>
             
-            <Label x:Name="LblSubtotal" 
+            <Label x:Name="lblSubtotal" 
                    Content="" 
                    Margin="0,632,33,0" 
                    HorizontalAlignment="Right" 
@@ -167,7 +167,7 @@
                    VerticalAlignment="Top" 
                    Width="116"/>
             
-            <Label x:Name="LblIva" 
+            <Label x:Name="lblIva" 
                    Content="" 
                    Margin="0,655,35,0" 
                    HorizontalAlignment="Right" 
@@ -175,7 +175,7 @@
                    VerticalAlignment="Top" 
                    Width="116"/>
             
-            <Label x:Name="LblTotal" 
+            <Label x:Name="lblTotal" 
                    Content="" 
                    Margin="0,682,29,0" 
                    HorizontalAlignment="Right" 
@@ -202,7 +202,7 @@
                 </Button.Resources>
                 
             </Button>
-            <Label x:Name="LblMensajeSeleccionClienteProductoObligatoria" 
+            <Label x:Name="lblMensajeSeleccionClienteProductoObligatoria" 
                    Content="Debes seleccionar un cliente e incluir al menos un producto." 
                    Margin="860,771,34,0" 
                    Foreground="#FF8F7225" 

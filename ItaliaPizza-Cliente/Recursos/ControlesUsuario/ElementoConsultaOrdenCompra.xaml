@@ -45,13 +45,13 @@
                Margin="110,64,456,2" 
                FontFamily="Segoe UI Historic" Grid.ColumnSpan="2" Content="dsdsds" FontSize="16"/>
 
-        <Label x:Name="LblFecha" 
+        <Label x:Name="lblFecha" 
                Margin="535,12,19,56" 
                HorizontalContentAlignment="Right" 
                FontFamily="Segoe UI Semibold" 
                Foreground="#FF606060" 
                FontSize="18" Grid.Column="1"/>
-        <Label x:Name="LblTotalOrdenCompra" Margin="357,53,206,15" HorizontalContentAlignment="Right" FontFamily="Segoe UI Semibold" Foreground="#FF606060" FontSize="18" Grid.Column="1" Content="das"/>
+        <Label x:Name="lblTotalOrdenCompra" Margin="357,53,206,15" HorizontalContentAlignment="Right" FontFamily="Segoe UI Semibold" Foreground="#FF606060" FontSize="18" Grid.Column="1" Content="das"/>
         <Label Content="Solicitados:" 
             Margin="19,62,115,4" 
             FontSize="16" 

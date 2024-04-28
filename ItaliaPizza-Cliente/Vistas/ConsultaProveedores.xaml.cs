@@ -43,7 +43,7 @@ namespace ItaliaPizza_Cliente.Vistas
                 InatanciarElementosProveedores(_listaProveedores);
                 MostrarProveedores(_listaElementosProveedores);
                 barraBusquedaProveedor.plhrInstruccion.Text = "Buscar por Nombre o RFC...";
-                barraBusquedaProveedor.txbBusqueda.Text = String.Empty;
+                barraBusquedaProveedor.tbxBusqueda.Text = String.Empty;
                 barraBusquedaProveedor.ImgBuscarClicked += BtnBuscar_Click;
             }
             catch (EndpointNotFoundException ex)
@@ -81,7 +81,7 @@ namespace ItaliaPizza_Cliente.Vistas
         private void BtnBuscar_Click(object sender, EventArgs e)
         {
            
-           string criterio = barraBusquedaProveedor.txbBusqueda.Text.Trim().ToLower();
+           string criterio = barraBusquedaProveedor.tbxBusqueda.Text.Trim().ToLower();
             if (String.IsNullOrEmpty(criterio))
             {
                 MostrarProveedores(_listaElementosProveedores);

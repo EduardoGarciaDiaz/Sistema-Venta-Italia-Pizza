@@ -274,7 +274,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void TbxBusqueda_TextChanged(object sender, EventArgs e)
         {
-            if (barraDeBusqueda.txbBusqueda.Text.Trim() == string.Empty)
+            if (barraDeBusqueda.tbxBusqueda.Text.Trim() == string.Empty)
             {
                 MostrarProductos();
             }
@@ -295,12 +295,12 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void BuscarProductos()
         {
-            if (barraDeBusqueda.txbBusqueda.Text != string.Empty)
+            if (barraDeBusqueda.tbxBusqueda.Text != string.Empty)
             {
                 LimpiarFiltrosCategorias();
                 stackPanelProductos.Children.Clear();
 
-                string textoABuscar = barraDeBusqueda.txbBusqueda.Text.Trim().ToUpper();
+                string textoABuscar = barraDeBusqueda.tbxBusqueda.Text.Trim().ToUpper();
                 MostrarCoincidencias(textoABuscar);
             }
         }

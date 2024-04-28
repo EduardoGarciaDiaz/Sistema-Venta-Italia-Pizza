@@ -17,9 +17,9 @@
             <ColumnDefinition Width="19*"/>
             <ColumnDefinition Width="6*"/>
         </Grid.ColumnDefinitions>
-        <Label x:Name="LblNombreProducto" Content="Pizza Clasica" Margin="8,0,66,38" FontSize="15"/>
-        <Label x:Name="LblDescripcionProducto" Content="Peperoni y queso" Margin="8,18,66,21" FontFamily="Segoe UI Variable Small Semibold" Foreground="#FF727272"/>
-        <Label x:Name="LblPrecioProducto" Content="$120.00" Margin="8,35,0,5" HorizontalAlignment="Left" Width="195" FontSize="13" FontFamily="Segoe UI Variable Text Semibold" Foreground="#FF4C4C4C"/>
+        <Label x:Name="lblNombreProducto" Content="Pizza Clasica" Margin="8,0,66,38" FontSize="15"/>
+        <Label x:Name="lblDescripcionProducto" Content="Peperoni y queso" Margin="8,18,66,21" FontFamily="Segoe UI Variable Small Semibold" Foreground="#FF727272"/>
+        <Label x:Name="lblPrecioProducto" Content="$120.00" Margin="8,35,0,5" HorizontalAlignment="Left" Width="195" FontSize="13" FontFamily="Segoe UI Variable Text Semibold" Foreground="#FF4C4C4C"/>
         <Button x:Name="BtnSumarCantidadProducto" 
                 Content="-" 
                 FontSize="18" 
@@ -58,7 +58,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Label x:Name="LblMensajeInsumosInsuficientes" Content="Insumos insuficientes. El producto no será agregado." Margin="96,42,10,-1" FontSize="10" Foreground="#FFF04444" Visibility="Collapsed" Grid.ColumnSpan="2"/>
-        <TextBox x:Name="TbxCantidadProducto" HorizontalAlignment="Left" Margin="245,9,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="52" Background="{x:Null}" BorderBrush="{x:Null}" TextAlignment="Center" FontSize="18" PreviewTextInput="TxtCantidadPagaCliente_PreviewTextInput" TextChanged="TbxCantidadProducto_TextChanged" Grid.ColumnSpan="2" LostFocus="TbxCantidadProducto_LostFocus"/>
+        <Label x:Name="lblMensajeInsumosInsuficientes" Content="Insumos insuficientes. El producto no será agregado." Margin="96,42,10,-1" FontSize="10" Foreground="#FFF04444" Visibility="Collapsed" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="tbxCantidadProducto" HorizontalAlignment="Left" Margin="245,9,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="52" Background="{x:Null}" BorderBrush="{x:Null}" TextAlignment="Center" FontSize="18" PreviewTextInput="TxtCantidadPagaCliente_PreviewTextInput" TextChanged="TbxCantidadProducto_TextChanged" Grid.ColumnSpan="2" LostFocus="TbxCantidadProducto_LostFocus"/>
     </Grid>
 </UserControl>

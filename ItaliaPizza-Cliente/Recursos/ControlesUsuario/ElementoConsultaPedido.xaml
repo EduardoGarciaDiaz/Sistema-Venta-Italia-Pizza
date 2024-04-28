@@ -21,7 +21,7 @@
                FontSize="14" 
                FontFamily="Segoe UI Semibold"/>
 
-        <Label x:Name="LblNumeroPedido"
+        <Label x:Name="lblNumeroPedido"
                Content="12345678" 
                Margin="73,10,496,66"/>
 
@@ -30,31 +30,31 @@
                Margin="19,29,640,37" 
                FontSize="14" 
                FontFamily="Segoe UI Semibold"/>
-        <Label x:Name="LblNombreCliente"
+        <Label x:Name="lblNombreCliente"
                 Margin="73,29,405,40" 
                FontSize="14"/>
 
 
 
 
-        <Label x:Name="LblCantidadProductos" 
+        <Label x:Name="lblCantidadProductos" 
                Margin="18,59,509,7" 
                FontFamily="Segoe UI Historic"/>
         
-        <Label x:Name="LblFecha" 
+        <Label x:Name="lblFecha" 
                Margin="459,12,19,56" 
                HorizontalContentAlignment="Right" 
                FontFamily="Segoe UI Semibold" 
                Foreground="#FF606060" 
                FontSize="18"/>
         
-        <Label x:Name="LblEstadoPedido" Background="#d6b400" Margin="557,56,25,11" HorizontalContentAlignment="Center" FontSize="16" Foreground="White">
+        <Label x:Name="lblEstadoPedido" Background="#d6b400" Margin="557,56,25,11" HorizontalContentAlignment="Center" FontSize="16" Foreground="White">
             <Label.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="15"/>
                 </Style>
             </Label.Resources>
         </Label>
-        <Label x:Name="LblTotalPedido" Margin="407,55,175,13" HorizontalContentAlignment="Center" FontFamily="Segoe UI Semibold" Foreground="#FF606060" FontSize="18"/>
+        <Label x:Name="lblTotalPedido" Margin="407,55,175,13" HorizontalContentAlignment="Center" FontFamily="Segoe UI Semibold" Foreground="#FF606060" FontSize="18"/>
     </Grid>
 </UserControl>

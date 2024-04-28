@@ -109,7 +109,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void ImgBuscar_Click(object sender, EventArgs e)
         {
-            string criterioBusqueda = barraBusquedaInsumo.txbBusqueda.Text;
+            string criterioBusqueda = barraBusquedaInsumo.tbxBusqueda.Text;
             skpListaInsumos.Children.Clear();
             List<ElementoInsumoOrdenCompra> insumosFiltrados = _listaElementoEnListaInsumos.Where(insumo => insumo.Insumo.Codigo.Contains(criterioBusqueda) ||
                                                                                                   insumo.Insumo.Nombre.Contains(criterioBusqueda)).ToList();

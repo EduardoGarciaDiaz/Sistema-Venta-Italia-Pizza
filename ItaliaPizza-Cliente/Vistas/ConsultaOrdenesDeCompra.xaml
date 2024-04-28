@@ -26,7 +26,7 @@
                       VerticalContentAlignment="Center" 
                       FontSize="16" SelectionChanged="Combo_ItemSeleccionadoChanged"/>
 
-            <DatePicker x:Name="DpkFechaBusqueda" 
+            <DatePicker x:Name="dpkFechaBusqueda" 
                         Margin="315,60,804,667" 
                         Background="White" 
                         Padding="15,10,11,2" 
@@ -83,7 +83,7 @@
                 </ScrollViewer>
             </Border>
             <ScrollViewer Margin="6,180,61,74">
-                <StackPanel x:Name="SkpContenedorOrdenesCompra" 
+                <StackPanel x:Name="skpContenedorOrdenesCompra" 
                             Orientation="Vertical" 
                             Width="1185">
 

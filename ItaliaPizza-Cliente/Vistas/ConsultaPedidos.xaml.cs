@@ -32,14 +32,14 @@ namespace ItaliaPizza_Cliente.Vistas
         private string CANCELAR_PEDIDO = "Cancelar pedido";
         private string MARCAR_COMO_ENTREGADO = "Marcar como entregado";
 
-        private SolidColorBrush _colorBrushAmarillo = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFD6B400"));
-        private SolidColorBrush _colorBrushRojo = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFD67272"));
-        private SolidColorBrush _colorBrushNegro = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#00000000"));
-        private SolidColorBrush _colorBrushGris = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF656565"));
+        private SolidColorBrush COLOR_BRUSH_AMARILLO = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFD6B400"));
+        private SolidColorBrush COLOR_BRUSH_ROJO = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFD67272"));
+        private SolidColorBrush COLOR_BRUSH_NEGRO = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#00000000"));
+        private SolidColorBrush COLOR_BRUSH_GRIS = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF656565"));
 
         private List<PedidoConsultaDTO> _pedidos;
         private Pedido _pedidoSeleccionado;
-        public bool _esPrimeraVezEnMostrarse = true;
+        private bool _esPrimeraVezEnMostrarse = true;
 
         public ConsultaPedidos()
         {
@@ -54,8 +54,8 @@ namespace ItaliaPizza_Cliente.Vistas
                 _esPrimeraVezEnMostrarse = false;
                 try
                 {
-                    this.BqdClientes.plhrInstruccion.Text = "Ingresa nombre de cliente...";
-                    this.BqdClientes.ImgBuscarClicked += ImgBuscarPedidoPorCliente;
+                    this.BarraBusquedaClientes.plhrInstruccion.Text = "Ingresa nombre de cliente...";
+                    this.BarraBusquedaClientes.ImgBuscarClicked += ImgBuscarPedidoPorCliente;
                     lbEnProceso.Tag = (int)EnumEstadosPedido.EnProceso;
                     lbPreparados.Tag = (int)EnumEstadosPedido.Preparado;
                     lbEntregados.Tag = (int)EnumEstadosPedido.Entregado;
@@ -116,11 +116,11 @@ namespace ItaliaPizza_Cliente.Vistas
             }
         }
 
-        private void ElementoConsultaPedidoClick(object sender, RoutedEventArgs e)
+        private void ElementoConsultaPedido_Click(object sender, RoutedEventArgs e)
         {
             ElementoConsultaPedido elementoConsultaPedido = sender as ElementoConsultaPedido;
             ServicioPedidosClient servicioPedidosCliente = new ServicioPedidosClient();
-            int numeroPedido = int.Parse(elementoConsultaPedido.LblNumeroPedido.Content.ToString());
+            int numeroPedido = int.Parse(elementoConsultaPedido.lblNumeroPedido.Content.ToString());
             try
             {
                 Pedido pedido = servicioPedidosCliente.RecuperarPedido(numeroPedido);
@@ -129,7 +129,7 @@ namespace ItaliaPizza_Cliente.Vistas
                     _pedidoSeleccionado = pedido;
                     ServicioUsuariosClient servicioUsuarios = new ServicioUsuariosClient();
                     Cliente cliente = servicioUsuarios.RecuperarClientePorId(pedido.IdCliente);
-                    bdrSeleccionaUnPedido.Visibility = Visibility.Collapsed;
+                    brdSeleccionaUnPedido.Visibility = Visibility.Collapsed;
                     MostrarPedido(pedido, cliente);
                 }
             }
@@ -167,7 +167,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void ImgBuscarPedidoPorCliente(object sender, EventArgs e)
         {
-            string valorBusqueda = BqdClientes.txbBusqueda.Text.ToString();
+            string valorBusqueda = BarraBusquedaClientes.tbxBusqueda.Text.ToString();
             if (!(ValidarCamposVacios(valorBusqueda)))
             {
                 List<PedidoConsultaDTO> resultadoBusquedaPedidos = new List<PedidoConsultaDTO>();
@@ -179,20 +179,20 @@ namespace ItaliaPizza_Cliente.Vistas
                 }
                 else
                 {
-                    LblMensajeAdvertenciaPedido.Content = MENSAJE_SIN_RESULTADOS_BUSQUEDA_PRODUCTO;
+                    lblMensajeAdvertenciaPedido.Content = MENSAJE_SIN_RESULTADOS_BUSQUEDA_PRODUCTO;
                 }
             }
             else
             {
-                LblMensajeAdvertenciaPedido.Content = MENSAJE_CAMPO_VACIO;
-                Utilidad.MostrarMensaje(LblMensajeAdvertenciaPedido, 2);
+                lblMensajeAdvertenciaPedido.Content = MENSAJE_CAMPO_VACIO;
+                Utilidad.MostrarMensaje(lblMensajeAdvertenciaPedido, 2);
             }
         }
 
         private void TxtBusquedaPedidoChanged(object sender, EventArgs e)
         {
-            this.LblMensajeAdvertenciaPedido.Content = "";
-            if (string.IsNullOrWhiteSpace(BqdClientes.txbBusqueda.Text))
+            this.lblMensajeAdvertenciaPedido.Content = "";
+            if (string.IsNullOrWhiteSpace(BarraBusquedaClientes.tbxBusqueda.Text))
             {
                 MostrarPedidos(_pedidos);
             }
@@ -281,22 +281,22 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void MostrarPedidos(List<PedidoConsultaDTO> pedidos)
         {
-            SkpContenedorPedidos.Children.Clear();
+            skpContenedorPedidos.Children.Clear();
             pedidos?.ForEach(pedido =>
             {
                 var elementoConsultaPedido = new ElementoConsultaPedido
                 {
-                    LblNumeroPedido = { Content = pedido.NumeroPedido },
-                    LblNombreCliente = { Content = pedido.NombreCliente },
-                    LblCantidadProductos = { Content = $"{pedido.CantidadProductos} productos." },
-                    LblFecha = { Content = pedido.Fecha.ToShortDateString() },
-                    LblTotalPedido = { Content = $"${pedido.Total:F2}" },
-                    LblEstadoPedido = { Content = pedido.EstadoPedido.Nombre }
+                    lblNumeroPedido = { Content = pedido.NumeroPedido },
+                    lblNombreCliente = { Content = pedido.NombreCliente },
+                    lblCantidadProductos = { Content = $"{pedido.CantidadProductos} productos." },
+                    lblFecha = { Content = pedido.Fecha.ToShortDateString() },
+                    lblTotalPedido = { Content = $"${pedido.Total:F2}" },
+                    lblEstadoPedido = { Content = pedido.EstadoPedido.Nombre }
                 };
-                CambiarColorLabelEstado(pedido.EstadoPedido.IdEstadoPedido, elementoConsultaPedido.LblEstadoPedido);
-                elementoConsultaPedido.PedidoClicked += ElementoConsultaPedidoClick;
+                CambiarColorLabelEstado(pedido.EstadoPedido.IdEstadoPedido, elementoConsultaPedido.lblEstadoPedido);
+                elementoConsultaPedido.PedidoClicked += ElementoConsultaPedido_Click;
 
-                SkpContenedorPedidos.Children.Add(elementoConsultaPedido);
+                skpContenedorPedidos.Children.Add(elementoConsultaPedido);
             });
         }
 
@@ -305,7 +305,7 @@ namespace ItaliaPizza_Cliente.Vistas
             switch (idEstadoPedido)
             {
                 case (int)EnumEstadosPedido.EnProceso:
-                    lbEstadoPedido.Background = _colorBrushAmarillo;
+                    lbEstadoPedido.Background = COLOR_BRUSH_AMARILLO;
                     lbEstadoPedido.Foreground = new SolidColorBrush(Colors.White);
                     break;
 
@@ -317,12 +317,12 @@ namespace ItaliaPizza_Cliente.Vistas
                     break;
 
                 case (int)EnumEstadosPedido.Entregado:
-                    lbEstadoPedido.Background = _colorBrushNegro;
+                    lbEstadoPedido.Background = COLOR_BRUSH_NEGRO;
                     lbEstadoPedido.Foreground = new SolidColorBrush(Colors.White);
                     break;
 
                 case (int)EnumEstadosPedido.Cancelado:
-                    lbEstadoPedido.Background = _colorBrushRojo;
+                    lbEstadoPedido.Background = COLOR_BRUSH_ROJO;
                     lbEstadoPedido.Foreground = new SolidColorBrush(Colors.White);
                     break;
 
@@ -367,11 +367,11 @@ namespace ItaliaPizza_Cliente.Vistas
             switch (idEstadoPedido)
             {
                 case (int)EnumEstadosPedido.EnProceso when tipoEmpleado == (int)EnumTiposEmpleado.Chef:
-                    ConfigurarBoton(_colorBrushAmarillo, MARCAR_COMO_PREPARADO, new SolidColorBrush(Colors.White), new Thickness(0));
+                    ConfigurarBoton(COLOR_BRUSH_AMARILLO, MARCAR_COMO_PREPARADO, new SolidColorBrush(Colors.White), new Thickness(0));
                     break;
 
                 case (int)EnumEstadosPedido.EnProceso when tipoEmpleado == (int)EnumTiposEmpleado.Cajero:
-                    ConfigurarBoton(new SolidColorBrush(Colors.White), CANCELAR_PEDIDO, _colorBrushRojo, new Thickness(2), true);
+                    ConfigurarBoton(new SolidColorBrush(Colors.White), CANCELAR_PEDIDO, COLOR_BRUSH_ROJO, new Thickness(2), true);
                     break;
 
                 case (int)EnumEstadosPedido.Preparado:
@@ -397,7 +397,7 @@ namespace ItaliaPizza_Cliente.Vistas
             btnActualizarEstadoPedido.BorderThickness = borderThickness;
             if (customBorderBrush)
             {
-                btnActualizarEstadoPedido.BorderBrush = _colorBrushRojo;
+                btnActualizarEstadoPedido.BorderBrush = COLOR_BRUSH_ROJO;
             }
         }
 
@@ -410,9 +410,9 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             foreach (Label label in skpContenedorEstados.Children.OfType<Label>().ToList())
             {
-                label.Foreground = _colorBrushGris;
+                label.Foreground = COLOR_BRUSH_GRIS;
             }
-            labelSeleccionado.Foreground = _colorBrushAmarillo;
+            labelSeleccionado.Foreground = COLOR_BRUSH_AMARILLO;
         }
 
         private void FiltrarYMostrarPedidosPorEstado(int idEstadoPedido)
@@ -426,7 +426,7 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             else
             {
-                SkpContenedorPedidos.Children.Clear();
+                skpContenedorPedidos.Children.Clear();
             }
         }
 
@@ -459,7 +459,7 @@ namespace ItaliaPizza_Cliente.Vistas
                     MostrarPedido(_pedidoSeleccionado, cliente);
                 } else
                 {
-                    bdrSeleccionaUnPedido.Visibility = Visibility.Visible;
+                    brdSeleccionaUnPedido.Visibility = Visibility.Visible;
                 }
                 RecuperarPedidos();
                 MostrarPedidos(_pedidos);

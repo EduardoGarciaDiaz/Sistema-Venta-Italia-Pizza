@@ -24,9 +24,9 @@ namespace ItaliaPizza_Cliente.Vistas
     /// </summary>
     public partial class RegistroPagoOrdenCompra : Page
     {
+        private const int VENTANA_INFORMACION = 2;
 
         private OrdenDeCompraDto _ordenCompra;
-        private const int VENTANA_INFORMACION = 2;
 
         public RegistroPagoOrdenCompra(OrdenDeCompraDto ordenCompra)
         {
@@ -43,74 +43,6 @@ namespace ItaliaPizza_Cliente.Vistas
             CalcularYMostrarTotales();
         }
 
-        private void MostrarInsumos(List<ElementoOrdenCompraDto> insumos)
-        {
-            insumos?.ForEach(insumo =>
-            {
-                var insumoOrdenCompra = new ElementoInsumoRegistroPagoOrden
-                { 
-                      lblNombreInsumo = { Content = insumo.InsumoOrdenCompraDto.Nombre },
-                      lblCodigoInsumo = { Content = insumo.InsumoOrdenCompraDto.Codigo },
-                      lblNombreUnidadMedida = { Content = insumo.InsumoOrdenCompraDto.UnidadMedida },
-                      lblCostoInsumo = { Content = insumo.InsumoOrdenCompraDto.CostoUnitario },
-                      lblTotalInsumos = { Content = insumo.CantidadInsumosAdquiridos * insumo.InsumoOrdenCompraDto.CostoUnitario },
-                      tbxCantidadInsumo = { Text = insumo.CantidadInsumosAdquiridos.ToString("F2") },
-                      Insumo = insumo.InsumoOrdenCompraDto
-                };
-                insumoOrdenCompra.TextChanged += TextCantidad_Changed;
-
-                SkpContenedorOrdenesCompra.Children.Add(insumoOrdenCompra);
-            });
-        }
-
-        private void TextCantidad_Changed(object sender, EventArgs e)
-        {
-            double cantidad = 0;
-            ElementoInsumoRegistroPagoOrden elementoUI = sender as ElementoInsumoRegistroPagoOrden;
-            if (!string.IsNullOrEmpty(elementoUI.tbxCantidadInsumo.Text))
-            {
-                cantidad = double.Parse((sender as ElementoInsumoRegistroPagoOrden).tbxCantidadInsumo.Text);
-            }
-            ActualizarTotalInsumo(cantidad, sender as ElementoInsumoRegistroPagoOrden);
-            CalcularYMostrarTotales();
-        }
-
-        private void CalcularYMostrarTotales()
-        {
-            List<ElementoInsumoRegistroPagoOrden> insumos = SkpContenedorOrdenesCompra.Children.OfType<ElementoInsumoRegistroPagoOrden>().ToList();
-            double subtotal = insumos.Sum(i => double.Parse(i.lblTotalInsumos.Content.ToString()));
-            double iva = subtotal * 0.16;
-            double total = subtotal + iva;
-
-            lblSubtotal.Content = subtotal.ToString("F2");
-            lblIVA.Content = iva.ToString("F2");
-            lblTotal.Content = total.ToString("F2");
-        }
-
-        private void ActualizarTotalInsumo(double cantidad, ElementoInsumoRegistroPagoOrden elementoInsumoRegistroPagoOrden)
-        {
-            elementoInsumoRegistroPagoOrden.lblTotalInsumos.Content = (cantidad * elementoInsumoRegistroPagoOrden.Insumo.CostoUnitario);
-        }
-
-        private void MostrarProveedor(ProveedorDto proveedor)
-        {
-            lblNombreProveedor.Content = proveedor.NombreCompleto;
-            lblCorreoProveedor.Content = proveedor.CorreoElectronico;
-            lblRFCProveedor.Content = proveedor.RFC;
-            lblNumeroTelefonoProveedor.Content = proveedor.NumeroTelefono;
-            DireccionDto direccion = proveedor.Direccion;
-            tbxDireccionProveedor.Text = direccion.Calle + " #" +
-                direccion.Numero + ", " +
-                direccion.Colonia + ". " +
-                direccion.CodigoPostal + ". " +
-                direccion.Ciudad + ", ";
-        }
-
-        private void MostrarDatosOrdenCompra(OrdenDeCompraDto ordenCompra)
-        {
-            lblNumeroOrden.Content = ordenCompra.IdOrdenCompra;
-            lblFecha.Content = ordenCompra.Fecha.ToShortDateString();
-        }
 
         private void BtnCancelar_Click(object sender, RoutedEventArgs e)
         {
@@ -124,7 +56,7 @@ namespace ItaliaPizza_Cliente.Vistas
             {
                 _ordenCompra.IdEstadoOrdenCompra = (int)EnumEstadosOrdenCompra.Surtida;
                 _ordenCompra.Costo = float.Parse(lblTotal.Content.ToString());
-                List<ElementoInsumoRegistroPagoOrden> insumos = SkpContenedorOrdenesCompra.Children.OfType<ElementoInsumoRegistroPagoOrden>().ToList();
+                List<ElementoInsumoRegistroPagoOrden> insumos = skpContenedorOrdenesCompra.Children.OfType<ElementoInsumoRegistroPagoOrden>().ToList();
                 insumos?.ForEach(i =>
                 {
                     _ordenCompra.ListaElementosOrdenCompra.FirstOrDefault(insumo =>
@@ -168,7 +100,75 @@ namespace ItaliaPizza_Cliente.Vistas
                 ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
+        }
 
+        private void TextCantidad_Changed(object sender, EventArgs e)
+        {
+            double cantidad = 0;
+            ElementoInsumoRegistroPagoOrden elementoUI = sender as ElementoInsumoRegistroPagoOrden;
+            if (!string.IsNullOrEmpty(elementoUI.tbxCantidadInsumo.Text))
+            {
+                cantidad = double.Parse((sender as ElementoInsumoRegistroPagoOrden).tbxCantidadInsumo.Text);
+            }
+            ActualizarTotalInsumo(cantidad, sender as ElementoInsumoRegistroPagoOrden);
+            CalcularYMostrarTotales();
+        }
+
+        private void MostrarInsumos(List<ElementoOrdenCompraDto> insumos)
+        {
+            insumos?.ForEach(insumo =>
+            {
+                var insumoOrdenCompra = new ElementoInsumoRegistroPagoOrden
+                { 
+                      lblNombreInsumo = { Content = insumo.InsumoOrdenCompraDto.Nombre },
+                      lblCodigoInsumo = { Content = insumo.InsumoOrdenCompraDto.Codigo },
+                      lblNombreUnidadMedida = { Content = insumo.InsumoOrdenCompraDto.UnidadMedida },
+                      lblCostoInsumo = { Content = insumo.InsumoOrdenCompraDto.CostoUnitario },
+                      lblTotalInsumos = { Content = insumo.CantidadInsumosAdquiridos * insumo.InsumoOrdenCompraDto.CostoUnitario },
+                      tbxCantidadInsumo = { Text = insumo.CantidadInsumosAdquiridos.ToString("F2") },
+                      Insumo = insumo.InsumoOrdenCompraDto
+                };
+                insumoOrdenCompra.TextChanged += TextCantidad_Changed;
+
+                skpContenedorOrdenesCompra.Children.Add(insumoOrdenCompra);
+            });
+        }
+
+        private void CalcularYMostrarTotales()
+        {
+            List<ElementoInsumoRegistroPagoOrden> insumos = skpContenedorOrdenesCompra.Children.OfType<ElementoInsumoRegistroPagoOrden>().ToList();
+            double subtotal = insumos.Sum(i => double.Parse(i.lblTotalInsumos.Content.ToString()));
+            double iva = subtotal * 0.16;
+            double total = subtotal + iva;
+
+            lblSubtotal.Content = subtotal.ToString("F2");
+            lblIVA.Content = iva.ToString("F2");
+            lblTotal.Content = total.ToString("F2");
+        }
+
+        private void ActualizarTotalInsumo(double cantidad, ElementoInsumoRegistroPagoOrden elementoInsumoRegistroPagoOrden)
+        {
+            elementoInsumoRegistroPagoOrden.lblTotalInsumos.Content = (cantidad * elementoInsumoRegistroPagoOrden.Insumo.CostoUnitario);
+        }
+
+        private void MostrarProveedor(ProveedorDto proveedor)
+        {
+            lblNombreProveedor.Content = proveedor.NombreCompleto;
+            lblCorreoProveedor.Content = proveedor.CorreoElectronico;
+            lblRFCProveedor.Content = proveedor.RFC;
+            lblNumeroTelefonoProveedor.Content = proveedor.NumeroTelefono;
+            DireccionDto direccion = proveedor.Direccion;
+            tbxDireccionProveedor.Text = direccion.Calle + " #" +
+                direccion.Numero + ", " +
+                direccion.Colonia + ". " +
+                direccion.CodigoPostal + ". " +
+                direccion.Ciudad + ", ";
+        }
+
+        private void MostrarDatosOrdenCompra(OrdenDeCompraDto ordenCompra)
+        {
+            lblNumeroOrden.Content = ordenCompra.IdOrdenCompra;
+            lblFecha.Content = ordenCompra.Fecha.ToShortDateString();
         }
 
         private void ManejarRegistroExitoso()

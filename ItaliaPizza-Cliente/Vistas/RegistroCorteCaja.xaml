@@ -89,7 +89,7 @@
                 <Separator HorizontalAlignment="Center" Margin="0,247,0,0" VerticalAlignment="Top" Height="12" Width="408" Background="#FFC9C9C9"/>
                 <Label Content="¿Cuánto hay en Caja?" Foreground="Black" FontStretch="Medium" FontWeight="Bold" FontSize="14" Margin="20,261,198,259"/>
 
-                <TextBox x:Name="TbxDineroCaja" Text="" Padding="12, 0, 0, 0" HorizontalAlignment="Left" Margin="273,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="156" Height="26" VerticalContentAlignment="Center" FontSize="16" MaxLength="10" BorderBrush="Black" TextChanged="TbxDineroCaja_TextChanged" PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown"/>
+                <TextBox x:Name="tbxDineroCaja" Text="" Padding="12, 0, 0, 0" HorizontalAlignment="Left" Margin="273,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="156" Height="26" VerticalContentAlignment="Center" FontSize="16" MaxLength="10" BorderBrush="Black" TextChanged="TbxDineroCaja_TextChanged" PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown"/>
                 <Separator HorizontalAlignment="Center" Margin="0,307,0,0" VerticalAlignment="Top" Height="12" Width="408" Background="#FFC9C9C9"/>
                 <Label x:Name="lblCampoObligatorioDineroEnCaja"
         Content="Campo obligatorio*" Margin="271,287,68,234" FontSize="10" Foreground="#FFDF1414" Visibility="Hidden"/>

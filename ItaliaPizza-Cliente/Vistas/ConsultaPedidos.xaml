@@ -13,11 +13,11 @@
 
     <Viewbox>
         <Grid Height="770" Width="1300">
-            <uc:BarraDeBusqueda x:Name="BqdClientes"
+            <uc:BarraDeBusqueda x:Name="BarraBusquedaClientes"
                                 Margin="22,7,728,716" 
                                 Width="550"/>
 
-            <Label x:Name="LblMensajeAdvertenciaPedido"
+            <Label x:Name="lblMensajeAdvertenciaPedido"
                 Content="" 
                    Margin="24,52,818,690" Foreground="#FFC13636"/>
 
@@ -87,7 +87,7 @@
                 </ScrollViewer>
             </Border>
             <ScrollViewer Margin="6,142,522,32">
-                <StackPanel x:Name="SkpContenedorPedidos" 
+                <StackPanel x:Name="skpContenedorPedidos" 
                             Orientation="Vertical" 
                             Width="720">
 
@@ -197,7 +197,7 @@
                 </Button.Resources>
             </Button>
 
-            <Border x:Name="bdrSeleccionaUnPedido"
+            <Border x:Name="brdSeleccionaUnPedido"
                 Margin="818,8,10,8" 
                 CornerRadius="20" 
                 Background="White">

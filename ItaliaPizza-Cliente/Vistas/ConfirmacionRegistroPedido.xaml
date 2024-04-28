@@ -35,7 +35,7 @@
            FontSize="16" 
            FontFamily="Segoe UI Variable Display Semibold" HorizontalContentAlignment="Right" Margin="92,111,251,153"/>
 
-            <Label x:Name="LblNumeroPedido"
+            <Label x:Name="lblNumeroPedido"
            Foreground="#FF767676"
            FontSize="16" 
            FontFamily="Segoe UI Variable Display Semibold" Margin="248,110,95,156" Content=""/>
@@ -53,12 +53,12 @@
             Foreground="#FF767676" 
             FontFamily="Segoe UI Variable Display Semibold" Margin="201,173,208,99" FontSize="14" HorizontalContentAlignment="Center"/>
 
-            <Label x:Name="LblNombreCliente"
+            <Label x:Name="lblNombreCliente"
         Foreground="#FF767676"
         FontSize="16" 
         FontFamily="Segoe UI Variable Display Semibold" Margin="248,131,29,135" Content=""/>
 
-            <Label x:Name="LblCambio" Content="" Margin="201,193,207,66" FontSize="20" HorizontalContentAlignment="Center"/>
+            <Label x:Name="lblCambio" Content="" Margin="201,193,207,66" FontSize="20" HorizontalContentAlignment="Center"/>
 
             <Button Margin="161,248,160,8"
             Content="Aceptar"

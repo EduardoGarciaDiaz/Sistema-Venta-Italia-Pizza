@@ -18,11 +18,11 @@
     
     <Viewbox>
         <Grid HorizontalAlignment="Center" Height="200" Width="150">
-            <Image x:Name="ImgProducto" Source="/Recursos/Iconos/imagen_pizza.png" Margin="8,6,13,91" RenderTransformOrigin="0.5,0.5"/>
-            <Label x:Name="LblNombreProducto" Content="Pizza Clasica" HorizontalAlignment="Center" Margin="0,105,0,63" Width="150" HorizontalContentAlignment="Center" FontSize="15" RenderTransformOrigin="0.5,0.5"/>
-            <TextBox x:Name="LblDescripcionProducto" Text="PIZZACLAS" HorizontalAlignment="Center" Margin="0,146,0,16" Width="132" HorizontalContentAlignment="Center" FontSize="10" BorderThickness="0,0,0,0" IsReadOnly="True"/>
-            <Label x:Name="LblPrecioProducto" Content="$120.00" HorizontalAlignment="Center" Margin="0,174,0,1" Width="144" HorizontalContentAlignment="Center" FontFamily="Segoe UI Variable Display" Foreground="#FF5B5B5B" FontWeight="Bold"/>
-            <Label x:Name="LblCodigo" Content="" HorizontalAlignment="Center" Margin="0,125,0,50" Width="144" HorizontalContentAlignment="Center" FontFamily="Segoe UI Variable Display" Foreground="#FF5B5B5B" FontWeight="Bold"/>
+            <Image x:Name="imgProducto" Source="/Recursos/Iconos/imagen_pizza.png" Margin="8,6,13,91" RenderTransformOrigin="0.5,0.5"/>
+            <Label x:Name="lblNombreProducto" Content="Pizza Clasica" HorizontalAlignment="Center" Margin="0,105,0,63" Width="150" HorizontalContentAlignment="Center" FontSize="15" RenderTransformOrigin="0.5,0.5"/>
+            <TextBox x:Name="lblDescripcionProducto" Text="PIZZACLAS" HorizontalAlignment="Center" Margin="0,146,0,16" Width="132" HorizontalContentAlignment="Center" FontSize="10" BorderThickness="0,0,0,0" IsReadOnly="True"/>
+            <Label x:Name="lblPrecioProducto" Content="$120.00" HorizontalAlignment="Center" Margin="0,174,0,1" Width="144" HorizontalContentAlignment="Center" FontFamily="Segoe UI Variable Display" Foreground="#FF5B5B5B" FontWeight="Bold"/>
+            <Label x:Name="lblCodigo" Content="" HorizontalAlignment="Center" Margin="0,125,0,50" Width="144" HorizontalContentAlignment="Center" FontFamily="Segoe UI Variable Display" Foreground="#FF5B5B5B" FontWeight="Bold"/>
         </Grid>
     </Viewbox>
 </UserControl>

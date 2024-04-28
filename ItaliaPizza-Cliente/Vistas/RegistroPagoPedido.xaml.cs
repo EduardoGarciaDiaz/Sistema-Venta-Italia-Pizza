@@ -26,7 +26,7 @@ namespace ItaliaPizza_Cliente.Vistas
     public partial class RegistroPagoPedido : Page
     {
 
-        private static readonly Regex _regex = new Regex("[^0-9.]+");
+        private static readonly Regex REGEX = new Regex("[^0-9.]+");
         private readonly Pedido _pedido;
         private Cliente _cliente;
         private RegistroPedido _registroPedido;
@@ -50,10 +50,9 @@ namespace ItaliaPizza_Cliente.Vistas
             }
         }
 
-
         private void TxtCantidadPagaCliente_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            e.Handled = !EsTextoPermitido(e.Text + TxtCantidadPagaCliente.Text);
+            e.Handled = !EsTextoPermitido(e.Text + tbxCantidadPagaCliente.Text);
         }
 
         private void ImgRegresar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -68,28 +67,28 @@ namespace ItaliaPizza_Cliente.Vistas
             {
                 if (double.Parse(textBox.Text) < _pedido.Total)
                 {
-                    LblMensajeErrorPago.Content = "Faltan $" + (_pedido.Total - double.Parse(textBox.Text));
+                    lblMensajeErrorPago.Content = "Faltan $" + (_pedido.Total - double.Parse(textBox.Text));
                 }
                 else
                 {
-                    LblMensajeErrorPago.Content = "";
+                    lblMensajeErrorPago.Content = "";
                 }
             }
             else
             {
-                LblMensajeErrorPago.Content = string.Empty;
+                lblMensajeErrorPago.Content = string.Empty;
             }
         }
 
         private void BtnConfirmarPago_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(TxtCantidadPagaCliente.Text))
+            if (string.IsNullOrWhiteSpace(tbxCantidadPagaCliente.Text))
             {
-                LblMensajeErrorPago.Content = "Por favor, ingresa la cantidad con la que el cliente paga";
+                lblMensajeErrorPago.Content = "Por favor, ingresa la cantidad con la que el cliente paga";
                 return;
             }
 
-            if (!double.TryParse(TxtCantidadPagaCliente.Text, out double cantidadPagada) || cantidadPagada < _pedido.Total)
+            if (!double.TryParse(tbxCantidadPagaCliente.Text, out double cantidadPagada) || cantidadPagada < _pedido.Total)
             {
                 return;
             }
@@ -136,17 +135,6 @@ namespace ItaliaPizza_Cliente.Vistas
             }
         }
 
-        private void MostrarConfirmacionPedido(int numeroPedido)
-        {
-            ConfirmacionRegistroPedido confirmacionRegistroPedido = new ConfirmacionRegistroPedido();
-            confirmacionRegistroPedido.LblNumeroPedido.Content = numeroPedido;
-            confirmacionRegistroPedido.LblNombreCliente.Content = _cliente.NombreCliente;
-            confirmacionRegistroPedido.LblCambio.Content = (double.Parse(TxtCantidadPagaCliente.Text) - _pedido.Total).ToString("F2");
-            confirmacionRegistroPedido.Click += BtnAceptarPagoClick;
-            confirmacionRegistroPedido.ShowDialog();
-        }
-
-
         private void BtnAceptarPagoClick(object sender, EventArgs e)
         {
             Window confirmacion = sender as Window;
@@ -161,6 +149,16 @@ namespace ItaliaPizza_Cliente.Vistas
             NavigationService.Navigate(new RegistroPedido());
         }
 
+        private void MostrarConfirmacionPedido(int numeroPedido)
+        {
+            ConfirmacionRegistroPedido confirmacionRegistroPedido = new ConfirmacionRegistroPedido();
+            confirmacionRegistroPedido.lblNumeroPedido.Content = numeroPedido;
+            confirmacionRegistroPedido.lblNombreCliente.Content = _cliente.NombreCliente;
+            confirmacionRegistroPedido.lblCambio.Content = (double.Parse(tbxCantidadPagaCliente.Text) - _pedido.Total).ToString("F2");
+            confirmacionRegistroPedido.Click += BtnAceptarPagoClick;
+            confirmacionRegistroPedido.ShowDialog();
+        }
+
         private void MostrarDatosDeCliente(int idCliente)
         {
             ServicioUsuariosClient servicioUsuariosCliente = new ServicioUsuariosClient();
@@ -170,10 +168,10 @@ namespace ItaliaPizza_Cliente.Vistas
                 _cliente = servicioUsuariosCliente.RecuperarClientePorId(idCliente);
                 if (_cliente != null)
                 {
-                    LblNombreCliente.Content = _cliente.NombreCliente;
-                    LblCorreoElectronicoCliente.Content = _cliente.CorreoElectronicoCliente;
-                    LblNumeroTelefonoCliente.Content = _cliente.NumeroTelefonoCliente;
-                    LblDireccionCliente.Text = _cliente.DireccionCliente;
+                    lblNombreCliente.Content = _cliente.NombreCliente;
+                    lblCorreoElectronicoCliente.Content = _cliente.CorreoElectronicoCliente;
+                    lblNumeroTelefonoCliente.Content = _cliente.NumeroTelefonoCliente;
+                    lblDireccionCliente.Text = _cliente.DireccionCliente;
                 }
             }
             catch (EndpointNotFoundException ex)
@@ -212,12 +210,12 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             if (pedido != null)
             {
-                LblTipoServicio.Content = pedido.TipoServicio.Nombre;
+                lblTipoServicio.Content = pedido.TipoServicio.Nombre;
                 MostrarProductosEnPedido(pedido);
-                LblConteoProductos.Content = pedido.CantidadProductos + " productos.";
-                LblSubtotal.Content = (pedido.Total / 1.16).ToString("F2");
-                LblIva.Content = (pedido.Total - (pedido.Total / 1.16)).ToString("F2");
-                LblTotal.Content = pedido.Total.ToString("F2");
+                lblConteoProductos.Content = pedido.CantidadProductos + " productos.";
+                lblSubtotal.Content = (pedido.Total / 1.16).ToString("F2");
+                lblIva.Content = (pedido.Total - (pedido.Total / 1.16)).ToString("F2");
+                lblTotal.Content = pedido.Total.ToString("F2");
             }
         }
 
@@ -226,16 +224,16 @@ namespace ItaliaPizza_Cliente.Vistas
             foreach (ProductoVentaPedidos productoVenta in pedido.ProductosIncluidos.Keys)
             {
                 ElementoTicketPedido elementoTicket = new ElementoTicketPedido();
-                elementoTicket.LblCantidadProducto.Content = pedido.ProductosIncluidos[productoVenta];
-                elementoTicket.LblNombreProducto.Content = productoVenta.Nombre;
-                elementoTicket.LblTotalPorProducto.Content = "$" + pedido.ProductosIncluidos[productoVenta] * productoVenta.Precio;
+                elementoTicket.lblCantidadProducto.Content = pedido.ProductosIncluidos[productoVenta];
+                elementoTicket.lblNombreProducto.Content = productoVenta.Nombre;
+                elementoTicket.lblTotalPorProducto.Content = "$" + pedido.ProductosIncluidos[productoVenta] * productoVenta.Precio;
                 SkpContenedorElementosTicket.Children.Add(elementoTicket);
             }
         }
 
         private bool EsTextoPermitido(string texto)
         {
-            return !_regex.IsMatch(texto) && texto.Length < 6 && texto != "." && texto.Count(c => c == '.') < 2;
+            return !REGEX.IsMatch(texto) && texto.Length < 6 && texto != "." && texto.Count(c => c == '.') < 2;
         }
 
     }

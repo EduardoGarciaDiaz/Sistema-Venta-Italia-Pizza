@@ -8,7 +8,7 @@
     
     <Viewbox Width="550" Height="47">
         <Grid Width="550" Height="47">
-            <TextBox x:Name="txbBusqueda" Margin="0,0,60,0" BorderThickness="0,0,0,0" FontSize="16" Padding="15,10,0,0" TextChanged="TxtBusqueda_TextChanged" KeyDown="Enter_Pressed">
+            <TextBox x:Name="tbxBusqueda" Margin="0,0,60,0" BorderThickness="0,0,0,0" FontSize="16" Padding="15,10,0,0" TextChanged="TxtBusqueda_TextChanged" KeyDown="Enter_Pressed">
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="20"/>

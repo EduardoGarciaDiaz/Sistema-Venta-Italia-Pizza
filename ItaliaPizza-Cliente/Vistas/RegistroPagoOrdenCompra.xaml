@@ -66,7 +66,7 @@
                 Margin="49,195,1002,546" 
                 FontSize="16" FontWeight="Bold"/>
             <ScrollViewer Margin="46,234,61,186">
-                <StackPanel x:Name="SkpContenedorOrdenesCompra" 
+                <StackPanel x:Name="skpContenedorOrdenesCompra" 
                             Orientation="Vertical" 
                             Width="1185">
 
