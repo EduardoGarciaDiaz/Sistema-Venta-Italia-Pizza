@@ -22,7 +22,7 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
     public partial class ElementoValidacionProducto : UserControl
     {
         private const string SIMBOLO_MONEDA = "$";
-        public EventHandler tbxCantidadFisicaEnter_Pressed;
+        public EventHandler TbxCantidadFisicaEnterPressed;
 
         public Producto ProductoAsignado { get; set; }
 
@@ -31,11 +31,24 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
             InitializeComponent();
         }
 
+        private void EntryJustInteger(object sender, TextCompositionEventArgs e)
+        {
+            if (!int.TryParse(e.Text, out _))
+            {
+                e.Handled = true;
+            }
+        }
+
         public ElementoValidacionProducto(Producto producto)
         {
             InitializeComponent();
             ProductoAsignado = producto;
             CrearElementoValidacion();
+        }
+
+        private void TbxCantidadFisicaEnter_Pressed(object sender, KeyEventArgs e)
+        {
+            TbxCantidadFisicaEnterPressed?.Invoke(this, e);
         }
 
         private void CrearElementoValidacion()
@@ -54,9 +67,5 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
             lblUnidadMedida.Content = unidadMedida;
         }
 
-        private void TbxCantidadFisicaEnter_Pressed(object sender, KeyEventArgs e)
-        {
-            tbxCantidadFisicaEnter_Pressed?.Invoke(this, e);
-        }
     }
 }

@@ -36,26 +36,26 @@
             <Label Content="Elegir receta"  HorizontalAlignment="Left" Margin="35,125,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="Black" FontSize="18"/>
 
             <ScrollViewer  Margin="30,168,440,82" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                <WrapPanel x:Name="wrapPanelRecetas" Margin="15, 0, 0, 0">
+                <WrapPanel x:Name="wrpRecetas" Margin="15, 0, 0, 0">
                     <uc:ElementoReceta Visibility="Collapsed"/>
                 </WrapPanel>
             </ScrollViewer>
 
-            <Label x:Name="lbSinRecetas" Visibility="Collapsed" Margin="281,414,0,0" FontSize="22" Foreground="#FF6C6C6C" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">Aún no hay recetas registradas</Label>
+            <Label x:Name="lblSinRecetas" Visibility="Collapsed" Margin="281,414,0,0" FontSize="22" Foreground="#FF6C6C6C" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">Aún no hay recetas registradas</Label>
 
 
 
             <Button Content="Registrar receta" HorizontalAlignment="Left" Margin="924,714,0,0" VerticalAlignment="Top" Height="67" Width="338" Foreground="Black" BorderBrush="#FFF8D72A" Background="#FFF8D72A" FontSize="24" FontWeight="Bold" Cursor="Hand" Click="BtnRegistrarReceta_Click"/>
 
-            <Grid Margin="852,0,0,92" x:Name="gridInsumosReceta" Visibility="Collapsed">
+            <Grid Margin="852,0,0,92" x:Name="grdInsumosReceta" Visibility="Collapsed">
                 <Rectangle HorizontalAlignment="Left" Fill="White" Height="670" VerticalAlignment="Center" Width="360" RadiusX="20" RadiusY="20" Margin="65,0,0,0"/>
                 <Image HorizontalAlignment="Left" Height="25" Margin="387,28,0,0" VerticalAlignment="Top" Width="24" Source="/Recursos/Iconos/icono_cerrar.png" Cursor="Hand" MouseLeftButtonDown="ImgCerrarInsumos_Click"/>
-                <Label x:Name="lbNombreReceta" Content="Nombre Receta"  HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Foreground="Black" FontSize="20" Margin="74,28,0,0" />
+                <Label x:Name="lblNombreReceta" Content="Nombre Receta"  HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Foreground="Black" FontSize="20" Margin="74,28,0,0" />
 
                 <Label Content="Ingredientes"  HorizontalAlignment="Left" Margin="80,65,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FFD6B400" FontSize="16"/>
 
                 <ScrollViewer Margin="65,101,23,33" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                    <StackPanel x:Name="stackPanelInsumos" Width="300">
+                    <StackPanel x:Name="skpInsumos" Width="300">
                         <uc:ElementoInsumoReceta Visibility="Collapsed"/>
                     </StackPanel>
                 </ScrollViewer>

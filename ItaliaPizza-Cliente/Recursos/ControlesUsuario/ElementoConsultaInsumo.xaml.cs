@@ -23,9 +23,9 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
     public partial class ElementoConsultaInsumo : UserControl
     {
         public Producto ProductoAsignado { get; set; }
-        public EventHandler gridInsumo_Click;
-        public EventHandler imgModificarInsumo_Click;
-        public EventHandler btnDesactivarActivarProducto_Click;
+        public EventHandler GridInsumoClicked;
+        public EventHandler ImgModificarInsumoClicked;
+        public EventHandler BtnDesactivarActivarProductoClicked;
         private const string SIMBOLO_MONEDA = "$";
 
         public ElementoConsultaInsumo()
@@ -38,6 +38,21 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
             InitializeComponent();
             ProductoAsignado = insumo;
             CrearElementoInsumo();
+        }
+
+        private void BtnDesactivarActivar_Click(object sender, MouseButtonEventArgs e)
+        {
+            BtnDesactivarActivarProductoClicked?.Invoke(this, e);
+        }
+
+        private void ImgModificarInsumo_Click(object sender, RoutedEventArgs e)
+        {
+            ImgModificarInsumoClicked?.Invoke(this, e);
+        }
+
+        public void GridInsumo_Click(object sender, RoutedEventArgs e)
+        {
+            GridInsumoClicked?.Invoke(this, e);
         }
 
         private void CrearElementoInsumo()
@@ -70,21 +85,6 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
                 btnEsActivo.Fill = new SolidColorBrush(Colors.Yellow);
                 lblModificarEstado.Content = "Desactivar";
             }
-        }
-
-        private void BtnDesactivarActivar_Click(object sender, MouseButtonEventArgs e)
-        {
-            btnDesactivarActivarProducto_Click?.Invoke(this, e);
-        }
-
-        private void ImgModificarInsumo_Click(object sender, RoutedEventArgs e)
-        {
-            imgModificarInsumo_Click?.Invoke(this, e);
-        }
-
-        public void GridInsumo_Click(object sender, RoutedEventArgs e)
-        {
-            gridInsumo_Click?.Invoke(this, e);
         }
     }
 }

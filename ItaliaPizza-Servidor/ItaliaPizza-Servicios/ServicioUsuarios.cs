@@ -216,7 +216,7 @@ namespace ItaliaPizza_Servicios
                 {
                     if (esEmpleado)
                     {
-                        if (ListaEmpleadoActivos.EsEmpleadoNoActivo(idUsuario))
+                        if (ListaEmpleadosActivos.EsEmpleadoNoActivo(idUsuario))
                         {
                             exitoAccion = usuarioDAO.DesactivarUsuario(idUsuario);
                         }
@@ -277,7 +277,7 @@ namespace ItaliaPizza_Servicios
                 {
                     empleadoDto = RecuperarEmpeladoMesero();
                 }
-                ListaEmpleadoActivos.RegistrarUsuarioEnLista(empleadoDto.IdUsuario, empleado.NombreUsuario);
+                ListaEmpleadosActivos.RegistrarUsuarioEnLista(empleadoDto.IdUsuario, empleado.NombreUsuario);
             }
             catch (ExcepcionDataAccess e)
             {

@@ -89,7 +89,7 @@
                         </TextBox.Resources>
                     </TextBox>
 
-                    <PasswordBox  x:Name="txbContrasena" Style="{StaticResource RoundedPasswordBox}" MaxLength="20"  VerticalContentAlignment="Center" FontSize="32" FontWeight="SemiBold" Padding="5" BorderThickness="3" RenderTransformOrigin="0.5,0.5" Canvas.Left="85" Canvas.Top="474" Height="56" Width="410" HorizontalAlignment="Center" VerticalAlignment="Top" BorderBrush="{x:Null}" Background="#FF6A73A3" Foreground="White" >
+                    <PasswordBox  x:Name="pwbxContrasena" Style="{StaticResource RoundedPasswordBox}" MaxLength="20"  VerticalContentAlignment="Center" FontSize="32" FontWeight="SemiBold" Padding="5" BorderThickness="3" RenderTransformOrigin="0.5,0.5" Canvas.Left="85" Canvas.Top="474" Height="56" Width="410" HorizontalAlignment="Center" VerticalAlignment="Top" BorderBrush="{x:Null}" Background="#FF6A73A3" Foreground="White" >
 
                     </PasswordBox>
 

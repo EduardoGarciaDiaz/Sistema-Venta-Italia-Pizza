@@ -48,7 +48,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
             MostrarDatosOrdenCompra(orden);
             MostrarDatosProveedor(orden.Proveedor);
-            MostrarInsumos(orden.listaElementosOrdenCompra.ToList());
+            MostrarInsumos(orden.ListaElementosOrdenCompra.ToList());
             ucOrdenCompra.Visibility = Visibility.Visible;
             brdFondo.Visibility = Visibility.Visible;
         }
@@ -86,32 +86,32 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             catch (EndpointNotFoundException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorConexionFallida();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this) );
             }
             catch (TimeoutException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorTiempoEspera();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (FaultException<ExcepcionServidorItaliaPizza> ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorBaseDatos();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (FaultException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (CommunicationException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (Exception ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
         }
@@ -126,7 +126,7 @@ namespace ItaliaPizza_Cliente.Vistas
                 {
                     lblNumeroOrden = { Content = ordenCompra.IdOrdenCompra },
                     lblNombreProveedor = { Content = ordenCompra.Proveedor.NombreCompleto },
-                    lblCantidadInsumosSolicitados = { Content = $"{ordenCompra.listaElementosOrdenCompra.Length} productos." },
+                    lblCantidadInsumosSolicitados = { Content = $"{ordenCompra.ListaElementosOrdenCompra.Length} productos." },
                     LblFecha = { Content = ordenCompra.Fecha.ToShortDateString() },
                     LblTotalOrdenCompra = { Content = $"${ordenCompra.Costo:F2}" },
                     OrdenDeCompraDto = ordenCompra
@@ -143,15 +143,15 @@ namespace ItaliaPizza_Cliente.Vistas
             switch (idEstadoOrdenCompra)
             {
                 case (int)EnumEstadosOrdenCompra.Enviada:
-                    elementoConsultaOrdenCompra.Click += BtnRegistrarPagoOrdenCompra_Click;
+                    elementoConsultaOrdenCompra.BtnOrdenCompraClicked += BtnRegistrarPagoOrdenCompra_Click;
                     break;
 
                 case (int)EnumEstadosOrdenCompra.Borrador:
-                    elementoConsultaOrdenCompra.Click += BtnModificarOrdenCompra_Click;
+                    elementoConsultaOrdenCompra.BtnOrdenCompraClicked += BtnModificarOrdenCompra_Click;
                     break;
 
                 case (int)EnumEstadosOrdenCompra.Surtida:
-                    elementoConsultaOrdenCompra.Click += BtnVerOrdenCompra_Click;
+                    elementoConsultaOrdenCompra.BtnOrdenCompraClicked += BtnVerOrdenCompra_Click;
                     break;
 
                 default:

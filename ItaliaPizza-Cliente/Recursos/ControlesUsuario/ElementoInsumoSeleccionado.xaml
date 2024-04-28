@@ -18,10 +18,10 @@
                 <Image Source="/Recursos/Iconos/icono_eliminar.png"/>
             </Button>
             <Rectangle x:Name="rectangleInsumoSeleccionado" Width="230" HorizontalAlignment="Right" Fill="#F6F6F6" RadiusX="10" RadiusY="10" Visibility="Visible" IsEnabled="True"/>
-            <Label x:Name="lbNombreInsumo" Content="Tomate" FontWeight="Bold" FontSize="14" Margin="40,0,74,0" VerticalAlignment="Center" />
+            <Label x:Name="lblNombreInsumo" Content="Tomate" FontWeight="Bold" FontSize="14" Margin="40,0,74,0" VerticalAlignment="Center" />
             <TextBox x:Name="tbxCantidadInsumo" Text="5.10" MaxLength="5" FontSize="12" Margin="176,0,45,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" BorderBrush="#FF727171" Background="#FFF6F6F6" />
-            <Label x:Name="lbUnidadMedida" Content="Unidades" FontWeight="Bold" Margin="222,0,-3,0" VerticalAlignment="Center" Foreground="#FF6C6C6C" />
-            <Label x:Name="lbErrorInsumoSeleccionado" Visibility="Collapsed" Content="Cantidad no válida" Foreground="red" Margin="0,33,0,-19" HorizontalAlignment="Center" Width="270" HorizontalContentAlignment="Right"/>
+            <Label x:Name="lblUnidadMedida" Content="Unidades" FontWeight="Bold" Margin="222,0,-3,0" VerticalAlignment="Center" Foreground="#FF6C6C6C" />
+            <Label x:Name="lblErrorInsumoSeleccionado" Visibility="Collapsed" Content="Cantidad no válida" Foreground="red" Margin="0,33,0,-19" HorizontalAlignment="Center" Width="270" HorizontalContentAlignment="Right"/>
         </Grid>
     </Viewbox>
 

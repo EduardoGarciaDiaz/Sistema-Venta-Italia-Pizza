@@ -180,7 +180,8 @@ namespace ItaliaPizza_DataAccess
             {
                 using (var context = new ItaliaPizzaEntities())
                 {
-                    insumosDeReceta = context.Recetas.FirstOrDefault(r => r.CodigoProducto == codigoProducto).RecetasInsumos.ToList();
+                    insumosDeReceta = context.Recetas.FirstOrDefault(r => r.CodigoProducto == codigoProducto)
+                        .RecetasInsumos.ToList();
                 }
             }
             catch (EntityException ex)

@@ -54,7 +54,8 @@ namespace ItaliaPizza_DataAccess
             {
                 using (var context = new ItaliaPizzaEntities())
                 {
-                    List<GastosVarios> gastosVariosFechaSeleccionada = context.GastosVarios.Where(g => DbFunctions.TruncateTime(g.Fecha) == fecha.Date).ToList();
+                    List<GastosVarios> gastosVariosFechaSeleccionada = context.GastosVarios.Where(g => DbFunctions
+                        .TruncateTime(g.Fecha) == fecha.Date).ToList();
                     salidasGastosVarios = gastosVariosFechaSeleccionada.Sum(g => g.Total ?? 0);
                 }
             }

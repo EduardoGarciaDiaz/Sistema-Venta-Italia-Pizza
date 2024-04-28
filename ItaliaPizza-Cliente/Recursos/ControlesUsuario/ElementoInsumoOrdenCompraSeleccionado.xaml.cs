@@ -21,50 +21,37 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
     /// </summary>
     public partial class ElementoInsumoOrdenCompraSeleccionado : UserControl
     {
-        public EventHandler btnInsumoMenos_Click;
-        public EventHandler btnInsumoMas_Click;
-        public EventHandler btnEliminarInsumo_Click;
-        public EventHandler txbCantida_TextChanged;
-        public InsumoOrdenCompraDto insumoDto;
+        public EventHandler BtnInsumoMenosClicked;
+        public EventHandler BtnInsumoMasClicked;
+        public EventHandler BtnEliminarInsumoClicked;
+        public EventHandler TxbCantidaTextChanged;
+        public InsumoOrdenCompraDto Insumo { get; set; }
 
         public ElementoInsumoOrdenCompraSeleccionado(InsumoOrdenCompraDto insumo)
         {
             InitializeComponent();
             InstanciarInsumo(insumo);
-            this.insumoDto = insumo;
-        }
-
-        private void InstanciarInsumo(InsumoOrdenCompraDto insumo)
-        {
-            if (insumo != null)
-            {
-                lblNameInsumo.Content = insumo.Nombre;
-                lblCodigoInsumo.Content = insumo.Codigo;
-                lblCosto.Content = insumo.CostoUnitario.ToString();
-                lblUnidadMedida.Content = insumo.UnidadMedida;
-                lblSubtotal.Content = insumo.CostoUnitario.ToString();
-                txbCantidad.Text = "1";
-            }
+            this.Insumo = insumo;
         }
 
         private void BtnInsumoMenos(object sender, MouseButtonEventArgs e)
         {
-            btnInsumoMenos_Click?.Invoke(this, e);
+            BtnInsumoMenosClicked?.Invoke(this, e);
         }
 
         private void BtnInsumoMas(object sender, MouseButtonEventArgs e)
         {
-            btnInsumoMas_Click?.Invoke(this, e);
+            BtnInsumoMasClicked?.Invoke(this, e);
         }
 
         private void BtnEliminarInsumoOrden(object sender, MouseButtonEventArgs e)
         {
-            btnEliminarInsumo_Click?.Invoke(this, e);
+            BtnEliminarInsumoClicked?.Invoke(this, e);
         }
 
         private void TxbCantidad_TextChanged(object sender, TextChangedEventArgs e)
         {
-            txbCantida_TextChanged?.Invoke(this,e);
+            TxbCantidaTextChanged?.Invoke(this,e);
         }
 
         private void TxbCantidad_Input(object sender, TextCompositionEventArgs e)
@@ -74,5 +61,19 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
                 e.Handled = true;
             }
         }
+
+        private void InstanciarInsumo(InsumoOrdenCompraDto insumo)
+        {
+            if (insumo != null)
+            {
+                lblNombreInsumo.Content = insumo.Nombre;
+                lblCodigoInsumo.Content = insumo.Codigo;
+                lblCosto.Content = insumo.CostoUnitario.ToString();
+                lblUnidadMedida.Content = insumo.UnidadMedida;
+                lblSubtotal.Content = insumo.CostoUnitario.ToString();
+                tbxCantidad.Text = "1";
+            }
+        }
+
     }
 }

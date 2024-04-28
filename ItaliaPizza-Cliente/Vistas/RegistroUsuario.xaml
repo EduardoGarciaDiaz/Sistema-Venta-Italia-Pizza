@@ -105,13 +105,13 @@
 
                     <Label Content="* Nombre" Style="{StaticResource fieldTags}"  Width="auto" Height="auto" Margin="6,45,0,0" VerticalAlignment="Top" />
                     <Border Style="{StaticResource textBoxBorder}" Canvas.Left="22" Canvas.Top="81" Width="600">
-                        <TextBox x:Name="txbNombre" Style="{StaticResource textBox}" MaxLength="100"/>
+                        <TextBox x:Name="tbxNombre" Style="{StaticResource textBox}" MaxLength="100"/>
                     </Border>
                     <Label Name="lblNombreError" Content="" Style="{StaticResource errorLabel}" Width="464" Canvas.Left="151" Canvas.Top="116" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
                     <Label Content="* 1er Apellido" Style="{StaticResource fieldTags}"  Width="auto" Height="auto" Margin="3,125,0,0" VerticalAlignment="Top" />
                     <Border Style="{StaticResource textBoxBorder}" Canvas.Left="22" Canvas.Top="162" Width="287">
-                        <TextBox x:Name="txb1erApellido" Style="{StaticResource textBox}" MaxLength ="50"/>
+                        <TextBox x:Name="tbx1erApellido" Style="{StaticResource textBox}" MaxLength ="50"/>
                     </Border>
                     <Label Name="lbl1erApellidoError" Content="" Style="{StaticResource ResourceKey=errorLabel}" Width="245" Canvas.Left="53" Canvas.Top="201" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
@@ -126,13 +126,13 @@
                         <TextBlock x:Name="txbCodigoPais" Text="+ 52" Style="{StaticResource textBlock}"/>
                     </Border>
                     <Border Style="{StaticResource textBoxBorder}" Canvas.Left="103" Canvas.Top="243" Width="213">
-                        <TextBox x:Name="txbTelefono" Style="{StaticResource textBox}" PreviewTextInput="EntryJustInteger" MaxLength ="10"/>
+                        <TextBox x:Name="tbxTelefono" Style="{StaticResource textBox}" PreviewTextInput="EntryJustInteger" MaxLength ="10"/>
                     </Border>
                     <Label Name="lblTelefonoError" Content="" Style="{StaticResource ResourceKey=errorLabel}" Width="191" Canvas.Left="112" Canvas.Top="280" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
                     <Label Content="* Correo" Style="{StaticResource fieldTags}"  Width="auto" Height="auto" Margin="3,286,0,0" VerticalAlignment="Top" />
                     <Border Style="{StaticResource textBoxBorder}" Canvas.Left="18" Canvas.Top="322" Width="605">
-                        <TextBox x:Name="txbCorreo"  Style="{StaticResource textBox}" MaxLength ="255"/>
+                        <TextBox x:Name="tbxCorreo"  Style="{StaticResource textBox}" MaxLength ="255"/>
                     </Border>
                     <Label Name="lblCorreoError" Content="" Style="{StaticResource ResourceKey=errorLabel}" Width="229" Canvas.Left="383" Canvas.Top="357" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
@@ -156,31 +156,31 @@
 
                     <Label Content="* Ciudad" Style="{StaticResource fieldTags}"  Width="auto" Height="auto" Canvas.Left="6" Canvas.Top="45" HorizontalAlignment="Center" />
                     <Border Style="{StaticResource textBoxBorder}" Canvas.Left="22" Canvas.Top="81" Width="543" HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <TextBox x:Name="txbCiudad" Style="{StaticResource textBox}" MaxLength ="40"/>
+                        <TextBox x:Name="tbxCiudad" Style="{StaticResource textBox}" MaxLength ="40"/>
                     </Border>
                     <Label Name="lblCiudadError" Style="{StaticResource errorLabel}" Canvas.Left="249" Canvas.Top="119" HorizontalAlignment="Left" Height="21" VerticalAlignment="Center" Width="313" />
 
                     <Label Content="* Colonia" Style="{StaticResource fieldTags}"  Width="auto" Height="auto" Canvas.Left="2" Canvas.Top="124" HorizontalAlignment="Center" />
                     <Border Style="{StaticResource textBoxBorder}" Canvas.Left="22" Canvas.Top="161" Width="543" HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <TextBox x:Name="txbColonia" Style="{StaticResource textBox}" MaxLength ="60"/>
+                        <TextBox x:Name="tbxColonia" Style="{StaticResource textBox}" MaxLength ="60"/>
                     </Border>
                     <Label Name="lblColoniaError" Style="{StaticResource errorLabel}" Canvas.Left="237" Canvas.Top="199" HorizontalAlignment="Left" VerticalAlignment="Center" Height="20" Width="326" />
 
                     <Label Content="* Calle" Style="{StaticResource fieldTags}"  Width="auto" Height="auto" Canvas.Left="2" Canvas.Top="200" HorizontalAlignment="Center" VerticalAlignment="Top" />
                     <Border Style="{StaticResource textBoxBorder}" Canvas.Left="22" Canvas.Top="235" Width="543" HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <TextBox x:Name="txbCalle" Style="{StaticResource textBox}" MaxLength ="50"/>
+                        <TextBox x:Name="tbxCalle" Style="{StaticResource textBox}" MaxLength ="50"/>
                     </Border>
                     <Label Name="lblCalleError" Style="{StaticResource errorLabel}" Canvas.Left="251" Canvas.Top="271" Height="21" Width="311" HorizontalAlignment="Left" VerticalAlignment="Center" />
 
                     <Label Content="* Codigo Postal" Style="{StaticResource fieldTags}"  Width="auto" Height="auto" Canvas.Left="2" Canvas.Top="286" HorizontalAlignment="Center" />
                     <Border Style="{StaticResource textBoxBorder}" Canvas.Left="22" Canvas.Top="323" Width="164" HorizontalAlignment="Left" VerticalAlignment="Center">
-                        <TextBox x:Name="txbCodigoPostal" Style="{StaticResource textBox}" PreviewTextInput="EntryJustInteger" MaxLength ="10"/>
+                        <TextBox x:Name="tbxCodigoPostal" Style="{StaticResource textBox}" PreviewTextInput="EntryJustInteger" MaxLength ="10"/>
                     </Border>
                     <Label Name="lblCodigoError" Style="{StaticResource errorLabel}" Canvas.Left="30" Canvas.Top="356" Height="24" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" />
 
                     <Label Content="* Numero Exterior" Style="{StaticResource fieldTags}"  Width="auto" Height="auto" Canvas.Left="264" Canvas.Top="286" VerticalAlignment="Top" />
                     <Border Style="{StaticResource textBoxBorder}" Canvas.Left="282" Canvas.Top="323" Width="76" HorizontalAlignment="Left" VerticalAlignment="Center">
-                        <TextBox x:Name="txbNumeroExterior" Style="{StaticResource textBox}" PreviewTextInput="EntryJustInteger" MaxLength ="5"/>
+                        <TextBox x:Name="tbxNumeroExterior" Style="{StaticResource textBox}" PreviewTextInput="EntryJustInteger" MaxLength ="5"/>
                     </Border>
                     <Label Name="lblNumeroExtError" Style="{StaticResource errorLabel}" Canvas.Left="288" Canvas.Top="356" HorizontalContentAlignment="Left" Height="23" Width="158" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
@@ -193,23 +193,23 @@
 
                     <Label Content="* Nombre de Usuario" Style="{StaticResource fieldTags}"  Width="auto" Height="auto" Canvas.Left="6" Canvas.Top="45" HorizontalAlignment="Center" />
                     <Border Style="{StaticResource textBoxBorder}" Canvas.Left="22" Canvas.Top="81" Width="378" HorizontalAlignment="Left" VerticalAlignment="Center">
-                        <TextBox x:Name="txbNombreUsuario" Style="{StaticResource textBox}" MaxLength ="20"/>
+                        <TextBox x:Name="tbxNombreUsuario" Style="{StaticResource textBox}" MaxLength ="20"/>
                     </Border>
                     <Label Name="lblNombreUsuarioError" Style="{StaticResource errorLabel}" Canvas.Left="33" Canvas.Top="114" HorizontalAlignment="Center" VerticalAlignment="Top" Height="21" Width="356" />
 
                     <Label Content="* Contraseña" Style="{StaticResource fieldTags}"  Width="auto" Height="auto" Canvas.Left="6" Canvas.Top="121" HorizontalAlignment="Center" VerticalAlignment="Top" />
                     <Border Style="{StaticResource textBoxBorder}" Canvas.Left="22" Canvas.Top="159" Width="378" HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <PasswordBox x:Name="txbContrasena" Style="{StaticResource passwordBox}" Margin="2,0,2,0" MaxLength ="20"/>
+                        <PasswordBox x:Name="pwbxContrasena" Style="{StaticResource passwordBox}" Margin="2,0,2,0" MaxLength ="20"/>
                     </Border>
                     <Label Name="lblContrasena" Style="{StaticResource errorLabel}" Canvas.Left="28" Canvas.Top="195" HorizontalAlignment="Left" VerticalAlignment="Center" Height="29" Width="363" />
                     <Label Name="lblContrasenaVer" Padding="0" Style="{StaticResource fieldTags}" Foreground="Black" Canvas.Left="31" Canvas.Top="160" VerticalAlignment="Top" Height="29" Width="307" Visibility="Collapsed"/>
 
                     <Label Content="* Tipo de Empleado" Style="{StaticResource fieldTags}"  Width="auto" Height="auto" Canvas.Left="411" Canvas.Top="46" HorizontalAlignment="Center" VerticalAlignment="Top" />
                     <Border Style="{StaticResource textBoxBorder}" Canvas.Left="431" Canvas.Top="81" Width="210" HorizontalAlignment="Left" VerticalAlignment="Center">
-                        <ComboBox x:Name="cbmTipoEmpleado" Style="{StaticResource comboBox}" SelectionChanged="CmbTipoEmpleado_Selected" />
+                        <ComboBox x:Name="cbxTipoEmpleado" Style="{StaticResource comboBox}" SelectionChanged="CbxTipoEmpleado_Selected" />
                     </Border>
                     <Label Name="lblTipoEmpleadoError" Style="{StaticResource errorLabel}" Canvas.Left="436" Canvas.Top="120" HorizontalAlignment="Center" VerticalAlignment="Top" Height="33" Width="197" />
-                    <Image Source="/Recursos/Iconos/icono_ver_contrasena.png" Height="30" Width="48" Canvas.Left="406" Canvas.Top="160" MouseDown="bttVerContrasena_Click" MouseLeave="bttVerContrasena_Leave" />
+                    <Image Source="/Recursos/Iconos/icono_ver_contrasena.png" Height="30" Width="48" Canvas.Left="406" Canvas.Top="160" MouseDown="BtnVerContrasena_Click" MouseLeave="BtnVerContrasena_Leave" />
 
                 </Canvas>
             </Border>

@@ -21,6 +21,7 @@ namespace ItaliaPizza_Servicios
             try
             {
                 filasAfectadas = gastoVarioDAO.GuardarGastoVario(nuevoGastoVario);
+
                 return filasAfectadas;
             }
             catch (ExcepcionDataAccess ex)

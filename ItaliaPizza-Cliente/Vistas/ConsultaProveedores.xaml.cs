@@ -24,8 +24,8 @@ namespace ItaliaPizza_Cliente.Vistas
     /// </summary>
     public partial class ConsultaProveedores : Page
     {
-        List<ProveedorDto> listaProveedores = new List<ProveedorDto>();
-        List<ElementoProveedor> listElementosProveedores = new List<ElementoProveedor>();
+        private List<ProveedorDto> _listaProveedores = new List<ProveedorDto>();
+        private readonly List<ElementoProveedor> _listaElementosProveedores = new List<ElementoProveedor>();
 
 
         public ConsultaProveedores()
@@ -39,41 +39,41 @@ namespace ItaliaPizza_Cliente.Vistas
             try
             {
                 ServicioProveedoresClient servicioProveedoresClient = new ServicioProveedoresClient(); 
-                listaProveedores = servicioProveedoresClient.RecuperarProveedores().ToList();
-                InatanciarElementosProveedores(listaProveedores);
-                MostrarProveedores(listElementosProveedores);
-                barraBusquedaProveedor.Placeholder.Text = "Buscar por Nombre o RFC...";
-                barraBusquedaProveedor.TxtBusqueda.Text = String.Empty;
+                _listaProveedores = servicioProveedoresClient.RecuperarProveedores().ToList();
+                InatanciarElementosProveedores(_listaProveedores);
+                MostrarProveedores(_listaElementosProveedores);
+                barraBusquedaProveedor.plhrInstruccion.Text = "Buscar por Nombre o RFC...";
+                barraBusquedaProveedor.txbBusqueda.Text = String.Empty;
                 barraBusquedaProveedor.ImgBuscarClicked += BtnBuscar_Click;
             }
             catch (EndpointNotFoundException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorConexionFallida();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (TimeoutException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorTiempoEspera();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (FaultException<ExcepcionServidorItaliaPizza> ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorBaseDatos();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (FaultException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (CommunicationException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (Exception ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
         }
@@ -81,10 +81,10 @@ namespace ItaliaPizza_Cliente.Vistas
         private void BtnBuscar_Click(object sender, EventArgs e)
         {
            
-           string criterio = barraBusquedaProveedor.TxtBusqueda.Text.Trim().ToLower();
+           string criterio = barraBusquedaProveedor.txbBusqueda.Text.Trim().ToLower();
             if (String.IsNullOrEmpty(criterio))
             {
-                MostrarProveedores(listElementosProveedores);
+                MostrarProveedores(_listaElementosProveedores);
             }
             else
             {
@@ -93,9 +93,67 @@ namespace ItaliaPizza_Cliente.Vistas
             }
         }
 
+        private void BtnModificar_Click(object sender, EventArgs e)
+        {
+            ElementoProveedor elementoSeleccionado = sender as ElementoProveedor;
+            ProveedorDto proveedorSeleccionado = elementoSeleccionado.ProveedorDto;
+            MainWindow ventanaPrincipal = (MainWindow)Window.GetWindow(this);
+            EdicionProveedor paginaEdicionProveedor = new EdicionProveedor(proveedorSeleccionado);
+            ventanaPrincipal.FrameNavigator.Navigate(paginaEdicionProveedor);
+        }
+
+        private void BtnRegistrarProveedor_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow ventanaPrincipal = (MainWindow)Window.GetWindow(this);
+            RegistroProveedor paginaRegistroProveedor = new RegistroProveedor(true);
+            ventanaPrincipal.FrameNavigator.Navigate(paginaRegistroProveedor);
+        }
+
+        private void BtnCambiarEstadoProveedor_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ElementoProveedor elementoSeleccionado = sender as ElementoProveedor;
+                bool esActivo = elementoSeleccionado.EsActivo;
+                int idProveedor = elementoSeleccionado.Id;
+                bool exitoAccion = CambiarEstadoProveedor(esActivo, idProveedor);
+                ActualizarEstadoEnPantalla(esActivo, exitoAccion, elementoSeleccionado);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                ManejadorVentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
+            }
+            catch (TimeoutException ex)
+            {
+                ManejadorVentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
+            }
+            catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+            {
+                ManejadorVentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
+            }
+            catch (FaultException ex)
+            {
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
+            }
+            catch (CommunicationException ex)
+            {
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
+            }
+            catch (Exception ex)
+            {
+                ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
+            }
+        }
+
         private List<ElementoProveedor> FiltrarProveedores(string criterioBusqueda)
         {
-            return listElementosProveedores.Where(proveedor => proveedor.lblNombre.Text.ToLower().Contains(criterioBusqueda) ||
+            return _listaElementosProveedores.Where(proveedor => proveedor.lblNombre.Text.ToLower().Contains(criterioBusqueda) ||
                                                                proveedor.lblRFC.Text.ToLower().Contains(criterioBusqueda)).ToList();
         }
 
@@ -104,9 +162,9 @@ namespace ItaliaPizza_Cliente.Vistas
             foreach (var proveedor in listaProveedores)
             {
                 ElementoProveedor elementoProveedor = new ElementoProveedor(proveedor);
-                elementoProveedor.btnCambiarEstadoProveedor_Click += BtnCambiarEstadoProveedor_Click;
-                elementoProveedor.btnModificarProveedor_Click += BtnModificar_Click;
-                listElementosProveedores.Add(elementoProveedor);
+                elementoProveedor.BtnCambiarEstadoProveedorClicked += BtnCambiarEstadoProveedor_Click;
+                elementoProveedor.BtnModificarProveedorClicked += BtnModificar_Click;
+                _listaElementosProveedores.Add(elementoProveedor);
 ;            }
         }
 
@@ -117,55 +175,12 @@ namespace ItaliaPizza_Cliente.Vistas
             {
                 wrpProveedoresInfromacion.Children.Add(item);
             }
-        }
-
-
-        private void BtnCambiarEstadoProveedor_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                ElementoProveedor elementoSeleccionado = sender as ElementoProveedor;
-                bool esActivo = elementoSeleccionado.esActivo;
-                int idProveedor = elementoSeleccionado.Id;
-                bool exitoAccion = CambiarEstadoProveedor(esActivo, idProveedor);
-                ActualizarEstadoEnPantalla(esActivo, exitoAccion, elementoSeleccionado);
-            }
-            catch (EndpointNotFoundException ex)
-            {
-                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
-                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
-            }
-            catch (TimeoutException ex)
-            {
-                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
-                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
-            }
-            catch (FaultException<ExcepcionServidorItaliaPizza> ex)
-            {
-                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
-                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
-            }
-            catch (FaultException ex)
-            {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
-                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
-            }
-            catch (CommunicationException ex)
-            {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
-                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
-            }
-            catch (Exception ex)
-            {
-                VentanasEmergentes.MostrarVentanaErrorInesperado();
-                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
-            }
-        }
+        }               
 
         private bool CambiarEstadoProveedor(bool esActivo, int idProveedor)
         {
             ServicioProveedoresClient servicioProveedoresClient = new ServicioProveedoresClient();
-            return servicioProveedoresClient.CmabiarEstadoProveedor(esActivo, idProveedor);
+            return servicioProveedoresClient.CambiarEstadoProveedor(esActivo, idProveedor);
         }
 
         private void ActualizarEstadoEnPantalla(bool estabaActivo, bool exitoAccion, ElementoProveedor elementoProveedor)
@@ -193,24 +208,7 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             VentanaEmergente ventanaEmergente = new VentanaEmergente(titulo, descripcion, Window.GetWindow(this), tipo);
             ventanaEmergente.ShowDialog();
-        }
-
-
-        private void BtnModificar_Click(object sender, EventArgs e)
-        {
-            ElementoProveedor elementoSeleccionado = sender as ElementoProveedor;
-            ProveedorDto proveedorSeleccionado = elementoSeleccionado.proveedorDto;
-            MainWindow ventanaPrincipal = (MainWindow)Window.GetWindow(this);
-            EdicionProveedor paginaEdicionProveedor = new EdicionProveedor(proveedorSeleccionado);
-            ventanaPrincipal.FrameNavigator.Navigate(paginaEdicionProveedor);
-        }      
-
-        private void BtnRegistrarProveedor_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindow ventanaPrincipal = (MainWindow)Window.GetWindow(this);
-            RegistroProveedor paginaRegistroProveedor = new RegistroProveedor(true);
-            ventanaPrincipal.FrameNavigator.Navigate(paginaRegistroProveedor);
-        }
+        }       
 
     }
 }

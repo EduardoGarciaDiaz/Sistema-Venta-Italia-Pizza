@@ -25,11 +25,12 @@ namespace ItaliaPizza_Cliente.Vistas
     /// </summary>
     public partial class RegistroOrdenCompra : Page
     {
-        List<ProveedorDto> proveedores = new List<ProveedorDto>();
-        List<InsumoOrdenCompraDto> insumosDisponibles = new List<InsumoOrdenCompraDto>();
-        List<InsumoOrdenCompraDto> insumosSeleccionado = new List<InsumoOrdenCompraDto>();
-        List<ElementoInsumoOrdenCompraSeleccionado> listaElementosEnOrdenCompra = new List<ElementoInsumoOrdenCompraSeleccionado>();
-        List<ElementoInsumoOrdenCompra> listaElementoEnListaInsumos = new List<ElementoInsumoOrdenCompra>();
+        private List<ProveedorDto> _proveedores = new List<ProveedorDto>();
+        private List<InsumoOrdenCompraDto> _insumosDisponibles = new List<InsumoOrdenCompraDto>();
+        private readonly List<InsumoOrdenCompraDto> _insumosSeleccionado = new List<InsumoOrdenCompraDto>();
+        private readonly List<ElementoInsumoOrdenCompraSeleccionado> _listaElementosEnOrdenCompra = new List<ElementoInsumoOrdenCompraSeleccionado>();
+        private readonly List<ElementoInsumoOrdenCompra> _listaElementoEnListaInsumos = new List<ElementoInsumoOrdenCompra>();
+       
         public RegistroOrdenCompra()
         {
             InitializeComponent();
@@ -38,245 +39,122 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void PrepararWindow(object sender, RoutedEventArgs e)
         {
-            ObtenerInformacion();
-            CargarProveedores(proveedores);
-            MostrarInsumosdDisponibles(insumosDisponibles);
-            barraBusquedaInsumo.ImgBuscarClicked += ImgBuscar_Click;
-            barraBusquedaInsumo.Placeholder.Text = "Buscar insumo por nombre o código...";
-        }
-
-        private void ImgBuscar_Click(object sender, EventArgs e)
-        {
-            string criterioBusqueda = barraBusquedaInsumo.TxtBusqueda.Text;
-            stpListaInsumos.Children.Clear();
-            List<ElementoInsumoOrdenCompra> insumosFiltrados = listaElementoEnListaInsumos.Where(insumo => insumo.insumoDto.Codigo.Contains(criterioBusqueda) ||
-                                                                                                 insumo.insumoDto.Nombre.Contains(criterioBusqueda)).ToList();
-            MostrarInsumosFiltrados(insumosFiltrados);
-        }
-
-        private void MostrarInsumosFiltrados(List<ElementoInsumoOrdenCompra> insumosFiltrados)
-        {
-            foreach (var item in insumosFiltrados)
-            {
-                stpListaInsumos.Children.Add(item);
-            }
-        }
-
-        private void ObtenerInformacion()
-        {
             try
             {
-                ObtenerProveedoresAtivos();
-                ObtenerIsnsumoActivos();
+                ObtenerInformacion();
+                CargarProveedores(_proveedores);
+                MostrarInsumosdDisponibles(_insumosDisponibles);
+                barraBusquedaInsumo.ImgBuscarClicked += ImgBuscar_Click;
+                barraBusquedaInsumo.plhrInstruccion.Text = "Buscar insumo por nombre o código...";
             }
             catch (EndpointNotFoundException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorConexionFallida();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (TimeoutException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorTiempoEspera();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (FaultException<ExcepcionServidorItaliaPizza> ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorBaseDatos();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (FaultException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (CommunicationException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (Exception ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
         }
 
-        private void ObtenerProveedoresAtivos()
-        {
-            ServicioProveedoresClient servicioProveedoresClient = new ServicioProveedoresClient();
-            proveedores = servicioProveedoresClient.RecuperarProveedoresActivos().ToList();
-        }
-
-        private void ObtenerIsnsumoActivos()
-        {
-            ServicioProductosClient servicioProductosClient = new ServicioProductosClient();
-            insumosDisponibles = servicioProductosClient.RecuperarInsumosActivos().ToList();
-        }
-
-        private void CargarProveedores(List<ProveedorDto> proveedoresACargar)
-        {
-            lstProveedores.ItemsSource = proveedoresACargar;
-            lstProveedores.DisplayMemberPath = "NombreCompleto";
-        }
-
-        private void MostrarInformacionProveedor(ProveedorDto proveedorSeleccionado)
-        {
-            lblNombreProveedor.Content = proveedorSeleccionado.NombreCompleto;
-            lblRFCProveedor.Content = proveedorSeleccionado.RFC;
-            lblTelefonoProveedor.Content = proveedorSeleccionado.NumeroTelefono;
-            lblCorreo.Content = proveedorSeleccionado.CorreoElectronico;
-            String direccion = proveedorSeleccionado.Direccion.Ciudad + ", Col. " + proveedorSeleccionado.Direccion.Colonia.ToString() + " " + proveedorSeleccionado.Direccion.CodigoPostal + ", Calle " + proveedorSeleccionado.Direccion.Calle + " #" + proveedorSeleccionado.Direccion.Numero.ToString();
-            lblDireccion.Content = direccion;
-        }
-
-        private void MostrarInsumosdDisponibles(List<InsumoOrdenCompraDto> insumosDisponibles)
-        {
-            stpListaInsumos.Children.Clear();
-            foreach (var item in insumosDisponibles)
-            {
-                ElementoInsumoOrdenCompra elementoInsumoOrden = new ElementoInsumoOrdenCompra(item);
-                elementoInsumoOrden.btnAgregarAOrden_Click += BtnAgregarAOrden;
-                stpListaInsumos.Children.Add(elementoInsumoOrden);
-                listaElementoEnListaInsumos.Add(elementoInsumoOrden);
-            }
-        }
-
-        private void BtnAgregarAOrden(object sender, EventArgs e)
-        {
-            ElementoInsumoOrdenCompra elementoInsumo = sender as ElementoInsumoOrdenCompra;
-            AgregarInsumoAOrdenDeCompra(elementoInsumo.insumoDto);
-            QuitarInsumosDeListaInsumos(elementoInsumo);
-            CalcularCostoOrdenCompra(listaElementosEnOrdenCompra);
-        }
-        private void AgregarInsumoAOrdenDeCompra(InsumoOrdenCompraDto insumo)
-        {
-            if (insumo != null)
-            {
-                ElementoInsumoOrdenCompraSeleccionado elementoInsumo = new ElementoInsumoOrdenCompraSeleccionado(insumo);
-                elementoInsumo.btnInsumoMas_Click += BtnInsumoMas;
-                elementoInsumo.btnInsumoMenos_Click += BtnInsumoMenos;
-                elementoInsumo.btnEliminarInsumo_Click += BtnEliminarInsumoOrden;
-                elementoInsumo.txbCantida_TextChanged += TxbCantidad_TextChanged;
-                stpInsumosOrdenCompra.Children.Add(elementoInsumo);
-                insumosSeleccionado.Add(elementoInsumo.insumoDto);
-                listaElementosEnOrdenCompra.Add(elementoInsumo);
-            }
-        }
-
-        private void QuitarInsumosDeListaInsumos(ElementoInsumoOrdenCompra elementoInsumo)
-        {
-            if (elementoInsumo != null)
-            {
-                stpListaInsumos.Children.Remove(elementoInsumo);
-                insumosDisponibles.Remove(elementoInsumo.insumoDto);
-                listaElementoEnListaInsumos.Remove(elementoInsumo);
-            }
-        }      
-
-        private void BtnInsumoMenos(object sender, EventArgs e)
+        private void BtnInsumoMenos_Click(object sender, EventArgs e)
         {
             ElementoInsumoOrdenCompraSeleccionado elementoInsumoOrden = sender as ElementoInsumoOrdenCompraSeleccionado;
             DisminuirCantidad(elementoInsumoOrden);
         }
 
-        private void DisminuirCantidad(ElementoInsumoOrdenCompraSeleccionado elementoInsumoOrden)
-        {
-            int cantidad = int.Parse(elementoInsumoOrden.txbCantidad.Text);
-            cantidad--;
-            elementoInsumoOrden.txbCantidad.Text = cantidad.ToString();
-        }
-
-        private void BtnInsumoMas(object sender, EventArgs e)
+        private void BtnInsumoMas_Click(object sender, EventArgs e)
         {
             ElementoInsumoOrdenCompraSeleccionado elementoInsumoOrden = sender as ElementoInsumoOrdenCompraSeleccionado;
             AumentarCantidad(elementoInsumoOrden);
         }
 
-        private void AumentarCantidad(ElementoInsumoOrdenCompraSeleccionado elementoInsumoOrden)
+        private void BtnAgregarAOrden_Click(object sender, EventArgs e)
         {
-            int cantidad = int.Parse(elementoInsumoOrden.txbCantidad.Text);
-            cantidad++;
-            elementoInsumoOrden.txbCantidad.Text = cantidad.ToString();
+            ElementoInsumoOrdenCompra elementoInsumo = sender as ElementoInsumoOrdenCompra;
+            AgregarInsumoAOrdenDeCompra(elementoInsumo.Insumo);
+            QuitarInsumosDeListaInsumos(elementoInsumo);
+            CalcularCostoOrdenCompra(_listaElementosEnOrdenCompra);
         }
 
-        private void BtnEliminarInsumoOrden(object sender, EventArgs e)
+        private void BtnEliminarInsumoOrden_Click(object sender, EventArgs e)
         {
             ElementoInsumoOrdenCompraSeleccionado elementoInsumoOrden = sender as ElementoInsumoOrdenCompraSeleccionado;
-            AgregarInsumoAlistaInsumosDisponibles(elementoInsumoOrden.insumoDto);
+            AgregarInsumoAlistaInsumosDisponibles(elementoInsumoOrden.Insumo);
             QuitarInsumoDeOrdenDeCompra(elementoInsumoOrden);
-            CalcularCostoOrdenCompra(listaElementosEnOrdenCompra);
+            CalcularCostoOrdenCompra(_listaElementosEnOrdenCompra);
         }
 
-        private void AgregarInsumoAlistaInsumosDisponibles(InsumoOrdenCompraDto elementoInsumoOrden)
+        private void ImgBuscar_Click(object sender, EventArgs e)
         {
-            if (elementoInsumoOrden != null)
+            string criterioBusqueda = barraBusquedaInsumo.txbBusqueda.Text;
+            skpListaInsumos.Children.Clear();
+            List<ElementoInsumoOrdenCompra> insumosFiltrados = _listaElementoEnListaInsumos.Where(insumo => insumo.Insumo.Codigo.Contains(criterioBusqueda) ||
+                                                                                                  insumo.Insumo.Nombre.Contains(criterioBusqueda)).ToList();
+            MostrarInsumosFiltrados(insumosFiltrados);
+        }
+
+        private void BtnRegistrarProveedor_Click(object sender, RoutedEventArgs e)
+        {
+            RegistroProveedor paginaRegistroProveedor = new RegistroProveedor(false);
+            MainWindow ventanaPrincipal = (MainWindow)Window.GetWindow(this);
+            ventanaPrincipal.FrameNavigator.NavigationService.Navigate(paginaRegistroProveedor);
+        }
+
+        private void BtnLimpiarOrden_Click(object sender, MouseButtonEventArgs e)
+        {
+            var listaCopia = _listaElementosEnOrdenCompra.ToList();
+            foreach (var item in listaCopia)
             {
-                ElementoInsumoOrdenCompra elementoInsumo = new ElementoInsumoOrdenCompra(elementoInsumoOrden);
-                elementoInsumo.btnAgregarAOrden_Click += BtnAgregarAOrden;
-                stpListaInsumos.Children.Add(elementoInsumo);
-                insumosDisponibles.Add(elementoInsumo.insumoDto);
-                listaElementoEnListaInsumos.Add(elementoInsumo);
+                AgregarInsumoAlistaInsumosDisponibles(item.Insumo);
+                QuitarInsumoDeOrdenDeCompra(item);
             }
+            skpInsumosOrdenCompra.Children.Clear();
+            CalcularCostoOrdenCompra(_listaElementosEnOrdenCompra);
         }
 
-        private void QuitarInsumoDeOrdenDeCompra(ElementoInsumoOrdenCompraSeleccionado elementoInsumo)
+        private void LbxProveedores_Selected(object sender, SelectionChangedEventArgs e)
         {
-            stpInsumosOrdenCompra.Children.Remove(elementoInsumo);
-            insumosSeleccionado.Remove(elementoInsumo.insumoDto);
-            listaElementosEnOrdenCompra.Remove(elementoInsumo);
-        }
-
-        private void TxbCantidad_TextChanged(object sender, EventArgs e)
-        {
-            ElementoInsumoOrdenCompraSeleccionado elementoInsumoOrden = sender as ElementoInsumoOrdenCompraSeleccionado;
-            if (!String.IsNullOrEmpty(elementoInsumoOrden.txbCantidad.Text))
+            ProveedorDto proveedorSeleccionado = (ProveedorDto)lbxProveedores.SelectedItem;
+            if (proveedorSeleccionado != null)
             {
-                int cantidad = int.Parse(elementoInsumoOrden.txbCantidad.Text);
-                if (cantidad > 0)
-                {
-                    float costo = elementoInsumoOrden.insumoDto.CostoUnitario;
-                    float subtotoal = cantidad * costo;
-                    elementoInsumoOrden.lblSubtotal.Content = subtotoal.ToString();
-                }
-                else
-                {
-                    AgregarInsumoAlistaInsumosDisponibles(elementoInsumoOrden.insumoDto);
-                    QuitarInsumoDeOrdenDeCompra(elementoInsumoOrden);
-                }
-                CalcularCostoOrdenCompra(listaElementosEnOrdenCompra);
-            }
-        }
-
-        private void CalcularCostoOrdenCompra(List<ElementoInsumoOrdenCompraSeleccionado> insumosEnOrdenDeCompra)
-        {
-            if (insumosEnOrdenDeCompra != null)
-            {
-                float total = 0;
-                foreach (var item in insumosEnOrdenDeCompra)
-                {
-                    int cantidad = int.Parse(item.txbCantidad.Text);
-                    float costo = item.insumoDto.CostoUnitario;
-                    float subtotoal = cantidad * costo;
-                    total += subtotoal;
-                }
-                lblTotalProducto.Content = insumosSeleccionado.Count();
-                lblSubtotal.Content = total.ToString("0.##");
-                lblIva.Content = (total * 0.16).ToString("0.##");
-                lblTotalCosto.Content = (total * 1.16).ToString("0.##");
+                MostrarInformacionProveedor(proveedorSeleccionado);
             }
         }
 
         private void BtnEnviarOrdenCompra_Click(object sender, RoutedEventArgs e)
         {
-            if (ValidarCantidades(listaElementosEnOrdenCompra))
-            {                
+            if (ValidarCantidades(_listaElementosEnOrdenCompra))
+            {
                 if (ValidarProveedorSeleccionado())
                 {
-                    if (!ValidarOrdenCompra(listaElementosEnOrdenCompra))
+                    if (!ValidarOrdenCompra(_listaElementosEnOrdenCompra))
                     {
                         try
                         {
-                            int idOrdenCompra = GuardarOrdenDeCompra(listaElementosEnOrdenCompra);
+                            int idOrdenCompra = GuardarOrdenDeCompra(_listaElementosEnOrdenCompra);
                             if (idOrdenCompra != 0)
                             {
 
@@ -300,32 +178,32 @@ namespace ItaliaPizza_Cliente.Vistas
                         }
                         catch (EndpointNotFoundException ex)
                         {
-                            VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                            ManejadorVentanasEmergentes.MostrarVentanaErrorConexionFallida();
                             ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
                         }
                         catch (TimeoutException ex)
                         {
-                            VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                            ManejadorVentanasEmergentes.MostrarVentanaErrorTiempoEspera();
                             ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
                         }
                         catch (FaultException<ExcepcionServidorItaliaPizza> ex)
                         {
-                            VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                            ManejadorVentanasEmergentes.MostrarVentanaErrorBaseDatos();
                             ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
                         }
                         catch (FaultException ex)
                         {
-                            VentanasEmergentes.MostrarVentanaErrorServidor();
+                            ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                             ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
                         }
                         catch (CommunicationException ex)
                         {
-                            VentanasEmergentes.MostrarVentanaErrorServidor();
+                            ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                             ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
                         }
                         catch (Exception ex)
                         {
-                            VentanasEmergentes.MostrarVentanaErrorInesperado();
+                            ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
                             ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
                         }
                     }
@@ -334,7 +212,7 @@ namespace ItaliaPizza_Cliente.Vistas
                 {
                     VentanaEmergente ventanaEmergente = new VentanaEmergente("Error", "Debes Seleccionar un proveedor para guardar la orden de compra", Window.GetWindow(this), 1);
                     ventanaEmergente.ShowDialog();
-                } 
+                }
             }
             else
             {
@@ -345,11 +223,11 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void BtnGuardarOrden_Click(object sender, RoutedEventArgs e)
         {
-            if (ValidarProveedorSeleccionado())
+            try
             {
-                try
+                if (ValidarProveedorSeleccionado())
                 {
-                    int idOrdenCompra = GuardarOrdenDeCompra(listaElementosEnOrdenCompra);
+                    int idOrdenCompra = GuardarOrdenDeCompra(_listaElementosEnOrdenCompra);
                     if (idOrdenCompra != 0)
                     {
                         VentanaEmergente ventanaEmergente = new VentanaEmergente("Exito!!", "La orden de compra se guardo correctamente.", Window.GetWindow(this), 2);
@@ -361,48 +239,206 @@ namespace ItaliaPizza_Cliente.Vistas
                         VentanaEmergente ventanaEmergente = new VentanaEmergente("Error", "Ocurrio un error al guardar la orden de compra, intentelo mas tarde y verifique su conexión", Window.GetWindow(this), 1);
                         ventanaEmergente.ShowDialog();
                     }
+
                 }
-                catch (EndpointNotFoundException ex)
+                else
                 {
-                    VentanasEmergentes.MostrarVentanaErrorConexionFallida();
-                    ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
-                }
-                catch (TimeoutException ex)
-                {
-                    VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
-                    ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
-                }
-                catch (FaultException<ExcepcionServidorItaliaPizza> ex)
-                {
-                    VentanasEmergentes.MostrarVentanaErrorBaseDatos();
-                    ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
-                }
-                catch (FaultException ex)
-                {
-                    VentanasEmergentes.MostrarVentanaErrorServidor();
-                    ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
-                }
-                catch (CommunicationException ex)
-                {
-                    VentanasEmergentes.MostrarVentanaErrorServidor();
-                    ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
-                }
-                catch (Exception ex)
-                {
-                    VentanasEmergentes.MostrarVentanaErrorInesperado();
-                    ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
+                    VentanaEmergente ventanaEmergente = new VentanaEmergente("Error", "Debes Seleccionar un proveedor para guardar la orden de compra", Window.GetWindow(this), 1);
+                    ventanaEmergente.ShowDialog();
                 }
             }
-            else
+            catch (TimeoutException ex)
             {
-                VentanaEmergente ventanaEmergente = new VentanaEmergente("Error", "Debes Seleccionar un proveedor para guardar la orden de compra", Window.GetWindow(this), 1);
-                ventanaEmergente.ShowDialog();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
+            }
+            catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+            {
+                ManejadorVentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
+            }
+            catch (FaultException ex)
+            {
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
+            }
+            catch (CommunicationException ex)
+            {
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
+            }
+            catch (Exception ex)
+            {
+                ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
         }
 
+        private void TxbCantidad_TextChanged(object sender, EventArgs e)
+        {
+            ElementoInsumoOrdenCompraSeleccionado elementoInsumoOrden = sender as ElementoInsumoOrdenCompraSeleccionado;
+            if (!String.IsNullOrEmpty(elementoInsumoOrden.tbxCantidad.Text))
+            {
+                int cantidad = int.Parse(elementoInsumoOrden.tbxCantidad.Text);
+                if (cantidad > 0)
+                {
+                    float costo = elementoInsumoOrden.Insumo.CostoUnitario;
+                    float subtotoal = cantidad * costo;
+                    elementoInsumoOrden.lblSubtotal.Content = subtotoal.ToString();
+                }
+                else
+                {
+                    AgregarInsumoAlistaInsumosDisponibles(elementoInsumoOrden.Insumo);
+                    QuitarInsumoDeOrdenDeCompra(elementoInsumoOrden);
+                }
+                CalcularCostoOrdenCompra(_listaElementosEnOrdenCompra);
+            }
+        }
+
+        private void BtnCancelarOrden_Click(object sender, RoutedEventArgs e)
+        {
+            MostrarMensajeConfirmacion();
+        }
+
+        private void MostrarInsumosFiltrados(List<ElementoInsumoOrdenCompra> insumosFiltrados)
+        {
+            foreach (var item in insumosFiltrados)
+            {
+                skpListaInsumos.Children.Add(item);
+            }
+        }
+
+        private void ObtenerInformacion()
+        {
+            ObtenerProveedoresActivos();
+            ObtenerInsumoActivos();
+        }
+
+        private void ObtenerProveedoresActivos()
+        {
+            ServicioProveedoresClient servicioProveedoresClient = new ServicioProveedoresClient();
+            _proveedores = servicioProveedoresClient.RecuperarProveedoresActivos().ToList();
+        }
+
+        private void ObtenerInsumoActivos()
+        {
+            ServicioProductosClient servicioProductosClient = new ServicioProductosClient();
+            _insumosDisponibles = servicioProductosClient.RecuperarInsumosActivos().ToList();
+        }
+
+        private void CargarProveedores(List<ProveedorDto> proveedoresACargar)
+        {
+            if(proveedoresACargar.Count > 0)
+            {
+                lbxProveedores.ItemsSource = proveedoresACargar;
+                lbxProveedores.DisplayMemberPath = "NombreCompleto";
+            }
+        }
+
+        private void MostrarInformacionProveedor(ProveedorDto proveedorSeleccionado)
+        {
+            lblNombreProveedor.Content = proveedorSeleccionado.NombreCompleto;
+            lblRFCProveedor.Content = proveedorSeleccionado.RFC;
+            lblTelefonoProveedor.Content = proveedorSeleccionado.NumeroTelefono;
+            lblCorreo.Content = proveedorSeleccionado.CorreoElectronico;
+            String direccion = proveedorSeleccionado.Direccion.Ciudad + ", Col. " + proveedorSeleccionado.Direccion.Colonia.ToString() + " " + proveedorSeleccionado.Direccion.CodigoPostal + ", Calle " + proveedorSeleccionado.Direccion.Calle + " #" + proveedorSeleccionado.Direccion.Numero.ToString();
+            lblDireccion.Content = direccion;
+        }
+
+        private void MostrarInsumosdDisponibles(List<InsumoOrdenCompraDto> insumosDisponibles)
+        {
+            skpListaInsumos.Children.Clear();
+            foreach (var item in insumosDisponibles)
+            {
+                ElementoInsumoOrdenCompra elementoInsumoOrden = new ElementoInsumoOrdenCompra(item);
+                elementoInsumoOrden.BtnAgregarAOrdenClicked += BtnAgregarAOrden_Click;
+                skpListaInsumos.Children.Add(elementoInsumoOrden);
+                _listaElementoEnListaInsumos.Add(elementoInsumoOrden);
+            }
+        }
+
+        
+        private void AgregarInsumoAOrdenDeCompra(InsumoOrdenCompraDto insumo)
+        {
+            if (insumo != null)
+            {
+                ElementoInsumoOrdenCompraSeleccionado elementoInsumo = new ElementoInsumoOrdenCompraSeleccionado(insumo);
+                elementoInsumo.BtnInsumoMasClicked += BtnInsumoMas_Click;
+                elementoInsumo.BtnInsumoMenosClicked += BtnInsumoMenos_Click;
+                elementoInsumo.BtnEliminarInsumoClicked += BtnEliminarInsumoOrden_Click;
+                elementoInsumo.TxbCantidaTextChanged += TxbCantidad_TextChanged;
+                skpInsumosOrdenCompra.Children.Add(elementoInsumo);
+                _insumosSeleccionado.Add(elementoInsumo.Insumo);
+                _listaElementosEnOrdenCompra.Add(elementoInsumo);
+            }
+        }
+
+        private void QuitarInsumosDeListaInsumos(ElementoInsumoOrdenCompra elementoInsumo)
+        {
+            if (elementoInsumo != null)
+            {
+                skpListaInsumos.Children.Remove(elementoInsumo);
+                _insumosDisponibles.Remove(elementoInsumo.Insumo);
+                _listaElementoEnListaInsumos.Remove(elementoInsumo);
+            }
+        }      
+        
+        private void DisminuirCantidad(ElementoInsumoOrdenCompraSeleccionado elementoInsumoOrden)
+        {
+            int cantidad = int.Parse(elementoInsumoOrden.tbxCantidad.Text);
+            cantidad--;
+            elementoInsumoOrden.tbxCantidad.Text = cantidad.ToString();
+        }
+
+
+        private void AumentarCantidad(ElementoInsumoOrdenCompraSeleccionado elementoInsumoOrden)
+        {
+            int cantidad = int.Parse(elementoInsumoOrden.tbxCantidad.Text);
+            cantidad++;
+            elementoInsumoOrden.tbxCantidad.Text = cantidad.ToString();
+        }
+
+        private void AgregarInsumoAlistaInsumosDisponibles(InsumoOrdenCompraDto elementoInsumoOrden)
+        {
+            if (elementoInsumoOrden != null)
+            {
+                ElementoInsumoOrdenCompra elementoInsumo = new ElementoInsumoOrdenCompra(elementoInsumoOrden);
+                elementoInsumo.BtnAgregarAOrdenClicked += BtnAgregarAOrden_Click;
+                skpListaInsumos.Children.Add(elementoInsumo);
+                _insumosDisponibles.Add(elementoInsumo.Insumo);
+                _listaElementoEnListaInsumos.Add(elementoInsumo);
+            }
+        }
+
+        private void QuitarInsumoDeOrdenDeCompra(ElementoInsumoOrdenCompraSeleccionado elementoInsumo)
+        {
+            skpInsumosOrdenCompra.Children.Remove(elementoInsumo);
+            _insumosSeleccionado.Remove(elementoInsumo.Insumo);
+            _listaElementosEnOrdenCompra.Remove(elementoInsumo);
+        }
+
+        private void CalcularCostoOrdenCompra(List<ElementoInsumoOrdenCompraSeleccionado> insumosEnOrdenDeCompra)
+        {
+            if (insumosEnOrdenDeCompra != null)
+            {
+                float total = 0;
+                foreach (var item in insumosEnOrdenDeCompra)
+                {
+                    int cantidad = int.Parse(item.tbxCantidad.Text);
+                    float costo = item.Insumo.CostoUnitario;
+                    float subtotoal = cantidad * costo;
+                    total += subtotoal;
+                }
+                lblTotalProducto.Content = _insumosSeleccionado.Count();
+                lblSubtotal.Content = total.ToString("0.##");
+                lblIva.Content = (total * 0.16).ToString("0.##");
+                lblTotalCosto.Content = (total * 1.16).ToString("0.##");
+            }
+        } 
+
         private bool ValidarProveedorSeleccionado()
         {
-            return lstProveedores.SelectedItem != null;
+            return lbxProveedores.SelectedItem != null;
         }
 
         private bool ValidarOrdenCompra(List<ElementoInsumoOrdenCompraSeleccionado> itemsDeOrdenCompra)
@@ -429,8 +465,8 @@ namespace ItaliaPizza_Cliente.Vistas
                 ElementoOrdenCompraDto elementoOrdenCompraDto = new ElementoOrdenCompraDto()
                 {
                     IdElementoOrdenCompra = 0,
-                    InsumoOrdenCompraDto = item.insumoDto,
-                    CantidadInsumosAdquiridos = int.Parse(item.txbCantidad.Text)
+                    InsumoOrdenCompraDto = item.Insumo,
+                    CantidadInsumosAdquiridos = int.Parse(item.tbxCantidad.Text)
                 };
                 listaInsumosOrden.Add(elementoOrdenCompraDto);
             }
@@ -440,9 +476,9 @@ namespace ItaliaPizza_Cliente.Vistas
                 IdEstadoOrdenCompra = 0,
                 Fecha = DateTime.Now,                
                 Costo = float.Parse(lblTotalCosto.Content.ToString()),
-                Proveedor = proveedores.FirstOrDefault(pro => pro.RFC.Equals(lblRFCProveedor.Content)),
-                IdProveedor = proveedores.FirstOrDefault(pro => pro.RFC.Equals(lblRFCProveedor.Content)).IdProveedor,
-                listaElementosOrdenCompra = listaInsumosOrden.ToArray()
+                Proveedor = _proveedores.FirstOrDefault(pro => pro.RFC.Equals(lblRFCProveedor.Content)),
+                IdProveedor = _proveedores.FirstOrDefault(pro => pro.RFC.Equals(lblRFCProveedor.Content)).IdProveedor,
+                ListaElementosOrdenCompra = listaInsumosOrden.ToArray()
             };
             ServicioOrdenesCompraClient servicioOrdenesCompraClient = new ServicioOrdenesCompraClient();
             idOrdenCompra = servicioOrdenesCompraClient.GuardarOrdenDeCompraNueva(ordenDeCompraDto);
@@ -453,7 +489,7 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             foreach (var item in itemsDeOrdenCompra)
             {
-                if (String.IsNullOrEmpty(item.txbCantidad.Text))
+                if (String.IsNullOrEmpty(item.tbxCantidad.Text))
                 {
                     return false;
                 }
@@ -467,50 +503,18 @@ namespace ItaliaPizza_Cliente.Vistas
             return servicioOrdenesCompraClient.EnviarOrdenDeCompra(idOrdenCompra);
         }
 
-        private void BtnCancelarOrden_Click(object sender, RoutedEventArgs e)
-        {
-            MostrarMensajeConfirmacion();
-        }
         private void MostrarMensajeConfirmacion()
         {
             VentanaEmergente ventanaEmergente = new VentanaEmergente("Cuidado!!!", "¿Seguro que desea cancelar el registro?, se perderán los datos que no se hayan guardado", "Si, Cancelar Registro", "No, Cancelar Accion", Window.GetWindow(this), 3);
             ventanaEmergente.ShowDialog();
             if (ventanaEmergente.AceptarAccion)
             {
-                stpInsumosOrdenCompra.Children.Clear();
-                stpListaInsumos.Children.Clear();
-                listaElementosEnOrdenCompra.Clear();
+                skpInsumosOrdenCompra.Children.Clear();
+                skpListaInsumos.Children.Clear();
+                _listaElementosEnOrdenCompra.Clear();
                 SalirAPantallaInicio();
             }
-        }
-
-        private void BtnRegistrarProveedor_Click(object sender, RoutedEventArgs e)
-        {
-            RegistroProveedor paginaRegistroProveedor = new RegistroProveedor(false);
-            MainWindow ventanaPrincipal = (MainWindow)Window.GetWindow(this);
-            ventanaPrincipal.FrameNavigator.NavigationService.Navigate(paginaRegistroProveedor);
-        }
-
-        private void BtnLimpiarOrden_Click(object sender, MouseButtonEventArgs e)
-        {
-            var listaCopia = listaElementosEnOrdenCompra.ToList();
-            foreach (var item in listaCopia)
-            {
-                AgregarInsumoAlistaInsumosDisponibles(item.insumoDto);
-                QuitarInsumoDeOrdenDeCompra(item);
-            }
-            stpInsumosOrdenCompra.Children.Clear();
-            CalcularCostoOrdenCompra(listaElementosEnOrdenCompra);
-        }
-
-        private void lstProveedores_Selected(object sender, SelectionChangedEventArgs e)
-        {
-            ProveedorDto proveedorSeleccionado = (ProveedorDto) lstProveedores.SelectedItem;
-            if (proveedorSeleccionado != null)
-            {
-                MostrarInformacionProveedor(proveedorSeleccionado);
-            }
-        }
+        }       
 
         private void SalirAPantallaInicio()
         {
@@ -518,5 +522,6 @@ namespace ItaliaPizza_Cliente.Vistas
             MainWindow ventanaPrincipal = (MainWindow)Window.GetWindow(this);
             ventanaPrincipal.FrameNavigator.NavigationService.Navigate(paginaOrdenesCompras);
         }
+
     }
 }

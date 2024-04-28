@@ -30,7 +30,7 @@ namespace ItaliaPizza_Servicios
             return resultadoOperacion;
         }
 
-        public bool CmabiarEstadoProveedor(bool estaActivo, int idProveedor)
+        public bool CambiarEstadoProveedor(bool estaActivo, int idProveedor)
         {
             bool exitoAccion;
             try

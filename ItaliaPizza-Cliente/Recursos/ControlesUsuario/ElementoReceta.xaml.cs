@@ -22,9 +22,9 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
     public partial class ElementoReceta : UserControl
     {
         public Receta RecetaAsignada { get; set; }
-        public EventHandler gridReceta_Click;
-        public EventHandler imgEditar_Click;
-        public EventHandler imgEliminar_Click;
+        public EventHandler GrdRecetaClicked;
+        public EventHandler ImgEditarClicked;
+        public EventHandler ImgEliminarClicked;
 
 
         public ElementoReceta()
@@ -32,19 +32,19 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
             InitializeComponent();
         }
 
-        public void GridReceta_Click(object sender, RoutedEventArgs e)
+        public void GrdReceta_Click(object sender, RoutedEventArgs e)
         {
-            gridReceta_Click?.Invoke(this, e);
+            GrdRecetaClicked?.Invoke(this, e);
         }
 
         public void ImgEditar_Click(object sender, RoutedEventArgs e)
         {
-            imgEditar_Click?.Invoke(this, e);
+            ImgEditarClicked?.Invoke(this, e);
         }
 
         public void ImgEliminar_Click(object sender, RoutedEventArgs e)
         {
-            imgEliminar_Click?.Invoke(this, e);
+            ImgEliminarClicked?.Invoke(this, e);
         }
     }
 }

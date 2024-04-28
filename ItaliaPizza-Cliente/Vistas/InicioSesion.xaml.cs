@@ -31,37 +31,37 @@ namespace ItaliaPizza_Cliente.Vistas
         private void BtnIniciarSesion_Click(object sender, RoutedEventArgs e)
         {
             string nombreUsuario = txbNombreUsuario.Text.Trim();
-            string contrasena = txbContrasena.Password.ToString().Trim();
+            string contrasena = pwbxContrasena.Password.ToString().Trim();
             if(ValidarCamposVacios(nombreUsuario, contrasena))
             {
-                contrasena = CifradorContraseñas.EncriptarContraseña(txbContrasena.Password.ToString().Trim());
+                contrasena = CifradorContraseñas.EncriptarContraseña(pwbxContrasena.Password.ToString().Trim());
                 try
                 {
                     ValidarCredenciales(nombreUsuario, contrasena);
                 }
                 catch (EndpointNotFoundException )
                 {
-                    VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                    ManejadorVentanasEmergentes.MostrarVentanaErrorConexionFallida();
                 }
                 catch (TimeoutException)
                 {
-                    VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                    ManejadorVentanasEmergentes.MostrarVentanaErrorTiempoEspera();
                 }
                 catch (FaultException<ExcepcionServidorItaliaPizza>)
                 {
-                    VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                    ManejadorVentanasEmergentes.MostrarVentanaErrorBaseDatos();
                 }
                 catch (FaultException)
                 {
-                    VentanasEmergentes.MostrarVentanaErrorServidor();
+                    ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 }
                 catch (CommunicationException)
                 {
-                    VentanasEmergentes.MostrarVentanaErrorServidor();
+                    ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 }
                 catch (Exception )
                 {
-                    VentanasEmergentes.MostrarVentanaErrorInesperado();
+                    ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
                 }
             }
         }
@@ -140,7 +140,6 @@ namespace ItaliaPizza_Cliente.Vistas
             ventana.MostrarNombre(empleado.NombreUsuario);
             ventana.FiltrarOpcionesPanelLateral(empleado.DatosEmpleado.IdTipoEmpleado);
             ventana.SkpMenuLateral.Visibility = Visibility.Visible;
-            ventana.MostrarBotonAgregarGastosVarios();
             ventana.Show();
             this.Close();
         }

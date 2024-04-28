@@ -17,7 +17,7 @@ namespace ItaliaPizza_Contratos.DTOs
         public DateTime Fecha { get; set; }
 
         [DataMember]
-        public EstadoPedido estadoPedido { get; set; }
+        public EstadoPedido EstadoPedido { get; set; }
 
         [DataMember]
         public double Total {  get; set; }

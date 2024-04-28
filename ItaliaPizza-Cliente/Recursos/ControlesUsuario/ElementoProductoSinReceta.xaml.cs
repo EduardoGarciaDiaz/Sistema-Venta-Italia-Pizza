@@ -24,7 +24,7 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
     {
         public ProductoSinReceta ProductoAsignado { get; set; }
         public bool EsSeleccionado { get; set; }
-        public EventHandler gridProductoSinReceta_Click;
+        public EventHandler GrdProductoSinRecetaClicked;
 
         public ElementoProductoSinReceta()
         {
@@ -39,9 +39,14 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
             CargarDatos();
         }
 
+        public void GrdProductoSinReceta_Click(object sender, RoutedEventArgs e)
+        {
+            GrdProductoSinRecetaClicked?.Invoke(this, e);
+        }
+
         private void CargarDatos()
         {
-            lbCodigo.Content = ProductoAsignado.Codigo;
+            lblCodigo.Content = ProductoAsignado.Codigo;
             tbkNombre.Text = ProductoAsignado.Nombre;
 
             if (ProductoAsignado.Foto != null)
@@ -51,10 +56,7 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
             }
         }
 
-        public void GridProductoSinReceta_Click(object sender, RoutedEventArgs e)
-        {
-            gridProductoSinReceta_Click?.Invoke(this, e);
-        }
+       
 
     }
 }

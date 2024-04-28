@@ -39,7 +39,7 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             MostrarDatosOrdenCompra(_ordenCompra);
             MostrarProveedor(_ordenCompra.Proveedor);
-            MostrarInsumos(_ordenCompra.listaElementosOrdenCompra.ToList());
+            MostrarInsumos(_ordenCompra.ListaElementosOrdenCompra.ToList());
             CalcularYMostrarTotales();
         }
 
@@ -127,7 +127,7 @@ namespace ItaliaPizza_Cliente.Vistas
                 List<ElementoInsumoRegistroPagoOrden> insumos = SkpContenedorOrdenesCompra.Children.OfType<ElementoInsumoRegistroPagoOrden>().ToList();
                 insumos?.ForEach(i =>
                 {
-                    _ordenCompra.listaElementosOrdenCompra.FirstOrDefault(insumo =>
+                    _ordenCompra.ListaElementosOrdenCompra.FirstOrDefault(insumo =>
                         insumo.InsumoOrdenCompraDto.Codigo == i.lblCodigoInsumo.Content.ToString())
                         .CantidadInsumosAdquiridos = int.Parse(i.tbxCantidadInsumo.Text.ToString());
                 });
@@ -140,32 +140,32 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             catch (EndpointNotFoundException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorConexionFallida();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (TimeoutException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorTiempoEspera();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (FaultException<ExcepcionServidorItaliaPizza> ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorBaseDatos();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (FaultException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (CommunicationException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (Exception ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
 

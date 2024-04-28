@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace ItaliaPizza_Servicios.Auxiliares
 {
-    public static class ListaEmpleadoActivos
+    public static class ListaEmpleadosActivos
     {
-        private static Dictionary<int, string> empleadosActivos = new Dictionary<int, string>();
+        private static readonly Dictionary<int, string> s_empleadosActivos = new Dictionary<int, string>();
 
 
         public static void RegistrarUsuarioEnLista(int idUsuario, string nombreUsuario)
         {
-            if (idUsuario != 0 && !String.IsNullOrEmpty(nombreUsuario) && !empleadosActivos.ContainsKey(idUsuario))
+            if (idUsuario != 0 && !String.IsNullOrEmpty(nombreUsuario) && !s_empleadosActivos.ContainsKey(idUsuario))
             {
-                empleadosActivos.Add(idUsuario, nombreUsuario);
+                s_empleadosActivos.Add(idUsuario, nombreUsuario);
             }
         }
 
@@ -25,7 +25,7 @@ namespace ItaliaPizza_Servicios.Auxiliares
             bool respuesta = false;
             if(idUsuario != 0)
             {
-                respuesta = !empleadosActivos.ContainsKey(idUsuario);   
+                respuesta = !s_empleadosActivos.ContainsKey(idUsuario);   
             }
             return respuesta;
         }
@@ -35,7 +35,7 @@ namespace ItaliaPizza_Servicios.Auxiliares
             bool respuesta = true;
             if (!String.IsNullOrEmpty(nombreUsuario))
             {
-                foreach (var item in empleadosActivos)
+                foreach (var item in s_empleadosActivos)
                 {
                     if (item.Value.Equals(nombreUsuario))
                     {
@@ -53,9 +53,9 @@ namespace ItaliaPizza_Servicios.Auxiliares
 
         public static void QuitarEmpleadoDeLista(int idUser)
         {
-            if (idUser != 0 && empleadosActivos.ContainsKey(idUser))
+            if (idUser != 0 && s_empleadosActivos.ContainsKey(idUser))
             {
-                empleadosActivos.Remove(idUser);
+                s_empleadosActivos.Remove(idUser);
             }
         }
 

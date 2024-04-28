@@ -16,25 +16,25 @@ namespace ItaliaPizza_Contratos.DTOs
         public int Id { get; set; }
 
         [DataMember]
-        public double dineroEnCaja { get; set; }
+        public double DineroEnCaja { get; set; }
 
         [DataMember]
-        public double fondo {  get; set; }
+        public double Fondo {  get; set; }
 
         [DataMember]
-        public double salidasRegistradas { get; set; }
+        public double SalidasRegistradas { get; set; }
 
         [DataMember]
-        public double ingresosRegistrados { get; set; }
+        public double IngresosRegistrados { get; set; }
 
         [DataMember]
-        public double diferencia { get; set; }
+        public double Diferencia { get; set; }
 
         [DataMember]
-        public DateTime fecha { get; set; }
+        public DateTime Fecha { get; set; }
 
         [DataMember]
-        public string nombreUsuario { get; set; }   
+        public string NombreUsuario { get; set; }   
 
     }
 }

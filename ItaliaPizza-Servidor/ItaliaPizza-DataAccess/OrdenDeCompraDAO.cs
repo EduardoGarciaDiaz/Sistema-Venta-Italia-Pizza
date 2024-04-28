@@ -15,8 +15,6 @@ namespace ItaliaPizza_DataAccess
     public static class OrdenDeCompraDAO
     {
 
-        private const int ESTADO_SURTIDA = 3;
-
         public static int GuardarOrdenDeCompra(OrdenesCompra ordenesCompra)
         {
 
@@ -36,18 +34,18 @@ namespace ItaliaPizza_DataAccess
             }
             catch (EntityException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (SqlException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (Exception ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             return idOrdenNueva;
         }
@@ -65,18 +63,18 @@ namespace ItaliaPizza_DataAccess
             }
             catch (EntityException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (SqlException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (Exception ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             return idOrdenNueva;
         }
@@ -110,18 +108,18 @@ namespace ItaliaPizza_DataAccess
             }
             catch (EntityException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (SqlException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (Exception ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             return ordenCompra;
         }
@@ -142,18 +140,18 @@ namespace ItaliaPizza_DataAccess
             }
             catch (EntityException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (SqlException ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             catch (Exception ex)
             {
-                //TODO: Manejar excepcion
-                Console.WriteLine(ex.StackTrace);
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
             }
             return idOrdenNueva;
         }
@@ -223,7 +221,7 @@ namespace ItaliaPizza_DataAccess
                             NombreCompleto = o.Proveedores.NombreCompleto,
                             NumeroTelefono = o.Proveedores.NumeroTelefono
                         },
-                        listaElementosOrdenCompra = o.OrdenesCompraInsumos.ToList().ConvertAll(l => new ElementoOrdenCompraDto()
+                        ListaElementosOrdenCompra = o.OrdenesCompraInsumos.ToList().ConvertAll(l => new ElementoOrdenCompraDto()
                         {
                             CantidadInsumosAdquiridos = (int) l.CantidadInsumosAdquiridos,
                             IdElementoOrdenCompra = l.IdOrdenCompraInsumo,
@@ -270,7 +268,7 @@ namespace ItaliaPizza_DataAccess
                         InsumoDAO insumoDAO = new InsumoDAO();
                         foreach(OrdenesCompraInsumos ordenesCompraInsumos in ordenesCompra.OrdenesCompraInsumos)
                         {
-                            double cantidad = ordenDeCompra.listaElementosOrdenCompra.FirstOrDefault(i => 
+                            double cantidad = ordenDeCompra.ListaElementosOrdenCompra.FirstOrDefault(i => 
                                 i.IdElementoOrdenCompra == ordenesCompraInsumos.IdOrdenCompraInsumo).CantidadInsumosAdquiridos;
                             insumoDAO.ActualizarCantidadSolicitadaInsumo(ordenesCompraInsumos.IdOrdenCompraInsumo, cantidad);
                             insumoDAO.ActualizarInventarioInsumo(ordenesCompraInsumos.Insumos.CodigoProducto, cantidad);

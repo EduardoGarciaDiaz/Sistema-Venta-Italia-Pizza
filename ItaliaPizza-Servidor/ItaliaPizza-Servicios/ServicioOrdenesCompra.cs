@@ -46,11 +46,11 @@ namespace ItaliaPizza_Servicios
                     var ordenNueva = AuxiliarConversorDTOADAO.ConvertirOrdenDeCompraDtoAOrdenesDeCompras(ordenDeCompraDto);
                     idOrdenCompraNueva = OrdenDeCompraDAO.GuardarOrdenDeCompra(ordenNueva);
                     List<OrdenesCompraInsumos> ordenesCompraInsumos = new List<OrdenesCompraInsumos>();
-                    foreach (var item in ordenDeCompraDto.listaElementosOrdenCompra)
+                    foreach (var item in ordenDeCompraDto.ListaElementosOrdenCompra)
                     {
                         ordenesCompraInsumos.Add(AuxiliarConversorDTOADAO.ConvertirElementoOrdenCompraAOrdenesCompraInsumos(idOrdenCompraNueva, item));
                     }
-                    if(ordenDeCompraDto.listaElementosOrdenCompra.Count != 0)
+                    if(ordenDeCompraDto.ListaElementosOrdenCompra.Count != 0)
                     {
                         int resultado = OrdenDeCompraDAO.GuardarInsumoOrdenDeCompra(ordenesCompraInsumos);
                         if (resultado == 0)
@@ -68,12 +68,6 @@ namespace ItaliaPizza_Servicios
         }
 
         
-
-       
-        public void OperacionOrdenesEjemplo()
-        {
-            throw new NotImplementedException();
-        }
 
         public List<OrdenDeCompraDto> RecuperarOrdenesDeCompra()
         {

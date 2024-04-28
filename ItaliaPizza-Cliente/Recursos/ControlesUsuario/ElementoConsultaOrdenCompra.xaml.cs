@@ -21,7 +21,7 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
     /// </summary>
     public partial class ElementoConsultaOrdenCompra : UserControl
     {
-        public event RoutedEventHandler Click;
+        public event RoutedEventHandler BtnOrdenCompraClicked;
         public OrdenDeCompraDto OrdenDeCompraDto { get; set; }
 
         public ElementoConsultaOrdenCompra()
@@ -31,7 +31,7 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
 
         private void BtnAccionOrdenCompra_Click(object sender, RoutedEventArgs e)
         {
-            Click?.Invoke(this, e);
+            BtnOrdenCompraClicked?.Invoke(this, e);
         }
     }
 }

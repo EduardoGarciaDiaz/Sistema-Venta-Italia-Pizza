@@ -33,7 +33,7 @@
             <uc:BarraDeBusquedaMini x:Name="barraDeBusquedaProducto" Width="300" Margin="93,135,907,615"/>
 
             <ScrollViewer Background="Transparent" Margin="103,172,883,72" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                <WrapPanel x:Name="wrapPanelProductosSinReceta">
+                <WrapPanel x:Name="wrpPanelProductosSinReceta">
 
 
                 </WrapPanel>
@@ -47,7 +47,7 @@
             <uc:BarraDeBusquedaMini x:Name="barraDeBusquedaInsumo" Width="300" Margin="479,135,521,615"/>
 
             <ScrollViewer Background="Transparent" Margin="490,172,486,72" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                <WrapPanel x:Name="wrapPanelInsumos">
+                <WrapPanel x:Name="wrpPanelInsumos">
                 </WrapPanel>
             </ScrollViewer>
 
@@ -56,10 +56,10 @@
             <Label Content="Insumos seleccionados" HorizontalAlignment="Left" Margin="900,106,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
 
             <ScrollViewer Background="Transparent" Margin="908,140,90,219" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                <WrapPanel x:Name="wrapPanelInsumosSeleccionados">
+                <WrapPanel x:Name="wrpPanelInsumosSeleccionados">
                 </WrapPanel>
             </ScrollViewer>
-            <Label x:Name="lbNombreReceta" Content=""  HorizontalAlignment="Left" Margin="812,45,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FFD6B400" FontSize="30" Width="465" HorizontalContentAlignment="Center"/>
+            <Label x:Name="lblNombreReceta" Content=""  HorizontalAlignment="Left" Margin="812,45,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FFD6B400" FontSize="30" Width="465" HorizontalContentAlignment="Center"/>
 
 
             <Separator HorizontalAlignment="Left" Margin="908,591,0,0" VerticalAlignment="Top" Height="5" Width="270"/>
@@ -67,7 +67,7 @@
             <!--Botones-->
             <Button Content="Guardar receta" HorizontalAlignment="Left" Margin="894,637,0,0" VerticalAlignment="Top" Height="57" Width="302" Foreground="Black" BorderBrush="#FFF8D72A" Background="#FFF8D72A" FontSize="24" FontWeight="Bold" Cursor="Hand" Click="BtnGuardarReceta_Click"/>
             <Button Content="Cancelar" HorizontalAlignment="Left" Margin="894,699,0,0" VerticalAlignment="Top" Height="57" Width="302" Foreground="#FFD67272" BorderBrush="#FFD67272" Background="#FFF6F6F6" FontSize="24" FontWeight="Bold" Cursor="Hand" Click="BtnCancelar_Click"/>
-            <Label x:Name="lbContadorInsumos" Content="0" HorizontalAlignment="Left" Margin="908,599,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="270"/>
+            <Label x:Name="lblContadorInsumos" Content="0" HorizontalAlignment="Left" Margin="908,599,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="270"/>
             <Label Content="Insumos" HorizontalAlignment="Left" Margin="941,599,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="237"/>
 
 

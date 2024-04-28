@@ -12,11 +12,6 @@ namespace ItaliaPizza_Servicios
 {
     public partial class ServicioItaliaPizza : ItaliaPizza_Contratos.IServicioRecetas
     {
-        public void OperacionRecetasEjemplo()
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Receta> RecuperarRecetas()
         {
             RecetaDAO recetaDAO = new RecetaDAO();

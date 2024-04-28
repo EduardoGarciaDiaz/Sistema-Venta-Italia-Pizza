@@ -175,7 +175,7 @@
                 <Button Content="Registra Usuario" Padding="20,0,20,0" Style="{StaticResource CustomButton}" Click="BtnRegistrarUsuario_Click" />
             </Border>
             
-            <ListBox x:Name="ltbListaTiposEmpleados" Visibility="Hidden"  Background="#F0F0F0" BorderThickness="0" SelectionChanged="TiposEmpleados_Selection" Margin="992,159,186,559" Height="74">
+            <ListBox x:Name="lbxListaTiposEmpleados" Visibility="Hidden"  Background="#F0F0F0" BorderThickness="0" SelectionChanged="TiposEmpleados_Selection" Margin="992,159,186,559" Height="74">
                 <ListBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="10"/>

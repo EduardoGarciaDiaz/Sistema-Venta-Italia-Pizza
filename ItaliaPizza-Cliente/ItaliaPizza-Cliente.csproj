@@ -228,7 +228,7 @@
     <Compile Include="Utilidades\VentanaEmergente.xaml.cs">
       <DependentUpon>VentanaEmergente.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utilidades\VentanasEmergentes.cs" />
+    <Compile Include="Utilidades\ManejadorVentanasEmergentes.cs" />
     <Compile Include="Vistas\ConfirmacionRegistroPedido.xaml.cs">
       <DependentUpon>ConfirmacionRegistroPedido.xaml</DependentUpon>
     </Compile>

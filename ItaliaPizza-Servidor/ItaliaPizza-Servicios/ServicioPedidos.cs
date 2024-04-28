@@ -16,27 +16,34 @@ namespace ItaliaPizza_Servicios
     {
         public int GuardarPedido(Pedido pedido)
         {
+            int numeroPedido;
             PedidoDAO pedidoDAO = new PedidoDAO();
             ProductoDAO productoDAO = new ProductoDAO();
             InsumoDAO insumoDAO = new InsumoDAO();
-            int numeroPedido = pedidoDAO.GuardarPedido(pedido);
-
-            if (numeroPedido > 0)
+            try
             {
-                foreach (ProductoVentaPedidos productosVenta in pedido.ProductosIncluidos.Keys)
+                numeroPedido = pedidoDAO.GuardarPedido(pedido);
+
+                if (numeroPedido > 0)
                 {
-                    DesapartarInsumosDeProducto(productosVenta.Codigo, pedido.ProductosIncluidos[productosVenta]);
-                    if (productoDAO.ValidarSiProductoEnVentaEsInventariado(productosVenta.Codigo))
+                    foreach (ProductoVentaPedidos productosVenta in pedido.ProductosIncluidos.Keys)
                     {
-                        insumoDAO.DisminuirCantidadInsumo(productosVenta.Codigo, pedido.ProductosIncluidos[productosVenta]);
-                    }
-                    else
-                    {
-                        DisminuirCantidadInsumoPorProducto(productosVenta.Codigo, pedido.ProductosIncluidos[productosVenta]);
+                        DesapartarInsumosDeProducto(productosVenta.Codigo, pedido.ProductosIncluidos[productosVenta]);
+                        if (productoDAO.ValidarSiProductoEnVentaEsInventariado(productosVenta.Codigo))
+                        {
+                            insumoDAO.DisminuirCantidadInsumo(productosVenta.Codigo, pedido.ProductosIncluidos[productosVenta]);
+                        }
+                        else
+                        {
+                            DisminuirCantidadInsumoPorProducto(productosVenta.Codigo, pedido.ProductosIncluidos[productosVenta]);
+                        }
                     }
                 }
             }
-
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
             return numeroPedido;
         }
 

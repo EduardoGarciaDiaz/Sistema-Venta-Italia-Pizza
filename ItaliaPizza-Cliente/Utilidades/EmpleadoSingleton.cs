@@ -11,7 +11,7 @@ namespace ItaliaPizza_Cliente.Utilidades
 {
     public sealed class EmpleadoSingleton
     {
-        private static EmpleadoSingleton _instance;
+        private static EmpleadoSingleton _instancia;
 
         public int IdUsuario { get; set; }
         public string NombreUsuario { get; set; }
@@ -32,32 +32,29 @@ namespace ItaliaPizza_Cliente.Utilidades
             this.DatosUsuario = usuario;
             this.DatosDireccion = direccion;
         }
-        private EmpleadoSingleton()
-        {
-
-        }
+        private EmpleadoSingleton() { }
 
         public static EmpleadoSingleton getInstance()
         {
-            if (_instance == null)
+            if (_instancia == null)
             {
-                _instance = new EmpleadoSingleton();
+                _instancia = new EmpleadoSingleton();
             }
-            return _instance;
+            return _instancia;
         }
 
         public static EmpleadoSingleton getInstance(EmpleadoDto empleado, UsuarioDto usuario, DireccionDto direccion)
         {
-            if (_instance == null)
+            if (_instancia == null)
             {
-                _instance = new EmpleadoSingleton(empleado, usuario, direccion);
+                _instancia = new EmpleadoSingleton(empleado, usuario, direccion);
             }
-            return _instance;
+            return _instancia;
         }
 
         public static void LimpiarSingleton()
         {
-            _instance = null;
+            _instancia = null;
         }
 
     }

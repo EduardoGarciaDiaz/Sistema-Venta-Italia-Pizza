@@ -11,6 +11,6 @@ namespace ItaliaPizza_Contratos.DTOs
     public class Reporte
     {
         [DataMember]
-        public byte[] contenidoReporte { get; set; }
+        public byte[] ContenidoReporte { get; set; }
     }
 }

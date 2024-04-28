@@ -53,14 +53,14 @@ namespace ItaliaPizza_DataAccess
             {
                 using (var context = new ItaliaPizzaEntities())
                 {
-                    CortesCaja corteCajaFechaSeleccionada = context.CortesCaja.FirstOrDefault(c => DbFunctions.TruncateTime(c.Fecha) == corteCaja.fecha.Date);
+                    CortesCaja corteCajaFechaSeleccionada = context.CortesCaja.FirstOrDefault(c => DbFunctions.TruncateTime(c.Fecha) == corteCaja.Fecha.Date);
                     if (corteCajaFechaSeleccionada != default)
                     {
-                        corteCajaFechaSeleccionada.Fondo = corteCaja.fondo;
-                        corteCajaFechaSeleccionada.TotalFinal = corteCaja.dineroEnCaja;
-                        corteCajaFechaSeleccionada.SalidasRegistradas = corteCaja.salidasRegistradas;
-                        corteCajaFechaSeleccionada.IngresoRegistrados = corteCaja.ingresosRegistrados;
-                        corteCajaFechaSeleccionada.NombreUsuario = corteCaja.nombreUsuario;
+                        corteCajaFechaSeleccionada.Fondo = corteCaja.Fondo;
+                        corteCajaFechaSeleccionada.TotalFinal = corteCaja.DineroEnCaja;
+                        corteCajaFechaSeleccionada.SalidasRegistradas = corteCaja.SalidasRegistradas;
+                        corteCajaFechaSeleccionada.IngresoRegistrados = corteCaja.IngresosRegistrados;
+                        corteCajaFechaSeleccionada.NombreUsuario = corteCaja.NombreUsuario;
                     }
                     filasAfectadas = context.SaveChanges();
                 }
@@ -92,12 +92,12 @@ namespace ItaliaPizza_DataAccess
                 {
                     CortesCaja corte = new CortesCaja()
                     {
-                        Fecha = corteCaja.fecha,
-                        Fondo = corteCaja.fondo,
-                        IngresoRegistrados = corteCaja.ingresosRegistrados,
-                        NombreUsuario = corteCaja.nombreUsuario,
-                        SalidasRegistradas = corteCaja.salidasRegistradas,
-                        TotalFinal = corteCaja.dineroEnCaja
+                        Fecha = corteCaja.Fecha,
+                        Fondo = corteCaja.Fondo,
+                        IngresoRegistrados = corteCaja.IngresosRegistrados,
+                        NombreUsuario = corteCaja.NombreUsuario,
+                        SalidasRegistradas = corteCaja.SalidasRegistradas,
+                        TotalFinal = corteCaja.DineroEnCaja
                     };
                     context.CortesCaja.Add(corte);
                     context.SaveChanges();
@@ -135,8 +135,8 @@ namespace ItaliaPizza_DataAccess
                         corte = new CorteCaja()
                         {
                             Id = corteCajaFechaSeleccionada.IdCorteCaja,
-                            dineroEnCaja = corteCajaFechaSeleccionada.TotalFinal ?? 0,
-                            fondo = corteCajaFechaSeleccionada.Fondo ?? 0
+                            DineroEnCaja = corteCajaFechaSeleccionada.TotalFinal ?? 0,
+                            Fondo = corteCajaFechaSeleccionada.Fondo ?? 0
                         };
                     }
                 }

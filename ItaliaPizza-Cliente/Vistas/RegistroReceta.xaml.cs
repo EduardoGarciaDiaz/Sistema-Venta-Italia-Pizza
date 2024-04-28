@@ -52,53 +52,130 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             catch (EndpointNotFoundException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorConexionFallida();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (TimeoutException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorTiempoEspera();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (FaultException<ExcepcionServidorItaliaPizza> ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorBaseDatos();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (FaultException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (CommunicationException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (Exception ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
+        }
+
+        private void TbxBusquedaInsumo_TextChanged(object sender, EventArgs e)
+        {
+            if (barraDeBusquedaInsumo.tbxBusqueda.Text.Trim() == string.Empty)
+            {
+                MostrarInsumos();
+            }
+        }
+
+        private void TbxBusquedaProducto_TextChanged(object sender, EventArgs e)
+        {
+            if (barraDeBusquedaProducto.tbxBusqueda.Text.Trim() == string.Empty)
+            {
+                wrpPanelProductosSinReceta.Children.Clear();
+                MostrarProductosSinReceta();
+            }
+        }
+
+        private void ImgBuscarInsumo_Click(object sender, EventArgs e)
+        {
+            BuscarInsumo();
+        }
+
+        private void EnterInsumo_Pressed(object sender, EventArgs e)
+        {
+            if (e is KeyEventArgs keyEventArgs && keyEventArgs.Key == Key.Enter)
+            {
+                BuscarInsumo();
+            }
+        }
+
+        private void BtnCancelar_Click(object sender, RoutedEventArgs e)
+        {
+            string tituloCancelar = "Cancelar Registro";
+            string mensajeCancelar = "¿Estás seguro de que deseas cancelar el registro de la receta?";
+            string contenidoBtnAceptar = "Sí";
+            string contenidBtnCancelar = "No";
+
+            VentanaEmergente ventanaEmergente = new VentanaEmergente(tituloCancelar, mensajeCancelar, contenidoBtnAceptar,
+                contenidBtnCancelar, Window.GetWindow(this), VENTANA_CONFIRMACION);
+
+            ventanaEmergente.ShowDialog();
+
+            if (ventanaEmergente.AceptarAccion)
+            {
+                LimpiarCampos();
+                NavigationService.GoBack();
+            }
+        }
+
+        private void ImgBuscarProducto_Click(object sender, EventArgs e)
+        {
+            BuscarProducto();
+        }
+
+        private void EnterProducto_Pressed(object sender, EventArgs e)
+        {
+            if (e is KeyEventArgs keyEventArgs && keyEventArgs.Key == Key.Enter)
+            {
+                BuscarProducto();
+            }
+        }
+
+        private void BtnDesasignarInsumo_Click(object sender, EventArgs e)
+        {
+            ElementoInsumoSeleccionado elementoInsumoSeleccionado = sender as ElementoInsumoSeleccionado;
+            RemoverInsumoSeleccionado(elementoInsumoSeleccionado);
+            HabilitarElementoInsumoRegistroReceta(elementoInsumoSeleccionado.InsumoAsignado.Codigo);
+        }
+
+        private void GrdProductoSinReceta_Click(object sender, EventArgs e)
+        {
+            LimpiarSeleccionProductosSinReceta();
+            ElementoProductoSinReceta productoSinReceta = sender as ElementoProductoSinReceta;
+
+            MostrarProductoSeleccionado(productoSinReceta);
         }
 
         private void AgregarEventos()
         {
             barraDeBusquedaInsumo.Placeholder.Text = "Buscar insumo...";
-            barraDeBusquedaInsumo.tbxBusqueda_TextChanged += TbxBusquedaInsumo_TextChanged;
-            barraDeBusquedaInsumo.imgBuscar_Click += ImgBuscarInsumo_Click;
-            barraDeBusquedaInsumo.enter_Pressed += EnterInsumo_Pressed;
+            barraDeBusquedaInsumo.TbxBusquedaTextChanged += TbxBusquedaInsumo_TextChanged;
+            barraDeBusquedaInsumo.ImgBuscarClicked += ImgBuscarInsumo_Click;
+            barraDeBusquedaInsumo.EnterPressed += EnterInsumo_Pressed;
 
             barraDeBusquedaProducto.Placeholder.Text = "Buscar producto sin receta...";
-            barraDeBusquedaProducto.tbxBusqueda_TextChanged += TbxBusquedaProducto_TextChanged;
-            barraDeBusquedaProducto.imgBuscar_Click += ImgBuscarProducto_Click;
-            barraDeBusquedaProducto.enter_Pressed += EnterProducto_Pressed;
+            barraDeBusquedaProducto.TbxBusquedaTextChanged += TbxBusquedaProducto_TextChanged;
+            barraDeBusquedaProducto.ImgBuscarClicked += ImgBuscarProducto_Click;
+            barraDeBusquedaProducto.EnterPressed += EnterProducto_Pressed;
         }
 
         private void CargarProductosSinReceta()
         {
             RecuperarProductosSinReceta();
-            wrapPanelProductosSinReceta.Children.Clear();
+            wrpPanelProductosSinReceta.Children.Clear();
 
             if (_productosSinReceta != null && _productosSinReceta.Count() > 0)
             {
@@ -130,14 +207,14 @@ namespace ItaliaPizza_Cliente.Vistas
 
             if (_elementoProductoSinRecetaSeleccionado != null)
             {
-                if ((string)_elementoProductoSinRecetaSeleccionado.lbCodigo.Content == productoSinReceta.Codigo)
+                if ((string)_elementoProductoSinRecetaSeleccionado.lblCodigo.Content == productoSinReceta.Codigo)
                 {
                     elementoProductoSinReceta.rectangleProducto.Fill = (SolidColorBrush)new BrushConverter().ConvertFromString(COLOR_HEXADECIMAL_PRODUCTO_SELECCIONADO);
                     elementoProductoSinReceta.EsSeleccionado = true;
                 }
             }
 
-            wrapPanelProductosSinReceta.Children.Add(elementoProductoSinReceta);
+            wrpPanelProductosSinReceta.Children.Add(elementoProductoSinReceta);
         }
 
         private ElementoProductoSinReceta CrearElementoProductoSinReceta(ProductoSinReceta productoSinReceta)
@@ -145,17 +222,9 @@ namespace ItaliaPizza_Cliente.Vistas
             ElementoProductoSinReceta elementoProductoSinReceta = 
                 new ElementoProductoSinReceta(productoSinReceta);
 
-            elementoProductoSinReceta.gridProductoSinReceta_Click += GridProductoSinReceta_Click;
+            elementoProductoSinReceta.GrdProductoSinRecetaClicked += GrdProductoSinReceta_Click;
 
             return elementoProductoSinReceta;
-        }
-
-        private void GridProductoSinReceta_Click(object sender, EventArgs e)
-        {
-            LimpiarSeleccionProductosSinReceta();
-            ElementoProductoSinReceta productoSinReceta = sender as ElementoProductoSinReceta;
-
-            MostrarProductoSeleccionado(productoSinReceta);
         }
 
         private void MostrarProductoSeleccionado(ElementoProductoSinReceta productoSinReceta)
@@ -163,12 +232,12 @@ namespace ItaliaPizza_Cliente.Vistas
             productoSinReceta.rectangleProducto.Fill = (SolidColorBrush)new BrushConverter().ConvertFromString(COLOR_HEXADECIMAL_PRODUCTO_SELECCIONADO);
             _elementoProductoSinRecetaSeleccionado = productoSinReceta;
             productoSinReceta.EsSeleccionado = true;
-            lbNombreReceta.Content = productoSinReceta.tbkNombre.Text;
+            lblNombreReceta.Content = productoSinReceta.tbkNombre.Text;
         }
 
         private void LimpiarSeleccionProductosSinReceta()
         {
-            foreach (ElementoProductoSinReceta elementopProducto in wrapPanelProductosSinReceta.Children)
+            foreach (ElementoProductoSinReceta elementopProducto in wrpPanelProductosSinReceta.Children)
             {
                 elementopProducto.EsSeleccionado = false;
 
@@ -184,7 +253,7 @@ namespace ItaliaPizza_Cliente.Vistas
             {
                 MostrarInsumos();
 
-                foreach (ElementoInsumoRegistroReceta insumo in wrapPanelInsumos.Children)
+                foreach (ElementoInsumoRegistroReceta insumo in wrpPanelInsumos.Children)
                 {
                     insumo.EsSeleccionado = false;
                 }
@@ -200,7 +269,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void MostrarInsumos()
         {
-            wrapPanelInsumos.Children.Clear();
+            wrpPanelInsumos.Children.Clear();
 
             if (_insumosDisponibles != null && _insumosDisponibles.Count() > 0)
             {
@@ -221,11 +290,12 @@ namespace ItaliaPizza_Cliente.Vistas
                 if (_insumosSeleccionados.Any(insumobuscar => insumobuscar.Codigo == elementoInsumoRegistroReceta.InsumoAsignado.Codigo))
                 {
                     elementoInsumoRegistroReceta.EsSeleccionado = true;
-                    elementoInsumoRegistroReceta.rectangleInsumoRegistro.Fill = (SolidColorBrush)new BrushConverter().ConvertFromString(COLOR_HEXADECIMAL_INSUMO_SELECCIONADO);
+                    elementoInsumoRegistroReceta.rectangleInsumoRegistro.Fill = (SolidColorBrush) new BrushConverter()
+                        .ConvertFromString(COLOR_HEXADECIMAL_INSUMO_SELECCIONADO);
                 }
             }
 
-            wrapPanelInsumos.Children.Add(elementoInsumoRegistroReceta);
+            wrpPanelInsumos.Children.Add(elementoInsumoRegistroReceta);
         }
 
         private ElementoInsumoRegistroReceta CrearElementoInsumoRegistroReceta(InsumoRegistroReceta insumo)
@@ -233,7 +303,7 @@ namespace ItaliaPizza_Cliente.Vistas
             ElementoInsumoRegistroReceta elementoInsumoRegistroReceta = 
                 new ElementoInsumoRegistroReceta(insumo);
 
-            elementoInsumoRegistroReceta.gridInsumoRegistroReceta_Click += GridInsumoRegistroReceta_Click;
+            elementoInsumoRegistroReceta.GrdInsumoRegistroRecetaClicked += GridInsumoRegistroReceta_Click;
 
             return elementoInsumoRegistroReceta;
         }
@@ -267,12 +337,13 @@ namespace ItaliaPizza_Cliente.Vistas
             _numeroInsumosSeleccionados++;
             ActualizarContadorInsumos();
 
-            elementoInsumoRegistroReceta.rectangleInsumoRegistro.Fill = (SolidColorBrush)new BrushConverter().ConvertFromString(COLOR_HEXADECIMAL_INSUMO_SELECCIONADO);
+            elementoInsumoRegistroReceta.rectangleInsumoRegistro.Fill = (SolidColorBrush)new BrushConverter()
+                .ConvertFromString(COLOR_HEXADECIMAL_INSUMO_SELECCIONADO);
         }
 
         private void ActualizarContadorInsumos()
         {
-            lbContadorInsumos.Content = _numeroInsumosSeleccionados;
+            lblContadorInsumos.Content = _numeroInsumosSeleccionados;
         }
 
         private InsumoReceta CrearInsumoRecetaDesdeElementoInsumoRegistro(ElementoInsumoRegistroReceta elementoInsumoRegistroReceta)
@@ -291,26 +362,18 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             ElementoInsumoSeleccionado elementoInsumoSeleccionado = CrearElementoInsumoSeleccionado(insumoReceta);
 
-            wrapPanelInsumosSeleccionados.Children.Add(elementoInsumoSeleccionado);
+            wrpPanelInsumosSeleccionados.Children.Add(elementoInsumoSeleccionado);
         }
 
         private ElementoInsumoSeleccionado CrearElementoInsumoSeleccionado(InsumoReceta insumoReceta)
         {
-            ElementoInsumoSeleccionado elementoInsumoSeleccionado =
-                new ElementoInsumoSeleccionado(insumoReceta);
+            ElementoInsumoSeleccionado elementoInsumoSeleccionado = new ElementoInsumoSeleccionado(insumoReceta);
 
             elementoInsumoSeleccionado.InsumoAsignado = insumoReceta;
 
-            elementoInsumoSeleccionado.btnDesasignarInsumo_Click += BtnDesasignarInsumo_Click;
+            elementoInsumoSeleccionado.BtnDesasignarInsumoClicked += BtnDesasignarInsumo_Click;
 
             return elementoInsumoSeleccionado;
-        }
-
-        private void BtnDesasignarInsumo_Click(object sender, EventArgs e)
-        {
-            ElementoInsumoSeleccionado elementoInsumoSeleccionado = sender as ElementoInsumoSeleccionado;
-            RemoverInsumoSeleccionado(elementoInsumoSeleccionado);
-            HabilitarElementoInsumoRegistroReceta(elementoInsumoSeleccionado.InsumoAsignado.Codigo);
         }
 
         private void RemoverInsumoSeleccionado(ElementoInsumoSeleccionado elementoInsumoSeleccionado)
@@ -318,11 +381,11 @@ namespace ItaliaPizza_Cliente.Vistas
             _numeroInsumosSeleccionados--;
             ActualizarContadorInsumos();
 
-            foreach (ElementoInsumoSeleccionado insumoSeleccionado in wrapPanelInsumosSeleccionados.Children)
+            foreach (ElementoInsumoSeleccionado insumoSeleccionado in wrpPanelInsumosSeleccionados.Children)
             {
                 if (insumoSeleccionado.InsumoAsignado.Codigo == elementoInsumoSeleccionado.InsumoAsignado.Codigo)
                 {
-                    wrapPanelInsumosSeleccionados.Children.Remove(insumoSeleccionado);
+                    wrpPanelInsumosSeleccionados.Children.Remove(insumoSeleccionado);
                     break;
                 }
             }
@@ -330,12 +393,12 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void HabilitarElementoInsumoRegistroReceta(string codigo)
         {
-            foreach (ElementoInsumoRegistroReceta insumo in wrapPanelInsumos.Children)
+            foreach (ElementoInsumoRegistroReceta insumo in wrpPanelInsumos.Children)
             {
                 if (insumo.InsumoAsignado.Codigo == codigo)
                 {
                     InsumoReceta insumoExistente = _insumosSeleccionados.FirstOrDefault(
-                        i => i.Codigo == (string)insumo.lbCodigo.Content);
+                        i => i.Codigo == (string)insumo.lblCodigo.Content);
 
                     if (insumoExistente != null)
                     {
@@ -365,7 +428,7 @@ namespace ItaliaPizza_Cliente.Vistas
             bool hayInsumoSeleccionado = false;
             int sinInsumos = 0;
 
-            if (wrapPanelInsumosSeleccionados.Children.Count > sinInsumos)
+            if (wrpPanelInsumosSeleccionados.Children.Count > sinInsumos)
             {
                 hayInsumoSeleccionado = true;
             }
@@ -394,7 +457,7 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             InsumoReceta[] insumosSeleccionados = new InsumoReceta[_numeroInsumosSeleccionados];
             insumosSeleccionados = RecopilarInsumosSeleccionados(insumosSeleccionados);
-            string codigoProductoSinReceta = _elementoProductoSinRecetaSeleccionado.lbCodigo.Content.ToString();
+            string codigoProductoSinReceta = _elementoProductoSinRecetaSeleccionado.lblCodigo.Content.ToString();
 
             RecetaProducto nuevaReceta = new RecetaProducto()
             {
@@ -409,9 +472,10 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             for (int i = 0; i < _numeroInsumosSeleccionados; i++)
             {
-                ElementoInsumoSeleccionado insumoSeleccionado = wrapPanelInsumosSeleccionados.Children[i] as ElementoInsumoSeleccionado;
+                ElementoInsumoSeleccionado insumoSeleccionado = wrpPanelInsumosSeleccionados.Children[i] as ElementoInsumoSeleccionado;
 
-                insumoSeleccionado.InsumoAsignado.Cantidad = Utilidad.ConvertirStringAFloat(insumoSeleccionado.tbxCantidadInsumo.Text, null);
+                insumoSeleccionado.InsumoAsignado.Cantidad = Utilidad
+                    .ConvertirStringAFloat(insumoSeleccionado.tbxCantidadInsumo.Text, null);
 
                 InsumoReceta insumoReceta = new InsumoReceta()
                 {
@@ -436,32 +500,32 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             catch (EndpointNotFoundException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorConexionFallida();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (TimeoutException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorTiempoEspera();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (FaultException<ExcepcionServidorItaliaPizza> ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorBaseDatos();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (FaultException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (CommunicationException ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorServidor();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
             catch (Exception ex)
             {
-                VentanasEmergentes.MostrarVentanaErrorInesperado();
+                ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
 
@@ -484,11 +548,11 @@ namespace ItaliaPizza_Cliente.Vistas
             _numeroInsumosSeleccionados = 0;
             _elementoProductoSinRecetaSeleccionado = null;
             _insumosSeleccionados = new List<InsumoReceta>();
-            lbNombreReceta.Content = string.Empty;
+            lblNombreReceta.Content = string.Empty;
             ActualizarContadorInsumos();
             MostrarInsumos();
             CargarProductosSinReceta();
-            wrapPanelInsumosSeleccionados.Children.Clear();
+            wrpPanelInsumosSeleccionados.Children.Clear();
         }
 
         private bool ValidarGuardadoReceta()
@@ -524,15 +588,15 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             bool sonCantidadesValidas = true;
 
-            foreach(ElementoInsumoSeleccionado insumoSeleccionado in wrapPanelInsumosSeleccionados.Children)
+            foreach(ElementoInsumoSeleccionado insumoSeleccionado in wrpPanelInsumosSeleccionados.Children)
             {
                 string cantidad = insumoSeleccionado.tbxCantidadInsumo.Text.Trim();
 
-                float cantidadInsumo = Utilidad.ConvertirStringAFloat(cantidad, insumoSeleccionado.lbErrorInsumoSeleccionado);
+                float cantidadInsumo = Utilidad.ConvertirStringAFloat(cantidad, insumoSeleccionado.lblErrorInsumoSeleccionado);
 
-                string unidadMedida = (string)insumoSeleccionado.lbUnidadMedida.Content;
+                string unidadMedida = (string)insumoSeleccionado.lblUnidadMedida.Content;
                 sonCantidadesValidas = UtilidadValidacion.ValidarCantidadInsumo(
-                    cantidadInsumo, unidadMedida, insumoSeleccionado.lbErrorInsumoSeleccionado);
+                    cantidadInsumo, unidadMedida, insumoSeleccionado.lblErrorInsumoSeleccionado);
 
                 if (!sonCantidadesValidas)
                 {
@@ -547,38 +611,9 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             tbkErrorRegistro.Visibility = Visibility.Collapsed;
 
-            foreach(ElementoInsumoSeleccionado insumoSeleccionado in wrapPanelInsumosSeleccionados.Children)
+            foreach(ElementoInsumoSeleccionado insumoSeleccionado in wrpPanelInsumosSeleccionados.Children)
             {
-                insumoSeleccionado.lbErrorInsumoSeleccionado.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        private void BtnCancelar_Click(object sender, RoutedEventArgs e)
-        {
-            string tituloCancelar = "Cancelar Registro";
-            string mensajeCancelar = "¿Estás seguro de que deseas cancelar el registro de la receta?";
-
-            VentanaEmergente ventanaEmergente = new VentanaEmergente(tituloCancelar, mensajeCancelar, "Sí", "No", Window.GetWindow(this), VENTANA_CONFIRMACION);
-
-            ventanaEmergente.ShowDialog();
-
-            if (ventanaEmergente.AceptarAccion)
-            {
-                LimpiarCampos();
-                NavigationService.GoBack();
-            }
-        }
-
-        private void ImgBuscarProducto_Click(object sender, EventArgs e)
-        {
-            BuscarProducto();
-        }
-
-        private void EnterProducto_Pressed(object sender, EventArgs e)
-        {
-            if (e is KeyEventArgs keyEventArgs && keyEventArgs.Key == Key.Enter)
-            {
-                BuscarProducto();
+                insumoSeleccionado.lblErrorInsumoSeleccionado.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -586,7 +621,7 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             if (barraDeBusquedaProducto.tbxBusqueda.Text.Trim() != string.Empty)
             {
-                wrapPanelProductosSinReceta.Children.Clear();
+                wrpPanelProductosSinReceta.Children.Clear();
 
                 string textoABuscar = barraDeBusquedaProducto.tbxBusqueda.Text.Trim().ToUpper();
                 MostrarCoincidenciasProducto(textoABuscar);
@@ -607,33 +642,11 @@ namespace ItaliaPizza_Cliente.Vistas
             }
         }
 
-        private void TbxBusquedaProducto_TextChanged(object sender, EventArgs e)
-        {
-            if (barraDeBusquedaProducto.tbxBusqueda.Text.Trim() == string.Empty)
-            {
-                wrapPanelProductosSinReceta.Children.Clear();
-                MostrarProductosSinReceta();
-            }
-        }
-
-        private void ImgBuscarInsumo_Click(object sender, EventArgs e)
-        {
-            BuscarInsumo();
-        }
-
-        private void EnterInsumo_Pressed(object sender, EventArgs e)
-        {
-            if (e is KeyEventArgs keyEventArgs && keyEventArgs.Key == Key.Enter)
-            {
-                BuscarInsumo();
-            }
-        }
-
         private void BuscarInsumo()
         {
             if (barraDeBusquedaInsumo.tbxBusqueda.Text.Trim() != string.Empty)
             {
-                wrapPanelInsumos.Children.Clear();
+                wrpPanelInsumos.Children.Clear();
 
                 string textoABuscar = barraDeBusquedaInsumo.tbxBusqueda.Text.Trim().ToUpper();
                 MostrarCoincidenciasInsumo(textoABuscar);
@@ -652,14 +665,6 @@ namespace ItaliaPizza_Cliente.Vistas
                 {
                     MostrarInsumo(insumo);
                 }
-            }
-        }
-
-        private void TbxBusquedaInsumo_TextChanged(object sender, EventArgs e)
-        {
-            if (barraDeBusquedaInsumo.tbxBusqueda.Text.Trim() == string.Empty)
-            {
-                MostrarInsumos();
             }
         }
     }

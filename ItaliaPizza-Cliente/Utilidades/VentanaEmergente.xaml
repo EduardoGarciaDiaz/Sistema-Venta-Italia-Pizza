@@ -13,18 +13,18 @@
             <TextBlock Name="txbDescripcion" FontSize="16" Text="Detalles de la ventana emergente" TextWrapping="Wrap" Margin="103,83,75,88"/>
             <Image Name="imgImagen" Margin="20,31,408,228" Source="/Recursos/iconos/icono_informacion.png"></Image>
 
-            <StackPanel Name="stp1boton" Margin="176,254,172,15" Visibility="Hidden">
+            <StackPanel Name="skp1boton" Margin="176,254,172,15" Visibility="Hidden">
                 <Border Height="30" Width="155" CornerRadius="15" Background="#F8D72A" BorderBrush="black" BorderThickness="2">
-                    <Button Name="btn1Solo" Content="Aceptar" Height="27" Width="154"  Background="Transparent" BorderThickness="0" Foreground="black" Click="btnCerrarEmergente_Click"/>
+                    <Button Name="btn1Solo" Content="Aceptar" Height="27" Width="154"  Background="Transparent" BorderThickness="0" Foreground="black" Click="BtnCerrarEmergente_Click"/>
                 </Border>
             </StackPanel>
             
-            <StackPanel Name="stp2boton" Margin="157,252,21,17" Visibility="Hidden" Orientation="Horizontal" >
+            <StackPanel Name="skp2boton" Margin="157,252,21,17" Visibility="Hidden" Orientation="Horizontal" >
                 <Border Height="30" Width="155" CornerRadius="15" Background="#F8D72A" BorderBrush="Black" BorderThickness="2" Margin="0,0,20,0">
-                    <Button Name="btnAceptarAccion" Content="Si, Cerrar" Height="27" Width="154"  Background="Transparent" BorderThickness="0" Foreground="Black" Click="btnAceptarAccion_Click"/>
+                    <Button Name="btnAceptarAccion" Content="Si, Cerrar" Height="27" Width="154"  Background="Transparent" BorderThickness="0" Foreground="Black" Click="BtnAceptarAccion_Click"/>
                 </Border>
                 <Border Height="30" Width="155" CornerRadius="15" Background="Transparent" BorderBrush="red" BorderThickness="2">
-                    <Button Name="btnNegarAccion" Content="No, Cancelar" Height="27" Width="154"  Background="Transparent" BorderThickness="0" Foreground="red" Click="btnNegarAccion_Click"/>
+                    <Button Name="btnNegarAccion" Content="No, Cancelar" Height="27" Width="154"  Background="Transparent" BorderThickness="0" Foreground="red" Click="BtnNegarAccion_Click"/>
                 </Border>
             </StackPanel>
 

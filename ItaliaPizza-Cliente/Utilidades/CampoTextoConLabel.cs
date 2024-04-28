@@ -9,13 +9,13 @@ namespace ItaliaPizza_Cliente.Utilidades
 {
     public class CampoTextoConLabel
     {
-        public TextBox textBox { get; set; }
-        public Label labelError { get; set; }
+        public TextBox TextBox { get; set; }
+        public Label LabelError { get; set; }
 
         public CampoTextoConLabel(TextBox textBox, Label labelError)
         {
-            this.textBox = textBox;
-            this.labelError = labelError;
+            this.TextBox = textBox;
+            this.LabelError = labelError;
         }
     }
 }

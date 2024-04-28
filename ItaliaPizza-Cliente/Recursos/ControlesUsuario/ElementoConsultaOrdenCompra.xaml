@@ -13,6 +13,7 @@
             <Setter Property="CornerRadius" Value="20"/>
         </Style>
     </UserControl.Resources>
+    
     <Grid Height="100" Width="1100">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="19*"/>

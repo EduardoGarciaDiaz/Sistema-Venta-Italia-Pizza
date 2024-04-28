@@ -23,19 +23,19 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
     public partial class ElementoUsuario : UserControl
     {
 
-        public EventHandler btnModificarUusuario_Click;
-        public EventHandler btnDesactivarActivarUsuario_Click;
-        public int Id;
-        public EmpleadoDto empleado { get; set; }
-        public UsuarioDto usuario { get; set; }
-        public bool esActivo { get; set; }
+        public int Id { get; set;  }
+        public EmpleadoDto Empleado { get; set; }
+        public UsuarioDto Usuario { get; set; }
+        public bool EsActivo { get; set; }
+        public EventHandler BtnModificarUsuarioClicked;
+        public EventHandler BtnDesactivarActivarUsuarioClicked;
         
 
 
         public ElementoUsuario(EmpleadoDto empleado)
         {
             InitializeComponent();
-            this.empleado = empleado;            
+            this.Empleado = empleado;            
             InsatanciarEmpleado();
             MostrarDatosUsuario(empleado.Usuario);
             lblTipoEmpleado.Text = empleado.TipoEmpleado;
@@ -45,10 +45,20 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
         public ElementoUsuario(UsuarioDto cliente)
         {
             InitializeComponent();
-            this.usuario = cliente;
+            this.Usuario = cliente;
             InstanciaCliente();
             MostrarDatosUsuario(cliente);
             MostrarSiEstaActivo(cliente.EsActivo);
+        }
+
+        private void BtnModificarUsuario_Click(object sender, MouseButtonEventArgs e)
+        {
+            BtnModificarUsuarioClicked?.Invoke(this, e);
+        }
+
+        private void BtnDesactivarActivar_Click(object sender, MouseButtonEventArgs e)
+        {
+            BtnDesactivarActivarUsuarioClicked?.Invoke(this, e);
         }
 
         private void InsatanciarEmpleado()
@@ -81,7 +91,7 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
 
         private void MostrarSiEstaActivo(bool esActivo)
         {
-            this.esActivo = esActivo;
+            this.EsActivo = esActivo;
             if (esActivo)
             {
                 brdActivoBackGorund.Background = new SolidColorBrush(Colors.Black);
@@ -94,16 +104,6 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
                 lblModificarEstado.Content = "Activar";
             }
         }
-
-
-        private void BtnModificarUsuario_Click(object sender, MouseButtonEventArgs e)
-        {
-            btnModificarUusuario_Click?.Invoke(this, e);
-        }
-
-        private void BtnDesactivarActivar_Click(object sender, MouseButtonEventArgs e)
-        {
-            btnDesactivarActivarUsuario_Click?.Invoke(this, e);
-        }
+      
     }
 }

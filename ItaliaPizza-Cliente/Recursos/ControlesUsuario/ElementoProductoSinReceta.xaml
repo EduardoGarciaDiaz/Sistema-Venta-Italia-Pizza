@@ -8,10 +8,10 @@
              d:DesignHeight="150" d:DesignWidth="130" Margin="5 5 0 5">
     
     <Viewbox Height="150" Width="130" >
-        <Grid Cursor="Hand" Height="150" Width="130" x:Name="gridProductoSinReceta" MouseLeftButtonDown="GridProductoSinReceta_Click">
+        <Grid Cursor="Hand" Height="150" Width="130" x:Name="gridProductoSinReceta" MouseLeftButtonDown="GrdProductoSinReceta_Click">
             <Rectangle x:Name="rectangleProducto"  Fill="#F6F6F6" Margin="0,0,0,0"  RadiusX="10" RadiusY="10" Visibility="Visible" IsEnabled="True"/>
             <Image x:Name="imgFoto" Height="90" Width="90" VerticalAlignment="Top"  Source="/Recursos/Iconos/imagen_producto_sin_foto.png" Margin="20,19,20,0"/>
-            <Label x:Name="lbCodigo" Content="111111" HorizontalAlignment="Center" Margin="0,-5,0,131"/>
+            <Label x:Name="lblCodigo" Content="111111" HorizontalAlignment="Center" Margin="0,-5,0,131"/>
             <TextBlock x:Name="tbkNombre"  TextWrapping="Wrap" Text="Pizza Clásica" Margin="0,109,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="41" FontSize="15" FontWeight="SemiBold"/>
         </Grid>
     </Viewbox>

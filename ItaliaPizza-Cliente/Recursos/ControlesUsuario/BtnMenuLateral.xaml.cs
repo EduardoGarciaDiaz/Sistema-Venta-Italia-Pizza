@@ -20,7 +20,7 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
     /// </summary>
     public partial class BtnMenuLateral : UserControl
     {
-        public event RoutedEventHandler Click;
+        public event RoutedEventHandler BtnMenuLateralClicked;
 
         public BtnMenuLateral()
         {
@@ -29,7 +29,7 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
 
         private void UcBtnMenu_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Click?.Invoke(this, e);
+            BtnMenuLateralClicked?.Invoke(this, e);
         }
     }
 }
