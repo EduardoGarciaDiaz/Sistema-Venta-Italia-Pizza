@@ -8,14 +8,14 @@
              d:DesignHeight="50" d:DesignWidth="270" Margin="5 5 0 0">
 
     <Viewbox Height="50" Width="270">
-        <Grid Height="50" Width="270" Cursor="Hand" MouseLeftButtonDown="GridInsumoRegistroReceta_Click">
+        <Grid Height="50" Width="270" Cursor="Hand" MouseLeftButtonDown="GrdInsumoRegistroReceta_Click">
             <Rectangle x:Name="rectangleInsumoRegistro" Height="50" Width="270" Fill="#F6F6F6" RadiusX="20" RadiusY="20" Visibility="Visible" IsEnabled="True"/>
             <Label Content="Código:" Margin="10 2 0 0" FontWeight="SemiBold"/>
-            <Label x:Name="lbCodigo" Content="111333" Margin="55 2 0 0"/>
+            <Label x:Name="lblCodigo" Content="111333" Margin="55 2 0 0"/>
             <Label Content="Categoría:" Margin="135,2,0,0" FontWeight="SemiBold"/>
-            <Label x:Name="lbCategoria" Content="Cereales" Margin="196,2,0,0" Background="#00000000" HorizontalAlignment="Left" Width="74"/>
+            <Label x:Name="lblCategoria" Content="Cereales" Margin="196,2,0,0" Background="#00000000" HorizontalAlignment="Left" Width="74"/>
             <Label Content="Nombre:" Margin="10 22 0 0" FontWeight="SemiBold"/>
-            <Label x:Name="lbNombre" Content="Cereales" Margin="60 22 0 0"/>
+            <Label x:Name="lblNombre" Content="Cereales" Margin="60 22 0 0"/>
         </Grid>
     </Viewbox>
 </UserControl>

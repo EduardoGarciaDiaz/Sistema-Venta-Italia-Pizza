@@ -32,8 +32,8 @@ namespace ItaliaPizza_Cliente.Vistas
         private const int VENTANA_ERROR = 1;
         private const int VENTANA_INFORMACION = 2;
         private const int VENTANA_CONFIRMACION = 3;
-        private Byte[] _fotoBytes;
         private string _rutaFoto;
+        private Byte[] _fotoBytes;
 
         public RegistroProducto()
         {
@@ -44,6 +44,115 @@ namespace ItaliaPizza_Cliente.Vistas
         private void RegistroProducto_Loaded(object sender, RoutedEventArgs e)
         {
             CargarComboBoxes();
+        }
+
+        private void BtnGuardar_Click(object sender, RoutedEventArgs e)
+        {
+            LimpiarEtiquetasError();
+
+            if (ValidarSeccionRegistroHabilitada())
+            {
+                if (ValidarRegistro())
+                {
+                    if (ValidarCodigoUnico())
+                    {
+                        GuardarProducto();
+                    }
+                    else
+                    {
+                        string mensajeErrorCodigo = "Código existente";
+                        Utilidad.MostrarTextoError(lblErrorCodigo, mensajeErrorCodigo);
+                    }
+                }
+            }
+        }
+
+        private void BtnCancelar_Click(object sender, RoutedEventArgs e)
+        {
+            string tituloCancelar = "Cancelar Registro";
+            string mensajeCancelar = "¿Estás seguro de que deseas cancelar el registro del producto?";
+
+            VentanaEmergente ventanaEmergente = new VentanaEmergente(tituloCancelar, mensajeCancelar, "Sí", "No", Window.GetWindow(this), VENTANA_CONFIRMACION);
+            ventanaEmergente.ShowDialog();
+
+            if (ventanaEmergente.AceptarAccion)
+            {
+                LimpiarCampos();
+                NavigationService.GoBack();
+            }
+        }
+
+        private void ChbxEsInventariado_Checked(object sender, RoutedEventArgs e)
+        {
+            if (chbxEsInventariado.IsChecked == true)
+            {
+                rectangleBloqueoInsumo.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void ChbxEsInventariado_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (chbxEsInventariado.IsChecked == false)
+            {
+                rectangleBloqueoInsumo.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void ChbxEsProductoVenta_Checked(object sender, RoutedEventArgs e)
+        {
+            if (chbxEsProductoVenta.IsChecked == true)
+            {
+                rectangleBloqueoProductoVenta.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void ChbxEsProductoVenta_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (chbxEsProductoVenta.IsChecked == false)
+            {
+                rectangleBloqueoProductoVenta.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void RectangleFoto_Click(object sender, MouseButtonEventArgs e)
+        {
+            string filtroArchivosImagenes = "Imágenes|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
+            OpenFileDialog abrirExploradorArchivos = new OpenFileDialog();
+            abrirExploradorArchivos.Filter = filtroArchivosImagenes;
+
+            try
+            {
+                if (abrirExploradorArchivos.ShowDialog() == true)
+                {
+                    _rutaFoto = abrirExploradorArchivos.FileName;
+
+                    if (_rutaFoto != null)
+                    {
+                        BitmapImage mapaBits = new BitmapImage(new Uri(_rutaFoto));
+                        if (ValidarTamañoImagen())
+                        {
+                            rectangleFotoProducto.Fill = new ImageBrush(mapaBits);
+                            _fotoBytes = File.ReadAllBytes(_rutaFoto);
+                        }
+                    }
+                }
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (OutOfMemoryException ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+            }
         }
 
         private void CargarComboBoxes()
@@ -153,27 +262,6 @@ namespace ItaliaPizza_Cliente.Vistas
             unidadesMedida = servicioProductosCliente.RecuperarUnidadesMedida();
 
             return unidadesMedida;
-        }
-
-        private void BtnGuardar_Click(object sender, RoutedEventArgs e)
-        {
-            LimpiarEtiquetasError();
-
-            if (ValidarSeccionRegistroHabilitada())
-            {
-                if (ValidarRegistro())
-                {
-                    if (ValidarCodigoUnico())
-                    {
-                        GuardarProducto();
-                    } 
-                    else
-                    {
-                        string mensajeErrorCodigo = "Código existente";
-                        Utilidad.MostrarTextoError(lbErrorCodigo, mensajeErrorCodigo);
-                    }
-                }
-            }
         }
 
         private void GuardarProducto()
@@ -317,18 +405,18 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void LimpiarEtiquetasError()
         {
-            lbErrorCodigo.Visibility = Visibility.Collapsed;
-            lbErrorNombre.Visibility = Visibility.Collapsed;
-            lbErrorCategoria.Visibility = Visibility.Collapsed;
-            lbErrorDescripcion.Visibility = Visibility.Collapsed;
+            lblErrorCodigo.Visibility = Visibility.Collapsed;
+            lblErrorNombre.Visibility = Visibility.Collapsed;
+            lblErrorCategoria.Visibility = Visibility.Collapsed;
+            lblErrorDescripcion.Visibility = Visibility.Collapsed;
 
-            lbErrorPrecio.Visibility = Visibility.Collapsed;
-            lbErrorFoto.Visibility = Visibility.Collapsed;
+            lblErrorPrecio.Visibility = Visibility.Collapsed;
+            lblErrorFoto.Visibility = Visibility.Collapsed;
 
-            lbErrorCantidad.Visibility = Visibility.Collapsed;
-            lbErrorUnidadMedida.Visibility = Visibility.Collapsed;
-            lbErrorCostoUnitario.Visibility = Visibility.Collapsed;
-            lbErrorRestricciones.Visibility = Visibility.Collapsed;
+            lblErrorCantidad.Visibility = Visibility.Collapsed;
+            lblErrorUnidadMedida.Visibility = Visibility.Collapsed;
+            lblErrorCostoUnitario.Visibility = Visibility.Collapsed;
+            lblErrorRestricciones.Visibility = Visibility.Collapsed;
         }
 
 
@@ -403,12 +491,12 @@ namespace ItaliaPizza_Cliente.Vistas
 
             if (string.IsNullOrEmpty(codigoProducto))
             {
-                MostrarErrorCampoObligatorio(lbErrorCodigo);
+                MostrarErrorCampoObligatorio(lblErrorCodigo);
                 esCodigoProductoValido = false;
             }
             else if (!esCodigoProductoValido)
             {
-                Utilidad.MostrarTextoError(lbErrorCodigo, mensajeErrorCodigo);
+                Utilidad.MostrarTextoError(lblErrorCodigo, mensajeErrorCodigo);
             }
 
             return esCodigoProductoValido;
@@ -468,12 +556,12 @@ namespace ItaliaPizza_Cliente.Vistas
 
             if (string.IsNullOrEmpty(nombreProducto))
             {
-                MostrarErrorCampoObligatorio(lbErrorNombre);
+                MostrarErrorCampoObligatorio(lblErrorNombre);
                 esNombreProductoValido = false;
             }
             else if (!esNombreProductoValido)
             {
-                Utilidad.MostrarTextoError(lbErrorNombre, mensajeErrorNombre);
+                Utilidad.MostrarTextoError(lblErrorNombre, mensajeErrorNombre);
             }
 
             return esNombreProductoValido;
@@ -485,7 +573,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
             if (cbxCategoria.SelectedIndex <= SELECCION_POR_DEFECTO_COMBO_BOX)
             {
-                MostrarErrorCampoObligatorio(lbErrorCategoria);
+                MostrarErrorCampoObligatorio(lblErrorCategoria);
                 esCategoriaValida = false;
             }
 
@@ -501,12 +589,12 @@ namespace ItaliaPizza_Cliente.Vistas
 
             if (string.IsNullOrEmpty(descripcionProducto))
             {
-                MostrarErrorCampoObligatorio(lbErrorDescripcion);
+                MostrarErrorCampoObligatorio(lblErrorDescripcion);
                 esDescripcionValida = false;
             }
             else if (!esDescripcionValida)
             {
-                Utilidad.MostrarTextoError(lbErrorDescripcion, mensajeErrorDescripcion);
+                Utilidad.MostrarTextoError(lblErrorDescripcion, mensajeErrorDescripcion);
             }
 
             return esDescripcionValida;
@@ -545,7 +633,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
             if (cbxUnidadMedida.SelectedIndex <= SELECCION_POR_DEFECTO_COMBO_BOX)
             {
-                MostrarErrorCampoObligatorio(lbErrorUnidadMedida);
+                MostrarErrorCampoObligatorio(lblErrorUnidadMedida);
                 esUnidadMedidaValida = false;
             }
 
@@ -557,11 +645,11 @@ namespace ItaliaPizza_Cliente.Vistas
             bool esCantidadValida = true;
 
             string cantidad = tbxCantidad.Text.Trim();
-            float cantidadInsumo = Utilidad.ConvertirStringAFloat(cantidad, lbErrorCantidad);
+            float cantidadInsumo = Utilidad.ConvertirStringAFloat(cantidad, lblErrorCantidad);
             UnidadMedida unidadSeleccionada = (UnidadMedida)cbxUnidadMedida.SelectedItem;
             string nombreUnidadSeleccionada = unidadSeleccionada.Nombre;
 
-            esCantidadValida = UtilidadValidacion.ValidarCantidadInsumo(cantidadInsumo, nombreUnidadSeleccionada, lbErrorCantidad);
+            esCantidadValida = UtilidadValidacion.ValidarCantidadInsumo(cantidadInsumo, nombreUnidadSeleccionada, lblErrorCantidad);
 
             return esCantidadValida;
         }
@@ -573,17 +661,17 @@ namespace ItaliaPizza_Cliente.Vistas
             float costoMinimoValido = 0;
 
             string costo = tbxCostoUnitario.Text.Trim();
-            float costoUnitario = Utilidad.ConvertirStringAFloat(costo, lbErrorCostoUnitario);
+            float costoUnitario = Utilidad.ConvertirStringAFloat(costo, lblErrorCostoUnitario);
 
             if (string.IsNullOrEmpty(costo))
             {
-                MostrarErrorCampoObligatorio(lbErrorCostoUnitario);
+                MostrarErrorCampoObligatorio(lblErrorCostoUnitario);
                 esCostoValido = false;
             }
             else if (costoUnitario <= costoMinimoValido)
             {
                 esCostoValido = false;
-                Utilidad.MostrarTextoError(lbErrorCostoUnitario, mensajeErrorCosto);
+                Utilidad.MostrarTextoError(lblErrorCostoUnitario, mensajeErrorCosto);
             }
 
             return esCostoValido;
@@ -598,7 +686,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
             if (!esRestriccionValida)
             {
-                Utilidad.MostrarTextoError(lbErrorRestricciones, mensajeErrorRestriccion);
+                Utilidad.MostrarTextoError(lblErrorRestricciones, mensajeErrorRestriccion);
             }
 
             return esRestriccionValida;
@@ -621,17 +709,17 @@ namespace ItaliaPizza_Cliente.Vistas
             bool esPrecioValido = true;
             string mensajeErrorPrecio = "Precio no válido.";
             string precio = tbxPrecio.Text.Trim();
-            float precioProductoVenta = Utilidad.ConvertirStringAFloat(precio, lbErrorPrecio);
+            float precioProductoVenta = Utilidad.ConvertirStringAFloat(precio, lblErrorPrecio);
             float precioMinimoValido = 0;
 
             if (string.IsNullOrEmpty(precio))
             {
-                MostrarErrorCampoObligatorio(lbErrorPrecio);
+                MostrarErrorCampoObligatorio(lblErrorPrecio);
                 esPrecioValido = false;
             }
             else if (precioProductoVenta <= precioMinimoValido)
             {
-                Utilidad.MostrarTextoError(lbErrorPrecio, mensajeErrorPrecio);
+                Utilidad.MostrarTextoError(lblErrorPrecio, mensajeErrorPrecio);
                 esPrecioValido = false;
             }
 
@@ -657,21 +745,6 @@ namespace ItaliaPizza_Cliente.Vistas
 
             return haySeccionHabilitada;
         }
-       
-        private void BtnCancelar_Click(object sender, RoutedEventArgs e)
-        {
-            string tituloCancelar = "Cancelar Registro";
-            string mensajeCancelar = "¿Estás seguro de que deseas cancelar el registro del producto?";
-
-            VentanaEmergente ventanaEmergente = new VentanaEmergente(tituloCancelar, mensajeCancelar,"Sí", "No", Window.GetWindow(this), VENTANA_CONFIRMACION);
-            ventanaEmergente.ShowDialog();
-
-            if (ventanaEmergente.AceptarAccion)
-            {
-                LimpiarCampos();
-                NavigationService.GoBack();
-            }
-        }
 
         private void LimpiarCampos()
         {
@@ -689,79 +762,6 @@ namespace ItaliaPizza_Cliente.Vistas
             chbxEsProductoVenta.IsChecked = false;
             tbxPrecio.Text = string.Empty;
             rectangleFotoProducto.Fill = new SolidColorBrush(Colors.Transparent);
-        }
-
-        private void ChbxEsInventariado_Checked(object sender, RoutedEventArgs e)
-        {
-            if (chbxEsInventariado.IsChecked == true)
-            {
-                rectangleBloqueoInsumo.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        private void ChbxEsInventariado_Unchecked(object sender, RoutedEventArgs e)
-        {
-            if (chbxEsInventariado.IsChecked == false)
-            {
-                rectangleBloqueoInsumo.Visibility = Visibility.Visible;
-            }
-        }
-
-        private void ChbxEsProductoVenta_Checked(object sender, RoutedEventArgs e)
-        {
-            if (chbxEsProductoVenta.IsChecked == true)
-            {
-                rectangleBloqueoProductoVenta.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        private void ChbxEsProductoVenta_Unchecked(object sender, RoutedEventArgs e)
-        {
-            if (chbxEsProductoVenta.IsChecked == false)
-            {
-                rectangleBloqueoProductoVenta.Visibility = Visibility.Visible;
-            }
-        }
-
-        private void RectangleFoto_Click(object sender, MouseButtonEventArgs e)
-        {
-            string filtroArchivosImagenes = "Imágenes|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
-            OpenFileDialog abrirExploradorArchivos = new OpenFileDialog();
-            abrirExploradorArchivos.Filter = filtroArchivosImagenes;
-
-            try
-            {
-                if (abrirExploradorArchivos.ShowDialog() == true)
-                {
-                    _rutaFoto = abrirExploradorArchivos.FileName;
-
-                    if (_rutaFoto != null)
-                    {
-                        BitmapImage mapaBits = new BitmapImage(new Uri(_rutaFoto));
-                        if (ValidarTamañoImagen())
-                        {
-                            rectangleFotoProducto.Fill = new ImageBrush(mapaBits);
-                            _fotoBytes = File.ReadAllBytes(_rutaFoto);
-                        }
-                    }
-                }
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.StackTrace);
-            }
-            catch (OutOfMemoryException ex)
-            {
-                Console.WriteLine(ex.StackTrace);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Console.WriteLine(ex.StackTrace);
-            }
-            catch (IOException ex)
-            {
-                Console.WriteLine(ex.StackTrace);
-            }
         }
 
         private bool ValidarTamañoImagen()

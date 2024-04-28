@@ -57,8 +57,8 @@
             <Label Content="$"  HorizontalAlignment="Left" Margin="720,213,0,0" VerticalAlignment="Top" Foreground="Black" FontSize="16"/>
 
             <!--Error ProductoVenta-->
-            <Label x:Name="lbErrorPrecio" Content="*" Visibility="Collapsed" HorizontalAlignment="Left" Margin="720,243,0,0" VerticalAlignment="Top" Width="246" FontSize="9" Foreground="Red" Height="74"/>
-            <Label x:Name="lbErrorFoto" Content="*" Visibility="Collapsed" HorizontalAlignment="Left" Margin="1000,349,0,0" VerticalAlignment="Top" Width="237" FontSize="9" Foreground="Red" Height="22"/>
+            <Label x:Name="lblErrorPrecio" Content="*" Visibility="Collapsed" HorizontalAlignment="Left" Margin="720,243,0,0" VerticalAlignment="Top" Width="246" FontSize="9" Foreground="Red" Height="74"/>
+            <Label x:Name="lblErrorFoto" Content="*" Visibility="Collapsed" HorizontalAlignment="Left" Margin="1000,349,0,0" VerticalAlignment="Top" Width="237" FontSize="9" Foreground="Red" Height="22"/>
 
             <Rectangle x:Name="rectangleBloqueoProductoVenta" HorizontalAlignment="Left" Height="221" Margin="689,150,0,0" VerticalAlignment="Top" Width="548" RadiusX="20" RadiusY="20" Fill="#B8000000" />
 
@@ -77,10 +77,10 @@
             <Label Content="$"  HorizontalAlignment="Left" Margin="97,575,0,0" VerticalAlignment="Top" Foreground="Black" FontSize="16"/>
 
             <!--Error Insumo-->
-            <Label x:Name="lbErrorCantidad" Content="*" Visibility="Collapsed" HorizontalAlignment="Left" Margin="97,522,0,0" VerticalAlignment="Top" Width="225" FontSize="9" VerticalContentAlignment="Center" Foreground="Red"/>
-            <Label x:Name="lbErrorUnidadMedida" Content="*" Visibility="Collapsed" HorizontalAlignment="Left" Margin="336,522,0,0" VerticalAlignment="Top" Width="236" FontSize="9" Foreground="Red" Height="43"/>
-            <Label x:Name="lbErrorCostoUnitario" Content="*" Visibility="Collapsed" HorizontalAlignment="Left" Margin="97,604,0,0" VerticalAlignment="Top" Width="225" FontSize="9" VerticalContentAlignment="Center" Foreground="Red"/>
-            <Label x:Name="lbErrorRestricciones" Content="*" Visibility="Collapsed" HorizontalAlignment="Left" Margin="93,718,0,0" VerticalAlignment="Top" Width="499" FontSize="9" VerticalContentAlignment="Center" Foreground="Red"/>
+            <Label x:Name="lblErrorCantidad" Content="*" Visibility="Collapsed" HorizontalAlignment="Left" Margin="97,522,0,0" VerticalAlignment="Top" Width="225" FontSize="9" VerticalContentAlignment="Center" Foreground="Red"/>
+            <Label x:Name="lblErrorUnidadMedida" Content="*" Visibility="Collapsed" HorizontalAlignment="Left" Margin="336,522,0,0" VerticalAlignment="Top" Width="236" FontSize="9" Foreground="Red" Height="43"/>
+            <Label x:Name="lblErrorCostoUnitario" Content="*" Visibility="Collapsed" HorizontalAlignment="Left" Margin="97,604,0,0" VerticalAlignment="Top" Width="225" FontSize="9" VerticalContentAlignment="Center" Foreground="Red"/>
+            <Label x:Name="lblErrorRestricciones" Content="*" Visibility="Collapsed" HorizontalAlignment="Left" Margin="93,718,0,0" VerticalAlignment="Top" Width="499" FontSize="9" VerticalContentAlignment="Center" Foreground="Red"/>
 
             <Rectangle x:Name="rectangleBloqueoInsumo" Height="270" Margin="68,463,0,0" VerticalAlignment="Top" Width="550" RadiusX="20" RadiusY="20" Fill="#B8000000" HorizontalAlignment="Left" />
 
@@ -90,10 +90,10 @@
 
             <!--Etiquetas de error-->
             <!--Error producto-->
-            <Label x:Name="lbErrorCodigo" Content="*" Visibility="Collapsed" HorizontalAlignment="Left" Margin="89,173,0,0" VerticalAlignment="Top" Width="246" FontSize="9" VerticalContentAlignment="Center" Foreground="Red"/>
-            <Label x:Name="lbErrorCategoria" Content="*" Visibility="Collapsed" HorizontalAlignment="Left" Margin="363,177,0,0" VerticalAlignment="Top" Width="246" FontSize="9" VerticalContentAlignment="Center" Foreground="Red"/>
-            <Label x:Name="lbErrorNombre" Content="*" Visibility="Collapsed" HorizontalAlignment="Left" Margin="92,238,0,0" VerticalAlignment="Top" Width="520" FontSize="9" VerticalContentAlignment="Center" Foreground="Red"/>
-            <Label x:Name="lbErrorDescripcion" Content="*" Visibility="Collapsed" HorizontalAlignment="Left" Margin="96,349,0,0" VerticalAlignment="Top" Width="520" FontSize="9" VerticalContentAlignment="Center" Foreground="Red"/>
+            <Label x:Name="lblErrorCodigo" Content="*" Visibility="Collapsed" HorizontalAlignment="Left" Margin="89,173,0,0" VerticalAlignment="Top" Width="246" FontSize="9" VerticalContentAlignment="Center" Foreground="Red"/>
+            <Label x:Name="lblErrorCategoria" Content="*" Visibility="Collapsed" HorizontalAlignment="Left" Margin="363,177,0,0" VerticalAlignment="Top" Width="246" FontSize="9" VerticalContentAlignment="Center" Foreground="Red"/>
+            <Label x:Name="lblErrorNombre" Content="*" Visibility="Collapsed" HorizontalAlignment="Left" Margin="92,238,0,0" VerticalAlignment="Top" Width="520" FontSize="9" VerticalContentAlignment="Center" Foreground="Red"/>
+            <Label x:Name="lblErrorDescripcion" Content="*" Visibility="Collapsed" HorizontalAlignment="Left" Margin="96,349,0,0" VerticalAlignment="Top" Width="520" FontSize="9" VerticalContentAlignment="Center" Foreground="Red"/>
 
         </Grid>
     </Viewbox>

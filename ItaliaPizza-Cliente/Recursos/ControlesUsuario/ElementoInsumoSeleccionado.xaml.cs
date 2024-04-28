@@ -45,8 +45,8 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
         {
             string cantidadInsumoPreestablecida = "1";
 
-            lbNombreInsumo.Content = InsumoAsignado.Nombre;
-            lbUnidadMedida.Content = InsumoAsignado.UnidadMedida.Nombre;
+            lblNombreInsumo.Content = InsumoAsignado.Nombre;
+            lblUnidadMedida.Content = InsumoAsignado.UnidadMedida.Nombre;
             tbxCantidadInsumo.Text = cantidadInsumoPreestablecida;
         }
 

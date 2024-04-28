@@ -23,8 +23,7 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
     {
         public bool EsSeleccionado { get; set; }
         public InsumoRegistroReceta InsumoAsignado { get; set; }
-        public EventHandler GridInsumoRegistroRecetaClicked;
-
+        public EventHandler GrdInsumoRegistroRecetaClicked;
 
         public ElementoInsumoRegistroReceta()
         {
@@ -38,16 +37,16 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
             CargarDatos();
         }
 
-        public void GridInsumoRegistroReceta_Click(object sender, RoutedEventArgs e)
+        public void GrdInsumoRegistroReceta_Click(object sender, RoutedEventArgs e)
         {
-            GridInsumoRegistroRecetaClicked?.Invoke(this, e);
+            GrdInsumoRegistroRecetaClicked?.Invoke(this, e);
         }       
 
         private void CargarDatos()
         {
-            lbCodigo.Content = InsumoAsignado.Codigo;
-            lbNombre.Content = InsumoAsignado.Nombre;
-            lbCategoria.Content = InsumoAsignado.Categoria.Nombre;
+            lblCodigo.Content = InsumoAsignado.Codigo;
+            lblNombre.Content = InsumoAsignado.Nombre;
+            lblCategoria.Content = InsumoAsignado.Categoria.Nombre;
         }
 
     }

@@ -35,23 +35,6 @@ namespace ItaliaPizza_Cliente.Vistas
             CargarUsuario();
         }
 
-        private void CargarFechaActual()
-        {
-            MostrarFecha(DateTime.Now);
-        }
-
-        private void CargarUsuario()
-        {
-            EmpleadoSingleton empleado = EmpleadoSingleton.getInstance();
-            lblNombreUsuario.Content = empleado.NombreUsuario;
-        }
-
-        private void MostrarFecha(DateTime fechaActual)
-        {
-            dpkFechaGasto.SelectedDate = fechaActual;
-            lblFechaActual.Content = fechaActual.ToString();
-        }
-
         private void DpkFechaGasto_Selected(object sender, SelectionChangedEventArgs e)
         {
             if (dpkFechaGasto.SelectedDate != null)
@@ -68,6 +51,36 @@ namespace ItaliaPizza_Cliente.Vistas
             {
                 RegistrarGastoVario();
             }
+        }
+
+        private void BtnCancelar_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void EntradaSoloNumeros(object sender, TextCompositionEventArgs e)
+        {
+            if (!float.TryParse(e.Text, out _))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void CargarFechaActual()
+        {
+            MostrarFecha(DateTime.Now);
+        }
+
+        private void CargarUsuario()
+        {
+            EmpleadoSingleton empleado = EmpleadoSingleton.getInstance();
+            lblNombreUsuario.Content = empleado.NombreUsuario;
+        }
+
+        private void MostrarFecha(DateTime fechaActual)
+        {
+            dpkFechaGasto.SelectedDate = fechaActual;
+            lblFechaActual.Content = fechaActual.ToString();
         }
 
         private void RegistrarGastoVario()
@@ -141,14 +154,6 @@ namespace ItaliaPizza_Cliente.Vistas
             this.Close();
         }
 
-        private void EntradaSoloNumeros(object sender, TextCompositionEventArgs e)
-        {
-            if (!float.TryParse(e.Text, out _))
-            {
-                e.Handled = true;
-            }
-        }
-
         private bool ValidarRegistro()
         {
             bool esRegistroValido = false;
@@ -176,17 +181,18 @@ namespace ItaliaPizza_Cliente.Vistas
 
             string monto = tbxMonto.Text.Trim();
             string descripcion = tbxDescripcion.Text.Trim();
+            string mensajeCampoObligatorio = "Campo obligatorio";
 
             if (string.IsNullOrEmpty(monto))
             {
                 hayCamposVacios = true;
-                MostrarMensajeError("Campo obligatorio", lblErrorMonto);
+                MostrarMensajeError(mensajeCampoObligatorio, lblErrorMonto);
             }
 
             if (string.IsNullOrEmpty(descripcion))
             {
                 hayCamposVacios = true;
-                MostrarMensajeError("Campo obligatorio", lblErrorDescripcion);
+                MostrarMensajeError(mensajeCampoObligatorio, lblErrorDescripcion);
             }
 
             return hayCamposVacios;
@@ -211,11 +217,12 @@ namespace ItaliaPizza_Cliente.Vistas
             bool esMontoValido = true;
             string monto = tbxMonto.Text.Trim();
             float montoFloat = Utilidad.ConvertirStringAFloat(monto, lblErrorMonto);
+            string mensajeErrorMonto = "Monto no válido";
 
             if (montoFloat <= 0)
             {
                 esMontoValido = false;
-                MostrarMensajeError("Monto no válido", lblErrorMonto);
+                MostrarMensajeError(mensajeErrorMonto, lblErrorMonto);
             }
 
             return esMontoValido;
@@ -225,19 +232,15 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             bool esDescripcionValida = true;
             string descripcion = tbxDescripcion.Text.Trim();
+            string mensajeErrorDescripcion = "Descripción no válida";
 
             if (!UtilidadValidacion.EsDescripcionProductoValida(descripcion))
             {
                 esDescripcionValida = false;
-                MostrarMensajeError("Descripción no válida", lblErrorDescripcion);
+                MostrarMensajeError(mensajeErrorDescripcion, lblErrorDescripcion);
             }
 
             return esDescripcionValida;
-        }
-
-        private void BtnCancelar_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
 
         private void ConfigurarVentana()
