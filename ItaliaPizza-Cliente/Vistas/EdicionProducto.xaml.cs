@@ -57,6 +57,10 @@ namespace ItaliaPizza_Cliente.Vistas
             _categoriasProductoVenta.Remove(categoriaProductoVenta);
         }
 
+        /*
+         * Prepara la ventana recuperando los datos necesarios de la base de datos
+         * y mostrandolos.
+         */
         private void EdicionProducto_Loaded(object sender, RoutedEventArgs e)
         {
             try
@@ -180,12 +184,12 @@ namespace ItaliaPizza_Cliente.Vistas
 
                     if (_rutaFoto != null)
                     {
+                        _fotoCambio = true;
                         BitmapImage mapaBits = new BitmapImage(new Uri(_rutaFoto));
                         if (ValidarTamañoImagen())
                         {
                             rectangleFotoProducto.Fill = new ImageBrush(mapaBits);
                             _fotoBytes = File.ReadAllBytes(_rutaFoto);
-                            _fotoCambio = true;
                         }
                     }
                 }
@@ -252,7 +256,8 @@ namespace ItaliaPizza_Cliente.Vistas
                             }
                         }
                     }
-                } else
+                } 
+                else
                 {
                     esTamañoValido = true;
                 }
@@ -288,53 +293,57 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void BtnGuardar_Click(object sender, RoutedEventArgs e)
         {
-            if (!ValidarCamposLlenos())
-                return;
-
-            if (!ValidarFormatosCorrectos())
-                return;
-
-            Producto producto = CrearProductoInicial();
-            if (!PrepararProducto(producto))
-                return;
-            try
+            bool camposLlenos = ValidarCamposLlenos();
+            if (camposLlenos)
             {
-                ServicioProductosClient servicioProductosCliente = new ServicioProductosClient();
-                int filasAfectadas = servicioProductosCliente.ActualizarProducto(producto);
-                if (filasAfectadas != -1)
+                bool camposCorrectos = ValidarFormatosCorrectos();
+                if (camposCorrectos)
                 {
-                    ManejarRegistroExitoso();
+                    Producto producto = CrearProductoInicial();
+                    bool productoPreparado = PrepararProducto(producto);
+                    if (productoPreparado)
+                    {
+                        try
+                        {
+                            ServicioProductosClient servicioProductosCliente = new ServicioProductosClient();
+                            int filasAfectadas = servicioProductosCliente.ActualizarProducto(producto);
+                            if (filasAfectadas != -1)
+                            {
+                                ManejarRegistroExitoso();
+                            }
+                        }
+                        catch (EndpointNotFoundException ex)
+                        {
+                            VentanasEmergentes.MostrarVentanaErrorConexionFallida();
+                            ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
+                        }
+                        catch (TimeoutException ex)
+                        {
+                            VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
+                            ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
+                        }
+                        catch (FaultException<ExcepcionServidorItaliaPizza> ex)
+                        {
+                            VentanasEmergentes.MostrarVentanaErrorBaseDatos();
+                            ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
+                        }
+                        catch (FaultException ex)
+                        {
+                            VentanasEmergentes.MostrarVentanaErrorServidor();
+                            ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
+                        }
+                        catch (CommunicationException ex)
+                        {
+                            VentanasEmergentes.MostrarVentanaErrorServidor();
+                            ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
+                        }
+                        catch (Exception ex)
+                        {
+                            VentanasEmergentes.MostrarVentanaErrorInesperado();
+                            ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
+                        }
+                    }
                 }
-            }
-            catch (EndpointNotFoundException ex)
-            {
-                VentanasEmergentes.MostrarVentanaErrorConexionFallida();
-                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
-            }
-            catch (TimeoutException ex)
-            {
-                VentanasEmergentes.MostrarVentanaErrorTiempoEspera();
-                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
-            }
-            catch (FaultException<ExcepcionServidorItaliaPizza> ex)
-            {
-                VentanasEmergentes.MostrarVentanaErrorBaseDatos();
-                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
-            }
-            catch (FaultException ex)
-            {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
-                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
-            }
-            catch (CommunicationException ex)
-            {
-                VentanasEmergentes.MostrarVentanaErrorServidor();
-                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
-            }
-            catch (Exception ex)
-            {
-                VentanasEmergentes.MostrarVentanaErrorInesperado();
-                ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
         }
 

@@ -77,12 +77,12 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             try
             {
-                ucOrdenCompra.ClickCerrar += ImgCerrar_MouseLeftButtonDown;
                 _proveedores = RecuperarProveedores();
                 CargarProveedores(_proveedores);
                 _ordenesCompra = RecuperarOrdenesOrdenesCompra();
                 DpkFechaBusqueda.SelectedDate = DateTime.Now;
                 MostrarOrdenesCompra((_ordenesCompra.Where(o => o.Fecha.Date == _fechaSeleccionada.Date).ToList()));
+                ucOrdenCompra.ClickCerrar += ImgCerrar_MouseLeftButtonDown;
             }
             catch (EndpointNotFoundException ex)
             {
@@ -254,7 +254,7 @@ namespace ItaliaPizza_Cliente.Vistas
             _proveedorSeleccionado = cbxProveedores.SelectedItem as ProveedorDto;
         }
 
-        private void Combo_ItemSeleccionadoChanged(object sender, SelectionChangedEventArgs e)
+        private void Combo_ItemSeleccionadoChangedCombo_ItemSeleccionadoChanged(object sender, SelectionChangedEventArgs e)
         {
             _proveedorSeleccionado = cbxProveedores.SelectedItem as ProveedorDto;
             FiltrarOrdenesCompra(_proveedorSeleccionado, _estadoSeleccionado, _fechaSeleccionada);
@@ -278,7 +278,8 @@ namespace ItaliaPizza_Cliente.Vistas
                     o.IdProveedor == proveedor.IdProveedor
                     && o.Fecha.Date == _fechaSeleccionada.Date)
                     .ToList();
-            } else
+            } 
+            else
             {
                 ordenDeCompraDtos = _ordenesCompra.Where(o =>
                 o.IdProveedor == proveedor.IdProveedor

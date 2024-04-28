@@ -208,7 +208,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void BtnFinalizar_Click(object sender, RoutedEventArgs e)
         {
-            bool camposLlenos = validarCamposLlenos();
+            bool camposLlenos = ValidarCamposLlenos();
             if (camposLlenos)
             {
                 GuardarCorteCaja();
@@ -230,7 +230,7 @@ namespace ItaliaPizza_Cliente.Vistas
             }
         }
 
-        bool validarCamposLlenos()
+        bool ValidarCamposLlenos()
         {
             bool camposLlenos = false;
             camposLlenos = !(string.IsNullOrWhiteSpace(TbxDineroCaja.Text)) && !(string.IsNullOrWhiteSpace(TbxFondoInicial.Text));
@@ -317,6 +317,7 @@ namespace ItaliaPizza_Cliente.Vistas
             bool fechaValida = ValidarFechaSeleccionada(fechaSeleccionada);
             if (fechaValida == false)
             {
+                dpkFechaCorte.SelectedDate = _fechaSeleccionada;
                 MostrarMensajeFechaSeleccionadaError();
             } else
             {
@@ -327,7 +328,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void MostrarMensajeFechaSeleccionadaError()
         {
-            lblFechaSeleccionadaErronea.Visibility = Visibility.Visible;
+            Utilidad.MostrarMensaje(lblFechaSeleccionadaErronea, 3);
         }
 
         private bool ValidarFechaSeleccionada(DateTime fechaSeleccionada)
