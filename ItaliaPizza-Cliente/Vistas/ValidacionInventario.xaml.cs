@@ -227,7 +227,13 @@ namespace ItaliaPizza_Cliente.Vistas
         private void ValidarCantidadProducto(ElementoValidacionProducto elementoValidacionProducto)
         {
             float cantidadRegistrada = (float)elementoValidacionProducto.ProductoAsignado.Insumo.Cantidad;
-            float cantidadFisica = float.Parse(elementoValidacionProducto.tbxCantidadFisica.Text);
+            float cantidadFisica = Utilidad.ConvertirStringAFloat(elementoValidacionProducto.tbxCantidadFisica.Text.Trim(), null);
+
+            if (cantidadFisica == -1)
+            {
+                cantidadFisica = 0;
+            }
+
             float residuo = cantidadRegistrada - cantidadFisica;
 
             MostraraResultadoValidacion(residuo, elementoValidacionProducto);

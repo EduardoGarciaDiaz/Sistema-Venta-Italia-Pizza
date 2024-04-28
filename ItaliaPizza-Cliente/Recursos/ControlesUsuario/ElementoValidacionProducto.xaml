@@ -22,7 +22,7 @@
             <Label Name="lblCosto" Content=""  FontSize="18" Margin="641,28,464,0"/>
 
             <Label Content="Cantidad física:"  FontSize="18" Margin="746,14,322,14" FontWeight="Bold"/>
-            <TextBox Name="tbxCantidadFisica" MaxLength="5"  Text="" FontSize="28" Margin="884,0,0,0" Width="100" Height="42" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyDown="TbxCantidadFisicaEnter_Pressed"/>
+            <TextBox Name="tbxCantidadFisica" PreviewTextInput="EntryJustInteger" MaxLength="5"  Text="" FontSize="28" Margin="884,0,0,0" Width="100" Height="42" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyDown="TbxCantidadFisicaEnter_Pressed"/>
             <Label Name="lblUnidadMedida" Content=""  FontSize="18" Margin="989,14,234,14" FontWeight="Medium"/>
             <TextBlock Name="tbkRespuestaValidacion" Text="" FontSize="18" Margin="1065,0,0,0" Width="175" FontWeight="Bold" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left"/>
 

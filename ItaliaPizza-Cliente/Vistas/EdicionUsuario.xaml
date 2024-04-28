@@ -204,11 +204,12 @@
                 <Canvas>
                     <Label Content="Datos Empleado:" Style="{StaticResource subTitleLabel}" HorizontalAlignment="Center" Canvas.Left="4" VerticalAlignment="Top" Foreground="#F8D72A"/>
 
-                    <Label Content="* Nombre de Usuario" Style="{StaticResource fieldTags}"  Width="auto" Height="auto" Canvas.Left="6" Canvas.Top="45" HorizontalAlignment="Center" />
+                    <Label Content="* Nombre de Usuario" Style="{StaticResource fieldTags}" Width="auto" Height="auto" Canvas.Left="6" Canvas.Top="45" HorizontalAlignment="Center" />
                     <Border Style="{StaticResource textBoxBorder}" Canvas.Left="22" Canvas.Top="81" Width="378" HorizontalAlignment="Left" VerticalAlignment="Center">
-                        <TextBox x:Name="txbNombreUsuario" Style="{StaticResource textBox}" MaxLength ="20"/>
+                        <TextBox x:Name="txbNombreUsuario" IsEnabled="False" Style="{StaticResource textBox}" MaxLength ="20"/>
                     </Border>
                     <Label Name="lblNombreUsuarioError" Style="{StaticResource errorLabel}" Canvas.Left="33" Canvas.Top="114" HorizontalAlignment="Center" VerticalAlignment="Top" Height="21" Width="356" />
+                    <Rectangle Fill="#B2D5D1D1" RadiusX="10" RadiusY="10" Height="34" Width="378" Canvas.Left="22" Canvas.Top="81" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
                     <Label Content="* Contraseña" Style="{StaticResource fieldTags}"  Width="auto" Height="auto" Canvas.Left="6" Canvas.Top="121" HorizontalAlignment="Center" VerticalAlignment="Top" />
                     <Border Style="{StaticResource textBoxBorder}" Canvas.Left="22" Canvas.Top="159" Width="378" HorizontalAlignment="Center" VerticalAlignment="Top">

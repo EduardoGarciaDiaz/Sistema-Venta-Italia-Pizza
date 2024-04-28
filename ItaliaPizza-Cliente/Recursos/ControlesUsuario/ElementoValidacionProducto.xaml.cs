@@ -31,6 +31,14 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
             InitializeComponent();
         }
 
+        private void EntryJustInteger(object sender, TextCompositionEventArgs e)
+        {
+            if (!int.TryParse(e.Text, out _))
+            {
+                e.Handled = true;
+            }
+        }
+
         public ElementoValidacionProducto(Producto producto)
         {
             InitializeComponent();

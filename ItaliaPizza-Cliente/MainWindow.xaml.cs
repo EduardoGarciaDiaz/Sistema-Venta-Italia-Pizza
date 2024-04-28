@@ -145,14 +145,10 @@ namespace ItaliaPizza_Cliente
             lblNombre.Content = nombreCompleto;
         }
 
-        public void MostrarBotonAgregarGastosVarios()
-        {
-            grdGastos.Visibility = Visibility.Visible;
-        }
-
         private void OpcionesPanelAdmin()
         {         
             AgregarBotonConsultaUsuarios();
+            AgregarBotonGastosVarios();
         }
 
         private void OpcionesPanelCajero()
@@ -160,6 +156,11 @@ namespace ItaliaPizza_Cliente
             AgregarBotonPedido();
             AgregarBotonPedidos();
             AgregarBotonCorte();
+        }
+
+        public void AgregarBotonGastosVarios()
+        {
+            grdGastos.Visibility = Visibility.Visible;
         }
 
         private void AgregarBotonCorte()
@@ -280,6 +281,8 @@ namespace ItaliaPizza_Cliente
                 lblTituloCorte.Visibility = Visibility.Hidden;
                 imgCorteCaja.Visibility = Visibility.Hidden;
                 brdCorteCaja.Visibility = Visibility.Hidden;
+                grdGastos.Visibility = Visibility.Hidden;
+
             }
             catch (EndpointNotFoundException)
             {
