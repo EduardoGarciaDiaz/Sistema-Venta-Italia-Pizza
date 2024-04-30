@@ -192,7 +192,7 @@
                     FontSize="24" 
                     FontFamily="Futura Md BT" 
                     Cursor="Hand"
-                    Click="Button_Click">
+                    Click="BtnProcederPago_Click">
                 
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">

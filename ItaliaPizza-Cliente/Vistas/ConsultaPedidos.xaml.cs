@@ -111,7 +111,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
                 if (resultado > 0)
                 {
-                    ActualizarUIPostCambioEstado(servicioPedidosClient);
+                    RecargarPedidos(servicioPedidosClient);
                 }
             }
         }
@@ -447,7 +447,7 @@ namespace ItaliaPizza_Cliente.Vistas
             return -1;
         }
 
-        private void ActualizarUIPostCambioEstado(ServicioPedidosClient servicioPedidosClient)
+        private void RecargarPedidos(ServicioPedidosClient servicioPedidosClient)
         {
             
             try

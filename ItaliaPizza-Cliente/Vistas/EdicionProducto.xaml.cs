@@ -316,9 +316,12 @@ namespace ItaliaPizza_Cliente.Vistas
             tbxPrecio.Text = productoVenta.Precio.ToString("F2");
             cbxCategoriasProductoVenta.SelectedItem = _categoriasProductoVenta.FirstOrDefault(c =>
                c.Id == _productoEdicion.ProductoVenta.Categoria.Id);
-            BitmapImage mapaBits = ConvertidorBytes.ConvertirBytesABitmapImage(productoVenta.Foto);
-            rectangleFotoProducto.Fill = new ImageBrush(mapaBits);
-            _fotoBytes = productoVenta.Foto;
+            if (productoVenta.Foto != null)
+            {
+                BitmapImage mapaBits = ConvertidorBytes.ConvertirBytesABitmapImage(productoVenta.Foto);
+                rectangleFotoProducto.Fill = new ImageBrush(mapaBits);
+                _fotoBytes = productoVenta.Foto;
+            }
 
         }
 

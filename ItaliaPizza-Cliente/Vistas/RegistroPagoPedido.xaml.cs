@@ -38,8 +38,8 @@ namespace ItaliaPizza_Cliente.Vistas
             this._registroPedido = registroPedido;
             this.Unloaded += RegistroDePagoPedido_Unloaded;
             InitializeComponent();
-            MostrarDatosDePedido(pedido);
-            MostrarDatosDeCliente(pedido.IdCliente);
+            MostrarPedido(pedido);
+            MostrarCliente(pedido.IdCliente);
         }
 
         private void RegistroDePagoPedido_Unloaded(object sender, RoutedEventArgs e)
@@ -82,7 +82,8 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void BtnConfirmarPago_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(tbxCantidadPagaCliente.Text))
+            bool camposValidos = ValidarCampos();
+            if (!camposValidos)
             {
                 lblMensajeErrorPago.Content = "Por favor, ingresa la cantidad con la que el cliente paga";
                 return;
@@ -149,6 +150,11 @@ namespace ItaliaPizza_Cliente.Vistas
             NavigationService.Navigate(new RegistroPedido());
         }
 
+        private bool ValidarCampos()
+        {
+            return string.IsNullOrWhiteSpace(tbxCantidadPagaCliente.Text);
+        }
+
         private void MostrarConfirmacionPedido(int numeroPedido)
         {
             ConfirmacionRegistroPedido confirmacionRegistroPedido = new ConfirmacionRegistroPedido();
@@ -159,7 +165,7 @@ namespace ItaliaPizza_Cliente.Vistas
             confirmacionRegistroPedido.ShowDialog();
         }
 
-        private void MostrarDatosDeCliente(int idCliente)
+        private void MostrarCliente(int idCliente)
         {
             ServicioUsuariosClient servicioUsuariosCliente = new ServicioUsuariosClient();
             try
@@ -206,7 +212,7 @@ namespace ItaliaPizza_Cliente.Vistas
             }
         }
 
-        private void MostrarDatosDePedido(Pedido pedido)
+        private void MostrarPedido(Pedido pedido)
         {
             if (pedido != null)
             {

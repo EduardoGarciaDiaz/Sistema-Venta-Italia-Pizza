@@ -61,8 +61,8 @@ namespace ItaliaPizza_Cliente.Vistas
             ServicioPedidosClient servicioPedidosCliente = new ServicioPedidosClient();
             try
             {
-                List<Categoria> categoriasProductoVenta = servicioProductosCliente.RecuperarCategoriasProductoVenta().ToList();
-                MostrarCategoriasProductoVenta(categoriasProductoVenta);
+                List<Categoria> categorias = servicioProductosCliente.RecuperarCategoriasProductoVenta().ToList();
+                MostrarCategorias(categorias);
                 _tiposServicio = servicioPedidosCliente.RecuperarTiposServicio().ToList();
                 _tipoServicioSeleccionado = _tiposServicio.ElementAt((int)EnumTiposServicio.EnEstablecimiento);
                 _productosVenta = servicioProductosCliente.RecuperarProductosVenta().ToList();
@@ -315,7 +315,7 @@ namespace ItaliaPizza_Cliente.Vistas
             }
         }
 
-        private void ImgBuscarClienteClicked(object sender, EventArgs e)
+        private void ImgBuscarCliente_Click(object sender, EventArgs e)
         {
             string textoIngresado = this.BarraBusquedaClientes.TxtBusqueda.Text;
             if (!ValidarCamposVacios(textoIngresado))
@@ -395,7 +395,7 @@ namespace ItaliaPizza_Cliente.Vistas
             }
         }
 
-        private void ImgBuscarProductosClicked(object sender, EventArgs e)
+        private void ImgBuscarProductos_Click(object sender, EventArgs e)
         {
             string valorBusqueda = BarraBusquedaProductos.tbxBusqueda.Text.ToString();
             if (!(ValidarCamposVacios(valorBusqueda)))
@@ -441,9 +441,10 @@ namespace ItaliaPizza_Cliente.Vistas
             MostrarProductosVenta(_productosVenta);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void BtnProcederPago_Click(object sender, RoutedEventArgs e)
         {
-            if (_clienteSeleccionado != null && _productosEnPedido.Count > 0)
+            bool clienteProductoSeleccionados = ValidarSeleccionObligatoria();
+            if (clienteProductoSeleccionados)
             {
                 Pedido pedido = new Pedido
                 {
@@ -485,13 +486,18 @@ namespace ItaliaPizza_Cliente.Vistas
         private void InicializarElementos()
         {
             this.BarraBusquedaClientes.DataContext = _clientes;
-            this.BarraBusquedaClientes.ImgBuscarClicked += ImgBuscarClienteClicked;
+            this.BarraBusquedaClientes.ImgBuscarClicked += ImgBuscarCliente_Click;
             this.BarraBusquedaClientes.TxtBusquedaTextChanged += TxtBusquedaClienteChanged;
             this.BarraBusquedaClientes.ListaSelectionChanged += ListaSelectionChanged;
-            this.BarraBusquedaProductos.ImgBuscarClicked += ImgBuscarProductosClicked;
+            this.BarraBusquedaProductos.ImgBuscarClicked += ImgBuscarProductos_Click;
             this.BarraBusquedaProductos.TxbBusquedaTextChanged += TxtBusquedaProductoChanged;
             _clienteSeleccionado = null;
 
+        }
+
+        private bool ValidarSeleccionObligatoria()
+        {
+            return _clienteSeleccionado != null && _productosEnPedido.Count > 0;
         }
 
         private void AgregarProductoAPedido(ProductoVentaPedidos producto)
@@ -573,7 +579,7 @@ namespace ItaliaPizza_Cliente.Vistas
             }
         }
 
-        private void MostrarCategoriasProductoVenta(List<Categoria> categorias)
+        private void MostrarCategorias(List<Categoria> categorias)
         {
             categorias?.ForEach(categoria =>
             {
