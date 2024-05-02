@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,6 +29,8 @@ namespace ItaliaPizza_Cliente.Vistas
     {
         private const int VENTANA_ERROR = 1;
         private const int VENTANA_INFORMACION = 2;
+        private const string MENSAJE_CAMPO_OBLIGATORIO = "Campo obligatorio.";
+        private const string MENSAJE_DATOS_NO_VALIDOS = "Datos no válidos";
 
         private List<UnidadMedida > _unidadesMedida;
         private List<Categoria> _categoriasInsumo;
@@ -125,8 +128,8 @@ namespace ItaliaPizza_Cliente.Vistas
             TextBox textBox = sender as TextBox;
             string fullText = textBox.Text.Insert(textBox.SelectionStart, e.Text);
 
-            bool isDecimal = Double.TryParse(fullText, NumberStyles.Any, CultureInfo.InvariantCulture, out double result);
-            if (!isDecimal || fullText.Equals(""))
+            Regex regex = new Regex(@"^[0-9]*\.?[0-9]*$");
+            if (!regex.IsMatch(fullText) || fullText == ".")
             {
                 e.Handled = true;
             }
@@ -472,12 +475,12 @@ namespace ItaliaPizza_Cliente.Vistas
             if (!UtilidadValidacion.EsNombreProductoValido(tbxNombre.Text))
             {
                 camposCorrectos = false;
-                Utilidad.MostrarTextoError(lblErrorNombre, "Datos no válidos.");
+                Utilidad.MostrarTextoError(lblErrorNombre, MENSAJE_DATOS_NO_VALIDOS);
             }
             if (!UtilidadValidacion.EsDescripcionProductoValida(tbxDescripcion.Text))
             {
-                camposCorrectos |= false;
-                Utilidad.MostrarTextoError(lblErrorDescripcion, "Datos no válidos.");
+                camposCorrectos = false;
+                Utilidad.MostrarTextoError(lblErrorDescripcion, MENSAJE_DATOS_NO_VALIDOS);
             }
             if (_productoEdicion.ProductoVenta != null)
             {
@@ -510,7 +513,7 @@ namespace ItaliaPizza_Cliente.Vistas
             if (!UtilidadValidacion.esRestriccionInsumoValida(tbxRestricciones.Text))
             {
                 camposCorrectos = false;
-                Utilidad.MostrarTextoError(lblErrorRestriccion, "Datos no validos.");
+                Utilidad.MostrarTextoError(lblErrorRestriccion, MENSAJE_DATOS_NO_VALIDOS);
             }
             return camposCorrectos;
         }
@@ -521,7 +524,7 @@ namespace ItaliaPizza_Cliente.Vistas
             if (double.Parse(tbxPrecio.Text) <= 0)
             {
                 camposCorrectos = false;
-                Utilidad.MostrarTextoError(lblErrorPrecio, "Datos no válidos.");
+                Utilidad.MostrarTextoError(lblErrorPrecio, MENSAJE_DATOS_NO_VALIDOS);
             }
             return camposCorrectos;
         }
@@ -533,13 +536,13 @@ namespace ItaliaPizza_Cliente.Vistas
             if (string.IsNullOrWhiteSpace(tbxNombre.Text))
             {
                 camposLlenos = false;
-                Utilidad.MostrarTextoError(lblErrorNombre, "Campo obligatorio.");
+                Utilidad.MostrarTextoError(lblErrorNombre, MENSAJE_CAMPO_OBLIGATORIO);
             }
 
             if (string.IsNullOrWhiteSpace(tbxDescripcion.Text))
             {
                 camposLlenos = false;
-                Utilidad.MostrarTextoError(lblErrorDescripcion, "Campo obligatorio.");
+                Utilidad.MostrarTextoError(lblErrorDescripcion, MENSAJE_CAMPO_OBLIGATORIO);
             }
 
             if (_productoEdicion.ProductoVenta != null)
@@ -568,7 +571,7 @@ namespace ItaliaPizza_Cliente.Vistas
             if (string.IsNullOrWhiteSpace(tbxPrecio.Text))
             {
                 camposLlenos = false;
-                Utilidad.MostrarTextoError(lblErrorPrecio, "Campo obligatorio.");
+                Utilidad.MostrarTextoError(lblErrorPrecio, MENSAJE_CAMPO_OBLIGATORIO);
             }
 
             return camposLlenos;
@@ -581,13 +584,13 @@ namespace ItaliaPizza_Cliente.Vistas
             if (string.IsNullOrWhiteSpace(tbxCantidad.Text))
             {
                 camposLlenos = false;
-                Utilidad.MostrarTextoError(lblErrorCantidad, "Campo obligatorio.");
+                Utilidad.MostrarTextoError(lblErrorCantidad, MENSAJE_CAMPO_OBLIGATORIO);
             }
 
             if (string.IsNullOrWhiteSpace(tbxCostoUnitario.Text))
             {
                 camposLlenos = false;
-                Utilidad.MostrarTextoError(lblErrorCostoUnitario, "Campo obligatorio.");
+                Utilidad.MostrarTextoError(lblErrorCostoUnitario, MENSAJE_CAMPO_OBLIGATORIO);
             }
 
             return camposLlenos;

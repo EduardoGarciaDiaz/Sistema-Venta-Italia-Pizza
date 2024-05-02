@@ -152,7 +152,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private bool ValidarCampos()
         {
-            return string.IsNullOrWhiteSpace(tbxCantidadPagaCliente.Text);
+            return !string.IsNullOrWhiteSpace(tbxCantidadPagaCliente.Text);
         }
 
         private void MostrarConfirmacionPedido(int numeroPedido)

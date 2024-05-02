@@ -127,13 +127,13 @@ namespace ItaliaPizza_Cliente.Vistas
                 bool fueGuardado = servicioProveedoresClient.GuardarProveedorNuevo(proveedorNuevo);
                 if (fueGuardado)
                 {
-                    VentanaEmergente ventanaEmergente = new VentanaEmergente("Registro Exitoso", "Se ha guardado correctamente el proveedor nuevo.", Window.GetWindow(this), 2);
+                    VentanaEmergente ventanaEmergente = new VentanaEmergente("Registro exitoso", "Se ha guardado correctamente el proveedor nuevo.", Window.GetWindow(this), 2);
                     ventanaEmergente.ShowDialog();
                     LimpiarCampos();
                 }
                 else
                 {
-                    VentanaEmergente ventanaEmergente = new VentanaEmergente("Upss!!", "Ocurrio un error al guardar el proveedor, intentelo mas tarde.", Window.GetWindow(this), 1);
+                    VentanaEmergente ventanaEmergente = new VentanaEmergente("¡Ups!", "Ocurrió un error al guardar el proveedor, intentelo mas tarde.", Window.GetWindow(this), 1);
                     ventanaEmergente.ShowDialog();
                 }                               
             }
@@ -262,7 +262,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
        private void MostrarMensajeConfirmacion()
        {
-            VentanaEmergente ventanaEmergente = new VentanaEmergente("Cuidado!!!", "¿Seguro que desea cancelar el registro?, se perderán los datos del proveedor?", "Si, Cancelar Registro", "No, Cancelar Accion", Window.GetWindow(this), 3);
+            VentanaEmergente ventanaEmergente = new VentanaEmergente("¡Cuidado!", "¿Seguro que desea cancelar el registro? Se perderán los datos del proveedor?", "Sí, cancelar registro", "No, cancelar acción", Window.GetWindow(this), 3);
             ventanaEmergente.ShowDialog();
             if (ventanaEmergente.AceptarAccion)
             {

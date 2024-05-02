@@ -25,6 +25,7 @@ namespace ItaliaPizza_Cliente.Vistas
     public partial class RegistroCorteCaja : Window
     {
         private const int VENTANA_INFORMACION = 2;
+        Regex REGEX = new Regex(@"^[0-9]*\.?[0-9]*$");
 
         private double _ingresosPedidos = 0;
         private double _salidasOrdenesCompra = 0;
@@ -114,7 +115,7 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             lblCampoObligatorioFondoInicial.Visibility = Visibility.Hidden;
             TextBox campo = (TextBox)sender;
-            if (!string.IsNullOrWhiteSpace(campo.Text))
+            if (campo.Text != "." && REGEX.IsMatch(campo.Text) && !string.IsNullOrWhiteSpace(campo.Text))
             {
                 _fondoInicial = double.Parse(campo.Text);
             }
@@ -130,7 +131,7 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             lblCampoObligatorioDineroEnCaja.Visibility = Visibility.Hidden;
             TextBox campo = (TextBox)sender;
-            if (!string.IsNullOrWhiteSpace(campo.Text))
+            if (campo.Text != "." && REGEX.IsMatch(campo.Text) && !string.IsNullOrWhiteSpace(campo.Text))
             {
                 _dineroCaja = double.Parse(campo.Text);
             }
@@ -145,9 +146,7 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             TextBox textBox = sender as TextBox;
             string fullText = textBox.Text.Insert(textBox.SelectionStart, e.Text);
-
-            Regex regex = new Regex(@"^[0-9]*\.?[0-9]*$");
-            if (!regex.IsMatch(fullText) || fullText == ".")
+            if (!REGEX.IsMatch(fullText) || fullText == ".")
             {
                 e.Handled = true;
             }
