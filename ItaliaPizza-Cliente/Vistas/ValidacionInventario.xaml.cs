@@ -30,12 +30,18 @@ namespace ItaliaPizza_Cliente.Vistas
         public ValidacionInventario()
         {
             InitializeComponent();
+            this.Loaded += ValidacionInventario_Loaded;
         }
 
         public ValidacionInventario(List<Categoria> categorias)
         {
             InitializeComponent();
             _categorias = categorias;
+            this.Loaded += ValidacionInventario_Loaded;
+        }
+
+        private void ValidacionInventario_Loaded(object sender, RoutedEventArgs e)
+        {
             CargarFiltrosCategoria();
             CargarProductos();
             AgregarEventos();
@@ -165,15 +171,13 @@ namespace ItaliaPizza_Cliente.Vistas
                 string nombre = producto.Nombre.ToUpper();
                 string codigo = producto.Codigo.ToUpper();
                 string categoria = producto.Insumo.Categoria.Nombre.ToUpper();
-                string categoriaProductoVenta = string.Empty;
 
                 if (producto.ProductoVenta != null)
                 {
-                    categoriaProductoVenta = producto.ProductoVenta.Categoria.Nombre.ToUpper();
+                    categoria = producto.ProductoVenta.Categoria.Nombre.ToUpper();
                 }
 
-                if (nombre.Contains(textoABuscar) || codigo.Contains(textoABuscar) || categoria.Contains(textoABuscar) 
-                    || categoriaProductoVenta.Contains(textoABuscar))
+                if (nombre.Contains(textoABuscar) || codigo.Contains(textoABuscar) || categoria.Contains(textoABuscar))
                 {
                     MostrarProducto(producto);
                 }

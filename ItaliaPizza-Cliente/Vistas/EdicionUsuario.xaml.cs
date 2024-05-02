@@ -208,7 +208,7 @@ namespace ItaliaPizza_Cliente.Vistas
             bool esEmpleado = (bool)rdbEmpleado.IsChecked;
             sePuedeGuardar = ValidarCamposLlenosUsuario();
 
-            if (esEmpleado)
+            if (esEmpleado && sePuedeGuardar)
             {
                 sePuedeGuardar = ValidarCamposLLenosEmpleado();
             }
