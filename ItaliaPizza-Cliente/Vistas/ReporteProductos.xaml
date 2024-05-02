@@ -45,7 +45,7 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <Image Source="/Recursos/Iconos/icono_reporte.png" Grid.Column="0" Margin="8,4,1,5"/>
+                        <Image Source="/Recursos/Iconos/icono_reporte_nigga.png" Grid.Column="0" Margin="8,4,1,5"/>
                         <Label Content="Generar Reporte de Productos" Foreground="White" FontStretch="Medium" FontWeight="Medium" FontSize="14" Grid.Column="1"/>
                     </Grid>
                 </Border>
@@ -91,7 +91,7 @@
 
 
 
-                <Button Margin="29,487,237,24" Content="Registrar" FontSize="18" FontWeight="Bold" Foreground="White" BorderBrush="Black" Background="Black" Click="BtnGenerarReporte_Click"/>
+                <Button Margin="29,487,237,24" Content="Generar" FontSize="18" FontWeight="Bold" Foreground="White" BorderBrush="Black" Background="Black" Click="BtnGenerarReporte_Click"/>
                 <Button Margin="243,488,23,23" Content="Cancelar" FontSize="18" FontWeight="Bold" Foreground="White" BorderBrush="{x:Null}" Background="#FFD53C3C" Click="BtnCancelar_Click"/>
 
             </Grid>

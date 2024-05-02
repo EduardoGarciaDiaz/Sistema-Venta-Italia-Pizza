@@ -257,7 +257,7 @@ namespace ItaliaPizza_Cliente
         private void AgregarBotonReporteProductos()
         {
             BtnMenuLateral reprorteProductos = new BtnMenuLateral();
-            reprorteProductos.imgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_proveedor.png", UriKind.Relative));
+            reprorteProductos.imgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_reporte.png", UriKind.Relative));
             reprorteProductos.lblNombreBoton.Content = "Reportes";
             reprorteProductos.BtnMenuLateralClicked += BtnReporteProductos_Click;
             SkpMenuLateral.Children.Add(reprorteProductos);
