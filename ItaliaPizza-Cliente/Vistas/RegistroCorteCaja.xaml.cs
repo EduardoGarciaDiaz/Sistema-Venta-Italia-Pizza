@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -145,8 +146,8 @@ namespace ItaliaPizza_Cliente.Vistas
             TextBox textBox = sender as TextBox;
             string fullText = textBox.Text.Insert(textBox.SelectionStart, e.Text);
 
-            bool isDecimal = Double.TryParse(fullText, NumberStyles.Any, CultureInfo.InvariantCulture, out double result);
-            if (!isDecimal || fullText.Equals(""))
+            Regex regex = new Regex(@"^[0-9]*\.?[0-9]*$");
+            if (!regex.IsMatch(fullText) || fullText == ".")
             {
                 e.Handled = true;
             }
