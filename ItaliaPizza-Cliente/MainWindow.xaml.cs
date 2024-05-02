@@ -112,11 +112,8 @@ namespace ItaliaPizza_Cliente
 
         private void CorteCaja_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (EmpleadoSingleton.getInstance().DatosEmpleado.IdTipoEmpleado == (int)EnumTiposEmpleado.Cajero)
-            {
-                RegistroCorteCaja registroCorteCaja = new RegistroCorteCaja(this);
-                registroCorteCaja.ShowDialog();
-            }
+            RegistroCorteCaja registroCorteCaja = new RegistroCorteCaja(this);
+            registroCorteCaja.ShowDialog();
         }
 
         public void FiltrarOpcionesPanelLateral(int idTipoEmpleado)
@@ -149,13 +146,13 @@ namespace ItaliaPizza_Cliente
         {         
             AgregarBotonConsultaUsuarios();
             AgregarBotonGastosVarios();
+            AgregarBotonCorte();
         }
 
         private void OpcionesPanelCajero()
         {
             AgregarBotonPedido();
             AgregarBotonPedidos();
-            AgregarBotonCorte();
         }
 
         public void AgregarBotonGastosVarios()
@@ -257,7 +254,7 @@ namespace ItaliaPizza_Cliente
         private void AgregarBotonReporteProductos()
         {
             BtnMenuLateral reprorteProductos = new BtnMenuLateral();
-            reprorteProductos.imgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_proveedor.png", UriKind.Relative));
+            reprorteProductos.imgIconoBoton.Source = new BitmapImage(new Uri("/Recursos/Iconos/icono_reporte.png", UriKind.Relative));
             reprorteProductos.lblNombreBoton.Content = "Reportes";
             reprorteProductos.BtnMenuLateralClicked += BtnReporteProductos_Click;
             SkpMenuLateral.Children.Add(reprorteProductos);

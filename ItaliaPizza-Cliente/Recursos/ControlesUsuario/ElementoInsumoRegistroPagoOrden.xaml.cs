@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -37,15 +38,8 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
 
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            double result;
-            TextBox textBox = sender as TextBox;
-            string fullText = textBox.Text.Insert(textBox.SelectionStart, e.Text);
-
-            bool isDecimal = Double.TryParse(fullText, NumberStyles.Any, CultureInfo.InvariantCulture, out result);
-            if (!isDecimal || fullText.Equals(""))
-            {
-                e.Handled = true;
-            }
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
 
         private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
