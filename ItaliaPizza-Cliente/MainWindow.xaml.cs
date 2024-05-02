@@ -149,13 +149,13 @@ namespace ItaliaPizza_Cliente
         {         
             AgregarBotonConsultaUsuarios();
             AgregarBotonGastosVarios();
+            AgregarBotonCorte();
         }
 
         private void OpcionesPanelCajero()
         {
             AgregarBotonPedido();
             AgregarBotonPedidos();
-            AgregarBotonCorte();
         }
 
         public void AgregarBotonGastosVarios()

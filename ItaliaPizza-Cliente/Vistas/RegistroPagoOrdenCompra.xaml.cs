@@ -104,11 +104,11 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void TextCantidad_Changed(object sender, EventArgs e)
         {
-            double cantidad = 0;
+            int cantidad = 0;
             ElementoInsumoRegistroPagoOrden elementoUI = sender as ElementoInsumoRegistroPagoOrden;
             if (!string.IsNullOrEmpty(elementoUI.tbxCantidadInsumo.Text))
             {
-                cantidad = double.Parse((sender as ElementoInsumoRegistroPagoOrden).tbxCantidadInsumo.Text);
+                cantidad = int.Parse((sender as ElementoInsumoRegistroPagoOrden).tbxCantidadInsumo.Text);
             }
             ActualizarTotalInsumo(cantidad, sender as ElementoInsumoRegistroPagoOrden);
             CalcularYMostrarTotales();
@@ -125,7 +125,7 @@ namespace ItaliaPizza_Cliente.Vistas
                       lblNombreUnidadMedida = { Content = insumo.InsumoOrdenCompraDto.UnidadMedida },
                       lblCostoInsumo = { Content = insumo.InsumoOrdenCompraDto.CostoUnitario },
                       lblTotalInsumos = { Content = insumo.CantidadInsumosAdquiridos * insumo.InsumoOrdenCompraDto.CostoUnitario },
-                      tbxCantidadInsumo = { Text = insumo.CantidadInsumosAdquiridos.ToString("F2") },
+                      tbxCantidadInsumo = { Text = insumo.CantidadInsumosAdquiridos.ToString()},
                       Insumo = insumo.InsumoOrdenCompraDto
                 };
                 insumoOrdenCompra.TextChanged += TextCantidad_Changed;

@@ -5,8 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ItaliaPizza_Cliente.Recursos.ControlesUsuario"
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="380"
-             >
+             d:DesignHeight="100" d:DesignWidth="380" Margin="0,7,0,0">
     <Grid>
         <Border CornerRadius="15"
                     Background="White"/>
