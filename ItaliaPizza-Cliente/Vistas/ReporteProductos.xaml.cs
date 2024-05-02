@@ -189,7 +189,7 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             else
             {
-                VentanaEmergente ventanaEmergente = new VentanaEmergente("Error", "No se puede generar un reporte vacio, por favor selecciona al menos una categoría", Window.GetWindow(this), 1);
+                VentanaEmergente ventanaEmergente = new VentanaEmergente("Error", "No se puede generar un reporte vacío. Por favor, selecciona al menos una categoría", Window.GetWindow(this), 1);
                 ventanaEmergente.ShowDialog();
             }
 
@@ -214,13 +214,13 @@ namespace ItaliaPizza_Cliente.Vistas
                 }
                 catch (Exception)
                 {
-                    VentanaEmergente ventanaEmergente = new VentanaEmergente("Error", "Ocurrio un error al generar el reporte", Window.GetWindow(this), 1);
+                    VentanaEmergente ventanaEmergente = new VentanaEmergente("Error", "Ocurrió un error al generar el reporte", Window.GetWindow(this), 1);
                     ventanaEmergente.ShowDialog();
                 }
             }
             else
             {
-                VentanaEmergente ventanaEmergente = new VentanaEmergente("Error", "Ocurrio un error al generar el reporte", Window.GetWindow(this), 1);
+                VentanaEmergente ventanaEmergente = new VentanaEmergente("Error", "Ocurrió un error al generar el reporte", Window.GetWindow(this), 1);
                 ventanaEmergente.ShowDialog();
             }
         }

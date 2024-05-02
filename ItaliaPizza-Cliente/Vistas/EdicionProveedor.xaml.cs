@@ -25,9 +25,9 @@ namespace ItaliaPizza_Cliente.Vistas
     public partial class EdicionProveedor : Page
     {
         private const string CAMPO_VACIO = "* Campo obligatorio";
-        private const string CORREO_INVALIDO = "* Correo no valido";
-        private const string TELEFONO_INVALIDO = "* Telefono no valido";
-        private const string RFC_INVALIDO = "* RFC no valido";
+        private const string CORREO_INVALIDO = "* Correo no válido";
+        private const string TELEFONO_INVALIDO = "* Telefono no válido";
+        private const string RFC_INVALIDO = "* RFC no válido";
         private const string RFC_REPETIDO = "El RFC capturado ya existe, ingrese uno que no exista.";
         private const string CORREO_REPETIDO = "El correo capturado ya existe, ingrese uno que no exista.";
         private readonly string EMAIL_RULES_CHAR = "^(?=.{1,90}$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
@@ -146,7 +146,7 @@ namespace ItaliaPizza_Cliente.Vistas
                 }
                 else
                 {
-                    VentanaEmergente ventanaEmergente = new VentanaEmergente("Upss!!", "Ocurrio un error al guardar el proveedor, intentelo mas tarde.", Window.GetWindow(this), 1);
+                    VentanaEmergente ventanaEmergente = new VentanaEmergente("¡Ups!", "Ocurrió un error al guardar el proveedor, intentelo mas tarde.", Window.GetWindow(this), 1);
                     ventanaEmergente.ShowDialog();
                 }
             }
@@ -262,7 +262,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void MostrarMensajeConfirmacion()
         {
-            VentanaEmergente ventanaEmergente = new VentanaEmergente("Cuidado!!!", "¿Seguro que desea cancelar la edición?, se perderán los datos del proveedor que no se hayan guardado?", "Si, Cancelar", "No, Continuar editando", Window.GetWindow(this), 3);
+            VentanaEmergente ventanaEmergente = new VentanaEmergente("¡Cuidado!", "¿Seguro que desea cancelar la edición? Se perderán los datos del proveedor que no se hayan guardado?", "Sí, cancelar", "No, continuar editando", Window.GetWindow(this), 3);
             ventanaEmergente.ShowDialog();
             if (ventanaEmergente.AceptarAccion)
             {

@@ -31,11 +31,11 @@ namespace ItaliaPizza_Cliente.Vistas
         private const int VENTANA_INFORMACION = 2;
         private const int VENTANA_CONFIRMACION = 3;
         private const string CAMPO_VACIO = "* Campo obligatorio";
-        private const string CORREO_INVALIDO = "* Correo no valido";
-        private const string TELEFONO_INVALIDO = "* Telefono no valido";
+        private const string CORREO_INVALIDO = "* Correo no válido";
+        private const string TELEFONO_INVALIDO = "* Teléfono no válido";
         private const string NOMBRE_USUARIO_REPETIDO = "El nombre de Usuario capturado ya existe, ingrese uno que no exista.";
         private const string CORREO_REPETIDO ="El correo capturado ya existe, ingrese uno que no exista.";
-        private const string CODIGO_POSTAL_INVALIDO = "* Código postal no valido";
+        private const string CODIGO_POSTAL_INVALIDO = "* Código postal no válido";
         private const string CORREO_VALIDO_REGEX = "^(?=.{1,90}$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         private const string CORREO_PERMITIDO_REGEX = "^[a-zA-Z0-9@,._=]{1,90}$";
         private const string CODIGO_POSTAL_REGEX = "^[0-9]{5}$";
@@ -491,7 +491,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void MostrarMensajeExito()
         {
-            VentanaEmergente ventanaEmergente = new VentanaEmergente("Éxito", "Modificación exitosa", Window.GetWindow(this), VENTANA_INFORMACION);
+            VentanaEmergente ventanaEmergente = new VentanaEmergente("¡Éxito!", "Modificación exitosa", Window.GetWindow(this), VENTANA_INFORMACION);
             ventanaEmergente.ShowDialog();
             LimpiarCampos();
             NavigationService.GoBack();
@@ -499,7 +499,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void MostrarMensajeError()
         {
-            VentanaEmergente ventanaEmergente = new VentanaEmergente("Error ", "Ocurrio un error al guardar los cambios", Window.GetWindow(this), VENTANA_ERROR);
+            VentanaEmergente ventanaEmergente = new VentanaEmergente("Error ", "Ocurrió un error al guardar los cambios", Window.GetWindow(this), VENTANA_ERROR);
             ventanaEmergente.ShowDialog();            
         }
 
@@ -630,7 +630,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void MostrarMensajeConfirmacion()
         {
-            VentanaEmergente ventanaEmergente = new VentanaEmergente("Cancelar edición", "¿Estás seguro de que desea cancelar la modificación del Usuario?", "Si", "No", Window.GetWindow(this), VENTANA_CONFIRMACION);
+            VentanaEmergente ventanaEmergente = new VentanaEmergente("Cancelar edición", "¿Estás seguro de que desea cancelar la modificación del Usuario?", "Sí", "No", Window.GetWindow(this), VENTANA_CONFIRMACION);
             ventanaEmergente.ShowDialog();
             if (ventanaEmergente.AceptarAccion)
             {

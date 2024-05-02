@@ -307,19 +307,19 @@ namespace ItaliaPizza_Cliente.Vistas
                 usuario.btnEsActivo.HorizontalAlignment = HorizontalAlignment.Left;
                 usuario.lblModificarEstado.Content = "Activar";
                 usuario.EsActivo = false;
-                VentanaEmergente ventanaEmergente = new VentanaEmergente("Información!!", "Se desactivo correctamente al Usuario", Window.GetWindow(this), 2);
+                VentanaEmergente ventanaEmergente = new VentanaEmergente("¡Éxito!", "Se desactivó correctamente al Usuario", Window.GetWindow(this), 2);
                 ventanaEmergente.ShowDialog();
                 return false;
             }
             else if(esEmpelado  && desactivar)
             {
-                VentanaEmergente ventanaEmergente = new VentanaEmergente("Error!!", "No se pudo desactivar al Empleado, revise si el Usuario no esta actualemte activo, o verifque su conexión ", Window.GetWindow(this), 2);
+                VentanaEmergente ventanaEmergente = new VentanaEmergente("¡Error!", "No se pudo desactivar al Empleado, revise si el Usuario no está actualemte activo o verifque su conexión ", Window.GetWindow(this), 2);
                 ventanaEmergente.ShowDialog();
                 return true;
             }
             else if(desactivar)
             {
-                VentanaEmergente ventanaEmergente = new VentanaEmergente("Error!!", "No se pudo desactivar al cliente, revise si tiene pedidos pendientes, o verifique su conexión ", Window.GetWindow(this), 2);
+                VentanaEmergente ventanaEmergente = new VentanaEmergente("¡Error!", "No se pudo desactivar al cliente, revise si tiene pedidos pendientes o verifique su conexión ", Window.GetWindow(this), 2);
                 ventanaEmergente.ShowDialog();
                 return true;
             }
@@ -329,13 +329,13 @@ namespace ItaliaPizza_Cliente.Vistas
                 usuario.brdActivoBackGorund.Background = new SolidColorBrush(Colors.Black);
                 usuario.btnEsActivo.HorizontalAlignment = HorizontalAlignment.Right;
                 usuario.lblModificarEstado.Content = "Desactivar";
-                VentanaEmergente ventanaEmergente = new VentanaEmergente("Exito!!", "Se activo correctamente al Usuario", Window.GetWindow(this), 2);
+                VentanaEmergente ventanaEmergente = new VentanaEmergente("¡Exito!", "Se activó correctamente al Usuario", Window.GetWindow(this), 2);
                 ventanaEmergente.ShowDialog();
                 return true;
             }
             else
             {
-                VentanaEmergente ventanaEmergente = new VentanaEmergente("Error!!", "Hubo un probelma al activar al Usuario, revise su conexion e intentelo mas tarde", Window.GetWindow(this), 2);
+                VentanaEmergente ventanaEmergente = new VentanaEmergente("¡Error!", "Hubo un probelma al activar al Usuario, revise su conexion e inténtelo más tarde", Window.GetWindow(this), 2);
                 ventanaEmergente.ShowDialog();
                 return false;
             }

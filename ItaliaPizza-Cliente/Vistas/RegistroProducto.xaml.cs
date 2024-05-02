@@ -773,8 +773,8 @@ namespace ItaliaPizza_Cliente.Vistas
             {
                 if (_rutaFoto == null)
                 {
-                    string tituloErrorImagen = "Error al cargar la imagen";
-                    string mensajeErrorImagen = "No se pudo cargar la imagen. Inténtelo de nuevo o hágalo más tarde";
+                    string tituloErrorImagen = "Error al cargar la imágen";
+                    string mensajeErrorImagen = "No se pudo cargar la imágen. Inténtelo de nuevo o hágalo más tarde";
                     VentanaEmergente ventanaEmergente = new VentanaEmergente(tituloErrorImagen, mensajeErrorImagen,
                         Window.GetWindow(this), VENTANA_ERROR);
                     ventanaEmergente.ShowDialog();
@@ -795,7 +795,7 @@ namespace ItaliaPizza_Cliente.Vistas
                         else
                         {
                             string tituloErrorImagen = "Tamaño demasiado grande";
-                            string mensajeErrorImagen = "El tamaño de la imagen es muy grande, debe ser menor o igual a " 
+                            string mensajeErrorImagen = "El tamaño de la imágen es muy grande, debe ser menor o igual a " 
                                 + tamañoMaximoKB + " KB";
 
                             VentanaEmergente ventanaEmergente = new VentanaEmergente(tituloErrorImagen, mensajeErrorImagen,

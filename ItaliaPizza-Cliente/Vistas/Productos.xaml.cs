@@ -507,7 +507,7 @@ namespace ItaliaPizza_Cliente.Vistas
             int filasAfectadas = -1;
             string titulo = "Desactivar producto";
             string mensaje = $"¿Estás seguro de que deseas Desactivar el producto {nombreProducto}?";
-            VentanaEmergente ventanaEmergente = new VentanaEmergente(titulo, mensaje , "Si", "No", Window.GetWindow(this), VENTANA_CONFIRMACION);
+            VentanaEmergente ventanaEmergente = new VentanaEmergente(titulo, mensaje , "Sí", "No", Window.GetWindow(this), VENTANA_CONFIRMACION);
             ventanaEmergente.ShowDialog();
 
             if (ventanaEmergente.AceptarAccion)
@@ -532,7 +532,7 @@ namespace ItaliaPizza_Cliente.Vistas
             string titulo = "Activar producto";
             string mensaje = $"¿Estás seguro de que deseas Activar el producto {nombreProducto}?";
 
-            VentanaEmergente ventanaEmergente = new VentanaEmergente(titulo, mensaje, "Si", "No", Window.GetWindow(this), VENTANA_CONFIRMACION);
+            VentanaEmergente ventanaEmergente = new VentanaEmergente(titulo, mensaje, "Sí", "No", Window.GetWindow(this), VENTANA_CONFIRMACION);
             ventanaEmergente.ShowDialog();
             if (ventanaEmergente.AceptarAccion)
             {
@@ -736,8 +736,6 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void ImgModificar_Click(object sender, EventArgs e)
         {
-            // Generar un objeto producto con los datos del producto seleccionado
-            // Enviar el objeto producto a la ventana de modificar producto
             Producto productoEdicion;
 
             if (sender is ElementoConsultaInsumo)

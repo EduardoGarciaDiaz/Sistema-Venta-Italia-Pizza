@@ -325,7 +325,7 @@ namespace ItaliaPizza_Cliente.Vistas
             else
             {
                 skpContenedorOrdenesCompra.Children.Clear();
-                MostrarMensaje("No existen ordenes para el proveedor o estado seleccionados");
+                MostrarMensaje("No existen órdenes para el proveedor o estado seleccionados");
             }
         }
 

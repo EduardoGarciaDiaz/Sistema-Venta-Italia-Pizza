@@ -27,8 +27,8 @@ namespace ItaliaPizza_Cliente.Vistas
     public partial class RegistroUsuario : Page
     {
         private const string CAMPO_VACIO = "* Campo obligatorio";
-        private const string CORREO_INVALIDO = "* Correo no valido";
-        private const string TELEFONO_INVALIDO = "* Telefono no valido";
+        private const string CORREO_INVALIDO = "* Correo no válido";
+        private const string TELEFONO_INVALIDO = "* Teléfono no válido";
         private const string NOMBRE_USUARIO_REPETIDO = "El nombre de Usuario capturado ya existe, ingrese uno que no exista.";
         private const string CORREO_REPETIDO ="El correo capturado ya existe, ingrese uno que no exista.";
         private readonly string EMAIL_RULES_CHAR = "^(?=.{1,90}$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
@@ -469,7 +469,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void MostrarMensajeConfirmacion()
         {
-            VentanaEmergente ventanaEmergente = new VentanaEmergente("Cuidado!!!", "¿Seguro que desea cancelar el registro?, se perderán los datos del Usuario", "Si, Cancelar Registro", "No, Cancelar Accion", Window.GetWindow(this), 3);
+            VentanaEmergente ventanaEmergente = new VentanaEmergente("¡Cuidado!", "¿Seguro que desea cancelar el registro? Se perderán los datos del Usuario", "Sí, cancelar registro", "No, cancelar acción", Window.GetWindow(this), 3);
             ventanaEmergente.ShowDialog();
             if (ventanaEmergente.AceptarAccion)
             {

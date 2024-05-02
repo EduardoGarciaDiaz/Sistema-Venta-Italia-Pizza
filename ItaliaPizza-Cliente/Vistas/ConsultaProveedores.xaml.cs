@@ -190,17 +190,17 @@ namespace ItaliaPizza_Cliente.Vistas
                 if (estabaActivo)
                 {
                     elementoProveedor.CambiarEstado(false);
-                    MostrarMensaje("Exito", "Se ha desactivado correctamente al proveedor", 2);
+                    MostrarMensaje("Éxito", "Se ha desactivado correctamente al proveedor", 2);
                 }
                 else
                 {
                     elementoProveedor.CambiarEstado(true);
-                    MostrarMensaje("Exito", "Se ha activado correctamente al proveedorr", 2 );
+                    MostrarMensaje("Éxito", "Se ha activado correctamente al proveedorr", 2 );
                 }
             }
             else
             {
-                MostrarMensaje("UPSS", "Ocurrio un error al desactivar al proveedor, intentelo mas tarde", 1);
+                MostrarMensaje("¡Ups!", "Ocurrió un error al desactivar al proveedor. Inténtelo mas tarde.", 1);
             }            
         }
 

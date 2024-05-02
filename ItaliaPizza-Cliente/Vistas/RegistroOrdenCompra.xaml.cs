@@ -160,19 +160,19 @@ namespace ItaliaPizza_Cliente.Vistas
 
                                 if (EnviarOrdenDeCompra(idOrdenCompra))
                                 {
-                                    VentanaEmergente ventanaEmergente = new VentanaEmergente("Exito!!", "La orden de compra se envio correctamente", Window.GetWindow(this), 2);
+                                    VentanaEmergente ventanaEmergente = new VentanaEmergente("¡Exito!", "La orden de compra se envió correctamente", Window.GetWindow(this), 2);
                                     ventanaEmergente.ShowDialog();
                                 }
                                 else
                                 {
-                                    VentanaEmergente ventanaEmergente = new VentanaEmergente("Upss!!", "La orden de compra se guardo correctamente pero hubo un problema al enviarla, intentelos mas tarde", Window.GetWindow(this), 1);
+                                    VentanaEmergente ventanaEmergente = new VentanaEmergente("¡Ups!", "La orden de compra se guardó correctamente pero hubo un problema al enviarla, intentelo mas tarde", Window.GetWindow(this), 1);
                                     ventanaEmergente.ShowDialog();
                                 }
                                 SalirAPantallaInicio();
                             }
                             else
                             {
-                                VentanaEmergente ventanaEmergente = new VentanaEmergente("Error", "Ocurrio un error al guardar la orden de compra, intentelo mas tarde y verifique su conexión", Window.GetWindow(this), 1);
+                                VentanaEmergente ventanaEmergente = new VentanaEmergente("Error", "Ocurrió un error al guardar la orden de compra, inténtelo mas tarde y verifique su conexión", Window.GetWindow(this), 1);
                                 ventanaEmergente.ShowDialog();
                             }
                         }
@@ -230,13 +230,13 @@ namespace ItaliaPizza_Cliente.Vistas
                     int idOrdenCompra = GuardarOrdenDeCompra(_listaElementosEnOrdenCompra);
                     if (idOrdenCompra != 0)
                     {
-                        VentanaEmergente ventanaEmergente = new VentanaEmergente("Exito!!", "La orden de compra se guardo correctamente.", Window.GetWindow(this), 2);
+                        VentanaEmergente ventanaEmergente = new VentanaEmergente("¡Éxito!", "La orden de compra se guardo correctamente.", Window.GetWindow(this), 2);
                         ventanaEmergente.ShowDialog();
                         SalirAPantallaInicio();
                     }
                     else
                     {
-                        VentanaEmergente ventanaEmergente = new VentanaEmergente("Error", "Ocurrio un error al guardar la orden de compra, intentelo mas tarde y verifique su conexión", Window.GetWindow(this), 1);
+                        VentanaEmergente ventanaEmergente = new VentanaEmergente("Error", "Ocurrió un error al guardar la orden de compra, inténtelo mas tarde y verifique su conexión", Window.GetWindow(this), 1);
                         ventanaEmergente.ShowDialog();
                     }
 
@@ -505,7 +505,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void MostrarMensajeConfirmacion()
         {
-            VentanaEmergente ventanaEmergente = new VentanaEmergente("Cuidado!!!", "¿Seguro que desea cancelar el registro?, se perderán los datos que no se hayan guardado", "Si, Cancelar Registro", "No, Cancelar Accion", Window.GetWindow(this), 3);
+            VentanaEmergente ventanaEmergente = new VentanaEmergente("¡Cuidado!", "¿Seguro que desea cancelar el registro? Se perderán los datos que no se hayan guardado", "Sí, cancelar registro", "No, cancelar acción", Window.GetWindow(this), 3);
             ventanaEmergente.ShowDialog();
             if (ventanaEmergente.AceptarAccion)
             {

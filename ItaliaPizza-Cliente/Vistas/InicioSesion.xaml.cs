@@ -106,7 +106,7 @@ namespace ItaliaPizza_Cliente.Vistas
                 ventanaEmergente.ShowDialog();
             }
             else if(usuarioExiste == 2){
-                VentanaEmergente ventanaEmergente = new VentanaEmergente("!Algo sucedió!", "Tu cuenta se encuentra desactividad. Verifica con el administrador.", Window.GetWindow(this), 1);
+                VentanaEmergente ventanaEmergente = new VentanaEmergente("!Algo sucedió!", "Tu cuenta se encuentra desactivida. Verifica con el administrador.", Window.GetWindow(this), 1);
                 ventanaEmergente.ShowDialog();
             }
             else
@@ -119,7 +119,7 @@ namespace ItaliaPizza_Cliente.Vistas
                 }
                 else
                 {
-                    VentanaEmergente ventanaEmergente = new VentanaEmergente("Upps!!", "Hubo un problema al recuperar tu información intentalo de nuevo", Window.GetWindow(this), 1);
+                    VentanaEmergente ventanaEmergente = new VentanaEmergente("¡Ups!", "Hubo un problema al recuperar tu información. Inténtalo de nuevo.", Window.GetWindow(this), 1);
                     ventanaEmergente.ShowDialog();
                 }
             }

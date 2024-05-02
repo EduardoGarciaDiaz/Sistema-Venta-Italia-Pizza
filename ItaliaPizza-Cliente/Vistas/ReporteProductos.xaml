@@ -71,7 +71,7 @@
                             <RowDefinition />
                         </Grid.RowDefinitions>
 
-                        <CheckBox Name="chbAgotados" Content="Prodcutos Desactivados/Agostados " VerticalAlignment="Center" Margin="20,0,0,0" />
+                        <CheckBox Name="chbAgotados" Content="Productos Desactivados/Agotados " VerticalAlignment="Center" Margin="20,0,0,0" />
                         <Button Grid.Column="1" Content="Todos" Padding="0" Margin="130,15,10,15" Background="#52ACD2" FontWeight="Bold" Click="BtnTodos_Click"/>
 
                         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden">
