@@ -112,11 +112,8 @@ namespace ItaliaPizza_Cliente
 
         private void CorteCaja_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (EmpleadoSingleton.getInstance().DatosEmpleado.IdTipoEmpleado == (int)EnumTiposEmpleado.Cajero)
-            {
-                RegistroCorteCaja registroCorteCaja = new RegistroCorteCaja(this);
-                registroCorteCaja.ShowDialog();
-            }
+            RegistroCorteCaja registroCorteCaja = new RegistroCorteCaja(this);
+            registroCorteCaja.ShowDialog();
         }
 
         public void FiltrarOpcionesPanelLateral(int idTipoEmpleado)
