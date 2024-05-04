@@ -265,6 +265,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="Cantidad" type="xs:double" />
       <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UnidadMedida" nillable="true" type="tns:UnidadMedida" />
     </xs:sequence>

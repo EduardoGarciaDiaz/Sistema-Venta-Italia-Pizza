@@ -78,6 +78,35 @@ namespace ItaliaPizza_Servicios
             }
         }
 
+        public int ActualizarReceta(RecetaProducto receta)
+        {
+            int filasAfectadas = -1;
+
+            RecetaDAO recetaDAO = new RecetaDAO();
+            Recetas recetaEdicion = AuxiliarConversorDTOADAO.ConvertirRecetaProductoARecetas(receta);
+            recetaEdicion.IdReceta = receta.IdReceta;
+
+            try
+            {
+                int id = recetaDAO.ActualizarReceta(recetaEdicion);
+
+                List<RecetasInsumos> recetasInsumo = new List<RecetasInsumos>();
+
+                foreach (InsumoReceta insumoReceta in receta.InsumosReceta)
+                {
+                    recetasInsumo.Add(AuxiliarConversorDTOADAO.ConvertirInsumoRecetaARecetasInsumos(insumoReceta, receta.IdReceta));
+                }
+
+                filasAfectadas = recetaDAO.ActualizarRecetaInsumos(recetasInsumo, receta.IdReceta);
+
+                return filasAfectadas;
+            }
+            catch (ExcepcionDataAccess ex)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(ex);
+            }
+        }
+
         public int EliminarReceta(int idReceta)
         {
             int filasAfectadas = -1;

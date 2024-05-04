@@ -1,0 +1,77 @@
+﻿<Page x:Class="ItaliaPizza_Cliente.Vistas.EdicionReceta"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ItaliaPizza_Cliente.Vistas"
+      xmlns:uc="clr-namespace:ItaliaPizza_Cliente.Recursos.ControlesUsuario"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1300" Background="#F6F6F6"
+      Title="RegistroReceta">
+
+    <Page.Resources>
+
+        <Style TargetType="{x:Type Button}" >
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="28" />
+                </Style>
+            </Style.Resources>
+        </Style>
+
+    </Page.Resources>
+
+    <Viewbox Stretch="Fill">
+        <Grid Height="800" Width="1300">
+            <Label Content="Modificar Receta"  HorizontalAlignment="Left" Margin="115,30,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FFD6B400" FontSize="30"/>
+
+            <!--Productos sin receta-->
+            <Rectangle HorizontalAlignment="Left" Height="320" Margin="83,100,0,0" VerticalAlignment="Top" Width="320" RadiusX="20" RadiusY="20" Fill="White"/>
+            <Label  Content="" HorizontalAlignment="Left" Margin="93,106,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
+
+            <Label Content="Código:" HorizontalAlignment="Left" Margin="173,106,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
+            <Label x:Name="lblCodigo" Content="" HorizontalAlignment="Left" Margin="236,106,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14" Width="162"/>
+            <Rectangle HorizontalAlignment="Left" Height="214" Margin="144,140,0,0" VerticalAlignment="Top" Width="214" RadiusX="20" RadiusY="20" Fill="#F8D72A"/>
+            <Image x:Name="imgFoto" HorizontalAlignment="Left" Height="171" Margin="167,162,0,0" VerticalAlignment="Top" Width="171" Source="/Recursos/Iconos/imagen_producto_sin_foto.png" Stretch="Fill"/>
+            <TextBlock x:Name="tbkNombreReceta" Text="" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Left" Margin="84,359,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14" Width="319" Height="63" FontFamily="Inter"/>
+
+
+
+            <!--Insumos disponibles-->
+            <Rectangle HorizontalAlignment="Left" Height="641" Margin="479,100,0,0" VerticalAlignment="Top" Width="349" RadiusX="20" RadiusY="20" Fill="White"/>
+            <Label Content="Selecciona los insumos " HorizontalAlignment="Left" Margin="494,106,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
+
+
+            <uc:BarraDeBusquedaMini x:Name="barraDeBusquedaInsumo" Width="300" Margin="479,135,521,615"/>
+
+            <ScrollViewer Background="Transparent" Margin="490,172,486,72" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <WrapPanel x:Name="wrpPanelInsumos">
+                </WrapPanel>
+            </ScrollViewer>
+
+            <!--Insumos seleccionados-->
+            <Rectangle HorizontalAlignment="Left" Height="526" Margin="894,100,0,0" VerticalAlignment="Top" Width="332" RadiusX="20" RadiusY="20" Fill="White"/>
+            <Label Content="Insumos seleccionados" HorizontalAlignment="Left" Margin="900,106,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
+
+            <ScrollViewer Background="Transparent" Margin="908,140,90,219" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <WrapPanel x:Name="wrpPanelInsumosSeleccionados">
+                </WrapPanel>
+            </ScrollViewer>
+            <Label x:Name="lblNombreReceta" Content=""  HorizontalAlignment="Left" Margin="812,30,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FFD6B400" FontSize="30" Width="465" HorizontalContentAlignment="Center"/>
+
+
+            <Separator HorizontalAlignment="Left" Margin="908,591,0,0" VerticalAlignment="Top" Height="5" Width="270"/>
+
+            <!--Botones-->
+            <Button Content="Guardar receta" HorizontalAlignment="Left" Margin="894,637,0,0" VerticalAlignment="Top" Height="57" Width="302" Foreground="Black" BorderBrush="#FFF8D72A" Background="#FFF8D72A" FontSize="24" FontWeight="Bold" Cursor="Hand" Click="BtnGuardarReceta_Click"/>
+            <Button Content="Cancelar" HorizontalAlignment="Left" Margin="894,699,0,0" VerticalAlignment="Top" Height="57" Width="302" Foreground="#FFD67272" BorderBrush="#FFD67272" Background="#FFF6F6F6" FontSize="24" FontWeight="Bold" Cursor="Hand" Click="BtnCancelar_Click"/>
+            <Label x:Name="lblContadorInsumos" Content="0" HorizontalAlignment="Left" Margin="908,599,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="270"/>
+            <Label Content="Insumos" HorizontalAlignment="Left" Margin="941,599,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="237"/>
+
+
+            <TextBlock x:Name="tbkErrorRegistro" Visibility="Visible" TextWrapping="Wrap" Margin="909,297,0,0" FontSize="18" Foreground="#FFB1B1B1" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Height="89" Width="302" TextAlignment="Center"></TextBlock>
+
+
+        </Grid>
+    </Viewbox>
+</Page>

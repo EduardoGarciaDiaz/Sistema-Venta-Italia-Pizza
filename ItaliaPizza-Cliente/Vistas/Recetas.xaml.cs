@@ -33,6 +33,7 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             CargarRecetas();
             AgregarEventos();
+            CerrarGridInsumosReceta();
         }
 
         private void BtnRegistrarReceta_Click(object sender, RoutedEventArgs e)
@@ -84,12 +85,10 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void ImgEditarReceta_Click(object sender, EventArgs e)
         {
-            // TODO NavigationService.Navigate(new EdicionReceta());
-            string titulo = "Funcionalidad próxima";
-            string mensaje = "Esta funcionalidad se incluirá en un futuro";
+            Receta receta = (sender as ElementoReceta).RecetaAsignada;
 
-            VentanaEmergente ventanaEmergente = new VentanaEmergente(titulo, mensaje, Window.GetWindow(this), VENTANA_INFORMACION);
-            ventanaEmergente.ShowDialog();
+            EdicionReceta edicionReceta = new EdicionReceta(receta);
+            NavigationService.Navigate(edicionReceta);
         }
 
         private void AgregarEventos()

@@ -68,6 +68,7 @@ namespace ItaliaPizza_DataAccess
                                         where r.IdReceta == idReceta
                                         select new InsumoReceta
                                         {
+                                            Codigo = i.CodigoProducto,
                                             Nombre = p.Nombre,
                                             Cantidad = (double)ri.CantidadInsumo,
                                             UnidadMedida = new UnidadMedida()
@@ -201,6 +202,80 @@ namespace ItaliaPizza_DataAccess
             }
 
             return insumosDeReceta;
+        }
+
+        public int ActualizarReceta(Recetas recetaEdicion)
+        {
+            int filasAfectadas = -1;
+
+            if (recetaEdicion != null)
+            {
+                try
+                {
+                    using (var context = new ItaliaPizzaEntities())
+                    {
+                        var receta = context.Recetas.Find(recetaEdicion.IdReceta);
+                        if (receta != null)
+                        {
+                            context.Entry(receta).CurrentValues.SetValues(recetaEdicion);
+                            filasAfectadas = context.SaveChanges();
+                        }
+                    }
+                }
+                catch (EntityException ex)
+                {
+                    ManejadorExcepcion.ManejarExcepcionError(ex);
+                    throw new ExcepcionDataAccess(ex.Message);
+                }
+                catch (SqlException ex)
+                {
+                    ManejadorExcepcion.ManejarExcepcionError(ex);
+                    throw new ExcepcionDataAccess(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                    throw new ExcepcionDataAccess(ex.Message);
+                }
+            }
+
+            return filasAfectadas;
+        }
+
+        public int ActualizarRecetaInsumos(List<RecetasInsumos> recetasInsumos, int idReceta)
+        {
+            int filasAfectadas = -1;
+
+            if (recetasInsumos != null)
+            {
+                try
+                {
+                    using (var context = new ItaliaPizzaEntities())
+                    {
+                        var recetasInsumosAEliminar = context.RecetasInsumos.Where(e => e.IdReceta == idReceta).ToList();
+                        context.RecetasInsumos.RemoveRange(recetasInsumosAEliminar);
+                        context.RecetasInsumos.AddRange(recetasInsumos);
+                        filasAfectadas = context.SaveChanges();
+                    }
+                }
+                catch (EntityException ex)
+                {
+                    ManejadorExcepcion.ManejarExcepcionError(ex);
+                    throw new ExcepcionDataAccess(ex.Message);
+                }
+                catch (SqlException ex)
+                {
+                    ManejadorExcepcion.ManejarExcepcionError(ex);
+                    throw new ExcepcionDataAccess(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                    throw new ExcepcionDataAccess(ex.Message);
+                }
+            }
+
+            return filasAfectadas;
         }
 
         public int EliminarReceta(int idReceta)

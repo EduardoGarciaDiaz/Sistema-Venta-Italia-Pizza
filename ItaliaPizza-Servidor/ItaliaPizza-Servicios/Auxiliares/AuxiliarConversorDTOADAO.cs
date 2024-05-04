@@ -66,6 +66,7 @@ namespace ItaliaPizza_Servicios.Auxiliares
         {
             RecetasInsumos recetasInsumos = new RecetasInsumos()
             {
+                IdRecetaInsumo = insumoReceta.Id,
                 CantidadInsumo = insumoReceta.Cantidad,
                 IdReceta = idReceta,
                 CodigoProducto = insumoReceta.Codigo

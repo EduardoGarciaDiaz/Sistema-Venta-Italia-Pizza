@@ -11,6 +11,9 @@ namespace ItaliaPizza_Contratos.DTOs
     public class InsumoReceta
     {
         [DataMember]
+        public int Id { get; set; }
+
+        [DataMember]
         public string Codigo { get; set; }
 
         [DataMember]
