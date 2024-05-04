@@ -79,6 +79,7 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void MostrarFecha(DateTime fechaActual)
         {
+            dpkFechaGasto.DisplayDateEnd = DateTime.Today;
             dpkFechaGasto.SelectedDate = fechaActual;
             lblFechaActual.Content = fechaActual.ToString();
         }
