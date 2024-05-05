@@ -13,6 +13,31 @@ namespace ItaliaPizza_Servicios
 
     public partial class ServicioItaliaPizza : ItaliaPizza_Contratos.IServicioOrdenesCompra
     {
+               
+        public int ActualizarOrdenDeCompra(OrdenDeCompraDto ordenDeCompraDto)
+        {
+            bool exito = false;
+            try { 
+                if (ordenDeCompraDto != null)
+                {
+                    var ordenCompra = AuxiliarConversorDTOADAO.ConvertirOrdenDeCompraDtoAOrdenesDeCompras(ordenDeCompraDto);                
+                    List<OrdenesCompraInsumos> ordenesCompraInsumos = new List<OrdenesCompraInsumos>();
+                    foreach (var item in ordenDeCompraDto.ListaElementosOrdenCompra)
+                    {
+                        ordenesCompraInsumos.Add(AuxiliarConversorDTOADAO.ConvertirElementoOrdenCompraAOrdenesCompraInsumos(ordenDeCompraDto.IdOrdenCompra, item));
+                    }
+                    ordenCompra.OrdenesCompraInsumos = ordenesCompraInsumos;
+                    exito = OrdenDeCompraDAO.ActualizarOrdenDeCompraDB(ordenCompra);
+                }
+            }
+            catch (ExcepcionDataAccess e)
+            {
+                throw ExcepcionServidorItaliaPizzaManager.ManejarExcepcionDataAccess(e);
+            }
+            return (exito) ? ordenDeCompraDto.IdOrdenCompra : 0;         
+        }
+
+
         public bool EnviarOrdenDeCompra(int idOrdenDeCompra)
         {
             try

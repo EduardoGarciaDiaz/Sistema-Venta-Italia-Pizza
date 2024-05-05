@@ -62,7 +62,8 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             ElementoConsultaOrdenCompra elementoConsultaOrdenCompra = sender as ElementoConsultaOrdenCompra;
             OrdenDeCompraDto orden = elementoConsultaOrdenCompra.OrdenDeCompraDto;
-            //TODO
+            EdicionOrdenCompra paginaEdicionOrdenCompra = new EdicionOrdenCompra(orden);
+            NavigationService.Navigate(paginaEdicionOrdenCompra);
         }
 
         private void BtnRegistrarPagoOrdenCompra_Click(object sender, RoutedEventArgs e)

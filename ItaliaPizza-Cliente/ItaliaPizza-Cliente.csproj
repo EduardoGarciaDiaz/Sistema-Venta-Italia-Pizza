@@ -253,6 +253,9 @@
     <Compile Include="Vistas\ConsultaProveedores.xaml.cs">
       <DependentUpon>ConsultaProveedores.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Vistas\EdicionOrdenCompra.xaml.cs">
+      <DependentUpon>EdicionOrdenCompra.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\EdicionProducto.xaml.cs">
       <DependentUpon>EdicionProducto.xaml</DependentUpon>
     </Compile>
@@ -454,6 +457,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vistas\ConsultaProveedores.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\EdicionOrdenCompra.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

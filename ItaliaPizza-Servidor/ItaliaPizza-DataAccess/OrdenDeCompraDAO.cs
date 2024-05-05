@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Data.Entity.Migrations;
 using ItaliaPizza_Contratos.DTOs;
 using ItaliaPizza_DataAccess.Excepciones;
+using System.Runtime.Remoting.Contexts;
 
 namespace ItaliaPizza_DataAccess
 {
@@ -17,7 +18,6 @@ namespace ItaliaPizza_DataAccess
 
         public static int GuardarOrdenDeCompra(OrdenesCompra ordenesCompra)
         {
-
 
             int idOrdenNueva = 0;
             try
@@ -49,6 +49,54 @@ namespace ItaliaPizza_DataAccess
             }
             return idOrdenNueva;
         }
+
+        public static bool ActualizarOrdenDeCompraDB(OrdenesCompra ordeneCompra)
+        {
+            bool exitoOperacion = false;
+            try
+            {
+                using (var contexto = new ItaliaPizzaEntities())
+                {
+                    OrdenesCompra ordenDeCompraAntigua = RecuperarOrdenDeCompra(ordeneCompra.IdOrdenCompra);
+                    if(ordenDeCompraAntigua != null)
+                    {
+                        if (ordenDeCompraAntigua.Equals(ordeneCompra))
+                        {
+                            exitoOperacion = true;
+                        }
+                        else
+                        {
+                            contexto.OrdenesCompra.AddOrUpdate(ordeneCompra);
+                            List<OrdenesCompraInsumos> listaInsumos = contexto.OrdenesCompraInsumos.Where(insumo => insumo.IdOrdenCompra == ordeneCompra.IdOrdenCompra).ToList();
+                            contexto.OrdenesCompraInsumos.RemoveRange(listaInsumos);                         
+                            foreach (var item in ordeneCompra.OrdenesCompraInsumos)
+                            {
+                                contexto.OrdenesCompraInsumos.Add(item);
+                            }
+                            contexto.SaveChanges();
+                            exitoOperacion = true;
+                        }
+                    }
+                }               
+            }
+            catch (EntityException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionError(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                ManejadorExcepcion.ManejarExcepcionFatal(ex);
+                throw new ExcepcionDataAccess(ex.Message);
+            }
+            return exitoOperacion;
+        }
+
 
         public static int GuardarInsumoOrdenDeCompra(List<OrdenesCompraInsumos> elementoInsumoOrdenesCompra)
         {

@@ -33,5 +33,9 @@ namespace ItaliaPizza_Contratos
         [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
         bool RegistrarPagoOrdenCompra(OrdenDeCompraDto ordenCompra);
 
+        [OperationContract]
+        [FaultContract(typeof(ExcepcionServidorItaliaPizza))]
+        int ActualizarOrdenDeCompra(OrdenDeCompraDto ordenDeCompraDto);
+
     }
 }
