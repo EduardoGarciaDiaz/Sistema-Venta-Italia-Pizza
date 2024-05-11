@@ -51,6 +51,7 @@ namespace ItaliaPizza_Cliente.Vistas
             _clientes = new ObservableCollection<ClienteBusqueda>();
             InitializeComponent();
             this.Loaded += RegistroPedido_Loaded;
+            this.Unloaded += RegistroPedido_Unloaded;
         }
 
         private void RegistroPedido_Loaded(object sender, RoutedEventArgs e)
@@ -98,6 +99,11 @@ namespace ItaliaPizza_Cliente.Vistas
                 ManejadorVentanasEmergentes.MostrarVentanaErrorInesperado();
                 ManejadorExcepcion.ManejarExcepcionError(ex, Window.GetWindow(this));
             }
+        }
+
+        private void RegistroPedido_Unloaded(object sender, RoutedEventArgs e)
+        {
+            DesapartarTodosLosProductosEnPedido();
         }
 
         private void ElementoProductoVenta_Click(object sender, RoutedEventArgs e)

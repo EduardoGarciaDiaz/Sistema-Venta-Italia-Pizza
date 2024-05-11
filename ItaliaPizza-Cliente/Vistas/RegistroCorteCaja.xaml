@@ -72,7 +72,7 @@
                 <Label Content="¿Cuál fue el fondo inicial en Caja?" Foreground="Black" FontStretch="Medium" FontWeight="Bold" FontSize="14" Margin="20,100,198,420"/>
                 <TextBox x:Name="TbxFondoInicial" Text="" Padding="12, 0, 0, 0" HorizontalAlignment="Left" Margin="273,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156" Height="26" VerticalContentAlignment="Center" FontSize="16" MaxLength="10" BorderBrush="Black" TextChanged="TbxFondoInicial_TextChanged" PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown"/>
                 <Label x:Name="lblCampoObligatorioFondoInicial"
-                       Content="Campo obligatorio*" Margin="271,122,68,399" FontSize="10" Foreground="#FFDF1414" Visibility="Hidden"/>
+                       Content="Campo obligatorio*" Margin="271,122,21,399" FontSize="10" Foreground="#FFDF1414" Visibility="Hidden"/>
 
                 <Separator HorizontalAlignment="Center" Margin="0,136,0,0" VerticalAlignment="Top" Height="12" Width="408" Background="#FFC9C9C9"/>
 
@@ -92,13 +92,24 @@
                 <TextBox x:Name="tbxDineroCaja" Text="" Padding="12, 0, 0, 0" HorizontalAlignment="Left" Margin="273,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="156" Height="26" VerticalContentAlignment="Center" FontSize="16" MaxLength="10" BorderBrush="Black" TextChanged="TbxDineroCaja_TextChanged" PreviewTextInput="TextBox_PreviewTextInput" PreviewKeyDown="TextBox_PreviewKeyDown"/>
                 <Separator HorizontalAlignment="Center" Margin="0,307,0,0" VerticalAlignment="Top" Height="12" Width="408" Background="#FFC9C9C9"/>
                 <Label x:Name="lblCampoObligatorioDineroEnCaja"
-        Content="Campo obligatorio*" Margin="271,287,68,234" FontSize="10" Foreground="#FFDF1414" Visibility="Hidden"/>
+        Content="Campo obligatorio*" Margin="271,287,68,234" FontSize="10" Foreground="#FFDF1414" Visibility="Hidden" Padding="11,5,5,5"/>
 
 
-                <Label Content="Diferencia" Foreground="Black" FontStretch="Medium" FontWeight="Bold" FontSize="14" Margin="20,316,198,204"/>
-                <Label x:Name="lblDiferencia" Content="$12500.00" Foreground="Black" FontStretch="Medium" FontSize="14" Margin="276,316,22,204" HorizontalContentAlignment="Right"/>
+                <Label Content="Diferencia" Foreground="Black" FontStretch="Medium" FontWeight="Bold" FontSize="14" Margin="20,324,198,196"/>
+                <Label x:Name="lblMensajeDiferencia" Content="Sobran" Foreground="White" FontStretch="Medium" FontSize="14" Margin="228,324,22,196" Background="#FF254F70" Padding="20,5,5,5">
+                    <Label.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="15"/>
+                        </Style>
+                    </Label.Resources>
+                </Label>
+                <Label x:Name="lblDiferencia" Content="$12500.00" Foreground="White" FontStretch="Medium" FontSize="14" Margin="316,324,35,196" HorizontalContentAlignment="Right"/>
+
                 <Label x:Name="lblFechaSeleccionadaErronea"
                     Content="Selecciona una fecha anterior o igual a la actual" Margin="21,72,206,449" FontSize="10" Foreground="#FFDF1414" Visibility="Hidden"/>
+                <Label x:Name="lblErrorFondoInicial"
+                    Content="" Margin="0,66,21,446" FontSize="13" Foreground="#FFDF1414" Visibility="Visible" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Width="221"/>
+
 
             </Grid>
         </Viewbox>

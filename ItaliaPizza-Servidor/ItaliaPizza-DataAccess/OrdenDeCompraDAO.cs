@@ -212,10 +212,7 @@ namespace ItaliaPizza_DataAccess
                 using (var context = new ItaliaPizzaEntities())
                 {
                     List<OrdenesCompra> ordenesComprasFechaSeleccionada = context.OrdenesCompra.Where(p => DbFunctions.TruncateTime(p.Fecha) == fecha.Date).ToList();
-                    foreach (OrdenesCompra ordenesCompraInsumos in ordenesComprasFechaSeleccionada)
-                    {
-                       salidasOrdenesCompra = salidasOrdenesCompra + (ordenesCompraInsumos.OrdenesCompraInsumos.Sum(p => p.Insumos.Costo ?? 0));
-                    }
+                    salidasOrdenesCompra = ordenesComprasFechaSeleccionada.Sum(p => p.Costo ?? 0);
                 }
             }
             catch (EntityException ex)

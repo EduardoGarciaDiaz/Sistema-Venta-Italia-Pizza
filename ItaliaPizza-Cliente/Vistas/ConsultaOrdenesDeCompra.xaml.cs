@@ -26,7 +26,6 @@ namespace ItaliaPizza_Cliente.Vistas
     public partial class ConsultaOrdenesDeCompra : Page
     {
         private SolidColorBrush COLOR_BRUSH_AMARILLO = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFD6B400"));
-        private SolidColorBrush COLOR_BRUSH_NEGRO = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#00000000"));
         private SolidColorBrush COLOR_BRUSH_GRIS = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF656565"));
 
         private List<ProveedorDto> _proveedores = new List<ProveedorDto>(); 

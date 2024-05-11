@@ -26,6 +26,10 @@ namespace ItaliaPizza_Cliente.Vistas
     {
         private const int VENTANA_INFORMACION = 2;
         Regex REGEX = new Regex(@"^[0-9]*\.?[0-9]*$");
+        private SolidColorBrush COLOR_BRUSH_ROJO = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFD84343"));
+        private SolidColorBrush COLOR_BRUSH_VERDE = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF257028"));
+        private SolidColorBrush COLOR_BRUSH_AZUL = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF254F70"));
+
 
         private double _ingresosPedidos = 0;
         private double _salidasOrdenesCompra = 0;
@@ -114,6 +118,7 @@ namespace ItaliaPizza_Cliente.Vistas
         private void TbxFondoInicial_TextChanged(object sender, TextChangedEventArgs e)
         {
             lblCampoObligatorioFondoInicial.Visibility = Visibility.Hidden;
+            lblErrorFondoInicial.Visibility = Visibility.Hidden;
             TextBox campo = (TextBox)sender;
             if (campo.Text != "." && REGEX.IsMatch(campo.Text) && !string.IsNullOrWhiteSpace(campo.Text))
             {
@@ -232,14 +237,42 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void CalcularYMostrarEfectivoEsperado()
         {
-            _efectivoEsperado = _fondoInicial + _ingresosPedidos - (_salidasGastosVarios + _salidasOrdenesCompra);
+            _efectivoEsperado = Math.Round(_fondoInicial, 2) 
+                + Math.Round(_ingresosPedidos, 2) 
+                - (Math.Round(_salidasGastosVarios, 2) + Math.Round(_salidasOrdenesCompra, 2));
+            if (_efectivoEsperado < 0)
+            {
+                lblErrorFondoInicial.Content = "El fondo inicial deberia ser de: " + ((_salidasGastosVarios + _salidasOrdenesCompra) - _ingresosPedidos).ToString("F2");
+                lblErrorFondoInicial.Visibility = Visibility.Visible;
+                _efectivoEsperado = 0;
+            } 
+            else
+            {
+                lblErrorFondoInicial.Content = "";
+                lblErrorFondoInicial.Visibility = Visibility.Hidden;
+            }
             lblEfectivoEsperado.Content = "$" + _efectivoEsperado.ToString("F2");
         }
 
         private void CalcularYMostrarDiferencia()
         {
-            _diferencia = _efectivoEsperado - _dineroCaja;
-            lblDiferencia.Content = "$" + _diferencia.ToString("F2");
+            _diferencia = Math.Round(_efectivoEsperado, 2) - Math.Round(_dineroCaja, 2);
+            lblDiferencia.Content = "$" + Math.Abs(_diferencia).ToString("F2");
+            if (_diferencia > 0)
+            {
+                lblMensajeDiferencia.Content = "Faltan";
+                lblMensajeDiferencia.Background = COLOR_BRUSH_ROJO;
+            } 
+            else if (_diferencia < 0)
+            {
+                lblMensajeDiferencia.Content = "Sobran";
+                lblMensajeDiferencia.Background = COLOR_BRUSH_AZUL;
+            }
+            else
+            {
+                lblMensajeDiferencia.Content = "En orden";
+                lblMensajeDiferencia .Background = COLOR_BRUSH_VERDE;
+            }
         }
 
         private void MostrarMensajeCamposObligatorios()
@@ -250,6 +283,7 @@ namespace ItaliaPizza_Cliente.Vistas
             }
             if (string.IsNullOrWhiteSpace(TbxFondoInicial.Text))
             {
+                lblCampoObligatorioFondoInicial.Content = "Campo obligatorio";
                 lblCampoObligatorioFondoInicial.Visibility = Visibility.Visible;
             }
         }
