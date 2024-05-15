@@ -374,6 +374,8 @@ namespace ItaliaPizza_Cliente.Vistas
                 elementoInsumo.BtnInsumoMenosClicked += BtnInsumoMenos_Click;
                 elementoInsumo.BtnEliminarInsumoClicked += BtnEliminarInsumoOrden_Click;
                 elementoInsumo.TxbCantidaTextChanged += TxbCantidad_TextChanged;
+                elementoInsumo.tbxCantidad.PreviewKeyDown += UtilidadValidacion.EntradaTextl_KeyDown;
+                elementoInsumo.tbxCantidad.PreviewMouseRightButtonUp += UtilidadValidacion.MouseClicDerecho_Click;
                 skpInsumosOrdenCompra.Children.Add(elementoInsumo);
                 _insumosSeleccionado.Add(elementoInsumo.Insumo);
                 _listaElementosEnOrdenCompra.Add(elementoInsumo);

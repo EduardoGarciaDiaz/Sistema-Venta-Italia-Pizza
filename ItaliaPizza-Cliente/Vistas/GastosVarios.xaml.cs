@@ -1,4 +1,5 @@
-﻿using ItaliaPizza_Cliente.ServicioItaliaPizza;
+﻿using ItaliaPizza_Cliente.Recursos.ControlesUsuario;
+using ItaliaPizza_Cliente.ServicioItaliaPizza;
 using ItaliaPizza_Cliente.Utilidades;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,9 @@ namespace ItaliaPizza_Cliente.Vistas
             ConfigurarVentana();
             CargarFechaActual();
             CargarUsuario();
+
+            tbxMonto.PreviewKeyDown += UtilidadValidacion.EntradaTextl_KeyDown;
+            tbxMonto.PreviewMouseRightButtonUp += UtilidadValidacion.MouseClicDerecho_Click;
         }
 
         private void DpkFechaGasto_Selected(object sender, SelectionChangedEventArgs e)

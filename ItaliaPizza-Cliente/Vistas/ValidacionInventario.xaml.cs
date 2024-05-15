@@ -215,6 +215,8 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             ElementoValidacionProducto elementoValidacionProducto = new ElementoValidacionProducto(producto);
             elementoValidacionProducto.TbxCantidadFisicaEnterPressed += TbxCantidadFisicaEnter_Pressed;
+            elementoValidacionProducto.tbxCantidadFisica.PreviewKeyDown += UtilidadValidacion.EntradaTextl_KeyDown;
+            elementoValidacionProducto.tbxCantidadFisica.PreviewMouseRightButtonUp += UtilidadValidacion.MouseClicDerecho_Click;
 
             return elementoValidacionProducto;
         }

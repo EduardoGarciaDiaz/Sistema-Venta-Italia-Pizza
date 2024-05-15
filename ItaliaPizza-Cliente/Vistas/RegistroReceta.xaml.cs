@@ -372,6 +372,8 @@ namespace ItaliaPizza_Cliente.Vistas
             elementoInsumoSeleccionado.InsumoAsignado = insumoReceta;
 
             elementoInsumoSeleccionado.BtnDesasignarInsumoClicked += BtnDesasignarInsumo_Click;
+            elementoInsumoSeleccionado.tbxCantidadInsumo.PreviewKeyDown += UtilidadValidacion.EntradaTextl_KeyDown;
+            elementoInsumoSeleccionado.tbxCantidadInsumo.PreviewMouseRightButtonUp += UtilidadValidacion.MouseClicDerecho_Click;
 
             return elementoInsumoSeleccionado;
         }

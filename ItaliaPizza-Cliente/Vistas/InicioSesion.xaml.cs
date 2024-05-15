@@ -28,6 +28,7 @@ namespace ItaliaPizza_Cliente.Vistas
             InitializeComponent();
         }
 
+
         private void BtnIniciarSesion_Click(object sender, RoutedEventArgs e)
         {
             string nombreUsuario = txbNombreUsuario.Text.Trim();

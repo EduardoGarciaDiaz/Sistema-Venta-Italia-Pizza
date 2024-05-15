@@ -1,4 +1,5 @@
-﻿using ItaliaPizza_Cliente.ServicioItaliaPizza;
+﻿using ItaliaPizza_Cliente.Recursos.ControlesUsuario;
+using ItaliaPizza_Cliente.ServicioItaliaPizza;
 using ItaliaPizza_Cliente.Utilidades;
 using System;
 using System.Collections.Generic;
@@ -55,6 +56,11 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             try
             {
+                tbxDineroCaja.PreviewKeyDown += UtilidadValidacion.EntradaTextl_KeyDown;
+                tbxDineroCaja.PreviewMouseRightButtonUp += UtilidadValidacion.MouseClicDerecho_Click;
+                TbxFondoInicial.PreviewKeyDown += UtilidadValidacion.EntradaTextl_KeyDown;
+                TbxFondoInicial.PreviewMouseRightButtonUp += UtilidadValidacion.MouseClicDerecho_Click;
+
                 lblFechaActual.Content = _fechaSeleccionada.ToString("dd 'de' MMMM 'de' yyyy", new System.Globalization.CultureInfo("es-ES"));
                 _ingresosPedidos = RecuperarIngresosDePedidosPorFecha(_fechaSeleccionada);
                 MostrarIngresos(_ingresosPedidos);

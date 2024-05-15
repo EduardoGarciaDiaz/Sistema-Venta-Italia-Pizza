@@ -38,6 +38,10 @@ namespace ItaliaPizza_Cliente.Vistas
             this._registroPedido = registroPedido;
             this.Unloaded += RegistroDePagoPedido_Unloaded;
             InitializeComponent();
+
+            tbxCantidadPagaCliente.PreviewKeyDown += UtilidadValidacion.EntradaTextl_KeyDown;
+            tbxCantidadPagaCliente.PreviewMouseRightButtonUp += UtilidadValidacion.MouseClicDerecho_Click;
+
             MostrarPedido(pedido);
             MostrarCliente(pedido.IdCliente);
         }

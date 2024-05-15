@@ -43,7 +43,13 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void PrepararVentana(object sender, RoutedEventArgs e)
         {
-            ObtenerTiposEmpleados();           
+            ObtenerTiposEmpleados();
+            tbxNumeroExterior.PreviewKeyDown += UtilidadValidacion.EntradaTextl_KeyDown;
+            tbxNumeroExterior.PreviewMouseRightButtonUp += UtilidadValidacion.MouseClicDerecho_Click;
+            tbxTelefono.PreviewKeyDown += UtilidadValidacion.EntradaTextl_KeyDown;
+            tbxTelefono.PreviewMouseRightButtonUp += UtilidadValidacion.MouseClicDerecho_Click;
+            tbxCodigoPostal.PreviewKeyDown += UtilidadValidacion.EntradaTextl_KeyDown;
+            tbxCodigoPostal.PreviewMouseRightButtonUp += UtilidadValidacion.MouseClicDerecho_Click;
         }
 
         private void EntryJustInteger(object sender, TextCompositionEventArgs e)

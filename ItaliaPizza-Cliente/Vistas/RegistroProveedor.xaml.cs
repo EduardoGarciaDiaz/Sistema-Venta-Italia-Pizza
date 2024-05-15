@@ -53,6 +53,12 @@ namespace ItaliaPizza_Cliente.Vistas
                 new CampoTextoConLabel(tbxCorreo,lblCorreoError),  new CampoTextoConLabel(tbxCiudad,lblCiudadError),  new CampoTextoConLabel(tbxColonia,lblColoniaError),
                 new CampoTextoConLabel(tbxCalle,lblCalleError),  new CampoTextoConLabel(tbxCodigoPostal,lblCodigoError),  new CampoTextoConLabel(tbxNumeroExterior,lblNumeroExtError)
             };
+            tbxNumeroExterior.PreviewKeyDown += UtilidadValidacion.EntradaTextl_KeyDown;
+            tbxNumeroExterior.PreviewMouseRightButtonUp += UtilidadValidacion.MouseClicDerecho_Click;
+            tbxTelefono.PreviewKeyDown += UtilidadValidacion.EntradaTextl_KeyDown;
+            tbxTelefono.PreviewMouseRightButtonUp += UtilidadValidacion.MouseClicDerecho_Click;
+            tbxCodigoPostal.PreviewKeyDown += UtilidadValidacion.EntradaTextl_KeyDown;
+            tbxCodigoPostal.PreviewMouseRightButtonUp += UtilidadValidacion.MouseClicDerecho_Click;
         }
 
         private void EntryJustInteger(object sender, TextCompositionEventArgs e)

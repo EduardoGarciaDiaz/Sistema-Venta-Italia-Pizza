@@ -1,4 +1,5 @@
-﻿using ItaliaPizza_Cliente.ServicioItaliaPizza;
+﻿using ItaliaPizza_Cliente.Recursos.ControlesUsuario;
+using ItaliaPizza_Cliente.ServicioItaliaPizza;
 using ItaliaPizza_Cliente.Utilidades;
 using Microsoft.Win32;
 using System;
@@ -44,6 +45,13 @@ namespace ItaliaPizza_Cliente.Vistas
         private void RegistroProducto_Loaded(object sender, RoutedEventArgs e)
         {
             CargarComboBoxes();
+
+            tbxCantidad.PreviewKeyDown += UtilidadValidacion.EntradaTextl_KeyDown;
+            tbxCantidad.PreviewMouseRightButtonUp += UtilidadValidacion.MouseClicDerecho_Click;
+            tbxCostoUnitario.PreviewKeyDown += UtilidadValidacion.EntradaTextl_KeyDown;
+            tbxCostoUnitario.PreviewMouseRightButtonUp += UtilidadValidacion.MouseClicDerecho_Click;
+            tbxPrecio.PreviewKeyDown += UtilidadValidacion.EntradaTextl_KeyDown;
+            tbxPrecio.PreviewMouseRightButtonUp += UtilidadValidacion.MouseClicDerecho_Click;
         }
 
         private void BtnGuardar_Click(object sender, RoutedEventArgs e)

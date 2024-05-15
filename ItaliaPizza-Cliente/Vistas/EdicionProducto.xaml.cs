@@ -57,6 +57,13 @@ namespace ItaliaPizza_Cliente.Vistas
         {
             try
             {
+                tbxCantidad.PreviewKeyDown += UtilidadValidacion.EntradaTextl_KeyDown;
+                tbxCantidad.PreviewMouseRightButtonUp += UtilidadValidacion.MouseClicDerecho_Click;
+                tbxCostoUnitario.PreviewKeyDown += UtilidadValidacion.EntradaTextl_KeyDown;
+                tbxCostoUnitario.PreviewMouseRightButtonUp += UtilidadValidacion.MouseClicDerecho_Click;
+                tbxPrecio.PreviewKeyDown += UtilidadValidacion.EntradaTextl_KeyDown;
+                tbxPrecio.PreviewMouseRightButtonUp += UtilidadValidacion.MouseClicDerecho_Click;
+
                 _unidadesMedida = RecuperarUnidadesMedida();
                 MostrarUnidadesMedida(_unidadesMedida);
                 MostrarCategoriasProductoVenta(_categoriasProductoVenta);

@@ -1,4 +1,5 @@
-﻿using ItaliaPizza_Cliente.ServicioItaliaPizza;
+﻿using ItaliaPizza_Cliente.Recursos.ControlesUsuario;
+using ItaliaPizza_Cliente.ServicioItaliaPizza;
 using ItaliaPizza_Cliente.Utilidades;
 using System;
 using System.Collections.Generic;
@@ -76,6 +77,14 @@ namespace ItaliaPizza_Cliente.Vistas
             {
                 CargarDatosUsuario(_usuarioEdicion);
             }
+
+
+            txbTelefono.PreviewKeyDown += UtilidadValidacion.EntradaTextl_KeyDown;
+            txbTelefono.PreviewMouseRightButtonUp += UtilidadValidacion.MouseClicDerecho_Click;
+            txbCodigoPostal.PreviewKeyDown += UtilidadValidacion.EntradaTextl_KeyDown;
+            txbCodigoPostal.PreviewMouseRightButtonUp += UtilidadValidacion.MouseClicDerecho_Click;
+            txbNumeroExterior.PreviewKeyDown += UtilidadValidacion.EntradaTextl_KeyDown;
+            txbNumeroExterior.PreviewMouseRightButtonUp += UtilidadValidacion.MouseClicDerecho_Click;
         }
 
         private void CargarDatosUsuario(UsuarioDto usuarioEdicion)

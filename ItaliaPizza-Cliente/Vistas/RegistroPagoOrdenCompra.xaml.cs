@@ -129,6 +129,8 @@ namespace ItaliaPizza_Cliente.Vistas
                       Insumo = insumo.InsumoOrdenCompraDto
                 };
                 insumoOrdenCompra.TextChanged += TextCantidad_Changed;
+                insumoOrdenCompra.tbxCantidadInsumo.PreviewKeyDown += UtilidadValidacion.EntradaTextl_KeyDown;
+                insumoOrdenCompra.tbxCantidadInsumo.PreviewMouseRightButtonUp += UtilidadValidacion.MouseClicDerecho_Click;
 
                 skpContenedorOrdenesCompra.Children.Add(insumoOrdenCompra);
             });

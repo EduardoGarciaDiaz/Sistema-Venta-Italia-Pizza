@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace ItaliaPizza_Cliente.Utilidades
 {
@@ -79,5 +80,19 @@ namespace ItaliaPizza_Cliente.Utilidades
 
             return esCantidadValida;
         }
+
+        public static  void EntradaTextl_KeyDown(object sender, KeyEventArgs entryText)
+        {
+            if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control && (entryText.Key == Key.V))
+            {
+                entryText.Handled = true;
+            }           
+        }
+
+        public static void MouseClicDerecho_Click(object sender, MouseButtonEventArgs e)
+        {
+            e.Handled = true;
+        }
+
     }
 }
