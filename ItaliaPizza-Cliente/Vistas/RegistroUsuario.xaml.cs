@@ -34,6 +34,7 @@ namespace ItaliaPizza_Cliente.Vistas
         private readonly string EMAIL_RULES_CHAR = "^(?=.{1,90}$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         private readonly string EMAIL_ALLOW_CHAR = "^[a-zA-Z0-9@,._=]{1,90}$";
         private List<TipoEmpleadoDto> _tiposEmpleados = new List<TipoEmpleadoDto>();
+        private TipoEmpleadoDto _tipoEmpleadoSeleccionado = new TipoEmpleadoDto();
 
         public RegistroUsuario()
         {
@@ -52,6 +53,7 @@ namespace ItaliaPizza_Cliente.Vistas
             tbxCodigoPostal.PreviewMouseRightButtonUp += UtilidadValidacion.MouseClicDerecho_Click;
         }
 
+       
         private void EntryJustInteger(object sender, TextCompositionEventArgs e)
         {
             if (!int.TryParse(e.Text, out _))
@@ -66,7 +68,7 @@ namespace ItaliaPizza_Cliente.Vistas
         }
         private void CbxTipoEmpleado_Selected(object sender, SelectionChangedEventArgs e)
         {
-            TipoEmpleadoDto tipoSeleccionado = (TipoEmpleadoDto)cbxTipoEmpleado.SelectedItem;
+            TipoEmpleadoDto tipoSeleccionado = (TipoEmpleadoDto)cbxTipoEmpleado.SelectedItem;            
             if (tipoSeleccionado != null && tipoSeleccionado.IdTipoEmpleado == (int)EnumTiposEmpleado.Mesero)
             {
                 BloquearCamposEmpleado();
@@ -450,9 +452,12 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void DesBloquearCamposEmpleado()
         {
-            tbxNombreUsuario.Text = String.Empty;
+            if (tbxNombreUsuario.Text.ToString().Equals("Mesero"))
+            {
+                tbxNombreUsuario.Text = String.Empty;
+                pwbxContrasena.Password = String.Empty;
+            }            
             tbxNombreUsuario.IsEnabled = true;
-            pwbxContrasena.Password = String.Empty;
             pwbxContrasena.IsEnabled = true;
         }
 
