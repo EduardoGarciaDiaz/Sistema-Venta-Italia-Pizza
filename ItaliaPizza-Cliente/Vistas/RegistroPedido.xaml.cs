@@ -34,7 +34,7 @@ namespace ItaliaPizza_Cliente.Vistas
         private string MENSAJE_BUSQUEDA_OTRO_CLIENTE = "Cambiar cliente...";
         private string MENSAJE_CAMPO_VACIO = "Por favor, ingresa algo en la barra para realizar la busqueda.";
         private string MENSAJE_SIN_RESULTADOS_BUSQUEDA_CLIENTE = "El nombre ingresado no corresponde a ningun cliente.";
-        private string MENSAJE_SIN_RESULTADOS_BUSQUEDA_PRODUCTO = "El nombre ingresado no corresponde a ningun cliente.";
+        private string MENSAJE_SIN_RESULTADOS_BUSQUEDA_PRODUCTO = "El código ingresado no corresponde a ningun producto.";
 
         private ObservableCollection<ClienteBusqueda> _clientes;
         private List<ProductoVentaPedidos> _productosVenta;
@@ -45,6 +45,7 @@ namespace ItaliaPizza_Cliente.Vistas
         private double _total = 0;
         private ClienteBusqueda _clienteSeleccionado = new ClienteBusqueda();
         private TipoServicio _tipoServicioSeleccionado = new TipoServicio();
+        private bool _irAPago = false;
 
         public RegistroPedido()
         {
@@ -103,7 +104,10 @@ namespace ItaliaPizza_Cliente.Vistas
 
         private void RegistroPedido_Unloaded(object sender, RoutedEventArgs e)
         {
-            DesapartarTodosLosProductosEnPedido();
+            if (!_irAPago)
+            {
+                DesapartarTodosLosProductosEnPedido();
+            }
         }
 
         private void ElementoProductoVenta_Click(object sender, RoutedEventArgs e)
@@ -462,7 +466,7 @@ namespace ItaliaPizza_Cliente.Vistas
                     Total = _total,
                     IdEstadoPedido = (int)EnumEstadosPedido.EnProceso
                 };
-
+                _irAPago = true;
                 RegistroPagoPedido registroPagoPedido = new RegistroPagoPedido(pedido, this);
                 NavigationService.Navigate(registroPagoPedido);
             }
