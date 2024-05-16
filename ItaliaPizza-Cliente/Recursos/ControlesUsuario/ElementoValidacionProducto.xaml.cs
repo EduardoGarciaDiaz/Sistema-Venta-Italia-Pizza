@@ -31,9 +31,12 @@ namespace ItaliaPizza_Cliente.Recursos.ControlesUsuario
             InitializeComponent();
         }
 
-        private void EntryJustInteger(object sender, TextCompositionEventArgs e)
+        private void EntryAllowDecimals(object sender, TextCompositionEventArgs e)
         {
-            if (!int.TryParse(e.Text, out _))
+            TextBox textBox = sender as TextBox;
+            string text = textBox.Text.Insert(textBox.SelectionStart, e.Text);
+
+            if (!decimal.TryParse(text, out _))
             {
                 e.Handled = true;
             }
